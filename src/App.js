@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, ToggleButton, Button } from './components';
+import { Navbar, ToggleButton, Button, Dropdown } from './components';
 import { Home, Learn, Teach, Search  } from './pages';
 import './App.scss';
 
@@ -14,6 +14,8 @@ export const App = () => {
         <Button text="Get Started"/>
         <br />
         <Button alt text="Login"/>
+        <br />
+        <Dropdown subjects={['Math', 'Science', 'Art', 'English']}/>
         
         <Switch>
 
