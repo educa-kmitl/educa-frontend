@@ -9,13 +9,6 @@ export const App = () => {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        {/* <ToggleButton on="Private" off="Public"/>
-        <br />
-        <Button text="Get Started"/>
-        <br />
-        <Button alt text="Login"/>
-        <br />
-        <Dropdown subjects={['Math', 'Science', 'Art', 'English']}/>
         
         <Switch>
 
@@ -25,6 +18,13 @@ export const App = () => {
 
           <Route path="/learn">
             <Learn />
+            <ToggleButton on="Private" off="Public"/>
+            <br />
+            <Button text="Get Started"/>
+            <br />
+            <Button alt text="Login"/>
+            <br />
+            <Dropdown subjects={['Math', 'Science', 'Art', 'English']}/>
           </Route>
 
           <Route path="/teach">
