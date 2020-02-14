@@ -1,0 +1,32 @@
+@import '../../index.scss';
+
+.input-field {
+  background: $main-gradient;
+  color: white;
+  padding: 15px;
+  font-family: inherit;
+  font-size: 22px;
+  font-weight: bold;
+  border: none;
+  border-radius: 30px;
+  text-align: center;
+
+  &::placeholder {
+    color: white;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.input-field-alt {
+  @extend .input-field;
+  background: white;
+  color: $main-color;
+  box-shadow: main-border(1px);
+
+  &::placeholder {
+    color: $main-color;
+  }
+}
