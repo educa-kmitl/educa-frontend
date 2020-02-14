@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, ToggleButton, Button, Dropdown, Input } from './components';
+import { Navbar, ToggleButton, Button, Dropdown, Input, Card } from './components';
 import { Home, Learn, Teach, Search  } from './pages';
 import './App.scss';
 
@@ -29,6 +29,9 @@ export const App = () => {
             <Input text="username" type="text" size="400px"/>
             <br />
             <Input alt text="password" type="password" size="400px"/>
+            <br />
+            <Card/>
+
           </Route>
 
           <Route path="/teach">
