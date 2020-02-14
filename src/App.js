@@ -9,7 +9,7 @@ export const App = () => {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <ToggleButton on="Private" off="Public"/>
+        {/* <ToggleButton on="Private" off="Public"/>
         <br />
         <Button text="Get Started"/>
         <br />
