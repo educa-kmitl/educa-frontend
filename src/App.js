@@ -8,7 +8,7 @@ export const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar user={{name: 'prayut007', level: 69}}/>
         
         <Switch>
 

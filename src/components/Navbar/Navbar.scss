@@ -2,52 +2,58 @@
 
 nav {
   max-width: 1280px;
+  height: 100px;
   margin: auto;
+  padding: 0 30px;
   display : flex;
   justify-content: space-between;
-  font-size: 32px;
+  align-items: center;
+  position: relative;
+  $size: 45px;
     
-  ul{
-    display: flex;   
+  ul {
+    height: 100%;
+    width: 550px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     list-style: none;
-    li{
-      padding-left: 50px;
-      padding-right: 50px;
-    
-    }
-    .profileicon{
-      width: 50px;
-      height: 50px;
+
+    li { font-size: 24px }
+
+    .profileicon {
+      width: $size;
+      height: $size;
       border-radius: 50%;
       background-color: $main-color;
-      margin-top: -10px;
-    }
-    img{
-      border-radius: 50%;
-      height: 50px;
-      width: 50px;
     }
   }
 
-  .logo{
+  .logo {
     display: flex;
-
-    $size: 50px;
-    img{
-      padding: 20px 0px 10px 10px;
-      height: $size;
+    
+    img {
       width: $size;
+      height: $size;
+      margin-top: 3px;
+    }
+
+    p {
+      font-size: 20px;
+      font-weight: bold;
     }
   }
   
-  
-  a{
+  a {
+    transition: .2s;
+
     &:link {
       text-decoration: none;
       color :black
     }
     
     &:visited {
+      text-decoration: none;
       color: black;
     }
     
@@ -56,9 +62,8 @@ nav {
     }
       
     &:active {
-        color: #9A5DDB;
+      color: #9A5DDB;
     }
-    
   }  
 }
 
