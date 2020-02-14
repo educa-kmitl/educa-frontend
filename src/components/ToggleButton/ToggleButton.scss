@@ -1,0 +1,51 @@
+@import '../../index.scss';
+
+$btn-width: 180px;
+$btn-height: 40px;
+
+.toggle-btn {
+  background: white;
+  width: $btn-width;
+  height: $btn-height;
+  padding: 5px;
+  box-shadow: main-border(1px);
+  border-radius: $btn-height;
+  position: relative;
+  cursor: pointer;
+
+  .circle {
+    background: $main-gradient;
+    width: $btn-height;
+    height: $btn-height;
+    border-radius: 50%;
+    transition: .4s;
+  }
+
+  .label {
+    color: $main-color;
+    margin-left: 5%;
+    font-size: 22px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    user-select: none;
+    transition: .3s;
+  }
+}
+
+.toggle-btn.active {
+  @extend .toggle-btn;
+  background: $main-gradient;
+  box-shadow: none;
+
+  .circle {
+    background: white;
+    margin-left: $btn-width - $btn-height;
+  }
+
+  .label {
+    color: white;
+    margin-left: -5%;
+  }
+}

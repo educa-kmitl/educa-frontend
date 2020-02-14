@@ -1,0 +1,53 @@
+@import '../../index.scss';
+
+$width: 190px;
+$height: 45px;
+
+.btn-wrapper {
+  background: $main-gradient;
+  width: $width;
+  height: $height;
+  padding: 3px;
+  text-align: center;
+  border-radius: 30px;
+  cursor: pointer;
+
+  .btn {
+    background: $main-gradient;
+    width: $width;
+    height: $height;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+  
+    &:hover {
+      box-shadow: 0 0 10px $main-color;
+    }
+  
+    .label {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+    }
+  }
+}
+
+.btn-alt-wrapper {
+  @extend .btn-wrapper;
+
+  .btn-alt {
+    @extend .btn;
+    background: white;
+    color: $main-color;
+  
+    .label {
+      color: $main-color;
+    }
+  }
+  
+}
+
+
+
