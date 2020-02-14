@@ -1,0 +1,45 @@
+@import '../../index.scss';
+
+$width: 200px;
+
+.dropdown {
+  width: $width;
+  
+  .dropdown-bg { 
+    background: url('../../img/dropdown-bg.svg') no-repeat center;
+    background-size: cover;
+  }
+
+  select {
+    background: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    color: white;
+    width: $width;
+    border: none;
+    border-radius: 30px;
+    padding: 15px;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: bold;
+    text-indent: $width/3 - 30;
+    transition: .3s;
+
+    &:hover {
+      box-shadow: 0 0 5px $main-color;
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    option {
+      background: $main-color;
+      color: white;
+      position: absolute;
+      font-weight: bold;
+      padding: 5px;
+      
+    }
+  }
+}
