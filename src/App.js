@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, ToggleButton, Button, Dropdown } from './components';
+import { Navbar, ToggleButton, Button, Dropdown, Input } from './components';
 import { Home, Learn, Teach, Search  } from './pages';
 import './App.scss';
 
@@ -8,7 +8,7 @@ export const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar user={{name: 'prayut007', level: 69}}/>
         
         <Switch>
 
@@ -25,6 +25,10 @@ export const App = () => {
             <Button alt text="Login"/>
             <br />
             <Dropdown subjects={['Math', 'Science', 'Art', 'English']}/>
+            <br />
+            <Input text="username" type="text" size="400px"/>
+            <br />
+            <Input alt text="password" type="password" size="400px"/>
           </Route>
 
           <Route path="/teach">

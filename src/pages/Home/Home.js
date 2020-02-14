@@ -1,6 +1,6 @@
 import React from 'react';
 import './Home.scss';
-import { Navbar, ToggleButton, Button } from '../../components';
+import { Button } from '../../components';
 import homepic from '../../img/home/home.svg'
 
 export const Home = () => {
@@ -17,7 +17,7 @@ export const Home = () => {
             <Button text="Get Started"/>
           </div>
           <div className='img-container'>
-           <img src={homepic}/>
+           <img src={homepic} alt=""/>
           </div>
           
         </div>
