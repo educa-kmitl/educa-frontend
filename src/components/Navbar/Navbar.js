@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ProfileBubble } from '../';
 import './Navbar.scss';
 import logo from '../../img/logo.svg';
 
 export const Navbar = ({ user }) => {
-
   const [state, setState] = useState(false);
 
   const toggleBubble = () => {

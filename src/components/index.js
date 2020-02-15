@@ -5,4 +5,5 @@ export { Button } from './Button/Button';
 export { Dropdown } from './Dropdown/Dropdown';
 export { Input } from './Input/Input';
 export { ProfileBubble } from './ProfileBubble/ProfileBubble';
-export { Card } from './Card/Card'
+export { Card } from './Card/Card';
+export { Chatbox } from './Chatbox/Chatbox';

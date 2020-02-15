@@ -1,0 +1,28 @@
+@import '../../index.scss';
+
+.room-page-content {
+  height: calc(100vh - #{$nav-size});
+  box-sizing: border-box;
+  padding: 0 30px;
+  max-width: 1280px;
+  margin: auto;
+  display: flex;
+
+  .video-container {
+    background: $main-gradient;
+    min-width: 830px;
+    max-width: 830px;
+    min-height: 640px;
+    max-height: 640px;
+    border-radius: 30px;
+  }
+
+  .chat-container {
+    box-sizing: border-box;
+    min-width: 450px;
+    max-width: 450px;
+    min-height: 800px;
+    max-height: 800px;
+    padding: 0 20px;
+  }
+}

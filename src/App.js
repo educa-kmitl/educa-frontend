@@ -1,14 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, ToggleButton, Button, Dropdown, Input, Card } from './components';
-import { Home, Learn, Teach, Search  } from './pages';
+import { Navbar, Card } from './components';
+import { Home, Learn, Teach, Search, Room  } from './pages';
 import './App.scss';
+
+const user = {
+  name: 'prayut007',
+  level: 44
+}
 
 export const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar user={{name: 'prayut007', level: 69}}/>
+        <Navbar user={user}/>
         
         <Switch>
 
@@ -22,11 +27,15 @@ export const App = () => {
           </Route>
 
           <Route path="/teach">
-            <Teach />
+            <Teach user={user}/>
           </Route>
 
           <Route path="/search">
             <Search />
+          </Route>
+
+          <Route path="/room">
+            <Room />
           </Route>
           
         </Switch>

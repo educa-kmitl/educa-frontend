@@ -1,22 +1,30 @@
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import './Teach.scss';
 import { Input, Dropdown, ToggleButton, Button } from '../../components';
 
-export const Teach = () => {
+export const Teach = ({ user }) => {
+  const [room, setRoom] = useState("")
+  const [link, setLink] = useState("")
+  const [redirect, setRedirect] = useState(false);
 
-  const [roomID, setRoomID] = useState('');
+  const redirectLink = `/room?name=${user.name}&room_id=${room}&link=${link}`;
 
-  const submitForm = () => {
-    alert('Submit!')
+  const handleSubmit = e => {
+    e.preventDefault();
+    console.log(room, '||', link);
+    setRedirect(true);
   }
 
   return (
     <div className="teach-page-bg">
       <div className="teach-content">
         <div className="teach-form">
+
           <header>Create Room</header>
-          <form id="create-room" onSubmit={submitForm}>
-            <Input text="Room Name" type="text" required/>
+          <form onSubmit={handleSubmit}>
+            <Input text="Room Name" type="text" update={setRoom} required/>
+            <Input text="Embed Link" type="text" update={setLink} required/>
             <div className="tag-group">
               <Dropdown id="main" subjects={['Science']} text="Main tag"/>
               <Dropdown id="sub" subjects={['Physics', 'Chemistry', 'Biology']} text="Sub tag"/>
@@ -27,7 +35,15 @@ export const Teach = () => {
               <ToggleButton on="Private" off="Public"/>
             </div>
             <Button alt text="Create" type="submit"/>
+
+            {
+              (redirect) ? 
+              <Redirect to={redirectLink} /> 
+              : null
+            }
+
           </form>
+
         </div>
       </div>
     </div>

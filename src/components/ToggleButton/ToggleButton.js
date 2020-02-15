@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './ToggleButton.scss';
 
 export const ToggleButton = ({ on, off }) => {
-
   const [state, setState] = useState(false);
 
   const toggle = () => {
