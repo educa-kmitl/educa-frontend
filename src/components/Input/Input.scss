@@ -4,12 +4,15 @@
   background: $main-gradient;
   color: white;
   padding: 15px;
+  width: 100%;
+  box-sizing: border-box;
   font-family: inherit;
   font-size: 22px;
   font-weight: bold;
   border: none;
   border-radius: 30px;
   text-align: center;
+  float: left;
 
   &::placeholder {
     color: white;

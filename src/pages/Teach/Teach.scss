@@ -1,0 +1,51 @@
+@import '../../index.scss';
+
+.teach-page-bg {
+  background: url('../../img/teach/teach.svg') center center no-repeat; engine: "rework";
+  background-size: cover;
+  height: calc(100vh - #{$nav-size});
+
+  .teach-content {
+    max-width: 1280px;
+    height: 100%;
+    margin: auto;
+    padding: 0 30px;
+
+    .teach-form {
+      max-width: 410px;
+      height: 70%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      header {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        color: $main-color;
+        font-size: 42px;
+        font-weight: bold;
+      }
+
+      form {
+        width: 100%;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        .tag-group {
+          width: 100%;
+          flex-wrap: wrap;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .private-group {
+          @extend .tag-group;
+        }
+      }
+    }
+  }
+}
