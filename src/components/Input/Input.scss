@@ -23,14 +23,3 @@
     box-shadow: 0 0 10px $main-color;
   }
 }
-
-.input-field-alt {
-  @extend .input-field;
-  background: white;
-  color: $main-color;
-  box-shadow: main-border(1px);
-
-  &::placeholder {
-    color: $main-color;
-  }
-}

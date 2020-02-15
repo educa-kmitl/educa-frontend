@@ -61,10 +61,10 @@ export const Room = (location) => {
       {/* {videoLink ? <iframe width="420" height="315" src={videoLink}></iframe> : null} */}
       <div className="chat-container">
         <Chatbox 
-          setMessage={setMessage}
           message={message}
-          messages={messages} 
-          func={sendMessage}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+          messages={messages}
         />
       </div>
     </div>

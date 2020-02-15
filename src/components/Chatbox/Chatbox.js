@@ -1,8 +1,8 @@
 import React from 'react';
 import './Chatbox.scss';
-import { Input } from '../';
+import { ChatInput } from '../../components';
 
-export const Chatbox = ({ message, setMessage, messages, func }) => {
+export const Chatbox = ({ message, setMessage, sendMessage, messages }) => {
   return (
     <div className="chat-box">
       <div className="room-info">
@@ -12,22 +12,19 @@ export const Chatbox = ({ message, setMessage, messages, func }) => {
       <hr />
 
       <div className="room-chat">
-      {messages.map((msg, index) => (
-        <div key={index}>
-          <p>{msg.text}</p>
-        </div>
-      ))}
-      <div id="lastest-message"></div>
+        {messages.map((message, index) => (
+          <div key={index}>
+            <p className="chat-box-message">{message.text}</p>
+          </div>
+        ))}
+        <div id="lastest-message"></div>
       </div>
 
-      <form onSubmit={func}>
-        <Input alt chat 
-          text="type message..." 
-          func={func} 
-          update={setMessage}
-          message={message}
-        />
-      </form>
+      <ChatInput 
+        message={message}
+        setMessage={setMessage}
+        sendMessage={sendMessage}
+      />
     </div>
   );
 }

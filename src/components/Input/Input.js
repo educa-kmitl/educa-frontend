@@ -1,19 +1,15 @@
 import React from 'react';
 import './Input.scss';
 
-export const Input = ({ text, type, size, alt, chat, update, func, required, message }) => {
+export const Input = ({ text, type, size, onChange, required }) => {
 
   return (
     <input 
-      className={(alt) ? 'input-field-alt' : 'input-field'}
+      className='input-field'
       placeholder={text}
       type={type}
       style={{width: size}}
-      value={message}
-      onChange={e => update(e.target.value)}
-      onKeyPress={(chat) ?
-        e => e.key === 'Enter' ? func(e) : null
-        : null}
+      onChange={e => onChange(e.target.value)}
       required={required}
     />
   );

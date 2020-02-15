@@ -1,0 +1,14 @@
+@import '../Input/Input.scss';
+
+.chat-input-field {
+  @extend .input-field;
+  margin-top: 20px;
+
+  background: white;
+  color: $main-color;
+  box-shadow: main-border(1px);
+
+  &::placeholder {
+    color: $main-color;
+  }
+}

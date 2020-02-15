@@ -23,8 +23,8 @@ export const Teach = ({ user }) => {
 
           <header>Create Room</header>
           <form onSubmit={handleSubmit}>
-            <Input text="Room Name" type="text" update={setRoom} required/>
-            <Input text="Embed Link" type="text" update={setLink} required/>
+            <Input text="Room Name" type="text" onChange={setRoom} required/>
+            <Input text="Embed Link" type="text" onChange={setLink} required/>
             <div className="tag-group">
               <Dropdown id="main" subjects={['Science']} text="Main tag"/>
               <Dropdown id="sub" subjects={['Physics', 'Chemistry', 'Biology']} text="Sub tag"/>
