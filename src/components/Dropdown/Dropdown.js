@@ -1,7 +1,7 @@
 import React from 'react';
 import './Dropdown.scss';
 
-export const Dropdown = ({ id, subjects, text }) => {
+export const Dropdown = ({ id, subjects, text, required }) => {
 
   const reCenterText = () => {
     const ele = document.querySelector(`#${id}`);
@@ -12,8 +12,8 @@ export const Dropdown = ({ id, subjects, text }) => {
   return (
     <div className="dropdown">
       <div className="dropdown-bg">
-        <select onChange={reCenterText} id={id}>
-          <option value={text}>{text}</option>
+        <select onChange={reCenterText} id={id} required={required}>
+          <option value="">{text}</option>
           {subjects.map((subject) => (
             <option value={subject}>{subject}</option>
           ))}

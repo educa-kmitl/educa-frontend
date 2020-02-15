@@ -18,20 +18,7 @@ export const App = () => {
 
           <Route path="/learn">
             <Learn />
-            <ToggleButton on="Private" off="Public"/>
-            <br />
-            <Button text="Get Started"/>
-            <br />
-            <Button alt text="Login"/>
-            <br />
-            <Dropdown subjects={['Math', 'Science', 'Art', 'English']}/>
-            <br />
-            <Input text="username" type="text" size="400px"/>
-            <br />
-            <Input alt text="password" type="password" size="400px"/>
-            <br />
             <Card/>
-
           </Route>
 
           <Route path="/teach">

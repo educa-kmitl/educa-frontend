@@ -1,6 +1,14 @@
 @import '../../index.scss';
 
+$nav-bg: rgba(255, 255, 255, 0.8);
+
 nav {
+  z-index: 1000;
+  background: $nav-bg;
+}
+
+.nav-content {
+  background: $nav-bg;
   max-width: 1280px;
   height: $nav-size;
   margin: auto;
@@ -12,6 +20,7 @@ nav {
   $size: 45px;
     
   ul {
+    background: none;
     height: 100%;
     width: 550px;
     display: flex;

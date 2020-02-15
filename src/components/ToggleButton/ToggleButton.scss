@@ -32,6 +32,10 @@ $btn-height: 40px;
     user-select: none;
     transition: .3s;
   }
+
+  &:hover {
+    box-shadow: 0 0 10px $main-color;
+  }
 }
 
 .toggle-btn.active {
@@ -47,5 +51,9 @@ $btn-height: 40px;
   .label {
     color: white;
     margin-left: -5%;
+  }
+
+  &:hover {
+    box-shadow: 0 0 10px $main-color;
   }
 }
