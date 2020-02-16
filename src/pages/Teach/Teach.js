@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
 import './Teach.scss';
 import { Input, Dropdown, ToggleButton, Button } from '../../components';
 
-export const Teach = ({ user }) => {
+export const Teach = ({ history, user }) => {
   const [room, setRoom] = useState("")
   const [link, setLink] = useState("")
-  const [redirect, setRedirect] = useState(false);
-
-  const redirectLink = `/room?name=${user.name}&room_id=${room}&link=${link}`;
-
+  
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(room, '||', link);
-    setRedirect(true);
+    history.push(`/room?name=${user.name}&room_id=${room}&link=${link}`)
   }
 
   return (
@@ -35,13 +30,6 @@ export const Teach = ({ user }) => {
               <ToggleButton on="Private" off="Public"/>
             </div>
             <Button alt text="Create" type="submit"/>
-
-            {
-              (redirect) ? 
-              <Redirect to={redirectLink} /> 
-              : null
-            }
-
           </form>
 
         </div>
