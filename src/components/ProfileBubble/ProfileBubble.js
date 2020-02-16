@@ -8,7 +8,9 @@ export const ProfileBubble = ({ state, setState, user: {name, level}}) => {
 
   const hideBubble = () => {
     const ele = document.querySelector('.bubble-container');
+    const overlay = document.querySelector('.profile-overlay');
     ele.classList.add('hide');
+    overlay.classList.remove('active');
     setState(false);
   }
 
@@ -31,6 +33,10 @@ export const ProfileBubble = ({ state, setState, user: {name, level}}) => {
           </div>
         </Link>
       </div>
+      <div 
+        className={(state) ? 'profile-overlay active' : 'profile-overlay'}
+        onClick={hideBubble}
+      ></div>
     </div>
   );
 }
