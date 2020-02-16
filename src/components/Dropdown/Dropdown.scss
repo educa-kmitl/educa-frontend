@@ -1,45 +1,68 @@
 @import '../../index.scss';
 
 .dropdown {
-  $width: 200px;
+  $width: 190px;
 
   width: $width;
-  
-  .dropdown-bg { 
-    background: url('../../img/dropdown-bg.svg') no-repeat center;
-    background-size: cover;
+  position: relative;
+
+  .dropdown-arrow {
+    color: white;
+    font-size: 21px;
+    font-weight: bold;
+    position: absolute;
+    top: 65%; left: 85%;
+    user-select: none;
+    pointer-events: none;
+    transform: translate(-65%, -85%) rotate(90deg);
+    transition: .2s;
+
+    &.active {
+      transform: translate(-65%, -85%) rotate(270deg);
+    }
   }
 
-  select {
-    background: transparent;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    color: white;
+  .dropdown-content {
+    @include abs-center;
+    @include hover;
+    z-index: 10;
     width: $width;
-    border: none;
+    box-sizing: border-box;
+    padding: 20px;
+    background: white;
     border-radius: 30px;
-    padding: 15px;
-    font-family: inherit;
-    font-size: 20px;
-    font-weight: bold;
-    text-indent: $width/3 - 30;
-    transition: .3s;
+    transition: .2s;
 
-    &:hover {
-      box-shadow: 0 0 10px $color;
+    &.hide {
+      transform: translate(-50%, -50%) scale(0);
     }
 
-    &:focus {
-      outline: none;
-    }
+    .item {
+      font-size: 20px;
+      line-height: 1.7em;
+      border-radius: inherit;
+      transition: .2s;
 
-    option {
-      background: $color;
-      color: white;
-      position: absolute;
-      font-weight: bold;
-      padding: 5px;
-      
+      &:hover {
+        color: white;
+        background: $gradient;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .dropdown-overlay {
+    height: 0;
+
+    &.active {
+      z-index: 9;
+      position: fixed;
+      background: rgba(255, 255, 255, 0.4);
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
     }
   }
 }

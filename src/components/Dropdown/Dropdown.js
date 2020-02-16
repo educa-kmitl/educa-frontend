@@ -1,25 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Dropdown.scss';
+import { Button } from '../../components';
 
-export const Dropdown = ({ id, options, text, required }) => {
+export const Dropdown = ({ id, menus }) => {
 
-  const reCenterText = () => {
-    const ele = document.querySelector(`#${id}`);
-    const len = (ele.value.length === 0) ? text.length : ele.value.length;
-    const indent = ele.offsetWidth / 3 - len * 3;
-    ele.style.textIndent = indent.toString() + 'px';
+  const [state ,setState] = useState(menus[0]);
+
+  const toggle = () => {
+    const content = document.querySelector(`#dd-content-${id}`);
+    const arrow = document.querySelector(`#dd-arrow-${id}`);
+    const overlay = document.querySelector(`#dd-overlay-${id}`);
+    content.classList.toggle('hide')
+    arrow.classList.toggle('active')
+    overlay.classList.toggle('active');
+  }
+
+  const select = e => {
+    setState(e.target.value);
+    toggle();
   }
 
   return (
-    <div className="dropdown">
-      <div className="dropdown-bg">
-        <select onChange={reCenterText} id={id} required={required}>
-          <option value="">{text}</option>
-          {options.map((option) => (
-            <option value={option}>{option}</option>
-          ))}
-        </select>
+    <div className="dropdown" id={`dd-${id}`}>
+      <Button text={state} onClick={toggle}/>
+      <div className="dropdown-arrow" id={`dd-arrow-${id}`}>></div>
+      <div className="dropdown-content hide" id={`dd-content-${id}`}>
+        {menus.map(menu => 
+          <option className="item" id={menu} value={menu} onClick={e => select(e)}>{menu}</option>
+        )}
       </div>
+      <div className="dropdown-overlay" id={`dd-overlay-${id}`} onClick={toggle}></div>
     </div>
   );
 }

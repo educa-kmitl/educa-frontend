@@ -1,12 +1,12 @@
 import React from 'react';
 import './Button.scss';
 
-export const Button = ({ text, alt, func, type }) => {
+export const Button = ({ text, alt, onClick, type }) => {
   return (
-    <button className="custom-button" type={(type) ? type : 'button'}>
+    <button className="custom-button" type={type || 'button'}>
       <div 
         className={(alt) ? 'btn-alt-wrapper' : 'btn-wrapper'}
-        onClick={(func) ? func : null}
+        onClick={onClick || null}
         type={(type) ? type : 'button'}
       >
         <div className={(alt) ? 'btn-alt' : 'btn'}>

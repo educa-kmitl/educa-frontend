@@ -20,12 +20,12 @@ export const Teach = ({ history, user }) => {
           <form onSubmit={handleSubmit}>
             <Input text="Room Name" type="text" onChange={setRoom} required/>
             <div className="tag-group">
-              <Dropdown id="main" options={['Science']} text="Main tag"/>
-              <Dropdown id="sub" options={['Physics', 'Chemistry', 'Biology']} text="Sub tag"/>
+              <Dropdown id="main" menus={['Science']}/>
+              <Dropdown id="sub" menus={['Physics', 'Chemistry', 'Biology']}/>
             </div>
             <Input text="Embed Link" type="text" onChange={setLink} required/>
             <div className="private-group">
-              <Dropdown id="num" options={[2, 3, 4, 5]} text="Number" required/>
+              <Dropdown id="num" menus={[2, 3, 4, 5]}/>
               <ToggleButton on="Private" off="Public"/>
             </div>
             <Button alt text="Create" type="submit"/>
