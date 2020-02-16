@@ -1,25 +1,26 @@
 @import '../../index.scss';
 
 .input-field {
-  background: $main-gradient;
+  background: $gradient;
   color: white;
   padding: 15px;
+  float: left;
   width: 100%;
   box-sizing: border-box;
   font-family: inherit;
   font-size: 22px;
   font-weight: bold;
+  text-align: center;
   border: none;
   border-radius: 30px;
-  text-align: center;
-  float: left;
 
   &::placeholder {
     color: white;
+    user-select: none;
   }
 
   &:focus {
+    @include hover;
     outline: none;
-    box-shadow: 0 0 10px $main-color;
   }
 }

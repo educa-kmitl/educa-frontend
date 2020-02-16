@@ -2,13 +2,11 @@
 
 .chat-input-field {
   @extend .input-field;
+  @include border;
   margin-top: 20px;
 
   background: white;
-  color: $main-color;
-  box-shadow: main-border(1px);
+  color: $color;
 
-  &::placeholder {
-    color: $main-color;
-  }
+  &::placeholder { color: $color }
 }

@@ -1,13 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Prompt:400,600&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Prompt:300&display=swap');
 
-/* Variables Declaration */
-$main-gradient: linear-gradient(to left, #bc8af1, #d4b6f9);
-$main-color: #bc8af1;
-@function main-border($stroke) {
-  @return inset 0px 0px 0px $stroke $main-color;
-}
-$nav-size: 100px;
+@import './styles';
 
 
 body {
@@ -18,34 +12,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
+code { font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
 
 ::selection {
   color: white;
-  background: $main-color;
+  background: $color;
 }
-
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  background: none; 
-}
- 
-/* Handle */
+::-webkit-scrollbar { width: 10px }
+::-webkit-scrollbar-track { background: none }
 ::-webkit-scrollbar-thumb {
-  background: rgba(179, 179, 179, 0.2); 
+  background: #b3b3b333; 
   border-radius: 30px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(187, 136, 241, 0.3); 
+  &:hover { background: #bb88f14d }
 }

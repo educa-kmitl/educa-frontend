@@ -1,46 +1,35 @@
+@import '../../styles';
+
 .homeBg{
-    background: url('../../img/home/home-bg.svg') center center;
-    background-size: cover;
-    height: 100vh;
-    margin-top: -100px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  @include flex-center;
+  background: url('../../img/home/home-bg.svg') center center;
+  background-size: cover;
+  height: 100vh;
+  margin-top: -$nav-size;
+  position: relative;
 }
 .homecontent{
-    flex-wrap: wrap;
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  max-width: 1280px;
+  width: 100%;
+  font-size: 32px;
+  margin-top: 50px;
     
-    max-width: 1280px;
-    width: 100%;
-    font-size: 32px;
-    margin-top: 50px;
+  .txt-container{
+    width: 50%;
+    text-align: left;
+
+    h1 {
+      margin: 0;
+      width: 100%;
+    }
+    p { width: 100% }
+  }
+  .img-container{
+    width: 50%;
+    object-fit: scale-down;
     
-    .txt-container{
-        flex-wrap: wrap;
-        width: 50%;
-        h1{
-            width: 100%;
-            
-            margin: 0;
-            text-align: left;
-        }
-        p{
-            width: 100%;
-            text-align: left;
-        }
-    }
-    .img-container{
-        width: 50%;
-        object-fit: scale-down;
-        
-        img{
-            width: 600px;
-            height: 600px;
-        }
-        
-    }
+    img { @include size(600px) }
+  }
 }
 

@@ -19,14 +19,13 @@ export const Teach = ({ history, user }) => {
           <header>Create Room</header>
           <form onSubmit={handleSubmit}>
             <Input text="Room Name" type="text" onChange={setRoom} required/>
-            <Input text="Embed Link" type="text" onChange={setLink} required/>
             <div className="tag-group">
-              <Dropdown id="main" subjects={['Science']} text="Main tag"/>
-              <Dropdown id="sub" subjects={['Physics', 'Chemistry', 'Biology']} text="Sub tag"/>
+              <Dropdown id="main" options={['Science']} text="Main tag"/>
+              <Dropdown id="sub" options={['Physics', 'Chemistry', 'Biology']} text="Sub tag"/>
             </div>
-            <Input text="Descripion" type="text"/>
+            <Input text="Embed Link" type="text" onChange={setLink} required/>
             <div className="private-group">
-              <Dropdown id="num" subjects={[2, 3, 4, 5]} text="Number" required/>
+              <Dropdown id="num" options={[2, 3, 4, 5]} text="Number" required/>
               <ToggleButton on="Private" off="Public"/>
             </div>
             <Button alt text="Create" type="submit"/>

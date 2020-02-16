@@ -1,8 +1,8 @@
 @import '../../index.scss';
 
-$width: 200px;
-
 .dropdown {
+  $width: 200px;
+
   width: $width;
   
   .dropdown-bg { 
@@ -26,7 +26,7 @@ $width: 200px;
     transition: .3s;
 
     &:hover {
-      box-shadow: 0 0 10px $main-color;
+      box-shadow: 0 0 10px $color;
     }
 
     &:focus {
@@ -34,7 +34,7 @@ $width: 200px;
     }
 
     option {
-      background: $main-color;
+      background: $color;
       color: white;
       position: absolute;
       font-weight: bold;

@@ -1,18 +1,15 @@
-@import '../../index.scss';
+@import '../../styles';
 
 .bubble-container {
-  background: url('../../img/profile-bubble.svg') no-repeat center center;
+  @include size(260px);
+  background: url('../../img/profile-bubble.svg') no-repeat center;
   background-size: cover;
-  width: 260px;
-  height: 260px;
   position: absolute;
   top: 70px; right: -78px;
-  pointer-events: all;
   transition: .2s;
 
   .content {
-    display: flex;
-    flex-direction: column;
+    @include flex-center(column);
     align-items: flex-start;
     width: 100%;
     line-height: 1.7em;
@@ -24,35 +21,32 @@
     }
 
     .level { 
-      color: $main-color;
+      color: $color;
       font-size: 14px;
     }
 
     .exp {
-      background: $main-color;
-      width: 140px;
-      height: 5px;
+      @include size(140px, 5px);
+      background: $color;
       margin-bottom: 10px;
     }
 
     .item { 
-      display: flex;
-      align-items: center;
+      @include flex-center;
       margin: 5px 0;
 
       .icon {
+        @include size(30px);
         margin: -2px 5px 0 0;
-        width: 30px;
-        height: 30px;
       }
     }
   }
+
+  &.hide {
+    @extend .bubble-container;
+    opacity: 0;
+    height: 0;
+    transform: scale(0);
+  }
 }
 
-.bubble-container.hide {
-  @extend .bubble-container;
-  opacity: 0;
-  height: 0;
-  transform: scale(0);
-  pointer-events: none;
-}

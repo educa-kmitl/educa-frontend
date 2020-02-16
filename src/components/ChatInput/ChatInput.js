@@ -8,7 +8,7 @@ export const ChatInput = ({ message, setMessage, sendMessage }) => {
       placeholder="type something..."
       value={message}
       onChange={e => setMessage(e.target.value)}
-      onKeyPress={(e) => e.key === 'Enter' ? sendMessage(e) : null}
+      onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
     />
   );
 }

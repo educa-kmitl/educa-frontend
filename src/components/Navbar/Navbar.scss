@@ -1,79 +1,65 @@
-@import '../../index.scss';
-
-$nav-bg: rgba(255, 255, 255, 0.8);
+@import '../../styles';
 
 nav {
   z-index: 1000;
-  background: $nav-bg;
-}
 
-.nav-content {
-  background: $nav-bg;
-  max-width: 1280px;
-  height: $nav-size;
-  margin: auto;
-  padding: 0 30px;
-  display : flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-  $size: 45px;
-    
-  ul {
-    background: none;
-    height: 100%;
-    width: 550px;
-    display: flex;
+  .nav-content {
+    @include flex-center;
     justify-content: space-between;
-    align-items: center;
-    list-style: none;
-
-    li { font-size: 24px }
-
-    .profileicon {
-      width: $size;
-      height: $size;
-      border-radius: 50%;
-      background-color: $main-color;
-    }
-  }
-
-  .logo {
-    display: flex;
-    
-    img {
-      width: $size;
-      height: $size;
-      margin-top: 3px;
-    }
-
-    p {
-      font-size: 20px;
-      font-weight: bold;
-    }
-  }
-  
-  a {
-    transition: .2s;
-
-    &:link {
-      text-decoration: none;
-      color :black
-    }
-    
-    &:visited {
-      text-decoration: none;
-      color: black;
-    }
-    
-    &:hover {
-      color: $main-color;
-    }
+    max-width: 1280px;
+    height: $nav-size;
+    margin: auto;
+    padding: 0 30px;
+    position: relative;
       
-    &:active {
-      color: #9A5DDB;
+    .logo {
+      @include flex-center;
+      
+      img {
+        @include size(45px);
+        margin-top: -10px;
+      }
+  
+      p {
+        font-size: 20px;
+        font-weight: bold;
+      }
     }
-  }  
+
+    ul {
+      @include size(550px, 100%);
+      @include flex-center;
+      justify-content: space-between;
+      list-style: none;
+  
+      li { font-size: 24px }
+  
+      .profileicon {
+        @include size(45px);
+        border-radius: 50%;
+        background-color: $color;
+        cursor: pointer;
+      }
+    }
+    
+    a {
+      transition: .2s;
+  
+      &:link {
+        text-decoration: none;
+        color :black
+      }
+      
+      &:visited {
+        text-decoration: none;
+        color: black;
+      }
+      
+      &:hover { color: $color }
+        
+      &:active { color: #9A5DDB }
+    }  
+  }
 }
 
 

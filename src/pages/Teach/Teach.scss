@@ -1,9 +1,9 @@
-@import '../../index.scss';
+@import '../../styles';
 
 .teach-page-bg {
   background: url('../../img/teach/teach.svg') center center no-repeat; engine: "rework";
   background-size: cover;
-  height: calc(100vh - #{$nav-size});
+  height: $full-page;
 
   .teach-content {
     max-width: 1280px;
@@ -12,34 +12,27 @@
     padding: 0 30px;
 
     .teach-form {
+      @include flex-center(column);
       max-width: 410px;
       height: 70%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
 
       header {
-        display: flex;
-        justify-content: center;
+        @include flex-center;
         width: 100%;
-        color: $main-color;
+        color: $color;
         font-size: 42px;
         font-weight: bold;
       }
 
       form {
-        width: 100%;
-        height: 350px;
-        display: flex;
-        flex-direction: column;
+        @include size(100%, 350px);
+        @include flex-center(column);
         justify-content: space-around;
 
         .tag-group {
-          width: 100%;
-          flex-wrap: wrap;
-          display: flex;
+          @include flex-center;
           justify-content: space-between;
+          width: 100%;
         }
 
         .private-group {

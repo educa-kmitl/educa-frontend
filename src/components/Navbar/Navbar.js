@@ -7,24 +7,22 @@ import logo from '../../img/logo.svg';
 export const Navbar = ({ user }) => {
   const [state, setState] = useState(false);
 
-  const toggleBubble = () => {
-    setState(!state);
-  }
+  const toggleBubble = () => setState(!state);
 
   return (
     <nav>
       <div className="nav-content">
-        <div className='logo'>
-          <img src={logo} alt='logo'/>
+        <div className="logo">
+          <img src={logo} alt=""/>
           <p>EDUCA</p>
         </div>
         <ul>
           <li><Link to="/learn">Learn</Link></li>
           <li><Link to="/teach">Teach</Link></li>
           <li><Link to="/search">Search</Link></li>
-          <div className='profileicon' onClick={toggleBubble}></div>
+          <div className="profileicon" onClick={toggleBubble}></div>
         </ul>
-        <ProfileBubble show={state} name={user.name} level={user.level}/>
+        <ProfileBubble state={state} setState={setState} user={user}/>
       </div>
     </nav>
   );
