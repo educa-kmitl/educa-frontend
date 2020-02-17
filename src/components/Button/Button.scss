@@ -1,54 +1,29 @@
 @import '../../index.scss';
 
-.custom-button {
+$test: linear-gradient(to left, #7f51fd, #ad8cfc);
+
+.custom-btn {
   $width: 190px;
   $height: 45px;
 
-  font-family: inherit;
-  box-sizing: border-box;
-  float: left;
-  width: $width;
-  padding: 0;
-  background: none;
+  @include size($width, $height);
+  @include flex-center;
+  background: $gradient-alt;
   border: none;
+  border-radius: 30px;
+  font-family: inherit;
   cursor: pointer;
+
+  label {
+    pointer-events: none;
+    user-select: none;
+    color: white;
+    font-size: 20px;
+  }
 
   &:focus { outline: none }
 
-  .btn-wrapper {
-    @include size($width, $height);
-    background: $gradient;
-    padding: 3px;
-    text-align: center;
-    border-radius: 30px;
-  
-    .btn {
-      @include size($width, $height);
-      @include flex-center;
-      background: $gradient;
-      border-radius: inherit;
-      transition: .3s;
-    
-      &:hover { @include hover }
-    
-      .label {
-        color: white;
-        font-size: 22px;
-        font-weight: bold;
-        user-select: none;
-      }
-    }
-  }
-  
-  .btn-alt-wrapper {
-    @extend .btn-wrapper;
-  
-    .btn-alt {
-      @extend .btn;
-      background: white;
-  
-      .label { color: $color }
-    }
+  &:hover {
   }
 }
 

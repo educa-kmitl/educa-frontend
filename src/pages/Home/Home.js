@@ -17,7 +17,7 @@ export const Home = () => {
             of knowlege in only one place
           </p>
           <Link to="/login">
-            <Button text="Get Started"/>
+            <Button alt text="Get Started"/>
           </Link>
         </div>
         
