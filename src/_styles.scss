@@ -1,0 +1,39 @@
+
+$gradient: linear-gradient(60deg, #9233c3, #6d70da 70%);
+$gradient-alt: linear-gradient(60deg, #ee428b 60%, #ffda00 95%);
+
+$color: #4c4dc2;
+$color-alt: #ee428b;
+
+$nav-size: 100px;
+$full-page: calc(100vh - #{$nav-size});
+
+@mixin border($stroke: 1px) {
+  box-shadow: inset 0px 0px 0px $stroke $color;
+}
+
+@mixin hover { box-shadow: 0 0 15px rgba(0, 0, 0, 0.3) }
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+@mixin fixed-size($width, $height: $width) {
+  min-width: $width;
+  max-width: $width;
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin abs-center { // parent must use 'position: relatives'
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flex-center($direction: row) { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}

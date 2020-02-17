@@ -7,8 +7,7 @@ import './App.scss';
 export const App = () => {
   return (
     <div className="App">
-      
-      { /*<BrowserRouter>
+      <BrowserRouter>
         <Navbar />
         <ToggleButton on="Private" off="Public"/>
         <br />
@@ -35,7 +34,7 @@ export const App = () => {
           </Route>
           
         </Switch>
-      </BrowserRouter> */}
+      </BrowserRouter>
     </div>
   );
 }
