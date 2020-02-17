@@ -1,5 +1,6 @@
 import React from 'react';
 import './Home.scss';
+import { Link } from 'react-router-dom';
 import { Button } from '../../components';
 import homepic from '../../img/home/home.svg'
 
@@ -15,7 +16,9 @@ export const Home = () => {
             Educa is a web application that sum up many kinds
             of knowlege in only one place
           </p>
-          <Button text="Get Started"/>
+          <Link to="/login">
+            <Button text="Get Started"/>
+          </Link>
         </div>
         
         <div className='img-container'>

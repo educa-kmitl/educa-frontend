@@ -70,6 +70,7 @@ export const Room = ({ location }) => {
       </div>
       <div className="chat-container">
         <Chatbox 
+          roomID={roomID}
           message={message}
           setMessage={setMessage}
           sendMessage={sendMessage}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Navbar, Card } from './components';
-import { Home, Learn, Teach, Search, Room, Join  } from './pages';
+import { Home, Learn, Teach, Search, Room, Join, Profile, Login  } from './pages';
 import './App.scss';
 
 const user = {
@@ -35,6 +35,10 @@ export const App = () => {
           }/>
 
           <Route path="/join" component={Join}/> {/* Remove later */}
+
+          <Route path="/profile" component={Profile}/>
+
+          <Route path="/login" component={Login}/>
           
         </Switch>
       </BrowserRouter>

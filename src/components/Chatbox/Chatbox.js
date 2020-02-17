@@ -2,11 +2,11 @@ import React from 'react';
 import './Chatbox.scss';
 import { ChatInput } from '../../components';
 
-export const Chatbox = ({ message, setMessage, sendMessage, messages }) => {
+export const Chatbox = ({ roomID, message, setMessage, sendMessage, messages }) => {
   return (
     <div className="chat-box">
       <div className="room-info">
-        <header>The Video name</header>
+        <header>{roomID}</header>
         <p>Teacher name</p>
       </div>
       <hr />

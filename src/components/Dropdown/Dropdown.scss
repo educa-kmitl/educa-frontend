@@ -11,14 +11,14 @@
     font-size: 21px;
     font-weight: bold;
     position: absolute;
-    top: 65%; left: 85%;
+    top: 70%; left: 85%;
     user-select: none;
     pointer-events: none;
-    transform: translate(-65%, -85%) rotate(90deg);
+    transform: translate(-70%, -85%) rotate(0deg);
     transition: .2s;
 
     &.active {
-      transform: translate(-65%, -85%) rotate(270deg);
+      transform: translate(-65%, -85%) rotate(-270deg);
     }
   }
 
@@ -38,6 +38,7 @@
     }
 
     .item {
+      user-select: none;
       font-size: 20px;
       line-height: 1.7em;
       border-radius: inherit;

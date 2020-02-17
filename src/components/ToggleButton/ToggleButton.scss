@@ -2,22 +2,33 @@
 
 .toggle-btn {
   $width: 190px;
-  $height: 40px;
+  $height: 50px;
+  $circle: $height - 10px;
 
   @include size($width, $height);
+  @include flex-center;
+  justify-content: flex-start;
   @include border(1px);
+  box-sizing: border-box;
   background: white;
-  padding: 5px;
   border-radius: $height;
   position: relative;
   transition: .3s;
   cursor: pointer;
 
   .circle {
-    @include size($height);
+    @include size($circle);
     background: $gradient;
     border-radius: 50%;
+    margin-left: 5px;
     transition: .4s;
+    position: relative;
+
+    .icon-check {
+      @include abs-center;
+      color: white;
+      font-size: 22px;
+    }
   }
 
   .label {
@@ -39,7 +50,9 @@
   
     .circle {
       background: white;
-      margin-left: $width - $height;
+      margin-left: $width - $height + 5px;
+
+      .icon-check { color: $color }
     }
   
     .label {

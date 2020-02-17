@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './ProfileBubble.scss';
-import myprofile from '../../img/icons/myprofile.svg';
-import logout from '../../img/icons/logout.svg';
+import { FaUserAlt, FaSignOutAlt } from "react-icons/fa";
 
 export const ProfileBubble = ({ state, setState, user: {name, level}}) => {
 
@@ -20,15 +19,15 @@ export const ProfileBubble = ({ state, setState, user: {name, level}}) => {
         <div className="username">{name}</div>
         <div className="level">LEVEL {level}</div>
         <div className="exp"></div>
-        <Link to="#" onClick={hideBubble}>
+        <Link to="/profile" onClick={hideBubble}>
           <div className="item">
-            <img src={myprofile} className="icon" alt=""/>
+            <div className="icon"><FaUserAlt/></div>
             MY PROFILE
           </div>
         </Link>
         <Link to="/" onClick={hideBubble}>
           <div className="item">
-            <img src={logout} className="icon" alt=""/>
+            <div className="icon xl"><FaSignOutAlt/></div>
             LOGOUT
           </div>
         </Link>
