@@ -6,28 +6,34 @@ $test: linear-gradient(to left, #7f51fd, #ad8cfc);
   $width: 190px;
   $height: 50px;
 
-  @include size($width, $height);
-  @include flex-center;
-  background: $gradient-alt;
+  @include fixed-size($width, $height);
+  background: $gradient;
   color: white;
   border: none;
   border-radius: 30px;
-  box-sizing: border-box;
   font-family: inherit;
   font-size: 20px;
-  transition: .2s;
+  position: relative;
+  transition: .3s;
   cursor: pointer;
 
-  label {
-    pointer-events: none;
-    user-select: none;
-  }
+  .btn-content {
+    @include flex-center;
 
-  .icon { margin-right: 10px }
+    label {
+      pointer-events: none;
+      user-select: none;
+    }
+  
+    .icon { margin-left: 10px }
+  }
+  
 
   &:focus { outline: none }
 
-  &:hover { transform: scale(1.1) }
+  &:hover { @include hover }
+
+  &.alt { background: $gradient-alt }
 }
 
 

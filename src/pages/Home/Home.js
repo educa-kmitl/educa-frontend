@@ -2,7 +2,6 @@ import React from 'react';
 import './Home.scss';
 import { Link } from 'react-router-dom';
 import { Button } from '../../components';
-import { FaRocket } from "react-icons/fa";
 import homepic from '../../img/home/home.svg'
 
 export const Home = () => {
@@ -18,7 +17,7 @@ export const Home = () => {
             of knowlege in only one place
           </p>
           <Link to="/login">
-            <Button text="Get Started" children={FaRocket}/>
+            <Button alt text="Get Started"/>
           </Link>
         </div>
         

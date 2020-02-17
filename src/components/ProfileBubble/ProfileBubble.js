@@ -14,7 +14,7 @@ export const ProfileBubble = ({ state, setState, user: {name, level}}) => {
   }
 
   return (
-    <div className={(state) ? 'bubble-container' : 'bubble-container hide'}>
+    <div className={(state && 'bubble-container') || 'bubble-container hide'}>
       <div class="content">
         <div className="username">{name}</div>
         <div className="level">LEVEL {level}</div>
@@ -33,7 +33,7 @@ export const ProfileBubble = ({ state, setState, user: {name, level}}) => {
         </Link>
       </div>
       <div 
-        className={(state) ? 'profile-overlay active' : 'profile-overlay'}
+        className={(state && 'profile-overlay active') || 'profile-overlay'}
         onClick={hideBubble}
       ></div>
     </div>
