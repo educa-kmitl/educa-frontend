@@ -1,0 +1,28 @@
+@import '../../styles';
+
+.room-page-content {
+  height: $full-page;
+  box-sizing: border-box;
+  padding: 0 30px;
+  max-width: 1280px;
+  margin: auto;
+  display: flex;
+
+  .video-container {
+    @include fixed-size(830px, 640px);
+    background: $gradient;
+    border-radius: 30px;
+
+    .embed-video {
+      @include size(100%);
+      border: none;
+      border-radius: inherit;
+    }
+  }
+
+  .chat-container {
+    @include fixed-size(450px, 800px);
+    box-sizing: border-box;
+    padding: 0 20px;
+  }
+}

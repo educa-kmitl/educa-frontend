@@ -1,54 +1,58 @@
 @import '../../index.scss';
 
-$width: 190px;
-$height: 45px;
+.custom-button {
+  $width: 190px;
+  $height: 45px;
 
-.btn-wrapper {
-  background: $main-gradient;
+  font-family: inherit;
+  box-sizing: border-box;
+  float: left;
   width: $width;
-  height: $height;
-  padding: 3px;
-  text-align: center;
-  border-radius: 30px;
+  padding: 0;
+  background: none;
+  border: none;
   cursor: pointer;
 
-  .btn {
-    background: $main-gradient;
-    width: $width;
-    height: $height;
+  &:focus { outline: none }
+
+  .btn-wrapper {
+    @include size($width, $height);
+    background: $gradient;
+    padding: 3px;
+    text-align: center;
     border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .3s;
   
-    &:hover {
-      box-shadow: 0 0 10px $main-color;
+    .btn {
+      @include size($width, $height);
+      @include flex-center;
+      background: $gradient;
+      border-radius: inherit;
+      transition: .3s;
+    
+      &:hover { @include hover }
+    
+      .label {
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        user-select: none;
+      }
     }
+  }
   
-    .label {
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-      user-select: none;
+  .btn-alt-wrapper {
+    @extend .btn-wrapper;
+  
+    .btn-alt {
+      @extend .btn;
+      background: white;
+  
+      .label { color: $color }
     }
   }
 }
 
-.btn-alt-wrapper {
-  @extend .btn-wrapper;
 
-  .btn-alt {
-    @extend .btn;
-    background: white;
-    color: $main-color;
-  
-    .label {
-      color: $main-color;
-    }
-  }
-  
-}
 
 
 

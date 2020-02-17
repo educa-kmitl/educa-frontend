@@ -1,0 +1,37 @@
+
+$gradient: linear-gradient(to left, #bc8af1, #d4b6f9);
+
+$color: #bc8af1;
+
+$nav-size: 100px;
+$full-page: calc(100vh - #{$nav-size});
+
+@mixin border($stroke: 1px) {
+  box-shadow: inset 0px 0px 0px $stroke $color;
+}
+
+@mixin hover { box-shadow: 0 0 10px $color }
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+@mixin fixed-size($width, $height: $width) {
+  min-width: $width;
+  max-width: $width;
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin abs-center { // parent must use 'position: relatives'
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flex-center($direction: row) { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
