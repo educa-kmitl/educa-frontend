@@ -1,0 +1,38 @@
+@import '../../index.scss';
+
+.chat-box {
+  @include size(100%);
+  @include border(3px);
+  box-sizing: border-box;
+  padding: 50px;
+  background: white;
+  border-radius: 30px;
+
+  .room-info {
+    text-align: left;
+
+    header { font-size: 28px }
+  
+    p {
+      color: $color;
+      font-size: 20px;
+    }
+  }
+  
+  hr { border: 1px solid $color }
+
+  .room-chat {
+    @include size(100%, 75%);
+    word-wrap: break-word;
+    text-align: left;
+    overflow-y: scroll;
+
+    .chat-box-message {
+      color: #777;
+
+      .username { color: $color }
+    }
+  }
+
+}
+

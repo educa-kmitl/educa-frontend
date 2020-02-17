@@ -1,0 +1,54 @@
+@import '../../index.scss';
+
+.card{
+    width:  500px;
+    height: 200px;
+    border-radius: 20px;
+    background-color: $color;
+    border-style: solid;
+    border-color:white;
+    border-width: 5px;
+    display: flex;
+    padding: 20px;
+    
+    .imgCard{
+        background-color: crimson;
+        width: 40%;
+        height: 100%;
+        
+        border-radius: 20px;;
+    }
+    .txt{
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        // background-color: saddlebrown;
+        .heading{
+            margin:2px;
+            padding: 2px;
+            width: 100%;
+            height: 20%;
+            // background-color: steelblue;
+            font-size: 40px;
+            font-weight: 500;
+        }
+        .description{
+            padding: 2px;
+            width: 100%;
+            height:60%;
+            // background-color: royalblue;
+            font-size: 28px;
+            text-align: left;
+        }
+        .tutor{
+            padding: 2px;
+            width: 100%;
+            height:20%;
+            text-align: end;
+            font-size: 28px;
+           
+            // background-color: royalblue;
+        }
+    }
+}
