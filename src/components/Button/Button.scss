@@ -4,27 +4,30 @@ $test: linear-gradient(to left, #7f51fd, #ad8cfc);
 
 .custom-btn {
   $width: 190px;
-  $height: 45px;
+  $height: 50px;
 
   @include size($width, $height);
   @include flex-center;
   background: $gradient-alt;
+  color: white;
   border: none;
   border-radius: 30px;
+  box-sizing: border-box;
   font-family: inherit;
+  font-size: 20px;
+  transition: .2s;
   cursor: pointer;
 
   label {
     pointer-events: none;
     user-select: none;
-    color: white;
-    font-size: 20px;
   }
+
+  .icon { margin-right: 10px }
 
   &:focus { outline: none }
 
-  &:hover {
-  }
+  &:hover { transform: scale(1.1) }
 }
 
 
