@@ -1,37 +1,44 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, ToggleButton, Button } from './components';
-import { Home, Learn, Teach, Search  } from './pages';
+import { Navbar, Card } from './components';
+import { Home, Learn, Teach, Search, Room, Join, Profile, Login  } from './pages';
 import './App.scss';
+
+const user = {
+  name: 'prayut007',
+  level: 44
+}
 
 export const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
-        <ToggleButton on="Private" off="Public"/>
-        <br />
-        <Button text="Get Started"/>
-        <br />
-        <Button alt text="Login"/>
+        <Navbar user={user}/>
         
         <Switch>
 
-          <Route exact path="/">
-            <Home />
-          </Route>
+          <Route exact path="/" component={Home}/>
 
           <Route path="/learn">
             <Learn />
+            <Card />
           </Route>
 
-          <Route path="/teach">
-            <Teach />
-          </Route>
+          <Route path="/teach" render={
+            (props) => <Teach {...props} user={user}/>
+          }/>
+            
+          <Route path="/search" component={Search}/>
 
-          <Route path="/search">
-            <Search />
-          </Route>
+          <Route path="/room" render={
+            (props) => <Room {...props}/>
+          }/>
+
+          <Route path="/join" component={Join}/> {/* Remove later */}
+
+          <Route path="/profile" component={Profile}/>
+
+          <Route path="/login" component={Login}/>
           
         </Switch>
       </BrowserRouter>
