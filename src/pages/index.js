@@ -6,5 +6,6 @@ export { Search } from './Search/Search';
 export { Room } from './Room/Room';
 export { Profile } from './Profile/Profile';
 export { Login } from './Login/Login';
+export { SignUp } from './SignUp/SignUp';
 
 export { Join } from './Join/Join';
