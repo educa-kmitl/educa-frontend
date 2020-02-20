@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import './Room.scss';
 import { Chatbox } from '../../components';
 import io from "socket.io-client";
 import queryString from "query-string";
+import './Room.scss';
+
 let socket;
 
 export const Room = ({ history, location }) => {
@@ -12,6 +13,7 @@ export const Room = ({ history, location }) => {
   const [messages, setMessages] = useState([])
   const [name, setName] = useState('')
   const [roomID, setRoomID] = useState('')
+  const [roomOwner, setRoomOwner] = useState('')
 
   useEffect(() => {
     const { name, room_id, link } = queryString.parse(location.search)
@@ -25,16 +27,18 @@ export const Room = ({ history, location }) => {
       setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
       socket.emit("create", { name, room_id, link }, () => {
         console.log(`${name} create room ${room_id}`)
+        setRoomOwner(name)
       })
     } else {
       console.log("You are student")
-      socket.emit("join", { name, room_id }, ({ error, link }) => {
+      socket.emit("join", { name, room_id }, ({ error, link, owner }) => {
         if (error) {
           console.log(error);
           history.push(`/notfound`);
         } else {
-          console.log(link)
+          console.log(link, owner)
           setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
+          setRoomOwner(owner)
         }
       })
     }
@@ -75,6 +79,7 @@ export const Room = ({ history, location }) => {
       </div>
       <div className="chat-container">
         <Chatbox 
+          roomOwner={roomOwner}
           roomID={roomID}
           message={message}
           setMessage={setMessage}
