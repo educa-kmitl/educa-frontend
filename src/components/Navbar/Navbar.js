@@ -20,7 +20,6 @@ export const Navbar = ({ user }) => {
           <img src={logo} alt=""/>
           <p>EDUCA</p>
         </div>
-
         <ul>
           {pages.map((pg) => (
             <li>
@@ -33,7 +32,6 @@ export const Navbar = ({ user }) => {
               </Link>
             </li>
           ))}
-          
           <div className="profileicon" onClick={toggleBubble}></div>
         </ul>
         <ProfileBubble state={state} setState={setState} user={user}/>

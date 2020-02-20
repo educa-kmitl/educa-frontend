@@ -1,8 +1,9 @@
 @import '../../styles';
 .login-page-bg {
-    background: url('../../img/login/login.svg') center center no-repeat; engine: "rework";
+    background: url('../../img/login/login.svg') center top no-repeat; engine: "rework";
     background-size: cover;
     height: $full-page;
+
     .login-content {
         max-width: 1280px;
         height: 100%;

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.scss';
 import { Input, Button } from '../../components';
-import { Home } from "../Home/Home";
 
 export const Login = () => {
   return (
@@ -10,7 +9,7 @@ export const Login = () => {
         <div className="login-content">
             <div className="login-form">
                 <header>User Login</header>
-                <form onSubmit={ Home }>
+                <form onSubmit={() => alert('test')}>
                     <Input text="E-mail" type="text" required/>
                     <Input text="Password" type="password" required/>
                       <Button alt text="Login" type="submit" />
@@ -24,7 +23,6 @@ export const Login = () => {
             </div>
 
         </div>
-      
     </div>
   );
 }

@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './CreateAccount.scss';
+import './SignUp.scss';
 import { Input, Button } from '../../components';
-import { Login } from "../Login/Login";
 
-export const CreateAccount = () => {
+export const SignUp = () => {
   return (
     <div className="create-page-bg">
         <div className="create-content">
             <div className="create-form">
                 <header>Create Account</header>
-                <form onSubmit={ Login }>
+                <form onSubmit={() => alert('test') }>
                     <Input text="E-mail" type="text" required/>
                     <Input text="Name" type="text" required/>
                     <Input text="Password" type="password" required/>
