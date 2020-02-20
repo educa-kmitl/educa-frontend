@@ -1,11 +1,15 @@
 import React from 'react';
 import './Card.scss';
 
-export const Card = ({ room })=>{
+export const Card = ({ room, name, history })=>{
+
+  const enterRoom = e => {
+    e.preventDefault();
+    history.push(`/room?name=${name}&room_id=${room.title}`)
+  }
+
     return(
-        <div 
-          className={'card ' + room.tag}
-        >
+        <div className={'card ' + room.tag} onClick={enterRoom}>
             <div className="imgCard">
                  
             </div> 

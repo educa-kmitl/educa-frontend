@@ -3,7 +3,7 @@ import { Card } from '../../components';
 
 import './Learn.scss';
 
-export const Learn = () => {
+export const Learn = ({ history, user }) => {
 
   const rooms = [
     {
@@ -44,7 +44,7 @@ export const Learn = () => {
         
         <div className="CARD-XL"></div>
         <div className="all-room">
-          {rooms.map(room => <Card room={room}/>)}
+          {rooms.map(room => <Card room={room} history={history} name={user.name}/>)}
         </div>
       </div>
     </div>

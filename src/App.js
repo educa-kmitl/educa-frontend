@@ -18,9 +18,9 @@ export const App = () => {
 
           <Route exact path="/" component={Home}/>
 
-          <Route path="/learn">
-            <Learn />
-          </Route>
+          <Route path="/learn" render={
+            (props) => <Learn {...props} user={user}/>
+          }/>
 
           <Route path="/teach" render={
             (props) => <Teach {...props} user={user}/>

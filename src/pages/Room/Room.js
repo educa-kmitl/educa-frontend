@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import queryString from "query-string";
 let socket;
 
-export const Room = ({ location }) => {
+export const Room = ({ history, location }) => {
   const ENDPOINT = "localhost:5000" // Change Later
   const [videoLink, setVideoLink] = useState(undefined)
   const [message, setMessage] = useState('')
@@ -28,9 +28,14 @@ export const Room = ({ location }) => {
       })
     } else {
       console.log("You are student")
-      socket.emit("join", { name, room_id }, link => {
-        console.log(link)
-        setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
+      socket.emit("join", { name, room_id }, ({ error, link }) => {
+        if (error) {
+          console.log(error);
+          history.push(`/notfound`);
+        } else {
+          console.log(link)
+          setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
+        }
       })
     }
   }, [ENDPOINT, location.search])
@@ -52,7 +57,7 @@ export const Room = ({ location }) => {
   const sendMessage = e => {
     e.preventDefault()
     if (message !== "") {
-      socket.emit("sendMessage", { message, roomID, name})
+      socket.emit("sendMessage", { message, room_id: roomID, name})
       setMessage("")
     }
   }
