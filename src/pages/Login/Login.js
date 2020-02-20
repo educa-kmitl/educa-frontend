@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Login.scss';
 import { Input, Button } from '../../components';
+import { Home } from "../Home/Home";
 
 export const Login = () => {
   return (
@@ -9,20 +10,22 @@ export const Login = () => {
         <div className="login-content">
             <div className="login-form">
                 <header>User Login</header>
-                <form onSubmit={() => alert('test')}>
+                <form onSubmit={ Home }>
                     <Input text="E-mail" type="text" required/>
                     <Input text="Password" type="password" required/>
+                    <Link to="/teach">
                       <Button alt text="Login" type="submit" />
-                      <Link to="/create">
-                        <button>Create Account</button>
-                      </Link>
+                    </Link>
+                    <Link to="/signup">
+                      <button>Create Account</button>
+                    </Link>
                     <br />
                 </form>
-  
 
             </div>
 
         </div>
+      
     </div>
   );
 }

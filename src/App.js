@@ -40,7 +40,7 @@ export const App = () => {
 
           <Route path="/login" component={Login}/>
 
-          <Route path="/signup" component={SignUp}/>
+          <Route path="/signup" component={SignUp} />
           
         </Switch>
       </BrowserRouter>
