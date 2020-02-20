@@ -31,10 +31,11 @@
     padding: 20px;
     background: white;
     border-radius: 30px;
+    transform: translate(-50%, -50%) scale(0);
     transition: .2s;
 
-    &.hide {
-      transform: translate(-50%, -50%) scale(0);
+    &.active {
+      transform: translate(-50%, -50%) scale(1);
     }
 
     .item {
@@ -46,7 +47,7 @@
 
       &:hover {
         color: white;
-        background: $gradient;
+        background: $color;
         transform: scale(1.1);
         cursor: pointer;
       }

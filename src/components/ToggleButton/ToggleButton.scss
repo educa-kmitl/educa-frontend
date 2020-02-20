@@ -7,8 +7,8 @@
 
   @include size($width, $height);
   @include flex-center;
-  justify-content: flex-start;
   @include border(1px);
+  justify-content: flex-start;
   box-sizing: border-box;
   background: white;
   border-radius: $height;
@@ -41,7 +41,9 @@
     transition: .3s;
   }
 
-  &:hover {  @include hover }
+  &:hover { 
+    box-shadow: inset 0px 0px 0px 1px $color, 0 0 15px #0000004d;
+  }
 
   &.active {
     @extend .toggle-btn;
@@ -51,7 +53,6 @@
     .circle {
       background: white;
       margin-left: $width - $height + 5px;
-
       .icon-check { color: $color }
     }
   

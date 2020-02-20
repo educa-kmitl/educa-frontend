@@ -32,7 +32,18 @@ nav {
       justify-content: space-between;
       list-style: none;
   
-      li { font-size: 24px }
+      li { 
+        font-size: 24px;
+        text-transform: capitalize;
+
+        &:nth-child(1) a:hover { color: #62a0ee }
+        &:nth-child(2) a:hover { color: $color-alt }
+        &:nth-child(3) a:hover { color: #ffcf10 }
+
+        &:nth-child(1) a.active { color: #62a0ee }
+        &:nth-child(2) a.active { color: $color-alt }
+        &:nth-child(3) a.active { color: #ffcf10 }
+      }
   
       .profileicon {
         @include size(45px);

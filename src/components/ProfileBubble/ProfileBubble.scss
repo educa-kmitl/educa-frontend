@@ -28,7 +28,7 @@
 
     .exp {
       @include size(140px, 5px);
-      background: $color;
+      background: $gradient;
       margin-bottom: 10px;
     }
 
@@ -43,6 +43,30 @@
 
         &.xl { font-size: 120% }
       }
+
+      &:hover { color: $color }
+    }
+  }
+
+  &.hide {
+    @extend .bubble-container;
+    opacity: 0;
+    height: 0;
+    transform: scale(0);
+  }
+
+  .profile-overlay {
+    pointer-events: none;
+    z-index: 9;
+    position: fixed;
+    background: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+
+    &.active {
+      pointer-events: all;
     }
   }
 
