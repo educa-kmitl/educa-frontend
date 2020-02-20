@@ -1,24 +1,23 @@
 import React from 'react';
 import './Card.scss';
 
-export const Card = ()=>{
+export const Card = ({ room })=>{
     return(
-        <div className="card">
+        <div 
+          className={'card ' + room.tag}
+        >
             <div className="imgCard">
                  
             </div> 
             <div className="txt">
                 <div className="heading">
-                    Calculus
+                    {room.title}
                 </div>
                 <div className="description">
-                    Limit 
-                    Derivatives
-                    Integration 
-                    etc.
+                    {room.about}
                 </div>
                 <div className="tutor">
-                    teacher
+                    {room.owner}
                 </div>
             </div>
         </div>

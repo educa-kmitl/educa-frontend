@@ -9,7 +9,7 @@
   box-sizing: border-box;
   font-family: inherit;
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 400;
   text-align: center;
   border: none;
   border-radius: 30px;
@@ -23,6 +23,8 @@
   &:focus {
     @include hover;
     outline: none;
+
+    &::placeholder { color: transparent }
   }
 
   &:hover { @include hover }

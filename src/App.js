@@ -1,8 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Navbar, Card } from './components';
-import { Home, Learn, Teach, Search, Room, Join, Profile, Login, SignUp  } from './pages';
-import './App.scss';
+import { Navbar } from './components';
+import { Home, Learn, Teach, Search, Room, Join, Profile, Login, SignUp, NotFound  } from './pages';
 
 const user = {
   name: 'prayut007',
@@ -21,7 +20,6 @@ export const App = () => {
 
           <Route path="/learn">
             <Learn />
-            <Card />
           </Route>
 
           <Route path="/teach" render={
@@ -41,6 +39,8 @@ export const App = () => {
           <Route path="/login" component={Login}/>
 
           <Route path="/signup" component={SignUp}/>
+
+          <Route path="/" component={NotFound}/>
           
         </Switch>
       </BrowserRouter>
