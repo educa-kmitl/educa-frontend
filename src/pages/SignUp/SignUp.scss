@@ -1,10 +1,9 @@
 @import '../../styles';
-.login-page-bg {
+.create-page-bg {
     background: url('../../img/login/login.svg') center top no-repeat; engine: "rework";
     background-size: cover;
     height: $full-page;
-
-    .login-content {
+    .create-content {
         max-width: 1280px;
         height: 100%;
         margin: auto;
@@ -12,7 +11,7 @@
         display: flex;
         justify-content: flex-end;
     
-        .login-form {
+        .create-form {
           @include flex-center(column);
           max-width: 410px;
           height: 70%;

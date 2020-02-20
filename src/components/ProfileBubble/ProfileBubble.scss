@@ -28,7 +28,7 @@
 
     .exp {
       @include size(140px, 5px);
-      background: $color;
+      background: $gradient;
       margin-bottom: 10px;
     }
 
@@ -43,6 +43,8 @@
 
         &.xl { font-size: 120% }
       }
+
+      &:hover { color: $color }
     }
   }
 
