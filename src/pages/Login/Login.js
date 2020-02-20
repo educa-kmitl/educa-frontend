@@ -11,7 +11,7 @@ export const Login = () => {
                 <header>User Login</header>
                 <form onSubmit={ Home }>
                     <Input text="E-mail" type="text" required/>
-                    <Input text="Password" type="text" required/>
+                    <Input text="Password" type="password" required/>
                     <Button alt text="Login" type="submit" />
                     <br />
                 </form>

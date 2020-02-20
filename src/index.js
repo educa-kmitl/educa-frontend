@@ -5,4 +5,4 @@ import { App } from './App';
 import { Login } from './pages/Login/Login';
 import { CreateAccount } from './pages/CreateAccount/CreateAccount';
 
-ReactDOM.render(<CreateAccount />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

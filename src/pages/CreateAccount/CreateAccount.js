@@ -12,7 +12,7 @@ export const CreateAccount = () => {
                 <form onSubmit={ Login }>
                     <Input text="E-mail" type="text" required/>
                     <Input text="Name" type="text" required/>
-                    <Input text="Password" type="text" required/>
+                    <Input text="Password" type="password" required/>
                     <Button alt text="Create" type="submit" />
                     <br />
                 </form>
