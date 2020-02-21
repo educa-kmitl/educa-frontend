@@ -7,6 +7,7 @@ import './Room.scss';
 let socket;
 
 export const Room = ({ history, location }) => {
+  // const ENDPOINT = "10.66.8.97:5000" // Change Later
   const ENDPOINT = "localhost:5000" // Change Later
   const [videoLink, setVideoLink] = useState(undefined)
   const [message, setMessage] = useState('')

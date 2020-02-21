@@ -2,10 +2,10 @@
 
 .learn-page-bg {
   height: 100%;
-  padding-top: $nav-size;
-  margin-bottom: $nav-size;
+  padding: $nav-size 0;
 
   .learn-content {
+    box-sizing: content-box;
     max-width: 1280px;
     height: 100%;
     margin: auto;
