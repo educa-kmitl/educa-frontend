@@ -1,5 +1,8 @@
 @import '../../styles';
-
+.room-page-bg{
+  background: url('../../img/background-room.svg') center center;
+  background-size: cover;
+}
 .room-page-content {
   @include flex-center;
   align-items: flex-start;
@@ -7,6 +10,7 @@
   height: $full-page;
   max-width: 1280px;
   margin: auto;
+  
 
   .video-container {
     @include fixed-size(830px, 640px);
