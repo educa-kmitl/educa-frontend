@@ -11,7 +11,6 @@
   border-radius: 30px;
   font-family: inherit;
   font-size: 20px;
-  position: relative;
   transition: .3s;
   cursor: pointer;
 
@@ -31,7 +30,12 @@
 
   &:hover { @include hover }
 
-  &.alt { background: $gradient-alt }
+  &.alt { 
+    background: $gradient-alt;
+    .btn-content {
+      label { font-weight: 600 }
+    }
+  }
 }
 
 

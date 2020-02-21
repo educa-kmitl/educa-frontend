@@ -4,7 +4,6 @@ nav {
   z-index: 1000;
   position: fixed;
   width: 100%;
-  @include flex-center;
 
   .nav-content {
     @include flex-center;
@@ -21,12 +20,12 @@ nav {
       
       img {
         @include size(45px);
-        margin-top: -10px;
+        margin-right: 5px;
       }
   
       p {
-        font-size: 20px;
-        font-weight: bold;
+        font-size: 22px;
+        font-weight: 700;
       }
     }
 
@@ -37,7 +36,8 @@ nav {
       list-style: none;
   
       li { 
-        font-size: 24px;
+        font-size: 22px;
+        font-weight: 600;
         text-transform: capitalize;
 
         &:nth-child(1) a:hover { color: #62a0ee }

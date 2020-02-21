@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './Teach.scss';
 import { Input, Dropdown, ToggleButton, Button } from '../../components';
 
-export const Teach = ({ history, user }) => {
+export const Teach = ({ user }) => {
   const [room, setRoom] = useState("")
   const [link, setLink] = useState("")
+  const history = useHistory();
   
   const handleSubmit = e => {
     e.preventDefault();
