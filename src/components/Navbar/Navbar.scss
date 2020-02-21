@@ -2,13 +2,17 @@
 
 nav {
   z-index: 1000;
+  position: fixed;
+  width: 100%;
+  @include flex-center;
 
   .nav-content {
     @include flex-center;
-    justify-content: space-between;
     max-width: 1280px;
+    width: 100%;
+    justify-content: space-between;
     height: $nav-size;
-    margin: auto;
+    
     padding: 0 30px;
     position: relative;
       
