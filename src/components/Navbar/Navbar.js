@@ -33,7 +33,6 @@ export const Navbar = ({ user }) => {
               </Link>
             </li>
           ))}
-          
           <div className="profileicon" onClick={toggleBubble}></div>
         </ul>
         <ProfileBubble state={state} setState={setState} user={user}/>
