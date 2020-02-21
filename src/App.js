@@ -20,18 +20,16 @@ export const App = () => {
           <Route exact path="/" component={Home}/>
 
           <Route path="/learn" render={
-            (props) => <Learn {...props} user={user}/>
+            () => <Learn user={user}/>
           }/>
 
           <Route path="/teach" render={
-            (props) => <Teach {...props} user={user}/>
+            () => <Teach user={user}/>
           }/>
             
           <Route path="/search" component={Search}/>
 
-          <Route path="/room" render={
-            (props) => <Room {...props}/>
-          }/>
+          <Route path="/room" component={Room}/>
 
           <Route path="/join" component={Join}/> {/* Remove later */}
 

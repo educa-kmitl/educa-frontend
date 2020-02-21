@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Chatbox } from '../../components';
 import io from "socket.io-client";
 import queryString from "query-string";
@@ -6,8 +7,7 @@ import './Room.scss';
 
 let socket;
 
-export const Room = ({ history, location }) => {
-  // const ENDPOINT = "10.66.8.97:5000" // Change Later
+export const Room = () => {
   const ENDPOINT = "localhost:5000" // Change Later
   const [videoLink, setVideoLink] = useState(undefined)
   const [message, setMessage] = useState('')
@@ -15,6 +15,8 @@ export const Room = ({ history, location }) => {
   const [name, setName] = useState('')
   const [roomID, setRoomID] = useState('')
   const [roomOwner, setRoomOwner] = useState('')
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     const { name, room_id, link } = queryString.parse(location.search)

@@ -1,7 +1,9 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import './Card.scss';
 
-export const Card = ({ room, name, history })=>{
+export const Card = ({ room, name })=>{
+  const history = useHistory();
 
   const enterRoom = e => {
     e.preventDefault();
