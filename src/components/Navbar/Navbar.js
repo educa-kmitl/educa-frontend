@@ -1,40 +1,49 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { ProfileBubble } from '../';
 import './Navbar.scss';
 import logo from '../../img/logo.svg';
 
+const pages = ['/learn', '/teach', '/search', '/profile'];
+
 export const Navbar = ({ user }) => {
   const [state, setState] = useState(false);
-  const [page, setPage] = useState('learn');
-  const pages = ['learn', 'teach', 'search'];
+  const location = useLocation();
 
   const toggleBubble = () => setState(!state);
-
-  const changePage = (nextPage) => setPage(nextPage);
 
   return (
     <nav>
       <div className="nav-content">
-        <div className="logo">
-          <img src={logo} alt=""/>
-          <p>EDUCA</p>
-        </div>
-        <ul>
-          {pages.map((pg) => (
+        <NavLink to="/" style={{color: 'inherit'}}>
+          <div className="logo">
+            <img src={logo} alt=""/>
+            <p>EDUCA</p>
+          </div>
+        </NavLink>
+        
+        { 
+          location.pathname !== '/' 
+          && location.pathname !== '/login' 
+          && location.pathname !== '/sigup'
+          && location.pathname !== '/room'
+          && pages.includes(location.pathname)
+          &&
+          <ul>
             <li>
-              <Link 
-                to={`/${pg}`}
-                onClick={() => changePage(`${pg}`)} 
-                className={(page===`${pg}`) && 'nav-link active'}
-              >
-                {pg}
-              </Link>
+              <NavLink to="/learn" className="nav-link">Learn</NavLink>
             </li>
-          ))}
-          <div className="profileicon" onClick={toggleBubble}></div>
-        </ul>
-        <ProfileBubble state={state} setState={setState} user={user}/>
+            <li>
+              <NavLink to="/teach" className="nav-link">Teach</NavLink>
+            </li>
+            <li>
+              <NavLink to="/search" className="nav-link">Search</NavLink>
+            </li>
+            
+            <div className="profileicon" onClick={toggleBubble}></div>
+          </ul>
+          }
+          <ProfileBubble state={state} setState={setState} user={user}/>
       </div>
     </nav>
   );

@@ -1,0 +1,21 @@
+@import '../../styles';
+
+.nf-page-bg {
+  @include flex-center(column);
+  height: $full-page;
+  
+  .nf-svg {
+    @include size(800px, 500px);
+    background: url('../../img/notfound/notfound.svg') center center no-repeat;
+  }
+
+  header {
+    font-size: 56px;
+    font-weight: 600;
+  }
+
+  p {
+    font-size: 28px;
+    margin: .5em 0;
+  }
+}

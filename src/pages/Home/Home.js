@@ -14,7 +14,7 @@ export const Home = () => {
           <h1>in one place</h1>
           <p>
             Educa is a web application that sum up many kinds
-            of knowlege in only one place
+            of knowlege in just one place
           </p>
           <Link to="/login">
             <Button alt text="Get Started"/>

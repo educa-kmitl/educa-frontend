@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import './Room.scss';
+import { useLocation, useHistory } from 'react-router-dom';
 import { Chatbox } from '../../components';
 import io from "socket.io-client";
 import queryString from "query-string";
+import './Room.scss';
+
 let socket;
 
-export const Room = ({ location }) => {
+export const Room = () => {
   const ENDPOINT = "localhost:5000" // Change Later
   const [videoLink, setVideoLink] = useState(undefined)
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
   const [name, setName] = useState('')
   const [roomID, setRoomID] = useState('')
+  const [roomOwner, setRoomOwner] = useState('')
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     const { name, room_id, link } = queryString.parse(location.search)
@@ -25,12 +30,19 @@ export const Room = ({ location }) => {
       setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
       socket.emit("create", { name, room_id, link }, () => {
         console.log(`${name} create room ${room_id}`)
+        setRoomOwner(name)
       })
     } else {
       console.log("You are student")
-      socket.emit("join", { name, room_id }, link => {
-        console.log(link)
-        setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
+      socket.emit("join", { name, room_id }, ({ error, link, owner }) => {
+        if (error) {
+          console.log(error);
+          history.push(`/notfound`);
+        } else {
+          console.log(link, owner)
+          setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
+          setRoomOwner(owner)
+        }
       })
     }
   }, [ENDPOINT, location.search])
@@ -52,7 +64,7 @@ export const Room = ({ location }) => {
   const sendMessage = e => {
     e.preventDefault()
     if (message !== "") {
-      socket.emit("sendMessage", { message, roomID, name})
+      socket.emit("sendMessage", { message, room_id: roomID, name})
       setMessage("")
     }
   }
@@ -70,6 +82,7 @@ export const Room = ({ location }) => {
       </div>
       <div className="chat-container">
         <Chatbox 
+          roomOwner={roomOwner}
           roomID={roomID}
           message={message}
           setMessage={setMessage}

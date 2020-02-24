@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useState } from 'react';
+
+import './Join.scss';
 
 export const Join = ({ history }) => {
   const [name, setName] = useState("")
@@ -10,7 +12,7 @@ export const Join = ({ history }) => {
   }
 
   return (
-    <div>
+    <div className="join-content">
       <h1>Join the room</h1>
       <form onSubmit={handleSubmit}>
         name

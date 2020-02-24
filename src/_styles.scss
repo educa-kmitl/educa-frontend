@@ -1,11 +1,11 @@
 
 $gradient: linear-gradient(60deg, #9233c3, #6d70da 70%);
-$gradient-alt: linear-gradient(60deg, #ee428b 60%, #ffda00 95%);
+$gradient-alt: linear-gradient(60deg, #ee428b 60%, #ffda00);
 
 $color: #4c4dc2;
 $color-alt: #ee428b;
 
-$nav-size: 100px;
+$nav-size: 120px;
 $full-page: calc(100vh - #{$nav-size});
 
 @mixin border($stroke: 1px) {
