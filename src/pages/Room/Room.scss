@@ -1,5 +1,8 @@
 @import '../../styles';
-
+.room-page-bg{
+  background: url('../../img/background-room.svg') center center;
+  background-size: cover;
+}
 .room-page-content {
   @include flex-center;
   align-items: flex-start;

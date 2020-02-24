@@ -70,25 +70,27 @@ export const Room = () => {
   }
 
   return (
-    <div className="room-page-content">
-      <div className="video-container">
-        { videoLink && 
-          <iframe 
-            className="embed-video"
-            src={videoLink}
-            title={videoLink}
-          ></iframe> 
-        }
-      </div>
-      <div className="chat-container">
-        <Chatbox 
-          roomOwner={roomOwner}
-          roomID={roomID}
-          message={message}
-          setMessage={setMessage}
-          sendMessage={sendMessage}
-          messages={messages}
-        />
+    <div className="room-page-bg">
+      <div className="room-page-content">
+        <div className="video-container">
+          { videoLink && 
+            <iframe 
+              className="embed-video"
+              src={videoLink}
+              title={videoLink}
+            ></iframe> 
+          }
+        </div>
+        <div className="chat-container">
+          <Chatbox 
+            roomOwner={roomOwner}
+            roomID={roomID}
+            message={message}
+            setMessage={setMessage}
+            sendMessage={sendMessage}
+            messages={messages}
+          />
+        </div>
       </div>
     </div>
   );

@@ -3,8 +3,8 @@ import './Search.scss';
 
 export const Search = () => {
   return (
-    <div>
-      Search Page
+    <div className="background-search">
+      
     </div>
   );
 }
