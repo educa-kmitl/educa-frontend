@@ -6,7 +6,7 @@ import logo from '../../img/logo.svg';
 
 const pages = ['/learn', '/teach', '/search', '/profile'];
 
-export const Navbar = ({ user }) => {
+export const Navbar = () => {
   const [state, setState] = useState(false);
   const location = useLocation();
 
@@ -43,7 +43,7 @@ export const Navbar = ({ user }) => {
             <div className="profileicon" onClick={toggleBubble}></div>
           </ul>
           }
-          <ProfileBubble state={state} setState={setState} user={user}/>
+          <ProfileBubble state={state} setState={setState}/>
       </div>
     </nav>
   );

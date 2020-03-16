@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Teach.scss';
 import { Input, Dropdown, ToggleButton, Button } from '../../components';
+import { UserContext } from '../../contexts';
 
-export const Teach = ({ user }) => {
+export const Teach = () => {
+  const [user, setUser] = useContext(UserContext);
   const [room, setRoom] = useState("")
   const [link, setLink] = useState("")
   const history = useHistory();
