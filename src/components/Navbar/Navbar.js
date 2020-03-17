@@ -4,7 +4,7 @@ import { ProfileBubble } from '../';
 import './Navbar.scss';
 import logo from '../../img/logo.svg';
 
-const pages = ['/learn', '/teach', '/search', '/profile'];
+const pages = ['/home', '/create', '/profile'];
 
 export const Navbar = () => {
   const [state, setState] = useState(false);
@@ -31,13 +31,10 @@ export const Navbar = () => {
           &&
           <ul>
             <li>
-              <NavLink to="/learn" className="nav-link">Learn</NavLink>
+              <NavLink to="/home" className="nav-link">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/teach" className="nav-link">Teach</NavLink>
-            </li>
-            <li>
-              <NavLink to="/search" className="nav-link">Search</NavLink>
+              <NavLink to="/create" className="nav-link">Create</NavLink>
             </li>
             
             <div className="profileicon" onClick={toggleBubble}></div>

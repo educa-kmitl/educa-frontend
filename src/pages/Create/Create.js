@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import './Teach.scss';
+import './Create.scss';
 import { Input, Dropdown, ToggleButton, Button } from '../../components';
 import { UserContext } from '../../contexts';
 
-export const Teach = () => {
+export const Create = () => {
   const [user, setUser] = useContext(UserContext);
   const [room, setRoom] = useState("")
   const [link, setLink] = useState("")
@@ -16,9 +16,9 @@ export const Teach = () => {
   }
 
   return (
-    <div className="teach-page-bg">
-      <div className="teach-content">
-        <div className="teach-form">
+    <div className="create-page-bg">
+      <div className="create-content">
+        <div className="create-form">
 
           <header>Create Room</header>
           <form onSubmit={handleSubmit}>

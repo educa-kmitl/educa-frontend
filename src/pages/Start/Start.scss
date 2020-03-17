@@ -1,0 +1,36 @@
+@import '../../styles';
+
+.start-bg {
+  @include flex-center;
+  background: url('../../img/start/start-bg.svg') center center;
+  background-size: cover;
+  height: 100vh;
+
+  .start-content {
+    display: flex;
+    max-width: 1280px;
+    width: 100%;
+    font-size: 32px;
+    margin-top: 50px;
+    padding: 0 30px;
+      
+    .txt-container{
+      width: 50%;
+      text-align: left;
+  
+      h1 {
+        margin: 0;
+        width: 100%;
+      }
+      p { width: 100% }
+    }
+    .img-container{
+      width: 50%;
+      object-fit: scale-down;
+      
+      img { @include size(600px) }
+    }
+  }
+}
+
+

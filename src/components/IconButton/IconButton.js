@@ -4,8 +4,11 @@ import { FaHeart, FaUserPlus, FaCloudDownloadAlt, FaSignOutAlt } from 'react-ico
 import './IconButton.scss';
 
 export const IconButton = ({ type }) => {
+  const action = type => {
+    alert('hi')
+  }
   return (
-    <div className={`icon-btn-container ${type}`}>
+    <div className={`icon-btn-container ${type}`} onClick={action}>
       {
         (type === 'love' && <FaHeart className="icon"/>) ||
         (type === 'follow' && <FaUserPlus className="icon" />) ||

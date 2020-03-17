@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Navbar } from './components';
-import { Home, Learn, Teach, Search, Room, Join, Profile, Login, SignUp, NotFound  } from './pages';
+import { Start, Home, Create, Room, Profile, Login, SignUp, NotFound } from './pages';
 
 
 export const App = () => {
@@ -13,17 +13,13 @@ export const App = () => {
         
         <Switch>
 
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={Start}/>
 
-          <Route path="/learn" component={Learn} />
+          <Route path="/home" component={Home} />
 
-          <Route path="/teach"  component={Teach} />
+          <Route path="/create"  component={Create} />
             
-          <Route path="/search" component={Search}/>
-
           <Route path="/room" component={Room}/>
-
-          <Route path="/join" component={Join}/> {/* Remove later */}
 
           <Route path="/profile" component={Profile}/>
 
