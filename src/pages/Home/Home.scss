@@ -1,35 +1,26 @@
 @import '../../styles';
 
-.homeBg{
-  @include flex-center;
-  background: url('../../img/home/home-bg.svg') center center;
-  background-size: cover;
-  height: 100vh;
-  position: relative;
-}
-.homecontent{
-  display: flex;
-  max-width: 1280px;
-  width: 100%;
-  font-size: 32px;
-  margin-top: 50px;
-  padding: 0 30px;
-    
-  .txt-container{
-    width: 50%;
-    text-align: left;
+.home-page-bg {
+  height: 100%;
+  padding: $nav-size 0;
 
-    h1 {
-      margin: 0;
-      width: 100%;
-    }
-    p { width: 100% }
+  .home-content {
+    box-sizing: content-box;
+    max-width: 1280px;
+    height: 100%;
+    margin: auto;
+    padding: 0 30px;
   }
-  .img-container{
-    width: 50%;
-    object-fit: scale-down;
-    
-    img { @include size(600px) }
+
+  .all-room {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: space-between;
   }
 }
 
+.CARD-XL {
+  @include size(100%, 450px);
+  background: $color-alt;
+  border-radius: 60px;
+}

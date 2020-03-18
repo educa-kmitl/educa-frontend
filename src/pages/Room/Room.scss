@@ -11,17 +11,34 @@
   max-width: 1280px;
   margin: auto;
 
-  .video-container {
-    @include fixed-size(830px, 640px);
+  .left-content {
     height: 100%;
-    background: $gradient;
-    border-radius: 30px;
 
-    .embed-video {
-      @include size(100%);
-      border: none;
-      border-radius: inherit;
+    .video-container {
+      @include fixed-size(830px, 640px);
+      height: 100%;
+      background: $gradient;
+      border-radius: 30px;
+  
+      .embed-video {
+        @include size(100%);
+        border: none;
+        border-radius: inherit;
+      }
     }
+
+    .menu-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .btn-group {
+        height: 160px;
+        display: flex;
+        align-items: center;
+      }
+    }
+    
   }
 
   .chat-container {

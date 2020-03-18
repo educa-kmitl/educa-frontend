@@ -1,37 +1,25 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Navbar } from './components';
-import { Home, Learn, Teach, Search, Room, Join, Profile, Login, SignUp, NotFound  } from './pages';
+import { Start, Home, Create, Room, Profile, Login, SignUp, NotFound } from './pages';
 
-const user = {
-  name: 'prayut007',
-  level: 44
-}
 
 export const App = () => {
 
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar user={user}/>
+        <Navbar />
         
         <Switch>
 
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={Start}/>
 
-          <Route path="/learn" render={
-            () => <Learn user={user}/>
-          }/>
+          <Route path="/home" component={Home} />
 
-          <Route path="/teach" render={
-            () => <Teach user={user}/>
-          }/>
+          <Route path="/create"  component={Create} />
             
-          <Route path="/search" component={Search}/>
-
           <Route path="/room" component={Room}/>
-
-          <Route path="/join" component={Join}/> {/* Remove later */}
 
           <Route path="/profile" component={Profile}/>
 

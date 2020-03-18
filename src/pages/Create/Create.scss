@@ -1,18 +1,18 @@
 @import '../../styles';
 
-.teach-page-bg {
-  background: url('../../img/teach/teach.svg') center center no-repeat; engine: "rework";
+.create-page-bg {
+  background: url('../../img/create/create.svg') center center no-repeat; engine: "rework";
   background-size: cover;
   height: $full-page;
   padding-top: $nav-size;
 
-  .teach-content {
+  .create-content {
     max-width: 1280px;
     height: 100%;
     margin: auto;
     padding: 0 30px;
 
-    .teach-form {
+    .create-form {
       @include flex-center(column);
       max-width: 410px;
       height: 70%;
