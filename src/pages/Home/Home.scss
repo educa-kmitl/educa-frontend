@@ -1,6 +1,8 @@
 @import '../../styles';
 
 .home-page-bg {
+  background: url('../../img/home/home-bg.svg') center center repeat;
+  background-size: cover;
   height: 100%;
   padding: $nav-size 0;
 
