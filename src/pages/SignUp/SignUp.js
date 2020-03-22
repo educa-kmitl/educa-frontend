@@ -19,7 +19,9 @@ export const SignUp = () => {
   const handleEmail = e => setEmail(e.target.value)
   const handleName = e => setName(e.target.value)
   const handlePassword = e => setPassword(e.target.value)
-  const handleSignup = () => {
+  const handleSignup = (event) => {
+    event.preventDefault()
+
     fetch(ENDPOINT + '/api/user/register', {
       method: 'POST',
       headers: {
@@ -33,10 +35,11 @@ export const SignUp = () => {
     })
       .then(res => res.json())
       .then(json => {
-        const { error, success } = json
+        const { error, user } = json
+        console.log(error, user)
         if (error) {
           alert('Email already exists')
-        } else if (success) {
+        } else if (user) {
           alert('Account Created!')
 
           fetch(ENDPOINT + '/api/user/login', {
@@ -57,6 +60,7 @@ export const SignUp = () => {
               } else if (user) {
                 console.log(user)
                 setAuth({ ...auth, data: user })
+                history.push("/home")
               }
             })
         }
