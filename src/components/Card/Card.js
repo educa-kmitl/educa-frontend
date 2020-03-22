@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Card.scss';
-import { UserContext } from '../../contexts';
+import { AuthContext } from '../../contexts';
 
 export const Card = ({ room })=>{
   const history = useHistory();
-  const [user, setUser] = useContext(UserContext);
+  const [auth, setAuth] = useContext(AuthContext);
 
   const enterRoom = e => {
     e.preventDefault();
-    history.push(`/room?name=${user.name}&room_id=${room.title}`)
+    history.push(`/room?name=${auth.data.name}&room_id=${room.title}`)
   }
 
     return(

@@ -9,3 +9,4 @@ export { ProfileBubble } from './ProfileBubble/ProfileBubble';
 export { Card } from './Card/Card';
 export { Chatbox } from './Chatbox/Chatbox';
 export { ChatInput } from './ChatInput/ChatInput';
+export { PrivateRoute } from './PrivateRoute/PrivateRoute';

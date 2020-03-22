@@ -10,7 +10,7 @@ export const Input = ({ icon, text, type, onChange, required }) => {
         className='input-field'
         placeholder={text}
         type={type}
-        onChange={(onChange) ? e => onChange(e.target.value) : null}
+        onChange={(onChange) ? e => onChange(e) : null}
         required={required}
       />
       {icon ? <Icon className="icon" /> : null}

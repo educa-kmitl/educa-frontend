@@ -2,17 +2,17 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import './Create.scss';
 import { Input, Dropdown, ToggleButton, Button } from '../../components';
-import { UserContext } from '../../contexts';
+import { AuthContext } from '../../contexts';
 
 export const Create = () => {
-  const [user, setUser] = useContext(UserContext);
+  const [auth, setAuth] = useContext(AuthContext);
   const [room, setRoom] = useState("")
   const [link, setLink] = useState("")
   const history = useHistory();
   
   const handleSubmit = e => {
     e.preventDefault();
-    history.push(`/room?name=${user.name}&room_id=${room}&link=${link}`)
+    history.push(`/room?name=${auth.data.name}&room_id=${room}&link=${link}`)
   }
 
   return (

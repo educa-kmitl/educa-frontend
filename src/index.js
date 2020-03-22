@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import { App } from './App';
-import { UserProvider } from './contexts';
+import { AuthProvider } from './contexts';
 
 ReactDOM.render(
-  <UserProvider>
+  <AuthProvider>
     <App />
-  </UserProvider>
+  </AuthProvider>
 , document.getElementById('root'));
