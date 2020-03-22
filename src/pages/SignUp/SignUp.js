@@ -1,29 +1,49 @@
 import React from 'react';
 import './SignUp.scss';
+
 import { Link } from 'react-router-dom';
+import { FaEnvelope, FaUserAlt, FaLock } from 'react-icons/fa';
 import { Input, Button } from '../../components';
+import startpic from '../../img/start/start.svg'
 
 export const SignUp = () => {
   return (
-    <div className="create-page-bg">
-      <div className="create-content">
-        <div className="create-form">
-          <header>Create Account</header>
-          <form onSubmit={() => alert('test')}>
-            <Input text="E-mail" type="text" required />
-            <Input text="Name" type="text" required />
-            <Input text="Password" type="text" required />
-            <Button alt text="Create" type="submit" />
-            <br />
-          </form>
-          <Link to="/login">
-            <label>Already have account?</label>
-          </Link>
+    <div className="signup-bg">
+      <div className="signup-content">
 
+        <div className="txt-container">
+          <form>
+            <header>Create Account</header>
+            <Input 
+              text="Email"
+              type="email"
+              icon={FaEnvelope}
+              required
+            />
+            <Input 
+              text="Username"
+              type="text"
+              icon={FaUserAlt}
+              required
+            />
+            <Input 
+              text="Password"
+              type="password"
+              icon={FaLock}
+              required
+            />
+            <footer>
+              <Button text="Create" type="submit"/>
+              <Link to="/login"><p>I have an account</p></Link>
+            </footer>
+          </form>
+        </div>
+
+        <div className="img-container">
+          <img src={startpic} alt="" />
         </div>
 
       </div>
-
     </div>
   );
 }

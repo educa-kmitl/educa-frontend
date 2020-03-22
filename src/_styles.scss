@@ -1,12 +1,16 @@
 
-$gradient: linear-gradient(60deg, #9233c3, #6d70da 70%);
+$gradient: linear-gradient(60deg, #EE438A 55%, #f7c438);
 $gradient-alt: linear-gradient(60deg, #ee428b 60%, #ffda00);
+$gradient-white: linear-gradient(white, #F3F4FA);
 
-$color: #4c4dc2;
+$color: #FF0062;
 $color-alt: #ee428b;
+$black: #252E38;
 
 $nav-size: 120px;
 $full-page: calc(100vh - #{$nav-size});
+
+@mixin shadow($blur: 15px) { box-shadow: 0 3px $blur rgba(0, 0, 0, 0.16) }
 
 @mixin border($stroke: 1px) {
   box-shadow: inset 0px 0px 0px $stroke $color;

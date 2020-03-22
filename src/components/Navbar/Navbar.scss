@@ -4,12 +4,14 @@ nav {
   z-index: 1000;
   position: fixed;
   width: 100%;
+  user-select: none;
 
   .nav-content {
     @include flex-center;
+    justify-content: space-between;
+    box-sizing: border-box;
     max-width: 1280px;
     width: 100%;
-    justify-content: space-between;
     height: $nav-size;
     margin: auto;
     padding: 0 30px;
@@ -19,13 +21,13 @@ nav {
       @include flex-center;
       
       img {
-        @include size(45px);
+        @include size(50px);
         margin-right: 5px;
       }
   
       p {
-        font-size: 22px;
-        font-weight: 700;
+        font-size: 24px;
+        font-weight: 500;
       }
     }
 

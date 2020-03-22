@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ProfileBubble } from '../';
 import './Navbar.scss';
-import logo from '../../img/logo.svg';
+import logo from '../../img/new-educa.svg';
 
 const pages = ['/home', '/create', '/profile'];
 

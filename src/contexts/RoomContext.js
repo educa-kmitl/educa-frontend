@@ -7,7 +7,20 @@ export const RoomProvider = (props) => {
     {
       name: 'Calculus',
       owner: 'guest',
-      video: 'https://www.youtube.com',
+      video: [
+        {
+          topic: 'matrix',
+          link: 'https://www.youtube.com'
+        },
+        {
+          topic: 'matrix',
+          link: 'https://www.youtube.com'
+        },
+        {
+          topic: 'matrix',
+          link: 'https://www.youtube.com'
+        }
+      ],
       userlist: [
         'guest',
         'friend1',

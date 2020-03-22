@@ -1,31 +1,44 @@
 @import '../../index.scss';
 
-.input-field {
-  background: $gradient;
-  color: white;
-  padding: 15px;
-  float: left;
-  width: 100%;
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: 22px;
-  font-weight: 400;
-  text-align: center;
-  border: none;
-  border-radius: 30px;
-  transition: .3s;
+.input-container {
+  position: relative;
 
-  &::placeholder {
-    color: white;
+  .input-field {
+    background: white;
+    float: left;
+    width: 100%;
+    height: 55px;
+    box-sizing: border-box;
+    padding: 0 40px 0 70px;
+    font-family: inherit;
+    font-size: 22px;
+    font-weight: 400;
+    border: 1px solid lightgrey;
+    border-radius: 30px;
+    transition: .2s;
+  
+    &::placeholder {
+      color: lightgrey;
+      user-select: none;
+    }
+  
+    &:focus {
+      outline: none;
+      border: 1px solid $color;
+  
+      &:hover { border: 1px solid $color }
+  
+      &::placeholder { color: transparent }
+    }
+  
+    &:hover { border: 1px solid $black }
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%; left: 15%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
     user-select: none;
   }
-
-  &:focus {
-    @include hover;
-    outline: none;
-
-    &::placeholder { color: transparent }
-  }
-
-  &:hover { @include hover }
 }

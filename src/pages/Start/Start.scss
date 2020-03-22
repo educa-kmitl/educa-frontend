@@ -2,33 +2,46 @@
 
 .start-bg {
   @include flex-center;
-  background: url('../../img/start/start-bg.svg') center center;
-  background-size: cover;
+  background: $gradient-white;
   height: 100vh;
+  overflow: hidden;
 
   .start-content {
+    box-sizing: border-box;
     display: flex;
     max-width: 1280px;
     width: 100%;
-    font-size: 32px;
-    margin-top: 50px;
     padding: 0 30px;
+    margin-top: $nav-size;
+    position: relative;
       
     .txt-container{
-      width: 50%;
-      text-align: left;
+      width: 40%;
+      margin-top: 15%;
+      position: absolute;
   
-      h1 {
-        margin: 0;
-        width: 100%;
+      header {
+        font-size: 70px;
+        font-weight: 500;
+
+        b { 
+          font-weight: inherit;
+          color: $color;
+        }
       }
-      p { width: 100% }
+      p { font-size: 24px }
+
+      .fix-margin { margin-left: -10px }
     }
-    .img-container{
-      width: 50%;
-      object-fit: scale-down;
+    .img-container {
+      text-align: right;
+      width: 100%;
       
-      img { @include size(600px) }
+      img { 
+        @include size(900px);
+        margin-right: -10%;
+        user-select: none;
+      }
     }
   }
 }

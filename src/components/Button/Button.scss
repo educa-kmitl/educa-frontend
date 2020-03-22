@@ -1,17 +1,18 @@
 @import '../../index.scss';
 
 .custom-btn {
-  $width: 190px;
+  $width: 145px;
   $height: 50px;
 
   @include fixed-size($width, $height);
+  @include shadow(10px);
   background: $gradient;
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 40px;
   font-family: inherit;
   font-size: 20px;
-  transition: .3s;
+  transition: .2s;
   cursor: pointer;
 
   .btn-content {
@@ -21,21 +22,15 @@
       pointer-events: none;
       user-select: none;
     }
-  
-    .icon { margin-left: 10px }
   }
   
 
   &:focus { outline: none }
 
-  &:hover { @include hover }
-
-  &.alt { 
-    background: $gradient-alt;
-    .btn-content {
-      label { font-weight: 600 }
-    }
+  &:hover { 
+    transform: scale(1.1);
   }
+
 }
 
 

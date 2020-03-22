@@ -1,28 +1,40 @@
 import React from 'react';
 import './Login.scss';
+
 import { Link } from 'react-router-dom';
+import { FaUserAlt, FaLock } from 'react-icons/fa';
 import { Input, Button } from '../../components';
-import { Home } from "../Home/Home";
+import startpic from '../../img/start/start.svg'
 
 export const Login = () => {
   return (
-    <div className="login-page-bg">
+    <div className="login-bg">
       <div className="login-content">
-        <div className="login-form">
-          <header>User Login</header>
-          <form onSubmit={Home}>
-            <Input text="E-mail" type="text" required />
-            <Input text="Password" type="password" required />
-            <Link to="/teach">
-              <Button alt text="Login" type="submit" />
-            </Link>
-            <br />
+
+        <div className="txt-container">
+          <form>
+            <header>Welcome</header>
+            <Input 
+              text="Username"
+              type="text"
+              icon={FaUserAlt}
+              required
+            />
+            <Input 
+              text="Password"
+              type="password"
+              icon={FaLock}
+              required
+            />
+            <footer>
+              <Button text="Login" type="submit"/>
+              <Link to="/signup"><p>Create your account</p></Link>
+            </footer>
           </form>
+        </div>
 
-          <Link to="/signup">
-            <label>Create Account</label>
-          </Link>
-
+        <div className="img-container">
+          <img src={startpic} alt="" />
         </div>
 
       </div>
