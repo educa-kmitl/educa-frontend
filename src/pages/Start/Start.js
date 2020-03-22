@@ -17,7 +17,7 @@ export const Start = () => {
             you can learn anything in one place. 
           </p>
           <div className="fix-margin">
-            <Link to="/login">
+            <Link to="/home">
               <Button text="Get Started" />
             </Link>
           </div>

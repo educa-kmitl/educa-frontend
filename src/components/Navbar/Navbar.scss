@@ -34,25 +34,20 @@ nav {
     ul {
       @include size(550px, 100%);
       @include flex-center;
-      justify-content: space-between;
+      justify-content: flex-end;
       list-style: none;
   
       li { 
         font-size: 22px;
         font-weight: 600;
-        text-transform: capitalize;
+        margin: 0 50px;
 
-        &:nth-child(1) a:hover { color: #62a0ee }
-        &:nth-child(2) a:hover { color: $color-alt }
-        &:nth-child(3) a:hover { color: #ffcf10 }
-
-        &:nth-child(1) a.active { color: #62a0ee }
-        &:nth-child(2) a.active { color: $color-alt }
-        &:nth-child(3) a.active { color: #ffcf10 }
+        a:hover { color: $color }
+        a.active { color: $color }
       }
   
       .profileicon {
-        @include size(45px);
+        @include size(50px);
         border-radius: 50%;
         background-color: $color;
         cursor: pointer;
@@ -77,6 +72,12 @@ nav {
       &:active { color: #9A5DDB }
     }  
   }
+
+  &.nav-bg {
+    @include shadow;
+    background: rgba(255, 255, 255, .95);
+  }
+
 }
 
 

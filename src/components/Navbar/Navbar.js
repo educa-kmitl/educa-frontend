@@ -4,16 +4,17 @@ import { ProfileBubble } from '../';
 import './Navbar.scss';
 import logo from '../../img/new-educa.svg';
 
-const pages = ['/home', '/create', '/profile'];
+const notShowPages = ['/', '/login', '/signup'];
 
 export const Navbar = () => {
   const [state, setState] = useState(false);
   const location = useLocation();
+  const showBG = !notShowPages.includes(location.pathname)
 
   const toggleBubble = () => setState(!state);
 
   return (
-    <nav>
+    <nav className={showBG ? 'nav-bg' : null}>
       <div className="nav-content">
         <NavLink to="/" style={{color: 'inherit'}}>
           <div className="logo">
@@ -23,11 +24,7 @@ export const Navbar = () => {
         </NavLink>
         
         { 
-          location.pathname !== '/' 
-          && location.pathname !== '/login' 
-          && location.pathname !== '/sigup'
-          && location.pathname !== '/room'
-          && pages.includes(location.pathname)
+          showBG
           &&
           <ul>
             <li>

@@ -2,6 +2,7 @@
 
 .input-container {
   position: relative;
+  
 
   .input-field {
     background: white;
@@ -32,13 +33,27 @@
     }
   
     &:hover { border: 1px solid $black }
+
+    &.disabled {
+      background: lightgrey;
+      border: 1px solid grey;
+
+      &::placeholder {
+        color: grey;
+        user-select: none;
+      }
+    }
   }
 
   .icon {
     position: absolute;
-    top: 50%; left: 15%;
+    top: 50%; left: 40px;
     transform: translate(-50%, -50%);
     font-size: 22px;
     user-select: none;
+
+    &.disabled {
+      color: grey;
+    }
   }
 }

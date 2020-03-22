@@ -1,38 +1,41 @@
 import React, { useState } from 'react'
 import './Dropdown.scss'
-import { FaAngleDown } from 'react-icons/fa'
-import { Button } from '../../components'
 
-export const Dropdown = ({ id, menus }) => {
+import { FaAngleDown, FaListUl } from 'react-icons/fa'
 
-  const [state, setState] = useState(menus[0])
+export const Dropdown = ({ onSelect, menus }) => {
 
-  const toggle = () => {
-    const content = document.querySelector(`#dd-content-${id}`)
-    const arrow = document.querySelector(`#dd-arrow-${id}`)
-    const overlay = document.querySelector(`#dd-overlay-${id}`)
+  const [value, setValue] = useState(menus[0])
+
+  const toggleDD = () => {
+    const content = document.querySelector('.dropdown-content')
+    const arrow = document.querySelector('.dropdown-arrow')
+    const overlay = document.querySelector('.dropdown-overlay')
     content.classList.toggle('active')
     arrow.classList.toggle('active')
     overlay.classList.toggle('active')
   }
 
   const select = e => {
-    setState(e.target.value)
-    toggle()
+    e.preventDefault();
+    const newValue = e.target.value
+    setValue(newValue)
+    onSelect(newValue)
   }
 
   return (
-    <div className='dropdown' id={`dd-${id}`}>
-      <Button text={state} onClick={toggle} />
-      <div className='dropdown-arrow' id={`dd-arrow-${id}`}>
+    <div className='dropdown' onClick={toggleDD}>
+      <FaListUl className="dd-icon" />
+      <p>{value}</p>
+      <div className='dropdown-arrow'>
         <FaAngleDown />
       </div>
-      <div className='dropdown-content' id={`dd-content-${id}`}>
+      <div className='dropdown-content'>
         {menus.map(menu =>
           <option className='item' id={menu} value={menu} onClick={e => select(e)}>{menu}</option>
         )}
       </div>
-      <div className='dropdown-overlay' id={`dd-overlay-${id}`} onClick={toggle}></div>
+      <option className='dropdown-overlay' value={value} onClick={e => select(e)}></option>
     </div>
   )
 }

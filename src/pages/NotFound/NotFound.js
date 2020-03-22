@@ -10,7 +10,7 @@ export const NotFound = () => {
       <div className="nf-svg"></div>
       <header>Hmm..</header>
       <p>we can't find the page you're looking for</p>
-      <Link to="/learn">
+      <Link to="/home">
         <Button alt text="Go back"></Button>
       </Link>
     </div>
