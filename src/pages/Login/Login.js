@@ -16,7 +16,9 @@ export const Login = () => {
 
   const handleEmail = e => setEmail(e.target.value)
   const handlePassword = e => setPassword(e.target.value)
-  const handleLogin = () => {
+  const handleLogin = (event) => {
+    event.preventDefault()
+
     fetch(ENDPOINT + '/api/user/login', {
       method: 'POST',
       headers: {
