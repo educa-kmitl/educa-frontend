@@ -20,7 +20,7 @@ export const ProfileBubble = ({ state, setState }) => {
 
   return (
     <div className={(state && 'bubble-container') || 'bubble-container hide'}>
-      <div class="content">
+      <div className="content">
         <div className="username">{auth.data ? auth.data.name : 'guest'}</div>
         <div className="level">LEVEL {auth.data ? auth.data.exp : 0}</div>
         <div className="exp"></div>

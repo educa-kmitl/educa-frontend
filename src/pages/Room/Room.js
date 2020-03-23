@@ -25,7 +25,7 @@ export const Room = () => {
     setRoomID(room_id)
     socket = io(ENDPOINT)
 
-    socket.emit('join', { room_id: roomID, name: auth.data.name }, () => {
+    socket.emit('join', { room_id, name: auth.data.name }, () => {
       console.log(`${auth.data.name} join room ${room_id}`)
     })
 
@@ -40,7 +40,7 @@ export const Room = () => {
     window.scrollTo(0, document.querySelector('.room-chat').scrollHeight);
 
     return () => {
-      socket.emit('disconnect', { room_id: roomID })
+      socket.emit('disconnect')
       socket.off()
     }
   }, [messages])
@@ -49,6 +49,7 @@ export const Room = () => {
     e.preventDefault()
 
     if (message !== '') {
+      console.log(roomID)
       socket.emit('sendMessage', { message, room_id: roomID, name: auth.data.name })
       setMessage('')
     }

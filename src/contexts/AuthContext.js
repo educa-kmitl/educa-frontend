@@ -6,7 +6,8 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({ loading: true, data: null })
 
   useEffect(() => {
-    setAuth({ loading: false, data: JSON.parse(window.localStorage.getItem("authData")) })
+    const data = window.localStorage.getItem("authData")
+    setAuth({ loading: false, data: data ? JSON.parse(data) : null })
   }, [])
 
   useEffect(() => {
@@ -15,5 +16,5 @@ export const AuthProvider = ({ children }) => {
 
   // a function that will help us to add the user data in the auth;
 
-  return <AuthContext.Provider value={[ auth, setAuth ]}>{children}</AuthContext.Provider>
+  return <AuthContext.Provider value={[auth, setAuth]}>{children}</AuthContext.Provider>
 }

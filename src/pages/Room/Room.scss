@@ -2,7 +2,7 @@
 .room-page-bg{
   background: $gradient-white;
   padding-top: $nav-size;
-  overflow-y: hidden;
+ // overflow-y: hidden;
 }
 .room-page-content {
   @include flex-center;
