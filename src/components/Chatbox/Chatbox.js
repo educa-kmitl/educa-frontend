@@ -1,13 +1,14 @@
-import React from 'react';
-import './Chatbox.scss';
-import { ChatInput } from '../../components';
+import React from 'react'
+import './Chatbox.scss'
 
-export const Chatbox = ({ roomOwner, roomID, message, setMessage, sendMessage, messages }) => {
+import { FaTelegramPlane } from 'react-icons/fa'
+
+export const Chatbox = ({ message, setMessage, sendMessage, messages }) => {
   return (
     <div className="chat-box">
       <div className="room-info">
-        <header>{roomID}</header>
-        <p>{roomOwner}</p>
+        <header>Chatbox</header>
+        <p>8 users in this chat</p>
       </div>
       <hr />
 
@@ -24,12 +25,19 @@ export const Chatbox = ({ roomOwner, roomID, message, setMessage, sendMessage, m
         ))}
         <div id="lastest-message"></div>
       </div>
-
-      <ChatInput 
-        message={message}
-        setMessage={setMessage}
-        sendMessage={sendMessage}
-      />
+      
+      <div className="chat-input">
+        <input
+          placeholder="Type message.."
+          type="text"
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          onKeyPress={e => e.key === 'Enter' ? sendMessage(e) : null}
+        />
+        <div className="icon-c" onClick={e => sendMessage(e)}>
+          <FaTelegramPlane className="icon" />
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,50 +1,136 @@
 @import '../../styles';
 .room-page-bg{
-  background: url('../../img/room/room-bg.svg') center center;
-  background-size: cover;
+  background: $gradient-white;
+  padding-top: $nav-size;
+  overflow-y: hidden;
 }
 .room-page-content {
   @include flex-center;
   align-items: flex-start;
-  padding: $nav-size 30px 0 30px;
+  box-sizing: border-box;
+  padding: 0 30px;
   height: $full-page;
   max-width: 1280px;
   margin: auto;
 
-  .left-content {
-    height: 100%;
+  .video-card {
+    @include flex-center(column);
+    @include fixed-size(830px, 750px);
+    @include shadow;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 40px;
 
-    .video-container {
+    .video {
       @include fixed-size(830px, 640px);
       height: 100%;
-      background: $gradient;
-      border-radius: 30px;
-  
-      .embed-video {
-        @include size(100%);
-        border: none;
-        border-radius: inherit;
-      }
+      background: $black;
+      border-radius: 40px 40px 0 0;
     }
 
-    .menu-btn {
-      display: flex;
+    .video-menu {
+      @include flex-center;
       justify-content: space-between;
-      align-items: center;
+      width: 100%;
+      height: calc(750px - 640px);
+      box-sizing: border-box;
+      padding: 50px;
+
+      .video-title {
+        height: calc(750px - 640px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .title {
+          font-size: 24px;
+          font-weight: 500;
+        }
+        .name {
+          margin-top: 5px;
+          font-size: 16px;
+          font-weight: 400;
+          color: $color;
+        }
+      }
 
       .btn-group {
-        height: 160px;
-        display: flex;
-        align-items: center;
+        @include flex-center;
+        width: 200px;
+        justify-content: space-between;
+
+        .btn {
+          @include fixed-size(50px);
+          position: relative;
+          font-size: 22px;
+          background: white;
+          border-radius: 50%;
+          transition: .2s;
+
+          .icon { @include abs-center; }
+
+          &:nth-child(1) { 
+            border: 2px solid $color;
+            color:  $color;
+          }
+          &:nth-child(2) { 
+            border: 2px solid #FBB91E;
+            color: #FBB91E;
+          }
+          &:nth-child(3) { 
+            border: 2px solid #7921AD;
+            color: #7921AD;
+          }
+
+          &:hover {
+            cursor: pointer;
+            transform: scale(1.1);
+          }
+        }
       }
     }
-    
   }
 
-  .chat-container {
-    @include fixed-size(450px, 800px);
-    height: 100%;
-    box-sizing: border-box;
-    padding: 0 20px;
+  .right-panel {
+
+    .course-card {
+      @include fixed-size(360px, 220px);
+      @include shadow;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: white;
+      border-radius: 40px;
+      margin-left: 30px;
+      box-sizing: border-box;
+      padding: 50px;
+  
+      .course-detail {
+        flex-wrap: wrap;
+  
+        .course-title {
+          font-size: 28px;
+          font-weight: 500;
+        }
+    
+        .course-count {
+          margin-top: 5px;
+          font-size: 20px;
+          color: lightgrey;
+        }
+      }
+  
+      footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-right: -7px;
+      }
+    }
+  
+    .chat-container {
+      @include fixed-size(360px, 800px);
+      margin: 30px;
+      box-sizing: border-box;
+    }
   }
 }

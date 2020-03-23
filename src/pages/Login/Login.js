@@ -69,7 +69,6 @@ export const Login = () => {
               <Link to="/signup"><p>Create your account</p></Link>
             </footer>
           </form>
-          <button onClick={()=>console.log(auth.data)}/>
         </div>
 
         <div className="img-container">

@@ -2,19 +2,28 @@ import React, { useState, useContext } from 'react'
 import './Create.scss'
 
 import { useHistory } from 'react-router-dom'
-import { FaBook, FaBookmark, FaLink, FaTrashAlt } from 'react-icons/fa'
+import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock } from 'react-icons/fa'
 import { Input, Dropdown, ToggleButton, Button } from '../../components'
 import { AuthContext } from '../../contexts'
 
+const defaultRoom = {
+  name: 'Title',
+  subject: 'Math',
+  video_source: [{ topic: 'Video title', link: '' }],
+  private: false
+}
+
 export const Create = () => {
+  const ENDPOINT = "http://localhost:5000" // Change Later
+
   const [auth, setAuth] = useContext(AuthContext)
-  const [room, setRoom] = useState({ video_source: [{ topic: '', link: '' }] })
-  const [link, setLink] = useState("")
+  const [room, setRoom] = useState(defaultRoom)
   const history = useHistory()
 
   const handleTitle = e => setRoom({ ...room, name: e.target.value })
   const handleSubject = e => setRoom({ ...room, subject: e })
   const handlePrivacy = e => setRoom({ ...room, private: e })
+  const handlePassword = e => setRoom({ ...room, password: e.target.value })
   const handleVideoTitle = (value, index) => {
     const newVideos = room.video_source
     newVideos[index].topic = value
@@ -27,7 +36,7 @@ export const Create = () => {
   }
   const addPlaylist = () => {
     const newVideos = room.video_source
-    newVideos.push({ topic: '', link: '' })
+    newVideos.push({ topic: 'Video title', link: '' })
     setRoom({ ...room, video_source: newVideos })
   }
   const delPlaylist = i => {
@@ -37,14 +46,31 @@ export const Create = () => {
   }
   const handleSubmit = e => {
     e.preventDefault();
-    history.push(`/room?name=${auth.data.name}&room_id=${room}&link=${link}`)
+
+    fetch(ENDPOINT + '/api/user/create', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(room)
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { room } = json
+        if (room) {
+          alert('Created!')
+          console.log(room)
+          history.push(`/room?room_id=${room.id}`)
+        }
+      })
+    
   }
 
   return (
     <div className="create-bg">
       <div className="create-content">
 
-        <form>
+        <form onSubmit={handleSubmit}>
           <header>Create Course</header>
           <Input
             text="Course title"
@@ -66,8 +92,8 @@ export const Create = () => {
               <Input
                 text="Password"
                 type="text"
-                onChange={handleTitle}
-                icon={FaBook}
+                onChange={handlePassword}
+                icon={FaLock}
                 required={room.private}
                 disabled={!room.private}
               />
@@ -83,8 +109,8 @@ export const Create = () => {
                   <label>{index + 1}. {video.topic}</label>
                   {
                     room.video_source.length > 1 ?
-                    <div id={index} className="del" onClick={(e) => delPlaylist(e.target.id)}><FaTrashAlt className="icon" /></div>
-                    : null
+                      <div id={index} className="del" onClick={(e) => delPlaylist(e.target.id)}><FaTrashAlt className="icon" /></div>
+                      : null
                   }
                 </span>
                 <Input
@@ -115,14 +141,14 @@ export const Create = () => {
 
         <div className="display-container">
           <div className="display-card">
-              <div className="img"></div>
-              <div className="detail">
-                <header>
-                  {room.name}<br/>
-                  <p>{room.subject} {room.video_source.length} video{room.video_source.length > 1 ? 's' : null}</p>
-                </header>
-                <footer>by {auth.data.name}</footer>
-              </div>
+            <div className="img"></div>
+            <div className="detail">
+              <header>
+                {room.private && <FaLock style={{ fontSize: '36px' }} />} {room.name}<br />
+                <p>{room.subject} {room.video_source.length} video{room.video_source.length > 1 ? 's' : null}</p>
+              </header>
+              <footer>by {auth.data.name}</footer>
+            </div>
           </div>
         </div>
 

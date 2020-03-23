@@ -4,7 +4,7 @@ import { ProfileBubble } from '../';
 import './Navbar.scss';
 import logo from '../../img/new-educa.svg';
 
-const notShowPages = ['/', '/login', '/signup'];
+const notShowPages = ['/', '/login', '/signup', '/room'];
 
 export const Navbar = () => {
   const [state, setState] = useState(false);

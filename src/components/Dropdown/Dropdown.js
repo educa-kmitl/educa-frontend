@@ -31,8 +31,8 @@ export const Dropdown = ({ onSelect, menus }) => {
         <FaAngleDown />
       </div>
       <div className='dropdown-content'>
-        {menus.map(menu =>
-          <option className='item' id={menu} value={menu} onClick={e => select(e)}>{menu}</option>
+        {menus.map((menu, index) =>
+          <option className='item' id={menu} key={index} value={menu} onClick={e => select(e)}>{menu}</option>
         )}
       </div>
       <option className='dropdown-overlay' value={value} onClick={e => select(e)}></option>
