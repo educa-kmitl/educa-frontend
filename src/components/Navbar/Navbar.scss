@@ -50,6 +50,7 @@ nav {
         @include size(50px);
         border-radius: 50%;
         background-color: $color;
+        background-image: url(../../img/Profile/ProfileM-4.svg) ;
         cursor: pointer;
       }
     }
