@@ -2,7 +2,7 @@
 .room-page-bg{
   background: $gradient-white;
   padding-top: $nav-size;
- // overflow-y: hidden;
+  overflow-y: hidden;
 }
 .room-page-content {
   @include flex-center;
@@ -23,9 +23,14 @@
 
     .video {
       @include fixed-size(830px, 640px);
-      height: 100%;
       background: $black;
       border-radius: 40px 40px 0 0;
+
+      .embed-video {
+        @include fixed-size(830px, 640px);
+        border-radius: inherit;
+        border: none;
+      }
     }
 
     .video-menu {
@@ -104,6 +109,7 @@
       margin-left: 30px;
       box-sizing: border-box;
       padding: 50px;
+      position: relative;
   
       .course-detail {
         flex-wrap: wrap;
@@ -119,12 +125,14 @@
           color: lightgrey;
         }
       }
-  
+
       footer {
         display: flex;
         justify-content: flex-end;
+        margin-top: 20px;
         margin-right: -7px;
       }
+  
     }
   
     .chat-container {

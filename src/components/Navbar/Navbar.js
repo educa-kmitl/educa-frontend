@@ -16,7 +16,7 @@ export const Navbar = () => {
   return (
     <nav className={showBG ? 'nav-bg' : null}>
       <div className="nav-content">
-        <NavLink to="/" style={{color: 'inherit'}}>
+        <NavLink to="/home" style={{color: 'inherit'}}>
           <div className="logo">
             <img src={logo} alt=""/>
             <p>EDUCA</p>

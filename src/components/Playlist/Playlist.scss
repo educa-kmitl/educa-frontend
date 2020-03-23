@@ -1,0 +1,77 @@
+@import '../../styles';
+
+.float-playlist {
+  @include fixed-size(360px, 750px);
+  @include shadow;
+  z-index: 50;
+  transform: translate(-50%, 0) scale(0);
+  position: absolute;
+  top: -100%; left: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  border-radius: 40px;
+  box-sizing: border-box;
+  padding: 50px;
+  transition: ease-out .2s;
+
+  &.active {
+    transform: translate(-50%, 0) scale(1);
+    top: 0; left: 50%;
+  }
+
+  .float-detail {
+    flex-wrap: wrap;
+
+    .float-title {
+      font-size: 28px;
+      font-weight: 500;
+    }
+
+    .float-count {
+      margin-top: 5px;
+      font-size: 20px;
+      color: lightgrey;
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    margin-left: 0;
+    transition: .2s;
+    cursor: pointer;
+
+    .list {
+      pointer-events: none;
+      font-size: 20px;
+      line-height: 150%;
+      margin-left: 32px;
+      
+      &.active {
+        margin-left: 10px;
+        color: $color;
+      }
+    }
+    .play-icon {
+      @include fixed-size(22px);
+    }
+
+    &:hover {
+      margin-left: 10px;
+    }
+  }
+
+  footer {
+    margin-left: -7px;
+  }
+}
+
+.playlist-overlay {
+  @include fixed-size(100vw, 100vh);
+  z-index: 49;
+  position: fixed;
+  top: 0; left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}

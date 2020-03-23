@@ -15,7 +15,7 @@ export const Chatbox = ({ message, setMessage, sendMessage, messages }) => {
       <div className="room-chat">
         {messages.map((message, index) => (
           <div key={index}>
-            <p className="chat-box-message">
+            <p className={(message.name!=='s3rver') ? 'chat-box-message' : 'chat-box-message server'}>
               <span className="username">
                 {(message.name!=='s3rver') ? `${message.name}: ` : null}
               </span>
@@ -23,7 +23,6 @@ export const Chatbox = ({ message, setMessage, sendMessage, messages }) => {
             </p>
           </div>
         ))}
-        <div id="lastest-message"></div>
       </div>
       
       <div className="chat-input">
