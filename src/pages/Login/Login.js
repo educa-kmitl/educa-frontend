@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import './Login.scss'
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FaEnvelope, FaLock } from 'react-icons/fa'
 import { Input, Button } from '../../components'
 import { AuthContext } from '../../contexts'
@@ -9,6 +9,7 @@ import startpic from '../../img/start/start.svg'
 
 export const Login = () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
+  const history = useHistory();
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -35,9 +36,9 @@ export const Login = () => {
         if (error) {
           alert('Invalid Email or Password :(')
         } else if (user) {
-          console.log(user)
-          alert('Logined!')
           setAuth({...auth, data: user})
+          alert('Logined!')
+          history.push('/home')
         }
       })
   }
@@ -68,7 +69,6 @@ export const Login = () => {
               <Link to="/signup"><p>Create your account</p></Link>
             </footer>
           </form>
-          <button onClick={()=>console.log(auth.data)}/>
         </div>
 
         <div className="img-container">

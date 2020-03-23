@@ -1,24 +1,20 @@
-import React, { useState } from 'react';
-import './ToggleButton.scss';
-import { FaGlobeAmericas, FaLock } from "react-icons/fa";
+import React, { useState } from 'react'
+import './ToggleButton.scss'
 
-export const ToggleButton = ({ on, off }) => {
-  const [state, setState] = useState(false);
+export const ToggleButton = ({ init, onToggle }) => {
+  const [state, setState] = useState(init || false)
 
   const toggle = () => {
-    const btn = document.querySelector('.toggle-btn');
-    btn.classList.toggle('active');
-    setState(!state);
+    const btn = document.querySelector('.toggle-btn')
+    btn.classList.toggle('active')
+    const nextState = !state
+    setState(nextState)
+    onToggle(nextState)
   }
 
   return (
-    <div className="toggle-btn" onClick={toggle}>
-      <div className="label">{ (state) ? on : off }</div>
-      <div className="circle">
-        {(state) ? <FaLock className="icon-check"/>
-          : <FaGlobeAmericas className="icon-check"/>
-        }
-      </div>
+    <div className={state ? 'toggle-btn active' : 'toggle-btn'} onClick={toggle}>
+      <div className="circle"></div>
     </div>
   );
 }

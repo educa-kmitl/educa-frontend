@@ -7,6 +7,7 @@
   .nf-svg {
     @include size(800px, 500px);
     background: url('../../img/notfound/notfound.svg') center center no-repeat;
+    margin-top: 5%;
   }
 
   header {
