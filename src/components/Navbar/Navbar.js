@@ -4,28 +4,27 @@ import { ProfileBubble } from '../';
 import './Navbar.scss';
 import logo from '../../img/new-educa.svg';
 
-const notShowPages = ['/', '/login', '/signup', '/room'];
+const ShowPages = ['/home', '/create', '/ranking', '/profile'];
 
 export const Navbar = () => {
   const [state, setState] = useState(false);
   const location = useLocation();
-  const showBG = !notShowPages.includes(location.pathname)
+  const showBG = ShowPages.includes(location.pathname)
 
   const toggleBubble = () => setState(!state);
 
   return (
     <nav className={showBG ? 'nav-bg' : null}>
       <div className="nav-content">
-        <NavLink to="/home" style={{color: 'inherit'}}>
+        <NavLink to="/home" style={{ color: 'inherit' }}>
           <div className="logo">
-            <img src={logo} alt=""/>
+            <img src={logo} alt="" />
             <p>EDUCA</p>
           </div>
         </NavLink>
-        
-        { 
-          showBG
-          &&
+
+        {
+          showBG &&
           <ul>
             <li>
               <NavLink to="/home" className="nav-link">Home</NavLink>
@@ -33,11 +32,11 @@ export const Navbar = () => {
             <li>
               <NavLink to="/ranking" className="nav-link">Ranking</NavLink>
             </li>
-            
+
             <div className="profileicon" onClick={toggleBubble}></div>
           </ul>
-          }
-          <ProfileBubble state={state} setState={setState}/>
+        }
+        <ProfileBubble state={state} setState={setState} />
       </div>
     </nav>
   );
