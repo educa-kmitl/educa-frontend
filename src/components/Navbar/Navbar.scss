@@ -47,10 +47,11 @@ nav {
       }
   
       .profileicon {
-        @include size(50px);
+        @include size(60px);
         border-radius: 50%;
         background-color: $color;
         cursor: pointer;
+        overflow: hidden;
       }
     }
     

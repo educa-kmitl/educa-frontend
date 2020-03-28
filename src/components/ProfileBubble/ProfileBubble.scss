@@ -5,7 +5,8 @@
   background: url('../../img/profile-bubble.svg') no-repeat center;
   background-size: cover;
   position: absolute;
-  top: 70px; right: -78px;
+  transform: translate(-50%, 0) scaleY(1);
+  top: 70%; right: -200px;
   z-index: 10;
   transition: .2s;
 
@@ -49,10 +50,9 @@
   }
 
   &.hide {
-    @extend .bubble-container;
     opacity: 0;
-    height: 0;
-    transform: scale(0);
+    top: 60%;
+    pointer-events: none;
   }
 
   .profile-overlay {
@@ -70,26 +70,5 @@
     }
   }
 
-  &.hide {
-    @extend .bubble-container;
-    opacity: 0;
-    height: 0;
-    transform: scale(0);
-  }
-
-  .profile-overlay {
-    pointer-events: none;
-    z-index: 9;
-    position: fixed;
-    background: none;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100%;
-
-    &.active {
-      pointer-events: all;
-    }
-  }
 }
 

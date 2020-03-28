@@ -34,7 +34,8 @@ export const SignUp = () => {
         role: form.role,
         email: form.email,
         name: form.name,
-        password: form.password
+        password: form.password,
+        profile_icon: Math.floor(Math.random() * 10)
       })
     })
       .then(res => res.json())
