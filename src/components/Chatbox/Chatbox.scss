@@ -1,7 +1,7 @@
 @import '../../index.scss';
 
 .chat-box {
-  @include fixed-size(100%, 500px);
+  @include size(100%, 100%);
   @include shadow;
   box-sizing: border-box;
   padding: 50px;

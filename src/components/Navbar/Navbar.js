@@ -31,7 +31,7 @@ export const Navbar = () => {
               <NavLink to="/home" className="nav-link">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/create" className="nav-link">Create</NavLink>
+              <NavLink to="/ranking" className="nav-link">Ranking</NavLink>
             </li>
             
             <div className="profileicon" onClick={toggleBubble}></div>

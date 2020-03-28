@@ -113,6 +113,24 @@
           }
         }
       }
+
+      span {
+        @include flex-center;
+        justify-content: flex-start;
+
+        .cancel {
+          font-size: 20px;
+          margin-left: 40px;
+          user-select: none;
+          transition: .2s;
+
+          &:hover {
+            color: $color;
+            cursor: pointer;
+            transform: scale(1.1);
+          }
+        }
+      }
     }
 
     .display-container {

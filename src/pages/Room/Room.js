@@ -57,7 +57,6 @@ export const Room = () => {
     lastest.scrollTop = lastest.scrollHeight
 
     return () => {
-      // socket.emit('disconnect', { room_id: roomID, name: auth.data.name })
       socket.emit('disconnect')
       socket.off()
     }

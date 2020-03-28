@@ -1,24 +1,27 @@
 import React, { useState, useContext } from 'react'
 import './SignUp.scss'
 
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FaEnvelope, FaUserAlt, FaLock } from 'react-icons/fa'
-import { Input, Button } from '../../components'
+import { Input, Button, Radiobutton } from '../../components'
 import { AuthContext } from '../../contexts'
 import startpic from '../../img/start/start.svg'
 
 export const SignUp = () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
-  const history = useHistory();
 
-  const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
-  const [password, setPassword] = useState('')
   const [auth, setAuth] = useContext(AuthContext);
+  const [form, setForm] = useState({
+    role: false,
+    email: '',
+    name: '',
+    password: ''
+  })
 
-  const handleEmail = e => setEmail(e.target.value)
-  const handleName = e => setName(e.target.value)
-  const handlePassword = e => setPassword(e.target.value)
+  const handleRole = value => setForm({ ...form, role: value === 'Teacher' })
+  const handleEmail = e => setForm({ ...form, email: e.target.value })
+  const handleName = e => setForm({ ...form, name: e.target.value })
+  const handlePassword = e => setForm({ ...form, password: e.target.value })
   const handleSignup = (event) => {
     event.preventDefault()
 
@@ -28,9 +31,10 @@ export const SignUp = () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email,
-        name,
-        password
+        role: form.role,
+        email: form.email,
+        name: form.name,
+        password: form.password
       })
     })
       .then(res => res.json())
@@ -48,8 +52,8 @@ export const SignUp = () => {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              email,
-              password
+              email: form.email,
+              password: form.password
             })
           })
             .then(res => res.json())
@@ -60,7 +64,7 @@ export const SignUp = () => {
               } else if (user) {
                 console.log(user)
                 setAuth({ ...auth, data: user })
-                history.push("/home")
+                window.location = "/home"
               }
             })
         }
@@ -74,6 +78,14 @@ export const SignUp = () => {
         <div className="txt-container">
           <form onSubmit={handleSignup}>
             <header>Create Account</header>
+            <div className="radio-group">
+              <div className="rb">
+                <Radiobutton text="Student" group="role" onClick={handleRole} form={form} checked />
+              </div>
+              <div className="rb">
+                <Radiobutton text="Teacher" group="role" onClick={handleRole} form={form} />
+              </div>
+            </div>
             <Input
               text="Email"
               type="email"

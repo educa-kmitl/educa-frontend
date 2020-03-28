@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import './Create.scss'
 
-import { useHistory } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock } from 'react-icons/fa'
 import { Input, Dropdown, ToggleButton, Button } from '../../components'
 import { AuthContext } from '../../contexts'
@@ -52,7 +52,7 @@ export const Create = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(room)
+      body: JSON.stringify({ ...room, teacher_id: auth.data.id })
     })
       .then(res => res.json())
       .then(json => {
@@ -63,7 +63,7 @@ export const Create = () => {
           history.push(`/room?room_id=${room.id}`)
         }
       })
-    
+
   }
 
   return (
@@ -99,17 +99,24 @@ export const Create = () => {
               />
             </div>
           </div>
-          <label className="head" onClick={() => console.log(room)}>Playlist</label>
+          <label className="head">Playlist</label>
           <hr />
           <div className="playlist">
 
             {room.video_source.map((video, index) =>
-              <div className="item" id={index}>
+              <div className="item" id={index} key={index}>
                 <span>
                   <label>{index + 1}. {video.topic}</label>
                   {
                     room.video_source.length > 1 ?
-                      <div id={index} className="del" onClick={(e) => delPlaylist(e.target.id)}><FaTrashAlt className="icon" /></div>
+                      <div
+                        id={index}
+                        key={index}
+                        className="del"
+                        onClick={(e) => delPlaylist(e.target.id)}
+                      >
+                        <FaTrashAlt className="icon" />
+                      </div>
                       : null
                   }
                 </span>
@@ -136,7 +143,10 @@ export const Create = () => {
           </div>
           <hr />
 
-          <Button text="EDUCA" type="submit" />
+          <span>
+            <Button text="EDUCA" type="submit" />
+            <Link to="/home"><div className="cancel">Cancel</div></Link>
+          </span>
         </form>
 
         <div className="display-container">
