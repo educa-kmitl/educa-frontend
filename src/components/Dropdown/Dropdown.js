@@ -3,39 +3,45 @@ import './Dropdown.scss'
 
 import { FaAngleDown, FaListUl } from 'react-icons/fa'
 
-export const Dropdown = ({ onSelect, menus }) => {
+export const Dropdown = ({ onSelect, items }) => {
+  const [value, setValue] = useState(items[0])
 
-  const [value, setValue] = useState(menus[0])
-
-  const toggleDD = () => {
-    const content = document.querySelector('.dropdown-content')
-    const arrow = document.querySelector('.dropdown-arrow')
-    const overlay = document.querySelector('.dropdown-overlay')
-    content.classList.toggle('active')
-    arrow.classList.toggle('active')
-    overlay.classList.toggle('active')
+  const handleToggle = () => {
+    document.querySelector('.dd-box').classList.toggle('active')
+    document.querySelector('.dd-arrow').classList.toggle('active')
+    document.querySelector('.dd-overlay').classList.toggle('active')
   }
 
-  const select = e => {
-    e.preventDefault();
+  const handleSelect = e => {
     const newValue = e.target.value
     setValue(newValue)
     onSelect(newValue)
   }
 
   return (
-    <div className='dropdown' onClick={toggleDD}>
-      <FaListUl className="dd-icon" />
-      <p>{value}</p>
-      <div className='dropdown-arrow'>
-        <FaAngleDown />
-      </div>
-      <div className='dropdown-content'>
-        {menus.map((menu, index) =>
-          <option className='item' id={menu} key={index} value={menu} onClick={e => select(e)}>{menu}</option>
+    <div className='my-dropdown' onClick={handleToggle}>
+      <FaListUl className='icon' />
+      <text>{value}</text>
+      <FaAngleDown className='dd-arrow' />
+
+      <div className='dd-box'>
+        {items.map((item, index) =>
+          <option
+            key={index}
+            value={item}
+            className='item'
+            onClick={e => handleSelect(e)}
+          >
+            {item}
+          </option>
         )}
       </div>
-      <option className='dropdown-overlay' value={value} onClick={e => select(e)}></option>
+
+      <option
+        value={value}
+        className='dd-overlay'
+        onClick={e => handleSelect(e)}
+      ></option>
     </div>
   )
 }

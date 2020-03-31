@@ -1,19 +1,17 @@
-import React, { useState, useContext } from 'react'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import './Card.scss'
 
-import { Input, Button } from '../'
-import { useHistory } from 'react-router-dom'
-import { AuthContext } from '../../contexts'
 import { FaLock } from 'react-icons/fa'
+import { Input, Button } from '../'
 
 export const Card = ({ room }) => {
   const ENDPOINT = "http://localhost:5000" // Change Later
-
   const history = useHistory()
-  const [auth, setAuth] = useContext(AuthContext)
+
   const [password, setPassword] = useState('')
 
-  const enterRoom = e => {
+  const enterRoom = () => {
     if (room.private) {
       const overlay = document.querySelector(`#pw-room-${room.id}`)
       overlay.classList.toggle('hide')
@@ -22,7 +20,7 @@ export const Card = ({ room }) => {
     }
   }
 
-  const handlePassword = e => setPassword(e.target.value)
+  const handlePassword = value => setPassword(value)
   const handlePrivacy = e => {
     e.preventDefault()
 
@@ -40,7 +38,6 @@ export const Card = ({ room }) => {
       .then(json => {
         const { success } = json
         if (success) {
-          alert('Great!')
           history.push(`/room?room_id=${room.id}`)
         } else {
           alert('Wrong!')
@@ -78,9 +75,9 @@ export const Card = ({ room }) => {
         <form className="dialog-box" onSubmit={handlePrivacy} name={`pw-room-${room.id}`}>
           <header>It's Locked!</header>
           <Input 
+            Icon={FaLock} 
             text="Enter password" 
             type="password" 
-            icon={FaLock} 
             onChange={handlePassword} 
             required 
           />

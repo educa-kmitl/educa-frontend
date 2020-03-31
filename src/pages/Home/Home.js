@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom'
 export const Home = () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
 
-  const [auth, setAuth] = useContext(AuthContext)
+  const [auth] = useContext(AuthContext)
   const [roomList, setRoomList] = useState([])
   const [filter, setFilter] = useState('')
 
@@ -45,7 +45,7 @@ export const Home = () => {
           }
         })
     }
-  }, [])
+  })
 
   const handleSearch = e => setFilter(e.target.value)
   const filterRoom = () => {
@@ -72,7 +72,7 @@ export const Home = () => {
         </div>
 
         <div className="all-room">
-          {filterRoom().map(room => <Card room={room} />)}
+          {filterRoom().map((room, index) => <Card key={index} room={room} />)}
         </div>
       </div>
 

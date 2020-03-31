@@ -1,11 +1,8 @@
-@import '../../index.scss';
+@import "../../styles";
 
-.custom-btn {
-  $width: 145px;
-  $height: 50px;
-
-  @include fixed-size($width, $height);
-  @include shadow(10px);
+.my-btn {
+  @include size(145px, 50px);
+  @include shadow;
   background: $gradient;
   color: white;
   border: none;
@@ -15,26 +12,16 @@
   transition: .2s;
   cursor: pointer;
 
-  .btn-content {
-    @include flex-center;
-
-    label {
-      pointer-events: none;
-      user-select: none;
-    }
+  &:focus {
+    outline: none;
   }
-  
 
-  &:focus { outline: none }
-
-  &:hover { 
+  &:hover {
     transform: scale(1.1);
   }
 
+  label {
+    pointer-events: none;
+    user-select: none;
+  }
 }
-
-
-
-
-
-

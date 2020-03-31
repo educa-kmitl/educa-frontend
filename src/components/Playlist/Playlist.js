@@ -23,8 +23,8 @@ export const Playlist = ({ show, setShow, roomData, playing, setPlaying }) => {
           <div style={{ overflowY: 'scroll', overflowX: 'hidden' }}>
             {videos.map((video, index) => 
               <span key={index} id={index} onClick={e => changePlaylist(e.target.id)}>
-                {playing == index && <img className="play-icon" src={play} alt="" />}
-                <label className={playing == index ? 'list active' : 'list'}>{index + 1}. {video.topic}</label>
+                {playing === index && <img className="play-icon" src={play} alt="" />}
+                <label className={playing === index ? 'list active' : 'list'}>{index + 1}. {video.topic}</label>
               </span>
             )}
           </div>

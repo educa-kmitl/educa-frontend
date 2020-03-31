@@ -1,26 +1,24 @@
-import React from 'react';
-import './Start.scss';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import './Start.scss'
 
-import { Link } from 'react-router-dom';
-import { Button } from '../../components';
-import startpic from '../../img/start/start.svg';
+import { Button } from '../../components'
+import startpic from '../../img/start/start.svg'
 
 export const Start = () => {
   return (
     <div className="start-bg">
-      <div className="start-content">
+      <div className="content">
 
         <div className="txt-container">
           <header>Hello! <b>Educa</b></header>
           <p>
             With our learning platform <br />
-            you can learn anything in one place. 
+            you can learn anything in one place.
           </p>
-          <div className="fix-margin">
-            <Link to="/home">
-              <Button text="Get Started" />
-            </Link>
-          </div>
+          <Link to="/home" className="fix-margin">
+            <Button text="Get Started" />
+          </Link>
         </div>
 
         <div className="img-container">
@@ -29,5 +27,5 @@ export const Start = () => {
 
       </div>
     </div>
-  );
+  )
 }

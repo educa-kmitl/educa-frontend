@@ -3,21 +3,20 @@ import './Radiobutton.scss'
 
 export const Radiobutton = ({ text, group, onClick, checked }) => {
   const handleCheck = () => {
-    const rb = document.querySelector(`#rb-${text}`)
-    rb.checked = true
-    onClick(rb.value)
+    const radio = document.querySelector(`#radio-${text}`)
+    radio.checked = true;
+    onClick(radio.value)
   }
-
   return (
-    <div className="radio-container" onClick={handleCheck}>
-      <input 
-        type="radio" 
-        name={group}
-        id={`rb-${text}`}
+    <div className='my-radio' onClick={handleCheck}>
+      <input
+        id={`radio-${text}`}
+        type='radio'
         value={text}
+        name={group}
         defaultChecked={checked}
       />
-      <label>{text}</label>
+      <text>{text}</text>
     </div>
   )
 }

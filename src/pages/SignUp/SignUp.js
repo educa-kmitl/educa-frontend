@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { AuthContext } from '../../contexts'
 import './SignUp.scss'
 
-import { Link } from 'react-router-dom'
 import { FaEnvelope, FaUserAlt, FaLock } from 'react-icons/fa'
 import { Input, Button, Radiobutton } from '../../components'
-import { AuthContext } from '../../contexts'
 import startpic from '../../img/start/start.svg'
 
 export const SignUp = () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
+  const history = useHistory()
 
-  const [auth, setAuth] = useContext(AuthContext);
+  const [auth, setAuth] = useContext(AuthContext)
   const [form, setForm] = useState({
     role: false,
     email: '',
@@ -19,11 +20,11 @@ export const SignUp = () => {
   })
 
   const handleRole = value => setForm({ ...form, role: value === 'Teacher' })
-  const handleEmail = e => setForm({ ...form, email: e.target.value })
-  const handleName = e => setForm({ ...form, name: e.target.value })
-  const handlePassword = e => setForm({ ...form, password: e.target.value })
-  const handleSignup = (event) => {
-    event.preventDefault()
+  const handleEmail = value => setForm({ ...form, email: value })
+  const handleName = value => setForm({ ...form, name: value })
+  const handlePassword = value => setForm({ ...form, password: value })
+  const handleSignup = (e) => {
+    e.preventDefault()
 
     fetch(ENDPOINT + '/api/user/register', {
       method: 'POST',
@@ -45,7 +46,6 @@ export const SignUp = () => {
         if (error) {
           alert('Email already exists')
         } else if (user) {
-          alert('Account Created!')
 
           fetch(ENDPOINT + '/api/user/login', {
             method: 'POST',
@@ -65,7 +65,7 @@ export const SignUp = () => {
               } else if (user) {
                 console.log(user)
                 setAuth({ ...auth, data: user })
-                window.location = "/home"
+                history.push('/home')
               }
             })
         }
@@ -88,23 +88,23 @@ export const SignUp = () => {
               </div>
             </div>
             <Input
+              Icon={FaEnvelope}
               text="Email"
               type="email"
-              icon={FaEnvelope}
               onChange={handleEmail}
               required
             />
             <Input
+              Icon={FaUserAlt}
               text="Your name"
               type="text"
-              icon={FaUserAlt}
               onChange={handleName}
               required
             />
             <Input
+              Icon={FaLock}
               text="Password"
               type="password"
-              icon={FaLock}
               onChange={handlePassword}
               required
             />

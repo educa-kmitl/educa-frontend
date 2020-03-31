@@ -20,7 +20,7 @@ const defaultRoom = {
 export const Room = () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
 
-  const [auth, setAuth] = useContext(AuthContext)
+  const [auth] = useContext(AuthContext)
   const [roomData, setRoomData] = useState(defaultRoom)
   const [roomID, setRoomID] = useState(-1)
   const [show, setShow] = useState(false)

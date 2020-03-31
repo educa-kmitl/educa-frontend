@@ -16,14 +16,14 @@ const defaultRoom = {
 export const Create = () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
 
-  const [auth, setAuth] = useContext(AuthContext)
+  const [auth] = useContext(AuthContext)
   const [room, setRoom] = useState(defaultRoom)
   const history = useHistory()
 
-  const handleTitle = e => setRoom({ ...room, name: e.target.value })
-  const handleSubject = e => setRoom({ ...room, subject: e })
-  const handlePrivacy = e => setRoom({ ...room, private: e })
-  const handlePassword = e => setRoom({ ...room, password: e.target.value })
+  const handleTitle = value => setRoom({ ...room, name: value })
+  const handleSubject = value => setRoom({ ...room, subject: value })
+  const handlePrivacy = value => setRoom({ ...room, private: value })
+  const handlePassword = value => setRoom({ ...room, password: value })
   const handleVideoTitle = (value, index) => {
     const newVideos = room.video_source
     newVideos[index].topic = value
@@ -70,19 +70,19 @@ export const Create = () => {
     <div className="create-bg">
       <div className="create-content">
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <header>Create Course</header>
           <Input
             text="Course title"
             type="text"
             onChange={handleTitle}
-            icon={FaBook}
+            Icon={FaBook}
             required
           />
           <div className="row">
             <div className="column">
               <label className="head">Subject</label>
-              <Dropdown onSelect={handleSubject} menus={['Math', 'Science', 'English', 'Computer']} />
+              <Dropdown onSelect={handleSubject} items={['Math', 'Science', 'English', 'Computer']} />
             </div>
             <div className="column">
               <span style={{ display: 'flex', alignItems: 'flex-start' }}>
@@ -93,7 +93,7 @@ export const Create = () => {
                 text="Password"
                 type="text"
                 onChange={handlePassword}
-                icon={FaLock}
+                Icon={FaLock}
                 required={room.private}
                 disabled={!room.private}
               />
@@ -125,7 +125,7 @@ export const Create = () => {
                   type="link"
                   onChange2={handleVideoTitle}
                   index={index}
-                  icon={FaBookmark}
+                  Icon={FaBookmark}
                   required
                 />
                 <Input
@@ -133,7 +133,7 @@ export const Create = () => {
                   type="url"
                   onChange2={handleVideoLink}
                   index={index}
-                  icon={FaLink}
+                  Icon={FaLink}
                   required
                 />
               </div>

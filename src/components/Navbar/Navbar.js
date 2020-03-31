@@ -10,7 +10,7 @@ import { AuthContext } from '../../contexts'
 const ShowPages = ['/home', '/create', '/ranking', '/profile']
 
 export const Navbar = () => {
-  const [auth, setAuth] = useContext(AuthContext)
+  const [auth] = useContext(AuthContext)
   const [state, setState] = useState(false)
   const location = useLocation();
   const showBG = ShowPages.includes(location.pathname)

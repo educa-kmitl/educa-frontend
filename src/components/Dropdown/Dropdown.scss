@@ -1,61 +1,58 @@
-@import '../../index.scss';
+@import '../../styles';
 
-.dropdown {
-  width: 100%;
-  height: 55px;
-  box-sizing: border-box;
+.my-dropdown {
+  @include size(100%, 55px);
   background: white;
   border: 1px solid lightgrey;
   border-radius: 40px;
   position: relative;
   transition: .2s;
 
-  &:hover { border: 1px solid $black }
-
-  .dd-icon {
-    @include abs-center;
-    font-size: 22px;
-    left: 40px;
+  &:hover {
+    border: 1px solid $black;
   }
 
-  p {
-    position: absolute;
-    transform: translate(0, -50%);
-    top: 50%; left: 70px;
-    margin: 0;
+  .icon {
+    @include abs-center;
+    left: 40px;
     font-size: 22px;
-    font-weight: 400;
+  }
+
+  text {
+    @include abs-center;
+    transform: translate(0, -50%);
+    left: 70px;
+    font-size: 22px;
     user-select: none;
   }
 
-  .dropdown-arrow {
+  .dd-arrow {
+    @include abs-center;
+    left: calc(100% - 40px);
     font-size: 22px;
-    font-weight: bold;
-    position: absolute;
-    transform: translate(-50%, -35%) rotate(0deg);
-    top: 50%; right: 5%;
     user-select: none;
     transition: .2s;
 
     &.active {
-      transform: translate(-65%, -85%) rotate(-270deg);
+      transform: translate(-50%, -50%) rotate(-180deg);
     }
   }
 
-  .dropdown-content {
+  .dd-box {
     @include abs-center;
     @include shadow;
+    transform: translate(-50%, -50%) scale(.75);
+    opacity: 0;
     z-index: 10;
     width: 100%;
-    box-sizing: border-box;
     padding: 20px;
     background: white;
     border-radius: 40px;
-    transform: translate(-50%, -50%) scale(0);
     transition: .2s;
 
     &.active {
       transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
     }
 
     .item {
@@ -75,14 +72,13 @@
     }
   }
 
-  .dropdown-overlay {
-    height: 0;
-
+  .dd-overlay {
     &.active {
       @include size(100vw, 100vh);
       z-index: 9;
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
     }
   }
 }
