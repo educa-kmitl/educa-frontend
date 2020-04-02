@@ -10,27 +10,27 @@ export const App = () => {
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        
+
         <Switch>
 
-          <Route exact path="/" component={Start}/>
+          <Route exact path="/" component={Start} />
 
           <PrivateRoute path="/home" component={Home} />
 
-          <PrivateRoute path="/ranking"  component={Ranking} />
+          <PrivateRoute path="/ranking" component={Ranking} />
 
-          <PrivateRoute path="/create"  component={Create} />
-            
-          <PrivateRoute path="/room" component={Room}/>
+          <PrivateRoute path="/create" component={Create} />
 
-          <PrivateRoute path="/profile" component={Profile}/>
+          <PrivateRoute path="/room" component={Room} />
 
-          <Route path="/login" component={Login}/>
+          <PrivateRoute path="/profile" component={Profile} />
 
-          <Route path="/signup" component={SignUp}/>
+          <Route path="/login" component={Login} />
 
-          <Route path="/" component={NotFound}/>
-          
+          <Route path="/signup" component={SignUp} />
+
+          <Route path="/" component={NotFound} />
+
         </Switch>
       </BrowserRouter>
     </div>

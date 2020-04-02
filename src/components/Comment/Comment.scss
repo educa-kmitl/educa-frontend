@@ -1,47 +1,62 @@
 @import '../../index.scss';
 
-.chat-box {
-  @include size(100%, 100%);
+.comment-box {
+  @include size(100%, 500px);
   @include shadow;
-  box-sizing: border-box;
-  padding: 50px;
+  padding: 40px;
   background: white;
   border-radius: 40px;
 
-  .room-info {
-    text-align: left;
-
-    header {
-      font-size: 28px;
-      font-weight: 500; 
-    }
-  
-    p {
-      color: $color;
-      font-size: 20px;
-    }
+  header {
+    font-size: 28px;
+    font-weight: 500;
   }
-  
-  .room-chat {
-    @include fixed-size(100%, 230px);
+
+  .room-comment {
+    @include fixed-size(100%, 300px);
     word-wrap: break-word;
     text-align: left;
     overflow-y: scroll;
 
-    .chat-box-message {
-      color: $black;
-      font-size: 18px;
+    .box {
+      @include size(95%, auto);
+      @include shadow;
+      background: white;
+      margin: 5px;
+      border-radius: 10px;
+      padding: 15px;
 
-      .username { color: $color }
+      span {
+        display: flex;
+        align-items: center;
 
-      &.server { color: lightgrey }
+        img {
+          @include size(30px);
+          border-radius: 50%;
+        }
+
+        header {
+          font-size: 18px;
+          color: $color;
+          margin-left: 10px;
+        }
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      label {
+        color: lightgrey;
+        font-size: 14px;
+      }
     }
   }
 
   .chat-input {
     position: relative;
     height: 75px;
-  
+
     input {
       background: white;
       float: left;
@@ -56,28 +71,35 @@
       border: 1px solid lightgrey;
       border-radius: 30px;
       transition: .2s;
-    
+
       &::placeholder {
         color: lightgrey;
         user-select: none;
       }
-    
+
       &:focus {
         outline: none;
         border: 1px solid $color;
-    
-        &:hover { border: 1px solid $color }
-    
-        &::placeholder { color: transparent }
+
+        &:hover {
+          border: 1px solid $color
+        }
+
+        &::placeholder {
+          color: transparent
+        }
       }
-    
-      &:hover { border: 1px solid $black }
+
+      &:hover {
+        border: 1px solid $black
+      }
     }
-  
+
     .icon-c {
       @include fixed-size(40px);
       position: absolute;
-      top: 50%; right: -10px;
+      top: 50%;
+      right: -10px;
       transform: translate(-50%, -50%);
       box-sizing: border-box;
       padding: 10px;
@@ -89,15 +111,15 @@
         user-select: none;
         color: $color;
         font-size: 22px;
-  
+
       }
+
       &:hover {
         cursor: pointer;
         background: gainsboro;
       }
     }
-    
+
   }
 
 }
-

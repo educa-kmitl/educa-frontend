@@ -6,7 +6,6 @@
   padding-top: $nav-size;
 
   .home-content {
-    box-sizing: border-box;
     padding: 30px;
     max-width: 1020px;
     height: 100%;
@@ -32,16 +31,22 @@
       text-align: center;
       font-size: 22px;
       transition: .2s;
-  
-      &::placeholder { color: lightgrey }
-  
-      &:hover { border: 1px solid $black }
-  
-      &:focus { 
+
+      &::placeholder {
+        color: lightgrey
+      }
+
+      &:hover {
+        border: 1px solid $black
+      }
+
+      &:focus {
         outline: none;
         border: 1px solid $color;
-  
-        &::placeholder { color: transparent }
+
+        &::placeholder {
+          color: transparent
+        }
       }
     }
 
@@ -49,14 +54,15 @@
       @include size(40px);
       @include flex-center;
       position: absolute;
-      top: 50%; right: 0px;
+      top: 50%;
+      right: 0px;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       color: lightgrey;
       font-size: 20px;
       transition: .2s;
 
-      &:hover { 
+      &:hover {
         color: $color;
         transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
       }
@@ -69,13 +75,74 @@
     justify-content: space-between;
   }
 
+  .room-password {
+    @include fixed-size(100vw, 100vh);
+    z-index: 50;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+
+    form.dialog-box {
+      @include size(400px, 270px);
+      @include abs-center;
+      @include shadow;
+      transform: translate(-50%, -50%) scale(1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      box-sizing: border-box;
+      border-radius: 40px;
+      padding: 40px;
+      transition: .2s;
+
+      header {
+        margin: 0;
+        font-size: 28px;
+      }
+
+      span {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .cancel {
+          @include flex-center;
+          width: 145px;
+          font-size: 20px;
+          user-select: none;
+          transition: .2s;
+
+          &:hover {
+            color: $color;
+            cursor: pointer;
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+
+    &.hide {
+      transform: scale(0);
+      pointer-events: none;
+
+      form.dialog-box {
+        transform: translate(-50%, -50%) scale(.0);
+      }
+    }
+  }
+
   .create-room-button {
     @include size(80px);
     @include flex-center;
     @include shadow;
     z-index: 1000;
     position: fixed;
-    bottom: 100px; right: 100px;
+    bottom: 100px;
+    right: 100px;
     background: $color;
     color: white;
     font-size: 28px;
@@ -87,5 +154,4 @@
       transform: scale(1.1);
     }
   }
-
 }

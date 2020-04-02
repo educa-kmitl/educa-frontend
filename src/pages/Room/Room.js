@@ -3,7 +3,7 @@ import './Room.scss'
 
 import { useLocation } from 'react-router-dom'
 import { FaUserPlus, FaFileDownload, FaSignOutAlt } from 'react-icons/fa'
-import { Chatbox, Playlist, Button } from '../../components'
+import { Comment, Playlist, Button } from '../../components'
 import { AuthContext } from '../../contexts'
 import io from 'socket.io-client'
 import queryString from 'query-string'
@@ -23,8 +23,7 @@ export const Room = () => {
   const [auth] = useContext(AuthContext)
   const [roomData, setRoomData] = useState(defaultRoom)
   const [roomID, setRoomID] = useState(-1)
-  const [show, setShow] = useState(false)
-  const [playing, setPlaying] = useState(0)
+  const [playlist, setPlaylist] = useState({ show: false, playing: 0 })
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
   const location = useLocation()
@@ -53,7 +52,7 @@ export const Room = () => {
       setMessages([...messages, newMessage])
     })
 
-    const lastest = document.querySelector('.room-chat')
+    const lastest = document.querySelector('.room-comment')
     lastest.scrollTop = lastest.scrollHeight
 
     return () => {
@@ -61,10 +60,6 @@ export const Room = () => {
       socket.off()
     }
   }, [messages])
-
-  useEffect(() => {
-    
-  }, [playing])
 
   const sendMessage = e => {
     e.preventDefault()
@@ -95,18 +90,18 @@ export const Room = () => {
             {
               <iframe
                 className="embed-video"
-                src={roomData.video_source[playing].link}
-                title={roomData.video_source[playing].topic}
+                src={roomData.video_source[playlist.playing].link}
+                title={roomData.video_source[playlist.playing].topic}
               ></iframe>
             }
           </div>
           <div className="video-menu">
             <div className="video-title">
-              <div className="title">{roomData.video_source[playing].topic}</div>
+              <div className="title">{roomData.video_source[playlist.playing].topic}</div>
               <div className="name">by Sakchai</div>
             </div>
             <div className="btn-group">
-              <div className="btn" onClick={() => console.log(playing)}>
+              <div className="btn" onClick={() => console.log(playlist.playing)}>
                 <FaUserPlus className="icon" />
               </div>
               <div className="btn" onClick={() => console.log(roomData)}>
@@ -127,25 +122,17 @@ export const Room = () => {
               <div className="course-count">{roomData.video_source.length} video{roomData.video_source.length > 1 ? 's' : null}</div>
             </div>
             <footer>
-              <Button text="show all" onClick={() => setShow(!show)} />
+              <Button text="show all" onClick={() => setPlaylist({...playlist, show: !playlist.show})} />
             </footer>
             <Playlist
-              show={show}
-              setShow={setShow}
-              playing={playing}
-              setPlaying={setPlaying}
+              playlist={playlist}
+              setPlaylist={setPlaylist}
               roomData={roomData}
             />
           </div>
 
-          <div className="chat-container">
-            <Chatbox
-              roomID={roomID}
-              message={message}
-              setMessage={setMessage}
-              sendMessage={sendMessage}
-              messages={messages}
-            />
+          <div className="comment-container">
+            <Comment />
           </div>
 
         </div>

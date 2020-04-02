@@ -3,12 +3,11 @@
 .room-page-bg {
   background: $gradient-white;
   padding-top: $nav-size;
-  height: 800px;
+  height: 100vh;
 
   .room-page-content {
     @include flex-center;
     align-items: flex-start;
-    box-sizing: border-box;
     padding: 0 30px;
     max-width: 1280px;
     height: 100%;
@@ -108,7 +107,7 @@
         border-radius: 40px;
         margin-left: 30px;
         box-sizing: border-box;
-        padding: 50px;
+        padding: 40px;
         position: relative;
     
         .course-detail {
@@ -135,7 +134,7 @@
     
       }
     
-      .chat-container {
+      .comment-container {
         @include fixed-size(360px, 100%);
         margin: 30px;
         box-sizing: border-box;

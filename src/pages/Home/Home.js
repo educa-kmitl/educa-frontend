@@ -1,17 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { AuthContext } from '../../contexts'
 import './Home.scss'
 
-import { Card } from '../../components'
-import { AuthContext } from '../../contexts'
-import { FaSearch, FaPlus } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { Card, Input, Button } from '../../components'
+import { FaSearch, FaPlus, FaLock } from 'react-icons/fa'
 
 
 export const Home = () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
+  const history = useHistory()
 
   const [auth] = useContext(AuthContext)
   const [roomList, setRoomList] = useState([])
+  const [select, setSelect] = useState({ room: {}, password: '' })
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
@@ -33,7 +35,6 @@ export const Home = () => {
           }
         })
     } else {
-
       fetch(ENDPOINT + '/api/user/rooms', {
         method: 'GET'
       })
@@ -55,11 +56,48 @@ export const Home = () => {
       // room.teacher_id.toLowerCase().indexOf(filter.toLowerCase()) > -1
     ))
   }
+  const handlePassword = value => { setSelect({ ...select, password: value }); console.log(select.password) }
+  const handlePrivacy = e => {
+    e.preventDefault()
+
+    fetch(ENDPOINT + '/api/user/room-password', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        room_id: select.room.id,
+        password: select.password
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { success } = json
+        if (success) {
+          history.push(`/room?room_id=${select.room.id}`)
+        } else {
+          alert('Wrong!')
+        }
+      })
+  }
+  const enterRoom = room => {
+    setSelect({ room, password: '' })
+    if (room.private) {
+      toggleDialog()
+    } else {
+      history.push(`/room?room_id=${room.id}`)
+    }
+  }
+  const toggleDialog = () => {
+    const overlay = document.querySelector('.room-password')
+    overlay.classList.toggle('hide')
+    document.querySelector('#room-pw').value = ''
+  }
 
   return (
     <div className="home-page-bg">
       <div className="home-content">
-        <header>{auth.data.role ? 'Your active course' : `Let's find some course!`}</header>
+        <header onClick={() => console.log(select)}>{auth.data.role ? 'Your active course' : `Let's find some course!`}</header>
         <div className="search">
           <input
             placeholder="Type something to find..."
@@ -72,7 +110,26 @@ export const Home = () => {
         </div>
 
         <div className="all-room">
-          {filterRoom().map((room, index) => <Card key={index} room={room} />)}
+          {filterRoom().map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
+        </div>
+
+        <div className="room-password hide">
+          <form className="dialog-box" onSubmit={handlePrivacy}>
+            <header>It's Locked!</header>
+            <Input
+              id='room-pw'
+              Icon={FaLock}
+              text="Enter password"
+              value={select.password}
+              type="password"
+              onChange={handlePassword}
+              required
+            />
+            <span>
+              <div className="cancel" onClick={toggleDialog}>Cancel</div>
+              <Button text="EDUCA" type="submit" />
+            </span>
+          </form>
         </div>
       </div>
 
@@ -84,7 +141,7 @@ export const Home = () => {
           </div>
         </Link>
       }
-      
+
     </div>
   )
 }
