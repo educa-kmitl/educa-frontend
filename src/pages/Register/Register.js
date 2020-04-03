@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import './SignUp.scss'
+import './Register.scss'
 
 import { FaEnvelope, FaUserAlt, FaLock } from 'react-icons/fa'
 import { Input, Button, Radiobutton } from '../../components'
 import startpic from '../../img/start/start.svg'
 
-export const SignUp = () => {
+export default () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
   const history = useHistory()
 

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useQuery } from '../../hooks'
 import './Room.scss'
 
-import { useLocation } from 'react-router-dom'
 import { FaUserPlus, FaFileDownload, FaSignOutAlt } from 'react-icons/fa'
 import { Comment, Playlist, Button } from '../../components'
 import { AuthContext } from '../../contexts'
 import io from 'socket.io-client'
-import queryString from 'query-string'
 
 let socket
 
@@ -17,9 +17,8 @@ const defaultRoom = {
   private: false
 }
 
-export const Room = () => {
-  const ENDPOINT = "http://localhost:5000" // Change Later
-
+export default () => {
+  const query = useQuery()
   const [auth] = useContext(AuthContext)
   const [roomData, setRoomData] = useState(defaultRoom)
   const [roomID, setRoomID] = useState(-1)
@@ -29,10 +28,10 @@ export const Room = () => {
   const location = useLocation()
 
   useEffect(() => {
-    const { room_id } = queryString.parse(location.search)
+    const room_id = query.get('room_id')
 
     setRoomID(room_id)
-    socket = io(ENDPOINT)
+    socket = io(window.$ENDPOINT)
 
     socket.emit('join', { room_id, name: auth.data.name }, () => {
       console.log(`${auth.data.name} join room ${room_id}`)
@@ -122,7 +121,7 @@ export const Room = () => {
               <div className="course-count">{roomData.video_source.length} video{roomData.video_source.length > 1 ? 's' : null}</div>
             </div>
             <footer>
-              <Button text="show all" onClick={() => setPlaylist({...playlist, show: !playlist.show})} />
+              <Button text="show all" onClick={() => setPlaylist({ ...playlist, show: !playlist.show })} />
             </footer>
             <Playlist
               playlist={playlist}

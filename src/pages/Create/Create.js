@@ -13,7 +13,7 @@ const defaultRoom = {
   private: false
 }
 
-export const Create = () => {
+export default () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
 
   const [auth] = useContext(AuthContext)

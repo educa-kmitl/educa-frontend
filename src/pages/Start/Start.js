@@ -5,7 +5,7 @@ import './Start.scss'
 import { Button } from '../../components'
 import startpic from '../../img/start/start.svg'
 
-export const Start = () => {
+export default () => {
   return (
     <div className="start-bg">
       <div className="content">

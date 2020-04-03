@@ -3,7 +3,7 @@ import './Ranking.scss'
 
 import { profiles } from '../../img/Profile'
 
-export const Ranking = () => {
+export default () => {
   return (
     <div className='ranking-bg'>
       <div className='ranking-content'>

@@ -7,8 +7,7 @@ import { FaEnvelope, FaLock } from 'react-icons/fa'
 import { Input, Button } from '../../components'
 import startpic from '../../img/start/start.svg'
 
-export const Login = () => {
-  const ENDPOINT = "http://localhost:5000" // Change Later
+export default () => {
   const history = useHistory()
 
   const [email, setEmail] = useState('')
@@ -20,7 +19,7 @@ export const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault()
 
-    fetch(ENDPOINT + '/api/user/login', {
+    fetch(window.$ENDPOINT + '/api/user/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -36,7 +35,7 @@ export const Login = () => {
         if (error) {
           alert('Invalid Email or Password :(')
         } else if (user) {
-          setAuth({...auth, data: user})
+          setAuth({ ...auth, data: user })
           history.push('/home')
         }
       })
@@ -65,7 +64,9 @@ export const Login = () => {
             />
             <footer>
               <Button text="Login" type="submit" />
-              <Link to="/signup"><p>Create your account</p></Link>
+              <Link to="/signup">
+                <p>Create your account</p>
+              </Link>
             </footer>
           </form>
         </div>

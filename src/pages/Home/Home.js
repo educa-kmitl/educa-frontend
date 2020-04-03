@@ -7,7 +7,7 @@ import { Card, Input, Button } from '../../components'
 import { FaSearch, FaPlus, FaLock } from 'react-icons/fa'
 
 
-export const Home = () => {
+export default () => {
   const ENDPOINT = "http://localhost:5000" // Change Later
   const history = useHistory()
 
