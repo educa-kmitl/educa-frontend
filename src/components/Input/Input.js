@@ -3,7 +3,7 @@ import './Input.scss'
 
 export const Input = ({ Icon, id, type, text, onChange, required, disabled }) => {
   return (
-    <div className='my-input'>
+    <div className="my-input">
       <input
         id={id || null}
         type={type || 'text'}

@@ -48,13 +48,13 @@ export const routes = [
     requireAuth: true
   },
   {
-    path: '/room',
+    path: '/room/:room_id',
     exact: false,
     component: Room,
     requireAuth: true
   },
   {
-    path: '/profile',
+    path: '/profile/:user_id',
     exact: false,
     component: Profile,
     requireAuth: true

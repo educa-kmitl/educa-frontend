@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useLocation } from 'react-router-dom'
-import { useQuery } from '../../hooks'
+import { useLocation, useParams } from 'react-router-dom'
 import './Room.scss'
 
 import { FaUserPlus, FaFileDownload, FaSignOutAlt } from 'react-icons/fa'
@@ -18,7 +17,7 @@ const defaultRoom = {
 }
 
 export default () => {
-  const query = useQuery()
+  const { room_id } = useParams()
   const [auth] = useContext(AuthContext)
   const [roomData, setRoomData] = useState(defaultRoom)
   const [roomID, setRoomID] = useState(-1)
@@ -28,8 +27,6 @@ export default () => {
   const location = useLocation()
 
   useEffect(() => {
-    const room_id = query.get('room_id')
-
     setRoomID(room_id)
     socket = io(window.$ENDPOINT)
 

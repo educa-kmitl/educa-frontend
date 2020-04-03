@@ -74,7 +74,7 @@ export default () => {
       .then(json => {
         const { success } = json
         if (success) {
-          history.push(`/room?room_id=${select.room.id}`)
+          history.push(`/room/${select.room.id}`)
         } else {
           alert('Wrong!')
         }
@@ -85,7 +85,7 @@ export default () => {
     if (room.private) {
       toggleDialog()
     } else {
-      history.push(`/room?room_id=${room.id}`)
+      history.push(`/room/${room.id}`)
     }
   }
   const toggleDialog = () => {
