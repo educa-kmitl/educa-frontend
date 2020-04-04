@@ -8,9 +8,7 @@ import { Input, Button, Radiobutton } from '../../components'
 import startpic from '../../img/start/start.svg'
 
 export default () => {
-  const ENDPOINT = "http://localhost:5000" // Change Later
   const history = useHistory()
-
   const [auth, setAuth] = useContext(AuthContext)
   const [form, setForm] = useState({
     role: false,
@@ -23,10 +21,10 @@ export default () => {
   const handleEmail = value => setForm({ ...form, email: value })
   const handleName = value => setForm({ ...form, name: value })
   const handlePassword = value => setForm({ ...form, password: value })
-  const handleSignup = (e) => {
+  const handleRegister = e => {
     e.preventDefault()
 
-    fetch(ENDPOINT + '/api/user/register', {
+    fetch(window.$ENDPOINT + '/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -41,13 +39,10 @@ export default () => {
     })
       .then(res => res.json())
       .then(json => {
-        const { error, user } = json
-        console.log(error, user)
-        if (error) {
-          alert('Email already exists')
-        } else if (user) {
+        const { user, error } = json
 
-          fetch(ENDPOINT + '/api/user/login', {
+        if (user) {
+          fetch(window.$ENDPOINT + '/login', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
@@ -59,15 +54,17 @@ export default () => {
           })
             .then(res => res.json())
             .then(json => {
-              const { error, user } = json
-              if (error) {
-                alert('Invalid Email or Password :(')
-              } else if (user) {
-                console.log(user)
+              const { user, error } = json
+
+              if (user) {
                 setAuth({ ...auth, data: user })
                 history.push('/home')
+              } else {
+                alert(error)
               }
             })
+        } else {
+          alert(error)
         }
       })
   }
@@ -77,7 +74,7 @@ export default () => {
       <div className="signup-content">
 
         <div className="txt-container">
-          <form onSubmit={handleSignup}>
+          <form onSubmit={handleRegister}>
             <header>Create Account</header>
             <div className="radio-group">
               <div className="rb">
@@ -98,6 +95,8 @@ export default () => {
               Icon={FaUserAlt}
               text="Your name"
               type="text"
+              pattern="^[A-Za-z][A-Za-z0-9]*$"
+              title="Yourname must be english character"
               onChange={handleName}
               required
             />
@@ -105,6 +104,8 @@ export default () => {
               Icon={FaLock}
               text="Password"
               type="password"
+              pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
+              title="Password must contain lowercase, uppercase, number and at least 8 characters "
               onChange={handlePassword}
               required
             />

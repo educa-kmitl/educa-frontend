@@ -19,7 +19,7 @@ export default () => {
   const handleLogin = (e) => {
     e.preventDefault()
 
-    fetch(window.$ENDPOINT + '/api/user/login', {
+    fetch(window.$ENDPOINT + '/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -31,12 +31,13 @@ export default () => {
     })
       .then(res => res.json())
       .then(json => {
-        const { error, user } = json
-        if (error) {
-          alert('Invalid Email or Password :(')
-        } else if (user) {
+        const { user, error } = json
+        
+        if (user) {
           setAuth({ ...auth, data: user })
           history.push('/home')
+        } else {
+          alert(error)
         }
       })
   }
@@ -64,7 +65,7 @@ export default () => {
             />
             <footer>
               <Button text="Login" type="submit" />
-              <Link to="/signup">
+              <Link to="/register">
                 <p>Create your account</p>
               </Link>
             </footer>

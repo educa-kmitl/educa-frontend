@@ -3,106 +3,53 @@ import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import './Home.scss'
 
-import { Card, Input, Button } from '../../components'
-import { FaSearch, FaPlus, FaLock } from 'react-icons/fa'
+import { Card } from '../../components'
+import { FaSearch, FaPlus } from 'react-icons/fa'
 
 
 export default () => {
-  const ENDPOINT = "http://localhost:5000" // Change Later
   const history = useHistory()
-
   const [auth] = useContext(AuthContext)
   const [roomList, setRoomList] = useState([])
-  const [select, setSelect] = useState({ room: {}, password: '' })
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
-    if (auth.data.role) {
-      fetch(ENDPOINT + '/api/user/myrooms', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          teacher_id: auth.data.id
-        })
-      })
-        .then(res => res.json())
-        .then(json => {
-          const { rooms } = json
-          if (rooms) {
-            setRoomList(rooms)
-          }
-        })
-    } else {
-      fetch(ENDPOINT + '/api/user/rooms', {
-        method: 'GET'
-      })
-        .then(res => res.json())
-        .then(json => {
-          const { rooms } = json
-          if (rooms) {
-            setRoomList(rooms)
-          }
-        })
-    }
-  })
-
-  const handleSearch = e => setFilter(e.target.value)
-  const filterRoom = () => {
-    return roomList.filter(room => (
-      room.name.toLowerCase().indexOf(filter.toLowerCase()) > -1 ||
-      room.subject.toLowerCase().indexOf(filter.toLowerCase()) > -1
-      // room.teacher_id.toLowerCase().indexOf(filter.toLowerCase()) > -1
-    ))
-  }
-  const handlePassword = value => { setSelect({ ...select, password: value }); console.log(select.password) }
-  const handlePrivacy = e => {
-    e.preventDefault()
-
-    fetch(ENDPOINT + '/api/user/room-password', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        room_id: select.room.id,
-        password: select.password
-      })
+    fetch(window.$ENDPOINT + '/all-rooms', {
+      method: 'GET',
     })
       .then(res => res.json())
       .then(json => {
-        const { success } = json
-        if (success) {
-          history.push(`/room/${select.room.id}`)
+        const { rooms, error } = json
+        if (rooms) {
+          if (auth.data.role) {
+            const teacher_room = rooms.filter(room => room.teacher_id === auth.data.user_id)
+            setRoomList(teacher_room)
+          } else {
+            setRoomList(rooms)
+          }
         } else {
-          alert('Wrong!')
+          alert(error)
         }
       })
-  }
-  const enterRoom = room => {
-    setSelect({ room, password: '' })
-    if (room.private) {
-      toggleDialog()
-    } else {
-      history.push(`/room/${room.id}`)
-    }
-  }
-  const toggleDialog = () => {
-    const overlay = document.querySelector('.room-password')
-    overlay.classList.toggle('hide')
-    document.querySelector('#room-pw').value = ''
-  }
+  })
 
+  const handleSearch = value => setFilter(value)
+  const filterRoom = () => roomList.filter(room => (
+    room.name.toLowerCase().indexOf(filter.toLowerCase()) > -1 ||
+    room.subject.toLowerCase().indexOf(filter.toLowerCase()) > -1 ||
+    room.teacher_name.toLowerCase().indexOf(filter.toLowerCase()) > -1
+  ))
+  const enterRoom = room => history.push(`/room/${room.room_id}`)
+  
   return (
     <div className="home-page-bg">
       <div className="home-content">
-        <header onClick={() => console.log(select)}>{auth.data.role ? 'Your active course' : `Let's find some course!`}</header>
+        <header>{auth.data.role ? 'Your active course' : `Let's find some course!`}</header>
         <div className="search">
           <input
             placeholder="Type something to find..."
             value={filter}
-            onChange={handleSearch}
+            onChange={e => handleSearch(e.target.value)}
           />
           <div className="icon">
             <FaSearch />
@@ -113,24 +60,6 @@ export default () => {
           {filterRoom().map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
         </div>
 
-        <div className="room-password hide">
-          <form className="dialog-box" onSubmit={handlePrivacy}>
-            <header>It's Locked!</header>
-            <Input
-              id='room-pw'
-              Icon={FaLock}
-              text="Enter password"
-              value={select.password}
-              type="password"
-              onChange={handlePassword}
-              required
-            />
-            <span>
-              <div className="cancel" onClick={toggleDialog}>Cancel</div>
-              <Button text="EDUCA" type="submit" />
-            </span>
-          </form>
-        </div>
       </div>
 
       {

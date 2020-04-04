@@ -4,8 +4,8 @@ import './index.scss'
 import { App } from './App'
 import { AuthProvider } from './contexts'
 
-// window.$ENDPOINT = 'https://educa-alpha.herokuapp.com/api'
-window.$ENDPOINT = 'http://localhost:5000'
+window.$ENDPOINT = 'https://educa-alpha.herokuapp.com/api'
+// window.$ENDPOINT = 'http://localhost:5000/api'
 
 ReactDOM.render(
   <AuthProvider>

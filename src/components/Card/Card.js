@@ -15,11 +15,12 @@ export const Card = ({ room, onClick }) => {
             {room.name}
           </div>
           <div className="description">
-            {room.subject} {room.video_source.length} video{room.video_source.length > 1 ? 's' : null}
+            {room.subject} {room.resource_length} video{room.resource_length > 1 ? 's' : null}
           </div>
         </div>
         <div className="tutor">
-          {room.teacher_id}
+          by {room.teacher_name} <br />
+          2 April 2020
         </div>
       </div>
     </div>

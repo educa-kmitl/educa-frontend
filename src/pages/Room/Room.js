@@ -1,82 +1,88 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
+import { AuthContext } from '../../contexts'
 import './Room.scss'
 
 import { FaUserPlus, FaFileDownload, FaSignOutAlt } from 'react-icons/fa'
-import { Comment, Playlist, Button } from '../../components'
-import { AuthContext } from '../../contexts'
-import io from 'socket.io-client'
+import { Comment, Playlist, Button, Popup } from '../../components'
 
-let socket
-
-const defaultRoom = {
-  name: 'Title',
-  subject: 'Math',
-  video_source: [{ topic: 'Video title', link: 'https://www.youtube.com/embed/9ilIXz65YXU' }],
-  private: false
-}
 
 export default () => {
+  const history = useHistory()
   const { room_id } = useParams()
   const [auth] = useContext(AuthContext)
-  const [roomData, setRoomData] = useState(defaultRoom)
-  const [roomID, setRoomID] = useState(-1)
-  const [playlist, setPlaylist] = useState({ show: false, playing: 0 })
-  const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState([])
-  const location = useLocation()
-
-  useEffect(() => {
-    setRoomID(room_id)
-    socket = io(window.$ENDPOINT)
-
-    socket.emit('join', { room_id, name: auth.data.name }, () => {
-      console.log(`${auth.data.name} join room ${room_id}`)
-    })
-
-  }, [auth.data.name, location.search])
-
-  useEffect(() => {
-    socket.on('room-data', ({ room }) => {
-      setRoomData(room)
-      console.log(room)
-    })
+  const [password, setPassword] = useState('')
+  const [roomData, setRoomData] = useState({
+    name: 'Loading',
+    subject: 'Loading',
+    teacher_name: 'Loading',
+    resources: [{ topic: 'Loading', link: '' }],
+    private: false
   })
+  const [playlist, setPlaylist] = useState({ show: false, playing: 0 })
 
   useEffect(() => {
-    socket.on('message', newMessage => {
-      setMessages([...messages, newMessage])
+    fetch(window.$ENDPOINT + '/room-privacy', {
+      method: 'GET',
+      headers: {
+        room_id
+      }
     })
+      .then(res => res.json())
+      .then(json => {
+        const { lock, error } = json
 
-    const lastest = document.querySelector('.room-comment')
-    lastest.scrollTop = lastest.scrollHeight
+        if (lock) {
+          toggleDialog()
+        } else if (!lock) {
+          fetch(window.$ENDPOINT + '/rooms', {
+            method: 'GET',
+            headers: {
+              room_id
+            }
+          })
+            .then(res => res.json())
+            .then(json => {
+              const { room, error } = json
 
-    return () => {
-      socket.emit('disconnect')
-      socket.off()
-    }
-  }, [messages])
+              if (room) setRoomData(room)
+              else alert(error)
+            })
+        } else {
+          alert(error)
+        }
+      })
+  }, [])
 
-  const sendMessage = e => {
+  const toggleDialog = () => {
+    const overlay = document.querySelector('.room-password')
+    overlay.classList.toggle('hide')
+    document.querySelector('#room-pw').value = ''
+  }
+  const handlePrivacy = e => {
     e.preventDefault()
 
-    if (message !== '') {
-      socket.emit('sendMessage', { message, room_id: roomID, name: auth.data.name })
-      setMessage('')
-    }
+    fetch(window.$ENDPOINT + '/rooms', {
+      method: 'GET',
+      headers: {
+        room_id,
+        password
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { room, error } = json
+
+        if (room) {
+          setRoomData(room)
+          toggleDialog()
+        } else {
+          alert(error)
+        }
+      })
   }
-
-  const exitRoom = e => {
-    e.preventDefault()
-
-    socket.emit('disconnect', { room_id: roomID, name: auth.data.name })
-    socket.off()
-    console.log(roomID, auth.data.name)
-
-    window.location = '/home'
-  }
-
-
+  const handlePassword = value => setPassword(value)
+  const exitRoom = () => history.push('/home')
 
   return (
     <div className="room-page-bg">
@@ -86,15 +92,17 @@ export default () => {
             {
               <iframe
                 className="embed-video"
-                src={roomData.video_source[playlist.playing].link}
-                title={roomData.video_source[playlist.playing].topic}
+                src={roomData.resources[playlist.playing].video_url}
+                title={roomData.resources[playlist.playing].topic}
               ></iframe>
             }
           </div>
           <div className="video-menu">
             <div className="video-title">
-              <div className="title">{roomData.video_source[playlist.playing].topic}</div>
-              <div className="name">by Sakchai</div>
+              <div className="title">{roomData.resources[playlist.playing].topic}</div>
+              <div className="name">
+                by {roomData.teacher_id === auth.data.user_id ? 'You' : roomData.teacher_name}
+              </div>
             </div>
             <div className="btn-group">
               <div className="btn" onClick={() => console.log(playlist.playing)}>
@@ -115,7 +123,7 @@ export default () => {
           <div className="course-card">
             <div className="course-detail">
               <div className="course-title">{roomData.name}</div>
-              <div className="course-count">{roomData.video_source.length} video{roomData.video_source.length > 1 ? 's' : null}</div>
+              <div className="course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</div>
             </div>
             <footer>
               <Button text="show all" onClick={() => setPlaylist({ ...playlist, show: !playlist.show })} />
@@ -133,6 +141,13 @@ export default () => {
 
         </div>
       </div>
+
+      <Popup
+        type="lock"
+        onChange={handlePassword}
+        onSubmit={handlePrivacy}
+        onCancel={exitRoom}
+      />
     </div>
   );
 }

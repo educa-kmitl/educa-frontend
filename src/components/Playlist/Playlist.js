@@ -6,7 +6,7 @@ import play from '../../img/room/play.svg'
 
 export const Playlist = ({ playlist, setPlaylist, roomData }) => {
 
-  const videos = roomData.video_source
+  const videos = roomData.resources
 
   const togglePlaylist = () => setPlaylist({ ...playlist, show: !playlist.show })
   const changePlaylist = index => setPlaylist({...playlist, playing: index})

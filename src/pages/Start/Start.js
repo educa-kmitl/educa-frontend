@@ -16,7 +16,7 @@ export default () => {
             With our learning platform <br />
             you can learn anything in one place.
           </p>
-          <Link to="/home" className="fix-margin">
+          <Link to="/home" style={fixMargin}>
             <Button text="Get Started" />
           </Link>
         </div>
@@ -29,3 +29,5 @@ export default () => {
     </div>
   )
 }
+
+const fixMargin = { marginLeft: '-10px' }
