@@ -1,10 +1,36 @@
-
 .react-lazy {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 100%;
-  min-height: 100%;
-  background: red;
-  color: white;  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    user-select: none;
+    pointer-events: none;
+
+    svg {
+        width: 100px;
+        height: 100px;
+        animation: load 1.2s linear infinite;
+    }
+
+    span {
+        margin-top: 20px;
+        font-size: 22px;
+    }
+}
+
+@keyframes load {
+    0% {
+        transform: rotate(0deg);
+        filter: hue-rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+        filter: hue-rotate(-45deg);
+    }
+    100% {
+        transform: rotate(360deg);
+        filter: hue-rotate(0deg);
+    }
 }

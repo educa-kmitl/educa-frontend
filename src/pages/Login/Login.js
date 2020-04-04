@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts'
 import './Login.scss'
 
 import { FaEnvelope, FaLock } from 'react-icons/fa'
-import { Input, Button } from '../../components'
+import { Input, Button, Popup } from '../../components'
 import startpic from '../../img/start/start.svg'
 
 export default () => {
@@ -16,9 +16,10 @@ export default () => {
 
   const handleEmail = value => setEmail(value)
   const handlePassword = value => setPassword(value)
-  const handleLogin = (e) => {
+  const handleLogin = e => {
     e.preventDefault()
 
+    handlePopup()
     fetch(window.$ENDPOINT + '/login', {
       method: 'POST',
       headers: {
@@ -38,9 +39,11 @@ export default () => {
           history.push('/home')
         } else {
           alert(error)
+          handlePopup()
         }
       })
   }
+  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
 
   return (
     <div className="login-bg">
@@ -76,6 +79,8 @@ export default () => {
           <img src={startpic} alt="" />
         </div>
       </div>
+
+      <Popup type="loading" waitText="Loging in" />
     </div>
   )
 }

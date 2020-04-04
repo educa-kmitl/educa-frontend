@@ -7,14 +7,14 @@ export const App = () => {
 
   return (
     <div className="App">
-      <Suspense fallback={Loading}>
+      <Suspense fallback={<Loading />}>
         <BrowserRouter>
           <Navbar />
           <Switch>
-            {routes.map(route =>
+            {routes.map((route, index) =>
               route.requireAuth ?
-                <PrivateRoute {...route} /> :
-                <Route {...route} />
+                <PrivateRoute {...route} key={index} /> :
+                <Route {...route} key={index} />
             )}
           </Switch>
         </BrowserRouter>

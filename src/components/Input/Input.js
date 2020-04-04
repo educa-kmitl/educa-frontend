@@ -5,7 +5,7 @@ export const Input = ({ Icon, id, type, text, pattern, title, onChange, required
   return (
     <div className="my-input">
       <input
-        id={id || null}
+        id={id && id.toString()}
         type={type || 'text'}
         placeholder={text}
         pattern={pattern || null}

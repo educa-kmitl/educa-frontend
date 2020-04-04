@@ -59,3 +59,37 @@
     }
   }
 }
+
+.popup-content {
+  @include fixed-size(100vw, 100vh);
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  .popup-box {
+    @include size(260px);
+    @include flex-center(column);
+    @include abs-center;
+    @include shadow;
+    background: white;
+    border-radius: 40px;
+
+    img {
+      @include size(100px);
+      animation: load 1.2s linear infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    span {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+  }
+
+  &.hide {
+    display: none;
+  }
+}

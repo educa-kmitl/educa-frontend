@@ -21,7 +21,7 @@ export const Dropdown = ({ onSelect, items }) => {
   return (
     <div className='my-dropdown' onClick={handleToggle}>
       <FaListUl className='icon' />
-      <text>{value}</text>
+      <div className="text">{value}</div>
       <FaAngleDown className='dd-arrow' />
 
       <div className='dd-box'>

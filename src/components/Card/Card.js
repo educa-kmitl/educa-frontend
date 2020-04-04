@@ -2,6 +2,7 @@ import React from 'react'
 import './Card.scss'
 
 import { FaLock } from 'react-icons/fa'
+const moment = require('moment')
 
 export const Card = ({ room, onClick }) => {
   return (
@@ -20,7 +21,7 @@ export const Card = ({ room, onClick }) => {
         </div>
         <div className="tutor">
           by {room.teacher_name} <br />
-          2 April 2020
+          {moment(new Date(room.date_created)).format("LL")}
         </div>
       </div>
     </div>

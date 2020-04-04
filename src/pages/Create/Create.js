@@ -1,21 +1,21 @@
 import React, { useState, useContext } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { AuthContext } from '../../contexts'
 import './Create.scss'
 
-import { Link, useHistory } from 'react-router-dom'
-import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock } from 'react-icons/fa'
+import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
 import { Input, Dropdown, ToggleButton, Button } from '../../components'
-import { AuthContext } from '../../contexts'
+const moment = require('moment')
 
 const defaultRoom = {
-  name: 'Title',
+  name: 'Course Title',
   subject: 'Math',
-  video_source: [{ topic: 'Video title', link: '' }],
-  private: false
+  resources: [{ topic: 'Video title', video_url: '', file_url: '' }],
+  private: false,
+  password: ''
 }
 
 export default () => {
-  const ENDPOINT = "http://localhost:5000" // Change Later
-
   const [auth] = useContext(AuthContext)
   const [room, setRoom] = useState(defaultRoom)
   const history = useHistory()
@@ -24,43 +24,52 @@ export default () => {
   const handleSubject = value => setRoom({ ...room, subject: value })
   const handlePrivacy = value => setRoom({ ...room, private: value })
   const handlePassword = value => setRoom({ ...room, password: value })
-  const handleVideoTitle = (value, index) => {
-    const newVideos = room.video_source
-    newVideos[index].topic = value
-    setRoom({ ...room, video_source: newVideos })
+  const handleVideoTitle = (value, id) => {
+    const newVideos = room.resources
+    newVideos[id].topic = value
+    setRoom({ ...room, resources: newVideos })
   }
-  const handleVideoLink = (value, index) => {
-    const newVideos = room.video_source
-    newVideos[index].link = value
-    setRoom({ ...room, video_source: newVideos })
+  const handleVideoLink = (value, id) => {
+    const newVideos = room.resources
+    newVideos[id].video_url = value
+    setRoom({ ...room, resources: newVideos })
+  }
+  const handleFileLink = (value, id) => {
+    const newVideos = room.resources
+    newVideos[id].file_url = value
+    setRoom({ ...room, resources: newVideos })
   }
   const addPlaylist = () => {
-    const newVideos = room.video_source
-    newVideos.push({ topic: 'Video title', link: '' })
-    setRoom({ ...room, video_source: newVideos })
+    const newVideos = room.resources
+    newVideos.push({ topic: 'Video title', video_url: '', file_url: '' })
+    setRoom({ ...room, resources: newVideos })
   }
   const delPlaylist = i => {
-    const newVideos = room.video_source
+    const newVideos = room.resources
     newVideos.splice(i, 1)
-    setRoom({ ...room, video_source: newVideos })
+    setRoom({ ...room, resources: newVideos })
   }
   const handleSubmit = e => {
     e.preventDefault();
 
-    fetch(ENDPOINT + '/api/user/create', {
+    fetch(window.$ENDPOINT + '/rooms', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ ...room, teacher_id: auth.data.id })
+      body: JSON.stringify({ 
+        ...room,
+        teacher_id: auth.data.user_id,
+        date_created: new Date()
+      })
     })
       .then(res => res.json())
       .then(json => {
-        const { room } = json
+        const { room, error } = json
         if (room) {
-          alert('Created!')
-          console.log(room)
-          history.push(`/room?room_id=${room.id}`)
+          history.push(`/room/${room.room_id}`)
+        } else {
+          alert(error)
         }
       })
 
@@ -73,10 +82,10 @@ export default () => {
         <form onSubmit={handleSubmit} autoComplete="off">
           <header>Create Course</header>
           <Input
-            text="Course title"
-            type="text"
-            onChange={handleTitle}
             Icon={FaBook}
+            type="text"
+            text="Course title *"
+            onChange={handleTitle}
             required
           />
           <div className="row">
@@ -90,30 +99,29 @@ export default () => {
                 <ToggleButton onToggle={handlePrivacy} />
               </span>
               <Input
-                text="Password"
-                type="text"
-                onChange={handlePassword}
                 Icon={FaLock}
+                type="text"
+                text="Password"
+                onChange={handlePassword}
                 required={room.private}
                 disabled={!room.private}
               />
             </div>
           </div>
-          <label className="head">Playlist</label>
+          <label className="head" onClick={() => console.log(room)}>Playlist</label>
           <hr />
           <div className="playlist">
 
-            {room.video_source.map((video, index) =>
-              <div className="item" id={index} key={index}>
+            {room.resources.map((video, index) => 
+              <div className="item" key={index}>
                 <span>
-                  <label>{index + 1}. {video.topic}</label>
+                  <label onClick={()=>alert(index)}>{index + 1}. {video.topic}</label>
                   {
-                    room.video_source.length > 1 ?
+                    room.resources.length > 1 ?
                       <div
                         id={index}
-                        key={index}
                         className="del"
-                        onClick={(e) => delPlaylist(e.target.id)}
+                        onClick={e => delPlaylist(e.target.id)}
                       >
                         <FaTrashAlt className="icon" />
                       </div>
@@ -121,20 +129,27 @@ export default () => {
                   }
                 </span>
                 <Input
-                  text="Video title"
-                  type="link"
-                  onChange2={handleVideoTitle}
-                  index={index}
                   Icon={FaBookmark}
+                  id={index}
+                  type="text"
+                  text="Video title *"
+                  onChange={handleVideoTitle}
                   required
                 />
                 <Input
-                  text="Video link"
-                  type="url"
-                  onChange2={handleVideoLink}
-                  index={index}
                   Icon={FaLink}
+                  id={index}
+                  type="url"
+                  text="Video link *"
+                  onChange={handleVideoLink}
                   required
+                />
+                <Input
+                  Icon={FaFileAlt}
+                  id={index}
+                  type="url"
+                  text="Attachment"
+                  onChange={handleFileLink}
                 />
               </div>
             )}
@@ -155,7 +170,7 @@ export default () => {
             <div className="detail">
               <header>
                 {room.private && <FaLock style={{ fontSize: '36px' }} />} {room.name}<br />
-                <p>{room.subject} {room.video_source.length} video{room.video_source.length > 1 ? 's' : null}</p>
+                <p>{room.subject} {room.resources.length} video{room.resources.length > 1 ? 's' : null}</p>
               </header>
               <footer>by {auth.data.name}</footer>
             </div>

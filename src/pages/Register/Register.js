@@ -4,7 +4,7 @@ import { AuthContext } from '../../contexts'
 import './Register.scss'
 
 import { FaEnvelope, FaUserAlt, FaLock } from 'react-icons/fa'
-import { Input, Button, Radiobutton } from '../../components'
+import { Input, Button, Radiobutton, Popup } from '../../components'
 import startpic from '../../img/start/start.svg'
 
 export default () => {
@@ -17,6 +17,7 @@ export default () => {
     password: ''
   })
 
+  let waitText = 'Creating Account'
   const handleRole = value => setForm({ ...form, role: value === 'Teacher' })
   const handleEmail = value => setForm({ ...form, email: value })
   const handleName = value => setForm({ ...form, name: value })
@@ -24,6 +25,7 @@ export default () => {
   const handleRegister = e => {
     e.preventDefault()
 
+    handlePopup()
     fetch(window.$ENDPOINT + '/register', {
       method: 'POST',
       headers: {
@@ -42,6 +44,7 @@ export default () => {
         const { user, error } = json
 
         if (user) {
+          waitText = 'Loging in'
           fetch(window.$ENDPOINT + '/login', {
             method: 'POST',
             headers: {
@@ -61,13 +64,16 @@ export default () => {
                 history.push('/home')
               } else {
                 alert(error)
+                handlePopup()
               }
             })
         } else {
           alert(error)
+          handlePopup()
         }
       })
   }
+  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
 
   return (
     <div className="signup-bg">
@@ -121,6 +127,8 @@ export default () => {
         </div>
 
       </div>
+
+      <Popup type="loading" waitText={waitText} />
     </div>
   )
 }
