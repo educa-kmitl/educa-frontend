@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from 'react'
 import './Playlist.scss'
 
@@ -9,7 +10,7 @@ export const Playlist = ({ playlist, setPlaylist, roomData }) => {
   const videos = roomData.resources
 
   const togglePlaylist = () => setPlaylist({ ...playlist, show: !playlist.show })
-  const changePlaylist = index => setPlaylist({...playlist, playing: index})
+  const changePlaylist = index => setPlaylist({ ...playlist, playing: index }, true)
 
 
   return (
@@ -23,8 +24,8 @@ export const Playlist = ({ playlist, setPlaylist, roomData }) => {
           <div className="play-list">
             {videos.map((video, index) =>
               <span key={index} id={index} onClick={e => changePlaylist(e.target.id)}>
-                {playlist.playing === index && <img className="play-icon" src={play} alt="" />}
-                <label className={playlist.playing === index ? 'list active' : 'list'}>{index + 1}. {video.topic}</label>
+                {playlist.playing == index && <img className="play-icon" src={play} alt="" />}
+                <label className={playlist.playing == index ? 'list active' : 'list'}>{index + 1}. {video.topic}</label>
               </span>
             )}
           </div>

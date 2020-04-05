@@ -36,9 +36,16 @@
         }
 
         header {
+          display: flex;
+          align-items: center;
           font-size: 18px;
           color: $color;
           margin-left: 10px;
+
+          img {
+            @include size(20px);
+            margin-right: 5px;
+          }
         }
       }
 

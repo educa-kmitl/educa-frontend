@@ -19,7 +19,8 @@ export default () => {
     resources: [{ topic: 'Loading', link: '' }],
     private: false
   })
-  const [playlist, setPlaylist] = useState({ show: false, playing: 0 })
+  const [playlist, setPlaylist] = useState({ show: false, playing: 0, id: 0 })
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
     fetch(window.$ENDPOINT + '/room-privacy', {
@@ -45,19 +46,43 @@ export default () => {
             .then(json => {
               const { room, error } = json
 
-              if (room) setRoomData(room)
-              else alert(error)
+              if (room) {
+                setRoomData(room)
+                fetchComments(room)
+              }
+              else {
+                alert(error)
+              }
             })
         } else {
           alert(error)
         }
       })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const toggleDialog = () => {
     const overlay = document.querySelector('.room-password')
     overlay.classList.toggle('hide')
     document.querySelector('#room-pw').value = ''
+  }
+  const fetchComments = (room, index=0) => {
+    handlePopup()
+    fetch(window.$ENDPOINT + '/comments', {
+      method: 'GET',
+      headers: {
+        resource_id: room.resources[index].resource_id
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { comments, error } = json
+
+        console.log(comments)
+        if (comments) setComments(comments)
+        else alert(error)
+        handlePopup()
+      })
   }
   const handlePrivacy = e => {
     e.preventDefault()
@@ -75,13 +100,22 @@ export default () => {
 
         if (room) {
           setRoomData(room)
+          fetchComments(room)
           toggleDialog()
         } else {
           alert(error)
         }
       })
   }
+  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
   const handlePassword = value => setPassword(value)
+  const handlePlaylist = (value, action) => {
+    const newValue = value
+    setPlaylist(newValue)
+    if (action) {
+      fetchComments(roomData, newValue.playing)
+    }
+  }
   const exitRoom = () => history.push('/home')
 
   return (
@@ -130,13 +164,16 @@ export default () => {
             </footer>
             <Playlist
               playlist={playlist}
-              setPlaylist={setPlaylist}
+              setPlaylist={handlePlaylist}
               roomData={roomData}
             />
           </div>
 
           <div className="comment-container">
-            <Comment />
+            <Comment
+              comments={comments}
+              setComments={setComments}
+            />
           </div>
 
         </div>
@@ -148,6 +185,7 @@ export default () => {
         onSubmit={handlePrivacy}
         onCancel={exitRoom}
       />
+      <Popup type="loading" waitText="Loading" />
     </div>
   );
 }

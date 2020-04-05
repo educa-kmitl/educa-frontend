@@ -22,6 +22,7 @@ export const Popup = ({ type, waitText, onChange, onSubmit, onCancel }) => {
                 title="Enter only english character and number"
                 onChange={onChange}
                 required
+                autoFocus
               />
               <span>
                 <div className="cancel" onClick={onCancel}>Cancel</div>

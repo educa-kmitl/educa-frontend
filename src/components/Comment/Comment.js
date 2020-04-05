@@ -3,17 +3,11 @@ import './Comment.scss'
 
 import { FaTelegramPlane } from 'react-icons/fa'
 import { profiles } from '../../img/Profile'
+import logo from '../../img/room/play.svg'
 
-const comments = [
-  { name: 'Teacher', text: 'This is Great!', role: true, profile_icon: 1 },
-  { name: 'Stupident', text: 'Hello teqacherdasd addad adashhic d kdj', role: false, profile_icon: 4 },
-  { name: 'Weed', text: 'I want to study', role: false, profile_icon: 7 },
-  { name: 'Weed', text: 'I want to study!', role: false, profile_icon: 7 },
-  { name: 'Teacher', text: 'I want to study more!!', role: true, profile_icon: 1 },
-  { name: 'Stupident', text: 'Wrong role!', role: false, profile_icon: 4 },
-]
+const moment = require('moment')
 
-export const Comment = () => {
+export const Comment = ({ comments, setComments }) => {
   return (
     <div className="comment-box">
       <header>Comment</header>
@@ -24,10 +18,13 @@ export const Comment = () => {
           <div key={index} className="box">
             <span>
               <img className='profile' src={profiles[comment.profile_icon]} alt='' />
-              <header>{comment.name}</header>
+              <header>
+                {comment.role && <img src={logo} alt="" />}
+                {comment.name}
+              </header>
             </span>
             <p>{comment.text}</p>
-            <label>12:14AM 1 April 2000</label>
+            <label>{moment(comment.time).fromNow()}</label>
           </div>
         ))}
       </div>

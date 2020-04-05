@@ -1,7 +1,7 @@
 import React from 'react'
 import './Input.scss'
 
-export const Input = ({ Icon, id, type, text, pattern, title, onChange, required, disabled }) => {
+export const Input = ({ Icon, id, type, text, pattern, title, onChange, required, disabled, autoFocus }) => {
   return (
     <div className="my-input">
       <input
@@ -13,6 +13,7 @@ export const Input = ({ Icon, id, type, text, pattern, title, onChange, required
         onChange={onChange && (e => onChange(e.target.value, e.target.id))}
         required={required}
         disabled={disabled}
+        autoFocus={autoFocus}
       />
       {Icon && <Icon className={disabled ? 'icon disabled' : 'icon'} />}
     </div>

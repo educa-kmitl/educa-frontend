@@ -5,7 +5,6 @@ import './Create.scss'
 
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
 import { Input, Dropdown, ToggleButton, Button } from '../../components'
-const moment = require('moment')
 
 const defaultRoom = {
   name: 'Course Title',
