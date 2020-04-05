@@ -10,7 +10,7 @@ export const Playlist = ({ playlist, setPlaylist, roomData }) => {
   const videos = roomData.resources
 
   const togglePlaylist = () => setPlaylist({ ...playlist, show: !playlist.show })
-  const changePlaylist = index => setPlaylist({ ...playlist, playing: index }, true)
+  const changePlaylist = index => setPlaylist({ show: false, playing: index }, true)
 
 
   return (

@@ -78,10 +78,32 @@ export default () => {
       .then(json => {
         const { comments, error } = json
 
-        console.log(comments)
         if (comments) setComments(comments)
         else alert(error)
         handlePopup()
+      })
+  }
+  const handleComment = (text) => {
+    fetch(window.$ENDPOINT + '/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ 
+        user_id: auth.data.user_id,
+        resource_id: roomData.resources[playlist.playing].resource_id,
+        text,
+        time: new Date()
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { user, error } = json
+
+        if (user) {
+          fetchComments(roomData)
+        }
+        else alert(error)
       })
   }
   const handlePrivacy = e => {
@@ -170,9 +192,9 @@ export default () => {
           </div>
 
           <div className="comment-container">
-            <Comment
-              comments={comments}
-              setComments={setComments}
+            <Comment 
+              refresh={handleComment}
+              comments={comments} 
             />
           </div>
 

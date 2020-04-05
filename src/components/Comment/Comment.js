@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Comment.scss'
 
 import { FaTelegramPlane } from 'react-icons/fa'
@@ -7,7 +7,14 @@ import logo from '../../img/room/play.svg'
 
 const moment = require('moment')
 
-export const Comment = ({ comments, setComments }) => {
+export const Comment = ({ refresh, comments }) => {
+  const [message, setMessage] = useState('')
+
+  const writeComment = () => {
+    refresh(message)
+    setMessage('')
+  }
+
   return (
     <div className="comment-box">
       <header>Comment</header>
@@ -33,13 +40,15 @@ export const Comment = ({ comments, setComments }) => {
         <input
           placeholder="Write comment"
           type="text"
-          onChange={null}
-          onKeyPress={null}
+          value={message}
+          onChange={e => setMessage(e.target.value)}
+          onKeyPress={e => e.key === 'Enter' ? writeComment() : null}
         />
-        <div className="icon-c" onClick={null}>
+        <div className="icon-c" onClick={writeComment}>
           <FaTelegramPlane className="icon" />
         </div>
       </div>
+
     </div>
   );
 }
