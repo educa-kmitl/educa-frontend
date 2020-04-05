@@ -37,11 +37,10 @@
           margin: 0;
           font-size: 28px;
         }
-        
+
         .profile {
           @include size(100px);
           border-radius: 50%;
-          border: 5px solid red;
           margin: 20px 0;
         }
 
@@ -51,8 +50,8 @@
         }
 
         p {
-          color: $color;
           font-size: 22px;
+          font-weight: 500;
           margin: 0;
         }
       }
@@ -79,7 +78,7 @@
         .profile {
           @include size(50px);
           border-radius: 50%;
-          border: 2px solid $color;
+          border-width: 3px;
           margin: 0 20px;
         }
 
@@ -89,6 +88,66 @@
           margin-left: 20px;
         }
       }
+    }
+  }
+
+  $purple: #9f00c7;
+  $purple-alt: #532751;
+  $red: #b92c2c;
+  $red-alt: #532c2c;
+  $blue: #52c6d1;
+  $blue-alt: #3a67b1;
+  $yellow: #ffe600;
+  $yellow-alt: #ffbb00;
+  $green: #3fbd65;
+  $green-alt: #e6e6e6;
+
+  p {
+    &.purple {
+      color: $purple;
+    }
+
+    &.red {
+      color: $red;
+    }
+
+    &.blue {
+      color: $blue;
+    }
+
+    &.yellow {
+      color: $yellow;
+    }
+
+    &.green {
+      color: $green;
+    }
+  }
+
+  .profile {
+    &.purple {
+      border: 5px solid $purple;
+      background: $purple-alt;
+    }
+
+    &.red {
+      border: 5px solid $red;
+      background: $red-alt;
+    }
+
+    &.blue {
+      border: 5px solid $blue;
+      background: $blue-alt;
+    }
+
+    &.yellow {
+      border: 5px solid $yellow;
+      background: $yellow-alt;;
+    }
+
+    &.green {
+      border: 5px solid $green;
+      background: $green-alt
     }
   }
 }
