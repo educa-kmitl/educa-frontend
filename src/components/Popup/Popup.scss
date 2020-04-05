@@ -81,8 +81,8 @@
   }
 }
 
-#popup-confirm {
-  @include size(360px, 200px);
+#popup-box {
+  @include size(400px, 350px);
   @include abs-center;
   @include flex-center(column);
   justify-content: space-between;
@@ -91,16 +91,32 @@
   padding: 40px;
 }
 
+#popup-icon {
+  font-size: 72px;
+  color: $color;
+}
+
 #popup-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 500;
-  margin-bottom: 20px;
+}
+
+#popup-text {
+  font-size: 20px;
+  margin: 0;
 }
 
 #popup-btn-group {
   width: 100%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#popup-btn-single {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 

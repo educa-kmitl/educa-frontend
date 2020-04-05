@@ -2,7 +2,6 @@
 
 .my-btn {
   @include size(145px, 50px);
-  @include shadow;
   background: $gradient;
   color: white;
   border: none;
@@ -20,8 +19,13 @@
     transform: scale(1.1);
   }
 
-  label {
-    pointer-events: none;
-    user-select: none;
+  &.alt {
+    box-shadow: none;
+    background: $grey;
   }
+}
+
+.my-btn-text {
+  pointer-events: none;
+  user-select: none;
 }

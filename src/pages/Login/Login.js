@@ -1,22 +1,20 @@
 import React, { useState, useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import './Login.scss'
+import '../scss/noAuth.scss'
 
-import { FaEnvelope, FaLock } from 'react-icons/fa'
+import { FaEnvelope, FaLock, FaHeartBroken } from 'react-icons/fa'
 import { Input, Button, Popup } from '../../components'
 import startpic from '../../img/start/start.svg'
 
 export default () => {
   const history = useHistory()
-
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [form, setForm] = useState({ email: '', password: '' })
   const [auth, setAuth] = useContext(AuthContext)
-  const [popup, setPopup] = useState('')
+  const [popup, setPopup] = useState({})
 
-  const handleEmail = value => setEmail(value)
-  const handlePassword = value => setPassword(value)
+  const handleEmail = value => setForm({ ...form, email: value })
+  const handlePassword = value => setForm({ ...form, password: value })
   const handleLogin = e => {
     e.preventDefault()
 
@@ -27,8 +25,8 @@ export default () => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email,
-        password
+        email: form.email,
+        password: form.password
       })
     })
       .then(res => res.json())
@@ -39,48 +37,61 @@ export default () => {
           setAuth({ ...auth, data: user })
           history.push('/home')
         } else {
-          alert(error)
-          setPopup('')
+          console.log(new Error(error))
+          setPopup({ type: 'alert', text: error })
         }
       })
   }
 
   return (
-    <div className="login-bg">
-      <div className="login-content">
+    <div className="full-page">
+      <div className="full-page-content">
 
-        <div className="txt-container">
-          <form onSubmit={handleLogin}>
-            <header>Welcome</header>
-            <Input
-              Icon={FaEnvelope}
-              type="email"
-              text="Email"
-              onChange={handleEmail}
-              required
-            />
-            <Input
-              Icon={FaLock}
-              type="password"
-              text="Password"
-              onChange={handlePassword}
-              required
-            />
-            <footer>
-              <Button text="Login" type="submit" />
-              <Link to="/register">
-                <p>Create your account</p>
-              </Link>
-            </footer>
-          </form>
-        </div>
+        <form id="auth-form" onSubmit={handleLogin}>
+          <h3>Welcome</h3>
+          <Input
+            Icon={FaEnvelope}
+            type="email"
+            text="Email"
+            onChange={handleEmail}
+            required
+          />
+          <Input
+            Icon={FaLock}
+            type="password"
+            text="Password"
+            onChange={handlePassword}
+            required
+          />
+          <footer id="auth-form-footer">
+            <Button primary text="Login" type="submit" />
+            <p
+              id="auth-switch-form"
+              onClick={() => history.push('/register')}
+            >Create your account</p>
+          </footer>
+        </form>
 
-        <div className="img-container">
-          <img src={startpic} alt="" />
-        </div>
+        <section id="start-img-container">
+          <img id="start-img" src={startpic} alt="" />
+        </section>
+
       </div>
 
-      {popup && <Popup type="loading" text="Loging in" />}
+      {popup === 'loading' &&
+        <Popup
+          type="loading"
+          text="Loging in"
+        />}
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={FaHeartBroken}
+          title="Oh no!"
+          text={popup.text}
+          confirm="Okay"
+          onConfirm={() => setPopup('')}
+        />}
     </div>
   )
 }

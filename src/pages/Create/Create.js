@@ -15,9 +15,10 @@ const defaultRoom = {
 }
 
 export default () => {
+  const history = useHistory()
   const [auth] = useContext(AuthContext)
   const [room, setRoom] = useState(defaultRoom)
-  const history = useHistory()
+  const [popup, setPopup] = useState('')
 
   const handleTitle = value => setRoom({ ...room, name: value })
   const handleSubject = value => setRoom({ ...room, subject: value })

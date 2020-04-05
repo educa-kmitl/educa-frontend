@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import './Room.scss'
 
-import { FaUserPlus, FaFileDownload, FaSignOutAlt } from 'react-icons/fa'
+import { FaHeart, FaFileDownload, FaSignOutAlt, FaWalking } from 'react-icons/fa'
 import { Comment, Playlist, Button, Popup } from '../../components'
 
 
@@ -22,6 +22,7 @@ export default () => {
   })
   const [playlist, setPlaylist] = useState({ show: false, playing: 0, id: 0 })
   const [comments, setComments] = useState([])
+  const [like, setLike] = useState(false)
 
   useEffect(() => {
     fetch(window.$ENDPOINT + '/room-privacy', {
@@ -75,8 +76,7 @@ export default () => {
         const { comments, error } = json
 
         if (comments) {
-          const lastestComment = comments.sort((a, b) => new Date(b.time) - new Date(a.time))
-          setComments(lastestComment)
+          setComments(comments)
         }
         else {
           alert(error)
@@ -127,7 +127,7 @@ export default () => {
           fetchComments(room)
         } else {
           alert(error)
-          setPopup('')
+          setPopup('lock')
         }
       })
   }
@@ -139,14 +139,20 @@ export default () => {
       fetchComments(roomData, newValue.playing)
     }
   }
-  const exitRoom = () => {
-    setPopup('confirm')
-    // history.push('/home')
-  }
+  const exitRoom = () => setPopup('confirm')
   const downloadFile = () => {
     const file = roomData.resources[playlist.playing].file_url
     if (file) window.open(file)
     else alert('This video has no file to download')
+  }
+  const likeVideo = () => {
+    if (like) {
+      // unlike
+      setLike(false)
+    } else {
+      // like
+      setLike(true)
+    }
   }
 
   return (
@@ -171,8 +177,8 @@ export default () => {
               </div>
             </div>
             <div className="btn-group">
-              <div className="btn" onClick={() => console.log(playlist.playing)}>
-                <FaUserPlus className="icon" />
+              <div className={`btn ${like && 'active'}`} onClick={likeVideo}>
+                <FaHeart className={`icon ${like && 'active'}`} />
               </div>
               <div className="btn" onClick={downloadFile}>
                 <FaFileDownload className="icon" />
@@ -192,7 +198,7 @@ export default () => {
               <div className="course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</div>
             </div>
             <footer>
-              <Button text="show all" onClick={() => setPlaylist({ ...playlist, show: !playlist.show })} />
+              <Button color="" text="show all" onClick={() => setPlaylist({ ...playlist, show: !playlist.show })} />
             </footer>
             <Playlist
               playlist={playlist}
@@ -224,7 +230,9 @@ export default () => {
             : popup === 'confirm' ?
               <Popup
                 type="confirm"
-                text="Do you want to exit?"
+                Icon={FaWalking}
+                title="Exiting.."
+                text="Are you sure, You want to exit"
                 confirm="Yes"
                 cancel="No"
                 onConfirm={() => history.push('/home')}

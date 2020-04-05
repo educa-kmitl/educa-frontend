@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import './Register.scss'
+import '../scss/noAuth.scss'
 
-import { FaEnvelope, FaUserAlt, FaLock } from 'react-icons/fa'
+import { FaEnvelope, FaUserAlt, FaLock, FaHeartBroken } from 'react-icons/fa'
 import { Input, Button, Radiobutton, Popup } from '../../components'
 import startpic from '../../img/start/start.svg'
 
@@ -16,8 +16,8 @@ export default () => {
     name: '',
     password: ''
   })
+  const [popup, setPopup] = useState('')
 
-  let waitText = 'Creating Account'
   const handleRole = value => setForm({ ...form, role: value === 'Teacher' })
   const handleEmail = value => setForm({ ...form, email: value })
   const handleName = value => setForm({ ...form, name: value })
@@ -25,7 +25,7 @@ export default () => {
   const handleRegister = e => {
     e.preventDefault()
 
-    handlePopup()
+    setPopup('loading')
     fetch(window.$ENDPOINT + '/register', {
       method: 'POST',
       headers: {
@@ -44,7 +44,6 @@ export default () => {
         const { user, error } = json
 
         if (user) {
-          waitText = 'Loging in'
           fetch(window.$ENDPOINT + '/login', {
             method: 'POST',
             headers: {
@@ -63,72 +62,92 @@ export default () => {
                 setAuth({ ...auth, data: user })
                 history.push('/home')
               } else {
-                alert(error)
-                handlePopup()
+                console.log(new Error(error))
+                setPopup({ type: 'alert', text: error })
               }
             })
         } else {
-          alert(error)
-          handlePopup()
+          console.log(new Error(error))
+          setPopup({ type: 'alert', text: error })
         }
       })
   }
-  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
 
   return (
-    <div className="signup-bg">
-      <div className="signup-content">
+    <div className="full-page">
+      <div className="full-page-content">
 
-        <div className="txt-container">
-          <form onSubmit={handleRegister}>
-            <header>Create Account</header>
-            <div className="radio-group">
-              <div className="rb">
-                <Radiobutton text="Student" group="role" onClick={handleRole} form={form} checked />
-              </div>
-              <div className="rb">
-                <Radiobutton text="Teacher" group="role" onClick={handleRole} form={form} />
-              </div>
+        <form id="auth-form" onSubmit={handleRegister}>
+          <h3>Create Account</h3>
+          <span id="auth-form-radio-group">
+            <div style={{ width: '48%' }}>
+              <Radiobutton
+                group="role"
+                text="Student"
+                onClick={handleRole}
+                checked
+              />
             </div>
-            <Input
-              Icon={FaEnvelope}
-              text="Email"
-              type="email"
-              onChange={handleEmail}
-              required
-            />
-            <Input
-              Icon={FaUserAlt}
-              text="Your name"
-              type="text"
-              pattern="^[A-Za-z][A-Za-z0-9]*$"
-              title="Yourname must be english character"
-              onChange={handleName}
-              required
-            />
-            <Input
-              Icon={FaLock}
-              text="Password"
-              type="password"
-              pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
-              title="Password must contain lowercase, uppercase, number and at least 8 characters "
-              onChange={handlePassword}
-              required
-            />
-            <footer>
-              <Button text="Create" type="submit" />
-              <Link to="/login"><p>I have an account</p></Link>
-            </footer>
-          </form>
-        </div>
+            <div style={{ width: '48%' }}>
+              <Radiobutton
+                group="role"
+                text="Teacher"
+                onClick={handleRole}
+              />
+            </div>
+          </span>
+          <Input
+            Icon={FaEnvelope}
+            type="email"
+            text="Email"
+            onChange={handleEmail}
+            required
+          />
+          <Input
+            Icon={FaUserAlt}
+            type="text"
+            text="Your name"
+            onChange={handleName}
+            required
+          />
+          <Input
+            Icon={FaLock}
+            type="password"
+            text="Password"
+            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
+            title="Password must contain lowercase, uppercase, number and at least 8 characters"
+            onChange={handlePassword}
+            required
+          />
+          <footer id="auth-form-footer">
+            <Button primary text="Create" type="submit" />
+            <p
+              id="auth-switch-form"
+              onClick={() => history.push('/login')}
+            >I have an account</p>
+          </footer>
+        </form>
 
-        <div className="img-container">
-          <img src={startpic} alt="" />
-        </div>
+        <section id="start-img-container">
+          <img id="start-img" src={startpic} alt="" />
+        </section>
 
       </div>
 
-      <Popup type="loading" text={waitText} />
+      {popup === 'loading' &&
+        <Popup
+          type="loading"
+          text="Creating account"
+        />}
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={FaHeartBroken}
+          title="Oh no!"
+          text={popup.text}
+          confirm="Okay"
+          onConfirm={() => setPopup('')}
+        />}
     </div>
   )
 }

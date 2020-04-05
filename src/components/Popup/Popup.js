@@ -5,7 +5,7 @@ import { Input, Button } from '../'
 import { FaLock } from 'react-icons/fa'
 import logo from '../../img/room/play.svg'
 
-export const Popup = ({ type, text, confirm, cancel, onChange, onConfirm, onCancel }) => {
+export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onConfirm, onCancel }) => {
   return (
     <>
       {
@@ -25,7 +25,7 @@ export const Popup = ({ type, text, confirm, cancel, onChange, onConfirm, onCanc
                 autoFocus
               />
               <span>
-                <div className="cancel" onClick={onCancel}>Cancel</div>
+                <Button alt text="Cancel" onClick={onCancel} />
                 <Button text="EDUCA" type="submit" />
               </span>
             </form>
@@ -41,15 +41,29 @@ export const Popup = ({ type, text, confirm, cancel, onChange, onConfirm, onCanc
             :
             type === 'confirm' ?
               <div className="popup-content">
-                <div id="popup-confirm">
-                  <header id="popup-title">{text}</header>
+                <div id="popup-box">
+                  <Icon id="popup-icon" />
+                  <header id="popup-title">{title}</header>
+                  <p id="popup-text">{text}</p>
                   <span id="popup-btn-group">
-                    <button className="secondary-btn" onClick={onCancel}>{cancel}</button>
-                    <Button text={confirm} type="submit" onClick={onConfirm} />
+                    <Button alt text={cancel} onClick={onCancel} />
+                    <Button text={confirm} onClick={onConfirm} />
                   </span>
                 </div>
               </div>
-              : null
+              :
+              type === 'alert' ?
+                <div className="popup-content">
+                  <div id="popup-box">
+                    <Icon id="popup-icon" />
+                    <header id="popup-title">{title}</header>
+                    <p id="popup-text">{text}</p>
+                    <span id="popup-btn-single">
+                      <Button text={confirm} onClick={onConfirm} />
+                    </span>
+                  </div>
+                </div>
+                : null
       }
     </>
   )

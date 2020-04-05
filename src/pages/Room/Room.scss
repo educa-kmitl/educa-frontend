@@ -12,7 +12,7 @@
     max-width: 1280px;
     height: 100%;
     margin: auto;
-  
+
     .video-card {
       @include flex-center(column);
       @include fixed-size(830px, 750px);
@@ -20,19 +20,19 @@
       box-sizing: border-box;
       background: white;
       border-radius: 40px;
-  
+
       .video {
         @include fixed-size(830px, 640px);
         background: $black;
         border-radius: 40px 40px 0 0;
-  
+
         .embed-video {
           @include fixed-size(830px, 640px);
           border-radius: inherit;
           border: none;
         }
       }
-  
+
       .video-menu {
         @include flex-center;
         justify-content: space-between;
@@ -40,16 +40,17 @@
         height: calc(750px - 640px);
         box-sizing: border-box;
         padding: 50px;
-  
+
         .video-title {
           display: flex;
           flex-direction: column;
           justify-content: center;
-  
+
           .title {
             font-size: 24px;
             font-weight: 500;
           }
+
           .name {
             margin-top: 5px;
             font-size: 16px;
@@ -57,12 +58,12 @@
             color: $color;
           }
         }
-  
+
         .btn-group {
           @include flex-center;
           width: 200px;
           justify-content: space-between;
-  
+
           .btn {
             @include fixed-size(50px);
             position: relative;
@@ -70,22 +71,32 @@
             background: white;
             border-radius: 50%;
             transition: .2s;
-  
-            .icon { @include abs-center; }
-  
-            &:nth-child(1) { 
-              border: 2px solid $color;
-              color:  $color;
+            
+
+            .icon {
+              @include abs-center;
             }
-            &:nth-child(2) { 
+
+            &:nth-child(1) {
+              border: 2px solid $color;
+              color: $color;
+
+              &.active {
+                background: $color;
+                color: white;
+              }
+            }
+
+            &:nth-child(2) {
               border: 2px solid #FBB91E;
               color: #FBB91E;
             }
-            &:nth-child(3) { 
+
+            &:nth-child(3) {
               border: 2px solid #7921AD;
               color: #7921AD;
             }
-  
+
             &:hover {
               cursor: pointer;
               transform: scale(1.1);
@@ -94,9 +105,9 @@
         }
       }
     }
-  
+
     .right-panel {
-  
+
       .course-card {
         @include fixed-size(360px, 220px);
         @include shadow;
@@ -109,31 +120,31 @@
         box-sizing: border-box;
         padding: 40px;
         position: relative;
-    
+
         .course-detail {
           flex-wrap: wrap;
-    
+
           .course-title {
             font-size: 28px;
             font-weight: 500;
           }
-      
+
           .course-count {
             margin-top: 5px;
             font-size: 20px;
             color: lightgrey;
           }
         }
-  
+
         footer {
           display: flex;
           justify-content: flex-end;
           margin-top: 20px;
           margin-right: -7px;
         }
-    
+
       }
-    
+
       .comment-container {
         @include fixed-size(360px, 100%);
         margin: 30px;

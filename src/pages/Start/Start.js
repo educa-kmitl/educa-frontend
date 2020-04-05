@@ -1,29 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import './Start.scss'
+import '../scss/noAuth.scss'
 
 import { Button } from '../../components'
 import startpic from '../../img/start/start.svg'
 
 export default () => {
   return (
-    <div className="start-bg">
-      <div className="content">
+    <div className="full-page">
+      <div className="full-page-content">
 
-        <div className="txt-container">
-          <header>Hello! <b>Educa</b></header>
-          <p>
+        <section id="start-text-container">
+          <h1>Hello! <b>Educa</b></h1>
+          <h6>
             With our learning platform <br />
             you can learn anything in one place.
-          </p>
+          </h6>
           <Link to="/home" style={fixMargin}>
-            <Button text="Get Started" />
+            <Button primary text="Get Started" />
           </Link>
-        </div>
+        </section>
 
-        <div className="img-container">
-          <img src={startpic} alt="" />
-        </div>
+        <section id="start-img-container">
+          <img id="start-img" src={startpic} alt="" />
+        </section>
 
       </div>
     </div>
