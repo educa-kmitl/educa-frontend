@@ -66,7 +66,7 @@ export default () => {
     overlay.classList.toggle('hide')
     document.querySelector('#room-pw').value = ''
   }
-  const fetchComments = (room, index=0) => {
+  const fetchComments = (room, index = 0) => {
     handlePopup()
     fetch(window.$ENDPOINT + '/comments', {
       method: 'GET',
@@ -78,8 +78,13 @@ export default () => {
       .then(json => {
         const { comments, error } = json
 
-        if (comments) setComments(comments)
-        else alert(error)
+        if (comments) {
+          const lastestComment = comments.sort((a, b) => new Date(b.time) - new Date(a.time))
+          setComments(lastestComment)
+        }
+        else {
+          alert(error)
+        }
         handlePopup()
       })
   }
@@ -89,7 +94,7 @@ export default () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ 
+      body: JSON.stringify({
         user_id: auth.data.user_id,
         resource_id: roomData.resources[playlist.playing].resource_id,
         text,
@@ -139,6 +144,11 @@ export default () => {
     }
   }
   const exitRoom = () => history.push('/home')
+  const downloadFile = () => {
+    const file = roomData.resources[playlist.playing].file_url
+    if (file) window.open(file)
+    else alert('This video has no file to download')
+  }
 
   return (
     <div className="room-page-bg">
@@ -150,6 +160,7 @@ export default () => {
                 className="embed-video"
                 src={roomData.resources[playlist.playing].video_url}
                 title={roomData.resources[playlist.playing].topic}
+                allowFullScreen
               ></iframe>
             }
           </div>
@@ -164,7 +175,7 @@ export default () => {
               <div className="btn" onClick={() => console.log(playlist.playing)}>
                 <FaUserPlus className="icon" />
               </div>
-              <div className="btn" onClick={() => console.log(roomData)}>
+              <div className="btn" onClick={downloadFile}>
                 <FaFileDownload className="icon" />
               </div>
               <div className="btn" onClick={exitRoom}>
@@ -192,9 +203,9 @@ export default () => {
           </div>
 
           <div className="comment-container">
-            <Comment 
+            <Comment
               refresh={handleComment}
-              comments={comments} 
+              comments={comments}
             />
           </div>
 
@@ -208,6 +219,6 @@ export default () => {
         onCancel={exitRoom}
       />
       <Popup type="loading" waitText="Loading" />
-    </div>
+    </div >
   );
 }

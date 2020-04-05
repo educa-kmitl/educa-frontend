@@ -1,4 +1,91 @@
+@import '../../styles';
 
-.profile-content {
-  font-size: 100px;
+#profile-page-bg {
+  background: $gradient-white;
+  padding-top: $nav-size;
+  min-height: 100vh;
+}
+
+#profile-page-content {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 30px;
+  max-width: 1280px;
+  height: 100%;
+  margin: auto;
+}
+
+#user-card {
+  @include size(440px, 600px);
+  @include shadow;
+  @include flex-center(column);
+  justify-content: space-between;
+  background: white;
+  position: relative;
+  border-radius: 40px;
+  padding: 60px;
+  padding-bottom: 40px;
+}
+
+#user-picture {
+  @include size(250px);
+  background: lightblue;
+  border-radius: 50%;
+}
+
+#user-name {
+  font-size: 36px;
+  font-weight: 500;
+}
+
+#user-role {
+  margin-top: -15px;
+  font-size: 16px;
+  color: grey
+}
+
+#user-level {
+  font-size: 22px;
+}
+
+#user-expbar {
+  @include size(100%, 10px);
+  background-color: lightgray;
+  border-radius: 40px;
+}
+
+#user-expbar-progress {
+  @include size(50%, 100%);
+  border-radius: inherit;
+}
+
+#user-fam {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.user-fam-box {
+  @include flex-center(column);
+  flex: .5;
+  height: 70px;
+}
+
+.user-fam-number {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.user-fam-title {
+  font-size: 18px;
+}
+
+#user-own-room {
+  @include size(560px, 600px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
 }

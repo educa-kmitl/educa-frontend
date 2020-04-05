@@ -1,4 +1,5 @@
 $gradient: linear-gradient(60deg, #ee438a 55%, #f7c438);
+$exp-bar: linear-gradient(-90deg, #ee438a, #f7c438);
 $gradient-white: linear-gradient(white, #f3f4fa);
 
 $color: #ff0062;
@@ -38,3 +39,8 @@ $full-page: calc(100vh - #{$nav-size});
   flex-direction: $direction;
 }
 
+.color {
+  &.blue {
+    color: #0099FF
+  }
+}

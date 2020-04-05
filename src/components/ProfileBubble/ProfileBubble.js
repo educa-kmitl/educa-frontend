@@ -22,16 +22,14 @@ export const ProfileBubble = ({ state, setState }) => {
   return (
     <div className={(state && 'bubble-container') || 'bubble-container hide'}>
       <div className="content">
-        <div className="username">{auth.data ? auth.data.name : 'guest'}</div>
+        <div className="username">{auth.data?.name}</div>
         {
-          auth.data ?
-            auth.data.role ?
-              <div className="level">LEVEL {auth.data ? auth.data.exp : 0}</div> :
-              <div className="level">student</div>
-            : null
+          auth.data?.role ?
+            <div className="level">LEVEL {auth.data?.likes}</div> :
+            <div className="level">student</div>
         }
         <div className="exp"></div>
-        <Link to="/profile" onClick={hideBubble}>
+        <Link to={`/profile/${auth.data?.user_id}`} onClick={hideBubble}>
           <div className="item">
             <div className="icon"><FaUserAlt /></div>
             MY PROFILE
