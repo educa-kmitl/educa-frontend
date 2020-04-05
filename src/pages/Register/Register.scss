@@ -29,11 +29,20 @@
         border-radius: 40px;
         padding: 50px 70px;
         width: 480px;
-        height: 550px;
+        height: 600px;
 
         header {
           font-size: 48px;
           font-weight: 500;
+          margin-bottom: 20px;
+        }
+
+        .radio-group { 
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          .rb { width: 48% }
         }
 
         footer {

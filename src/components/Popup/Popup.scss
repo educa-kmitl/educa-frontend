@@ -1,0 +1,95 @@
+@import '../../styles';
+
+.room-password {
+  @include fixed-size(100vw, 100vh);
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  form.dialog-box {
+    @include size(400px, 270px);
+    @include abs-center;
+    @include shadow;
+    transform: translate(-50%, -50%) scale(1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    box-sizing: border-box;
+    border-radius: 40px;
+    padding: 40px;
+    transition: .2s;
+
+    header {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    span {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .cancel {
+        @include flex-center;
+        width: 145px;
+        font-size: 20px;
+        user-select: none;
+        transition: .2s;
+
+        &:hover {
+          color: $color;
+          cursor: pointer;
+          transform: scale(1.1);
+        }
+      }
+    }
+  }
+
+  &.hide {
+    transform: scale(0);
+    pointer-events: none;
+
+    form.dialog-box {
+      transform: translate(-50%, -50%) scale(.0);
+    }
+  }
+}
+
+.popup-content {
+  @include fixed-size(100vw, 100vh);
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+
+  .popup-box {
+    @include size(260px);
+    @include flex-center(column);
+    @include abs-center;
+    @include shadow;
+    background: white;
+    border-radius: 40px;
+
+    img {
+      @include size(100px);
+      animation: load 1.2s linear infinite;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    span {
+      margin-top: 20px;
+      font-size: 22px;
+    }
+  }
+
+  &.hide {
+    display: none;
+  }
+}

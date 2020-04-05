@@ -1,49 +1,37 @@
 @import '../../styles';
 
 .toggle-btn {
-  $width: 57px;
-  $height: 33px;
-  $circle: $height - 5px;
-
-  @include size($width, $height);
+  @include size(57px, 33px);
   @include flex-center;
   justify-content: flex-start;
-  box-sizing: border-box;
-  background: #777777;
-  border-radius: $height;
+  background: grey;
+  border-radius: 40px;
   position: relative;
   transition: .3s;
-  margin-top: 2px;
   cursor: pointer;
 
+  margin-top: 2px;
+
   .circle {
-    @include size($circle);
+    @include size(28px);
     position: absolute;
-    transform: translate(0, -60%);
-    top: 50%; left: 3px;
+    transform: translate(0, -52%);
+    top: 50%;
+    left: 3px;
     background: white;
     border-radius: 50%;
     transition: .4s;
-    position: relative;
   }
 
-  &:hover { @include shadow }
+  &:hover {
+    @include shadow
+  }
 
-  &.active {
-    @extend .toggle-btn;
+  &[state=true] {
     background: $color;
-  
+
     .circle {
-      background: white;
-      margin-left: $width - $height;
+      margin-left: 23px;
     }
-  
-    .label {
-      color: white;
-      margin-left: -5%;
-    }
-  
-    &:hover { @include hover }
   }
 }
-

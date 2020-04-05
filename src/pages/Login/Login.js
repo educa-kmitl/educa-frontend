@@ -1,26 +1,26 @@
 import React, { useState, useContext } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { AuthContext } from '../../contexts'
 import './Login.scss'
 
-import { Link, useHistory } from 'react-router-dom'
 import { FaEnvelope, FaLock } from 'react-icons/fa'
-import { Input, Button } from '../../components'
-import { AuthContext } from '../../contexts'
+import { Input, Button, Popup } from '../../components'
 import startpic from '../../img/start/start.svg'
 
-export const Login = () => {
-  const ENDPOINT = "http://localhost:5000" // Change Later
-  const history = useHistory();
+export default () => {
+  const history = useHistory()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [auth, setAuth] = useContext(AuthContext)
 
-  const handleEmail = e => setEmail(e.target.value)
-  const handlePassword = e => setPassword(e.target.value)
-  const handleLogin = (event) => {
-    event.preventDefault()
+  const handleEmail = value => setEmail(value)
+  const handlePassword = value => setPassword(value)
+  const handleLogin = e => {
+    e.preventDefault()
 
-    fetch(ENDPOINT + '/api/user/login', {
+    handlePopup()
+    fetch(window.$ENDPOINT + '/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -32,16 +32,18 @@ export const Login = () => {
     })
       .then(res => res.json())
       .then(json => {
-        const { error, user } = json
-        if (error) {
-          alert('Invalid Email or Password :(')
-        } else if (user) {
-          setAuth({...auth, data: user})
-          alert('Logined!')
+        const { user, error } = json
+        
+        if (user) {
+          setAuth({ ...auth, data: user })
           history.push('/home')
+        } else {
+          alert(error)
+          handlePopup()
         }
       })
   }
+  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
 
   return (
     <div className="login-bg">
@@ -51,31 +53,34 @@ export const Login = () => {
           <form onSubmit={handleLogin}>
             <header>Welcome</header>
             <Input
-              text="Email"
+              Icon={FaEnvelope}
               type="email"
-              icon={FaEnvelope}
+              text="Email"
               onChange={handleEmail}
               required
             />
             <Input
-              text="Password"
+              Icon={FaLock}
               type="password"
-              icon={FaLock}
+              text="Password"
               onChange={handlePassword}
               required
             />
             <footer>
               <Button text="Login" type="submit" />
-              <Link to="/signup"><p>Create your account</p></Link>
+              <Link to="/register">
+                <p>Create your account</p>
+              </Link>
             </footer>
           </form>
-          <button onClick={()=>console.log(auth.data)}/>
         </div>
 
         <div className="img-container">
           <img src={startpic} alt="" />
         </div>
       </div>
+
+      <Popup type="loading" waitText="Loging in" />
     </div>
   )
 }

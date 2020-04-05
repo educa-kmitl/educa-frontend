@@ -1,33 +1,29 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import './Card.scss';
-import { AuthContext } from '../../contexts';
+import React from 'react'
+import './Card.scss'
 
-export const Card = ({ room })=>{
-  const history = useHistory();
-  const [auth, setAuth] = useContext(AuthContext);
+import { FaLock } from 'react-icons/fa'
+const moment = require('moment')
 
-  const enterRoom = e => {
-    e.preventDefault();
-    history.push(`/room?name=${auth.data.name}&room_id=${room.title}`)
-  }
+export const Card = ({ room, onClick }) => {
+  return (
+    <div className={'card ' + room?.subject} onClick={onClick && (() => onClick(room))}>
+      <div className="imgCard"></div>
+      <div className="txt">
 
-    return(
-        <div className={'card ' + room.tag} onClick={enterRoom}>
-            <div className="imgCard">
-                 
-            </div> 
-            <div className="txt">
-                <div className="heading">
-                    {room.title}
-                </div>
-                <div className="description">
-                    {room.about}
-                </div>
-                <div className="tutor">
-                    {room.owner}
-                </div>
-            </div>
+        <div className="title">
+          <div className="heading">
+            {room?.private && <FaLock style={{ fontSize: '20px', marginRight: '5px' }} />}
+            {room?.name}
+          </div>
+          <div className="description">
+            {room?.subject} {room?.resource_length} video{room?.resource_length > 1 ? 's' : null}
+          </div>
         </div>
-    )
+        <div className="tutor">
+          by {room?.teacher_name} <br />
+          {moment(new Date(room?.date_created)).format("LL")}
+        </div>
+      </div>
+    </div>
+  )
 }

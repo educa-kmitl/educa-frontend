@@ -1,21 +1,21 @@
-import React from 'react';
-import './Input.scss';
+import React from 'react'
+import './Input.scss'
 
-export const Input = ({ icon, text, type, onChange, onChange2, index, required, disabled }) => {
-  const Icon = icon || null;
-
+export const Input = ({ Icon, id, type, text, pattern, title, onChange, required, disabled, autoFocus }) => {
   return (
-    <div className="input-container">
-      <input 
-        className={disabled ? 'input-field disabled' : 'input-field'}
+    <div className="my-input">
+      <input
+        id={id && id.toString()}
+        type={type || 'text'}
         placeholder={text}
-        type={type}
-        id={index}
-        onChange={(onChange) ? e => onChange(e) : onChange2 ? e => onChange2(e.target.value, e.target.id) : null}
+        pattern={pattern || null}
+        title={title || null}
+        onChange={onChange && (e => onChange(e.target.value, e.target.id))}
         required={required}
         disabled={disabled}
+        autoFocus={autoFocus}
       />
-      {icon ? <Icon className={disabled ? 'icon disabled' : 'icon'} /> : null}
+      {Icon && <Icon className={disabled ? 'icon disabled' : 'icon'} />}
     </div>
-  );
+  )
 }

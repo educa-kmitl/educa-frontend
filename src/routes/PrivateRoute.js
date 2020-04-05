@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { AuthContext } from '../../contexts'
+import { AuthContext } from '../contexts'
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
-  const [auth, setAuth] = useContext(AuthContext)
+  const [auth] = useContext(AuthContext)
   const { loading } = auth
 
   if (loading) {
@@ -16,7 +16,7 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
       />
     );
   }
-  
+
   return (
     <Route
       {...rest}

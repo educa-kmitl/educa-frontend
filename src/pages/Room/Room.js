@@ -1,108 +1,224 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { Chatbox, IconButton } from '../../components';
-import io from "socket.io-client";
-import queryString from "query-string";
-import './Room.scss';
+import React, { useEffect, useState, useContext } from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+import { AuthContext } from '../../contexts'
+import './Room.scss'
 
-let socket;
+import { FaUserPlus, FaFileDownload, FaSignOutAlt } from 'react-icons/fa'
+import { Comment, Playlist, Button, Popup } from '../../components'
 
-export const Room = () => {
-  const ENDPOINT = "localhost:5000" // Change Later
-  const [videoLink, setVideoLink] = useState(undefined)
-  const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState([])
-  const [name, setName] = useState('')
-  const [roomID, setRoomID] = useState('')
-  const [roomOwner, setRoomOwner] = useState('')
-  const location = useLocation();
-  const history = useHistory();
+
+export default () => {
+  const history = useHistory()
+  const { room_id } = useParams()
+  const [auth] = useContext(AuthContext)
+  const [password, setPassword] = useState('')
+  const [roomData, setRoomData] = useState({
+    name: 'Loading',
+    subject: 'Loading',
+    teacher_name: 'Loading',
+    resources: [{ topic: 'Loading', link: '' }],
+    private: false
+  })
+  const [playlist, setPlaylist] = useState({ show: false, playing: 0, id: 0 })
+  const [comments, setComments] = useState([])
 
   useEffect(() => {
-    const { name, room_id, link } = queryString.parse(location.search)
+    fetch(window.$ENDPOINT + '/room-privacy', {
+      method: 'GET',
+      headers: {
+        room_id
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { lock, error } = json
 
-    setName(name)
-    setRoomID(room_id)
-    socket = io(ENDPOINT)
+        if (lock) {
+          toggleDialog()
+        } else if (!lock) {
+          fetch(window.$ENDPOINT + '/rooms', {
+            method: 'GET',
+            headers: {
+              room_id
+            }
+          })
+            .then(res => res.json())
+            .then(json => {
+              const { room, error } = json
 
-    if (link) {
-      console.log("You are teacher")
-      setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
-      socket.emit("create", { name, room_id, link }, () => {
-        console.log(`${name} create room ${room_id}`)
-        setRoomOwner(name)
-      })
-    } else {
-      console.log("You are student")
-      socket.emit("join", { name, room_id }, ({ error, link, owner }) => {
-        if (error) {
-          console.log(error);
-          history.push(`/notfound`);
+              if (room) {
+                setRoomData(room)
+                fetchComments(room)
+              }
+              else {
+                alert(error)
+              }
+            })
         } else {
-          console.log(link, owner)
-          setVideoLink(link.replace("watch?v=", "embed/") + "?autoplay=1")
-          setRoomOwner(owner)
+          alert(error)
         }
       })
-    }
-  }, [ENDPOINT, location.search])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  useEffect(() => {
-    socket.on("message", newMessage => {
-      setMessages([...messages, newMessage])
-      //messages.push(newMessage)
+  const toggleDialog = () => {
+    const overlay = document.querySelector('.room-password')
+    overlay.classList.toggle('hide')
+    document.querySelector('#room-pw').value = ''
+  }
+  const fetchComments = (room, index = 0) => {
+    handlePopup()
+    fetch(window.$ENDPOINT + '/comments', {
+      method: 'GET',
+      headers: {
+        resource_id: room.resources[index].resource_id
+      }
     })
+      .then(res => res.json())
+      .then(json => {
+        const { comments, error } = json
 
-    document.querySelector('#lastest-message').scrollIntoView({ behavior: "smooth" });
+        if (comments) {
+          const lastestComment = comments.sort((a, b) => new Date(b.time) - new Date(a.time))
+          setComments(lastestComment)
+        }
+        else {
+          alert(error)
+        }
+        handlePopup()
+      })
+  }
+  const handleComment = (text) => {
+    fetch(window.$ENDPOINT + '/comments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: auth.data.user_id,
+        resource_id: roomData.resources[playlist.playing].resource_id,
+        text,
+        time: new Date()
+      })
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { user, error } = json
 
-    return () => {
-      socket.emit("disconnect")
-      socket.off()
-    }
-  }, [messages])
-
-  const sendMessage = e => {
+        if (user) {
+          fetchComments(roomData)
+        }
+        else alert(error)
+      })
+  }
+  const handlePrivacy = e => {
     e.preventDefault()
-    if (message !== "") {
-      socket.emit("sendMessage", { message, room_id: roomID, name})
-      setMessage("")
+
+    fetch(window.$ENDPOINT + '/rooms', {
+      method: 'GET',
+      headers: {
+        room_id,
+        password
+      }
+    })
+      .then(res => res.json())
+      .then(json => {
+        const { room, error } = json
+
+        if (room) {
+          setRoomData(room)
+          fetchComments(room)
+          toggleDialog()
+        } else {
+          alert(error)
+        }
+      })
+  }
+  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
+  const handlePassword = value => setPassword(value)
+  const handlePlaylist = (value, action) => {
+    const newValue = value
+    setPlaylist(newValue)
+    if (action) {
+      fetchComments(roomData, newValue.playing)
     }
+  }
+  const exitRoom = () => history.push('/home')
+  const downloadFile = () => {
+    const file = roomData.resources[playlist.playing].file_url
+    if (file) window.open(file)
+    else alert('This video has no file to download')
   }
 
   return (
     <div className="room-page-bg">
       <div className="room-page-content">
-        <div className="left-content">
-          <div className="video-container">
-            { videoLink && 
-              <iframe 
+        <div className="video-card">
+          <div className="video">
+            {
+              <iframe
                 className="embed-video"
-                src={videoLink}
-                title={videoLink}
-              ></iframe> 
+                src={roomData.resources[playlist.playing].video_url}
+                title={roomData.resources[playlist.playing].topic}
+                allowFullScreen
+              ></iframe>
             }
           </div>
-          <div className="menu-btn">
-            <div className="btn-group">
-              <IconButton type="love"/>
-              <IconButton type="follow"/>
-              <IconButton type="download"/>
+          <div className="video-menu">
+            <div className="video-title">
+              <div className="title">{roomData.resources[playlist.playing].topic}</div>
+              <div className="name">
+                by {roomData.teacher_id === auth.data.user_id ? 'You' : roomData.teacher_name}
+              </div>
             </div>
-            <IconButton type="exit"/>
+            <div className="btn-group">
+              <div className="btn" onClick={() => console.log(playlist.playing)}>
+                <FaUserPlus className="icon" />
+              </div>
+              <div className="btn" onClick={downloadFile}>
+                <FaFileDownload className="icon" />
+              </div>
+              <div className="btn" onClick={exitRoom}>
+                <FaSignOutAlt className="icon" />
+              </div>
+            </div>
           </div>
         </div>
-        
-        <div className="chat-container">
-          <Chatbox 
-            roomOwner={roomOwner}
-            roomID={roomID}
-            message={message}
-            setMessage={setMessage}
-            sendMessage={sendMessage}
-            messages={messages}
-          />
+
+        <div className="right-panel">
+
+          <div className="course-card">
+            <div className="course-detail">
+              <div className="course-title">{roomData.name}</div>
+              <div className="course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</div>
+            </div>
+            <footer>
+              <Button text="show all" onClick={() => setPlaylist({ ...playlist, show: !playlist.show })} />
+            </footer>
+            <Playlist
+              playlist={playlist}
+              setPlaylist={handlePlaylist}
+              roomData={roomData}
+            />
+          </div>
+
+          <div className="comment-container">
+            <Comment
+              refresh={handleComment}
+              comments={comments}
+            />
+          </div>
+
         </div>
       </div>
-    </div>
+
+      <Popup
+        type="lock"
+        onChange={handlePassword}
+        onSubmit={handlePrivacy}
+        onCancel={exitRoom}
+      />
+      <Popup type="loading" waitText="Loading" />
+    </div >
   );
 }

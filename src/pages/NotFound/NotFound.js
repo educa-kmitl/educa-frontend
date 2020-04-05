@@ -4,7 +4,7 @@ import { Button } from '../../components';
 
 import './NotFound.scss';
 
-export const NotFound = () => {
+export default () => {
   return (
     <div className="nf-page-bg">
       <div className="nf-svg"></div>
