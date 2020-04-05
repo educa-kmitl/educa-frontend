@@ -1,0 +1,76 @@
+@import '../../styles';
+
+.signup-bg {
+  @include flex-center;
+  background: $gradient-white;
+  height: 100vh;
+  overflow: hidden;
+
+  .signup-content {
+    box-sizing: border-box;
+    display: flex;
+    max-width: 1280px;
+    width: 100%;
+    padding: 0 30px;
+    margin-top: $nav-size;
+    position: relative;
+      
+    .txt-container{
+      width: 40%;
+      margin-top: 5%;
+      position: absolute;
+  
+      form {
+        @include shadow;
+        @include flex-center(column);
+        justify-content: space-evenly;
+        box-sizing: border-box;
+        background: white;
+        border-radius: 40px;
+        padding: 50px 70px;
+        width: 480px;
+        height: 600px;
+
+        header {
+          font-size: 48px;
+          font-weight: 500;
+          margin-bottom: 20px;
+        }
+
+        .radio-group { 
+          display: flex;
+          justify-content: space-between;
+          width: 100%;
+
+          .rb { width: 48% }
+        }
+
+        footer {
+          @include flex-center(column);
+          width: 100%;
+          flex-wrap: wrap;
+          
+          p {
+            font-size: 22px;
+            color: $color;
+            margin-top: 20px;
+            transition: .2s;
+
+            &:hover { transform: scale(1.1) }
+          }
+        }
+        
+      }
+    }
+    .img-container {
+      text-align: right;
+      width: 100%;
+      
+      img { 
+        @include size(900px);
+        margin-right: -10%;
+        user-select: none;
+      }
+    }
+  }
+}

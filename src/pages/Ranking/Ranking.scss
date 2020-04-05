@@ -1,0 +1,153 @@
+@import '../../styles';
+
+.ranking-bg {
+  background: $gradient-white;
+  min-height: 100vh;
+  padding-top: $nav-size;
+
+  .ranking-content {
+    padding: 30px;
+    max-width: 1020px;
+    height: 100%;
+    margin: auto;
+
+    header {
+      font-weight: 500;
+      font-size: 36px;
+      margin: 40px 0;
+    }
+
+    .top-rank {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+
+      .top {
+        @include size(300px, 350px);
+        @include shadow;
+        background: white;
+        border-radius: 40px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+
+        header {
+          margin: 0;
+          font-size: 28px;
+        }
+
+        .profile {
+          @include size(100px);
+          border-radius: 50%;
+          margin: 20px 0;
+        }
+
+        label {
+          font-size: 26px;
+          font-weight: 500;
+        }
+
+        p {
+          font-size: 22px;
+          font-weight: 500;
+          margin: 0;
+        }
+      }
+
+      .not-top {
+        @extend .top;
+        transform: scale(.9);
+      }
+    }
+
+    .rank-list {
+      @include size(500px, auto);
+      @include shadow;
+      margin: 30px auto;
+      background: white;
+      border-radius: 40px;
+      padding: 40px;
+
+      span {
+        display: flex;
+        align-items: center;
+        font-size: 22px;
+
+        .profile {
+          @include size(50px);
+          border-radius: 50%;
+          border-width: 3px;
+          margin: 0 20px;
+        }
+
+        p {
+          font-size: 22px;
+          font-weight: 500;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+
+  $purple: #9f00c7;
+  $purple-alt: #532751;
+  $red: #b92c2c;
+  $red-alt: #532c2c;
+  $blue: #52c6d1;
+  $blue-alt: #3a67b1;
+  $yellow: #ffe600;
+  $yellow-alt: #ffbb00;
+  $green: #3fbd65;
+  $green-alt: #e6e6e6;
+
+  p {
+    &.purple {
+      color: $purple;
+    }
+
+    &.red {
+      color: $red;
+    }
+
+    &.blue {
+      color: $blue;
+    }
+
+    &.yellow {
+      color: $yellow;
+    }
+
+    &.green {
+      color: $green;
+    }
+  }
+
+  .profile {
+    &.purple {
+      border: 5px solid $purple;
+      background: $purple-alt;
+    }
+
+    &.red {
+      border: 5px solid $red;
+      background: $red-alt;
+    }
+
+    &.blue {
+      border: 5px solid $blue;
+      background: $blue-alt;
+    }
+
+    &.yellow {
+      border: 5px solid $yellow;
+      background: $yellow-alt;;
+    }
+
+    &.green {
+      border: 5px solid $green;
+      background: $green-alt
+    }
+  }
+}

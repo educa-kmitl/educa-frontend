@@ -1,51 +1,37 @@
-@import '../../index.scss';
-
-$btn-width: 180px;
-$btn-height: 40px;
+@import '../../styles';
 
 .toggle-btn {
-  background: white;
-  width: $btn-width;
-  height: $btn-height;
-  padding: 5px;
-  box-shadow: main-border(1px);
-  border-radius: $btn-height;
+  @include size(57px, 33px);
+  @include flex-center;
+  justify-content: flex-start;
+  background: grey;
+  border-radius: 40px;
   position: relative;
+  transition: .3s;
   cursor: pointer;
 
+  margin-top: 2px;
+
   .circle {
-    background: $main-gradient;
-    width: $btn-height;
-    height: $btn-height;
+    @include size(28px);
+    position: absolute;
+    transform: translate(0, -52%);
+    top: 50%;
+    left: 3px;
+    background: white;
     border-radius: 50%;
     transition: .4s;
   }
 
-  .label {
-    color: $main-color;
-    margin-left: 5%;
-    font-size: 22px;
-    font-weight: bold;
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    user-select: none;
-    transition: .3s;
-  }
-}
-
-.toggle-btn.active {
-  @extend .toggle-btn;
-  background: $main-gradient;
-  box-shadow: none;
-
-  .circle {
-    background: white;
-    margin-left: $btn-width - $btn-height;
+  &:hover {
+    @include shadow
   }
 
-  .label {
-    color: white;
-    margin-left: -5%;
+  &[state=true] {
+    background: $color;
+
+    .circle {
+      margin-left: 23px;
+    }
   }
 }

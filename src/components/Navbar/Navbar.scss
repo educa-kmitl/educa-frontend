@@ -1,48 +1,84 @@
-.nav-container {
-    max-width: 1280px;
-    margin: auto;
-    display : flex;
+@import '../../styles';
+
+nav {
+  z-index: 30;
+  position: fixed;
+  width: 100%;
+  user-select: none;
+
+  .nav-content {
+    @include flex-center;
     justify-content: space-between;
-    font-size: 32px;
+    box-sizing: border-box;
+    max-width: 1280px;
+    width: 100%;
+    height: $nav-size;
+    margin: auto;
+    padding: 0 30px;
+    position: relative;
+      
+    .logo {
+      @include flex-center;
+      
+      img {
+        @include size(50px);
+        margin-right: 5px;
+      }
+  
+      p {
+        font-size: 24px;
+        font-weight: 500;
+      }
+    }
+
+    ul {
+      @include size(550px, 100%);
+      @include flex-center;
+      justify-content: flex-end;
+      list-style: none;
+  
+      li { 
+        font-size: 22px;
+        font-weight: 600;
+        margin: 0 50px;
+
+        a:hover { color: $color }
+        a.active { color: $color }
+      }
+  
+      .profileicon {
+        @include size(60px);
+        border-radius: 50%;
+        background-color: $color;
+        cursor: pointer;
+        overflow: hidden;
+      }
+    }
     
-    
-    
-}
-
-ul{
-    display: flex;   
-    list-style: none;
-}
-
-li{
-   padding-left: 50px;
-   padding-right: 50px;
+    a {
+      transition: .2s;
   
+      &:link {
+        text-decoration: none;
+        color :black
+      }
+      
+      &:visited {
+        text-decoration: none;
+        color: black;
+      }
+      
+      &:hover { color: $color }
+        
+      &:active { color: #9A5DDB }
+    }  
+  }
+
+  &.nav-bg {
+    @include shadow;
+    background: white;
+  }
+
 }
 
-.logo{
-    display: flex;
-}
 
-img{
-    padding: 20px 0px 10px 10px;
-    height: 50px;
-    width: 50px;
-}
-
-a:link {
-    text-decoration: none;
-    color :black
-  }
-  
-a:visited {
-    color: black;
-  }
-  
-a:hover {
-    color: #BD88F2;
-  }
-  
-a:active {
-    color: #9A5DDB;
-  }

@@ -1,0 +1,46 @@
+$gradient: linear-gradient(60deg, #ee438a 55%, #f7c438);
+$exp-bar: linear-gradient(-90deg, #ee438a, #f7c438);
+$gradient-white: linear-gradient(white, #f3f4fa);
+
+$color: #ff0062;
+$black: #252e38;
+
+$nav-size: 120px;
+$full-page: calc(100vh - #{$nav-size});
+
+@mixin shadow($blur: 10px) {
+  box-shadow: 0 3px $blur rgba(0, 0, 0, 0.16);
+}
+
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin fixed-size($width, $height: $width) {
+  min-width: $width;
+  max-width: $width;
+  min-height: $height;
+  max-height: $height;
+}
+
+@mixin abs-center {
+  // parent must use 'position: relatives'
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flex-center($direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}
+
+.color {
+  &.blue {
+    color: #0099FF
+  }
+}

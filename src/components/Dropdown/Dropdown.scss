@@ -1,0 +1,84 @@
+@import '../../styles';
+
+.my-dropdown {
+  @include size(100%, 55px);
+  background: white;
+  border: 1px solid lightgrey;
+  border-radius: 40px;
+  position: relative;
+  transition: .2s;
+
+  &:hover {
+    border: 1px solid $black;
+  }
+
+  .icon {
+    @include abs-center;
+    left: 40px;
+    font-size: 22px;
+  }
+
+  .text {
+    @include abs-center;
+    transform: translate(0, -50%);
+    left: 70px;
+    font-size: 22px;
+    user-select: none;
+  }
+
+  .dd-arrow {
+    @include abs-center;
+    left: calc(100% - 40px);
+    font-size: 22px;
+    user-select: none;
+    transition: .2s;
+
+    &.active {
+      transform: translate(-50%, -50%) rotate(-180deg);
+    }
+  }
+
+  .dd-box {
+    @include abs-center;
+    @include shadow;
+    transform: translate(-50%, -50%) scale(.75);
+    opacity: 0;
+    z-index: 10;
+    width: 100%;
+    padding: 20px;
+    background: white;
+    border-radius: 40px;
+    transition: .2s;
+
+    &.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .item {
+      user-select: none;
+      text-align: center;
+      font-size: 22px;
+      line-height: 150%;
+      border-radius: inherit;
+      transition: .2s;
+
+      &:hover {
+        color: white;
+        background: $color;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .dd-overlay {
+    &.active {
+      @include size(100vw, 100vh);
+      z-index: 9;
+      position: fixed;
+      top: 0;
+      left: 0;
+    }
+  }
+}

@@ -1,53 +1,27 @@
-@import '../../index.scss';
+@import "../../styles";
 
-$width: 190px;
-$height: 45px;
-
-.btn-wrapper {
-  background: $main-gradient;
-  width: $width;
-  height: $height;
-  padding: 3px;
-  text-align: center;
-  border-radius: 30px;
+.my-btn {
+  @include size(145px, 50px);
+  @include shadow;
+  background: $gradient;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  font-family: inherit;
+  font-size: 20px;
+  transition: .2s;
   cursor: pointer;
 
-  .btn {
-    background: $main-gradient;
-    width: $width;
-    height: $height;
-    border-radius: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: .3s;
-  
-    &:hover {
-      box-shadow: 0 0 10px $main-color;
-    }
-  
-    .label {
-      color: white;
-      font-size: 22px;
-      font-weight: bold;
-    }
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  label {
+    pointer-events: none;
+    user-select: none;
   }
 }
-
-.btn-alt-wrapper {
-  @extend .btn-wrapper;
-
-  .btn-alt {
-    @extend .btn;
-    background: white;
-    color: $main-color;
-  
-    .label {
-      color: $main-color;
-    }
-  }
-  
-}
-
-
-

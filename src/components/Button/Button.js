@@ -1,12 +1,15 @@
-import React from 'react';
-import './Button.scss';
+import React from 'react'
+import './Button.scss'
 
-export const Button = ({ text, alt }) => {
+export const Button = ({ text, type, onClick }) => {
+
   return (
-    <div className={(alt) ? 'btn-alt-wrapper' : 'btn-wrapper'}>
-      <div className={(alt) ? 'btn-alt' : 'btn'}>
-        <div className="label">{text}</div>
-      </div>
-    </div>
-  );
+    <button 
+      className="my-btn"
+      type={type || 'button'}
+      onClick={onClick || null}
+    >
+      <label>{text}</label>
+    </button>
+  )
 }

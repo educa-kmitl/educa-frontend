@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import './ToggleButton.scss';
+import React, { useState } from 'react'
+import './ToggleButton.scss'
 
-export const ToggleButton = ({ on, off }) => {
+export const ToggleButton = ({ init, onToggle }) => {
+  const [state, setState] = useState(init || false)
 
-  const [state, setState] = useState(false);
-
-  const toggle = () => {
-    const btn = document.querySelector('.toggle-btn');
-    btn.classList.toggle('active');
-    setState(!state);
+  const handleToggle = () => {
+    const nextState = !state
+    setState(nextState)
+    onToggle(nextState)
   }
 
   return (
-    <div className="toggle-btn" onClick={toggle}>
-      <div className="label">{ (state) ? on : off }</div>
+    <div className='toggle-btn' state={state.toString()} onClick={handleToggle}>
       <div className="circle"></div>
     </div>
   );

@@ -1,0 +1,132 @@
+@import '../../index.scss';
+
+.comment-box {
+  @include size(100%, 500px);
+  @include shadow;
+  padding: 40px;
+  background: white;
+  border-radius: 40px;
+
+  header {
+    font-size: 28px;
+    font-weight: 500;
+  }
+
+  .room-comment {
+    @include fixed-size(100%, 300px);
+    word-wrap: break-word;
+    text-align: left;
+    overflow-y: scroll;
+
+    .box {
+      @include size(95%, auto);
+      @include shadow;
+      background: white;
+      margin: 5px;
+      border-radius: 10px;
+      padding: 15px;
+
+      span {
+        display: flex;
+        align-items: center;
+
+        img {
+          @include size(30px);
+          border-radius: 50%;
+        }
+
+        header {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          color: $color;
+          margin-left: 10px;
+
+          img {
+            @include size(20px);
+            margin-right: 5px;
+          }
+        }
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      label {
+        color: lightgrey;
+        font-size: 14px;
+      }
+    }
+  }
+
+  .chat-input {
+    position: relative;
+    height: 75px;
+
+    input {
+      background: white;
+      float: left;
+      width: 100%;
+      height: 55px;
+      box-sizing: border-box;
+      padding: 0 70px 0 40px;
+      margin-top: 10px;
+      font-family: inherit;
+      font-size: 20px;
+      font-weight: 400;
+      border: 1px solid lightgrey;
+      border-radius: 30px;
+      transition: .2s;
+
+      &::placeholder {
+        color: lightgrey;
+        user-select: none;
+      }
+
+      &:focus {
+        outline: none;
+        border: 1px solid $color;
+
+        &:hover {
+          border: 1px solid $color
+        }
+
+        &::placeholder {
+          color: transparent
+        }
+      }
+
+      &:hover {
+        border: 1px solid $black
+      }
+    }
+
+    .icon-c {
+      @include fixed-size(40px);
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      transform: translate(-50%, -50%);
+      box-sizing: border-box;
+      padding: 10px;
+      border-radius: 50%;
+
+      .icon {
+        @include abs-center;
+        position: absolute;
+        user-select: none;
+        color: $color;
+        font-size: 22px;
+
+      }
+
+      &:hover {
+        cursor: pointer;
+        background: gainsboro;
+      }
+    }
+
+  }
+
+}

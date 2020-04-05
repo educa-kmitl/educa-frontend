@@ -1,0 +1,47 @@
+@import '../../styles';
+
+.start-bg {
+  @include flex-center;
+  background: $gradient-white;
+  height: 100vh;
+
+  .content {
+    display: flex;
+    width: 1280px;
+    padding: 0 30px;
+    margin-top: $nav-size;
+    position: relative;
+
+    .txt-container {
+      width: 40%;
+      margin-top: 15%;
+      position: absolute;
+
+      header {
+        font-size: 70px;
+        font-weight: 500;
+
+        b {
+          font-weight: inherit;
+          color: $color;
+        }
+      }
+
+      p {
+        font-size: 24px;
+        line-height: 150%;
+      }
+    }
+
+    .img-container {
+      text-align: right;
+      width: 100%;
+
+      img {
+        @include size(900px);
+        margin-right: -10%;
+        user-select: none;
+      }
+    }
+  }
+}
