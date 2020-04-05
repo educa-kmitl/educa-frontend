@@ -49,15 +49,6 @@
       }
     }
   }
-
-  &.hide {
-    transform: scale(0);
-    pointer-events: none;
-
-    form.dialog-box {
-      transform: translate(-50%, -50%) scale(.0);
-    }
-  }
 }
 
 .popup-content {
@@ -88,8 +79,44 @@
       font-size: 22px;
     }
   }
+}
 
-  &.hide {
-    display: none;
+#popup-confirm {
+  @include size(360px, 200px);
+  @include abs-center;
+  @include flex-center(column);
+  justify-content: space-between;
+  background: white;
+  border-radius: 40px;
+  padding: 40px;
+}
+
+#popup-title {
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+#popup-btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.secondary-btn {
+  font-family: inherit;
+  background: none;
+  border: none;
+  @include flex-center;
+  width: 145px;
+  font-size: 20px;
+  user-select: none;
+  transition: .2s;
+
+  &:hover {
+    color: $color;
+    cursor: pointer;
+    transform: scale(1.1);
   }
 }

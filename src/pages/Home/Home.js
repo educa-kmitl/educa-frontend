@@ -31,7 +31,8 @@ export default () => {
           alert(error)
         }
       })
-  })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleSearch = value => setFilter(value)
   const filterRoom = () => roomList.filter(room => (
@@ -40,7 +41,7 @@ export default () => {
     room.teacher_name.toLowerCase().indexOf(filter.toLowerCase()) > -1
   ))
   const enterRoom = room => history.push(`/room/${room.room_id}`)
-  
+
   return (
     <div className="home-page-bg">
       <div className="home-content">

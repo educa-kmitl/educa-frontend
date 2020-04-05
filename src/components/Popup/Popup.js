@@ -5,13 +5,13 @@ import { Input, Button } from '../'
 import { FaLock } from 'react-icons/fa'
 import logo from '../../img/room/play.svg'
 
-export const Popup = ({ type, waitText, onChange, onSubmit, onCancel }) => {
+export const Popup = ({ type, text, confirm, cancel, onChange, onConfirm, onCancel }) => {
   return (
     <>
       {
         type === 'lock' ?
-          <div className="room-password hide">
-            <form className="dialog-box" onSubmit={e => onSubmit(e)}>
+          <div className="room-password">
+            <form className="dialog-box" onSubmit={e => onConfirm(e)}>
               <header>It's Locked!</header>
               <Input
                 id='room-pw'
@@ -32,13 +32,24 @@ export const Popup = ({ type, waitText, onChange, onSubmit, onCancel }) => {
           </div>
           :
           type === 'loading' ?
-            <div className="popup-content hide">
+            <div className="popup-content">
               <div className="popup-box">
                 <img src={logo} alt="" />
-                <span>{waitText}</span>
+                <span>{text}</span>
               </div>
             </div>
-            : null
+            :
+            type === 'confirm' ?
+              <div className="popup-content">
+                <div id="popup-confirm">
+                  <header id="popup-title">{text}</header>
+                  <span id="popup-btn-group">
+                    <button className="secondary-btn" onClick={onCancel}>{cancel}</button>
+                    <Button text={confirm} type="submit" onClick={onConfirm} />
+                  </span>
+                </div>
+              </div>
+              : null
       }
     </>
   )

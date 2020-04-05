@@ -11,6 +11,7 @@ export default () => {
   const history = useHistory()
   const { room_id } = useParams()
   const [auth] = useContext(AuthContext)
+  const [popup, setPopup] = useState('')
   const [password, setPassword] = useState('')
   const [roomData, setRoomData] = useState({
     name: 'Loading',
@@ -34,7 +35,7 @@ export default () => {
         const { lock, error } = json
 
         if (lock) {
-          toggleDialog()
+          setPopup('lock')
         } else if (!lock) {
           fetch(window.$ENDPOINT + '/rooms', {
             method: 'GET',
@@ -61,13 +62,8 @@ export default () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const toggleDialog = () => {
-    const overlay = document.querySelector('.room-password')
-    overlay.classList.toggle('hide')
-    document.querySelector('#room-pw').value = ''
-  }
   const fetchComments = (room, index = 0) => {
-    handlePopup()
+    setPopup('loading')
     fetch(window.$ENDPOINT + '/comments', {
       method: 'GET',
       headers: {
@@ -85,7 +81,7 @@ export default () => {
         else {
           alert(error)
         }
-        handlePopup()
+        setPopup('')
       })
   }
   const handleComment = (text) => {
@@ -114,6 +110,7 @@ export default () => {
   const handlePrivacy = e => {
     e.preventDefault()
 
+    setPopup('loading')
     fetch(window.$ENDPOINT + '/rooms', {
       method: 'GET',
       headers: {
@@ -128,13 +125,12 @@ export default () => {
         if (room) {
           setRoomData(room)
           fetchComments(room)
-          toggleDialog()
         } else {
           alert(error)
+          setPopup('')
         }
       })
   }
-  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
   const handlePassword = value => setPassword(value)
   const handlePlaylist = (value, action) => {
     const newValue = value
@@ -143,7 +139,10 @@ export default () => {
       fetchComments(roomData, newValue.playing)
     }
   }
-  const exitRoom = () => history.push('/home')
+  const exitRoom = () => {
+    setPopup('confirm')
+    // history.push('/home')
+  }
   const downloadFile = () => {
     const file = roomData.resources[playlist.playing].file_url
     if (file) window.open(file)
@@ -212,13 +211,28 @@ export default () => {
         </div>
       </div>
 
-      <Popup
-        type="lock"
-        onChange={handlePassword}
-        onSubmit={handlePrivacy}
-        onCancel={exitRoom}
-      />
-      <Popup type="loading" waitText="Loading" />
+      {
+        popup === 'lock' ?
+          <Popup
+            type="lock"
+            onChange={handlePassword}
+            onConfirm={handlePrivacy}
+            onCancel={() => history.push('/home')}
+          />
+          : popup === 'loading' ?
+            <Popup type="loading" text="Loading" />
+            : popup === 'confirm' ?
+              <Popup
+                type="confirm"
+                text="Do you want to exit?"
+                confirm="Yes"
+                cancel="No"
+                onConfirm={() => history.push('/home')}
+                onCancel={() => setPopup('')}
+              />
+              : null
+      }
+
     </div >
   );
 }

@@ -13,13 +13,14 @@ export default () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [auth, setAuth] = useContext(AuthContext)
+  const [popup, setPopup] = useState('')
 
   const handleEmail = value => setEmail(value)
   const handlePassword = value => setPassword(value)
   const handleLogin = e => {
     e.preventDefault()
 
-    handlePopup()
+    setPopup('loading')
     fetch(window.$ENDPOINT + '/login', {
       method: 'POST',
       headers: {
@@ -33,17 +34,16 @@ export default () => {
       .then(res => res.json())
       .then(json => {
         const { user, error } = json
-        
+
         if (user) {
           setAuth({ ...auth, data: user })
           history.push('/home')
         } else {
           alert(error)
-          handlePopup()
+          setPopup('')
         }
       })
   }
-  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
 
   return (
     <div className="login-bg">
@@ -80,7 +80,7 @@ export default () => {
         </div>
       </div>
 
-      <Popup type="loading" waitText="Loging in" />
+      {popup && <Popup type="loading" text="Loging in" />}
     </div>
   )
 }

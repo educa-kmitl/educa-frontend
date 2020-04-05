@@ -99,7 +99,7 @@ export default () => {
               </span>
               <Input
                 Icon={FaLock}
-                type="text"
+                type="password"
                 text="Password"
                 pattern="[A-Za-z0-9]*$"
                 title="Enter only english character and number"

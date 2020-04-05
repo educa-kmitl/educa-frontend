@@ -128,7 +128,7 @@ export default () => {
 
       </div>
 
-      <Popup type="loading" waitText={waitText} />
+      <Popup type="loading" text={waitText} />
     </div>
   )
 }
