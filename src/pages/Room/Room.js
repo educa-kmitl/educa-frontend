@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import './Room.scss'
 
-import { FaHeart, FaFileDownload, FaSignOutAlt, FaWalking } from 'react-icons/fa'
+import { FaHeart, FaFileDownload, FaSignOutAlt, FaWalking, FaHeartBroken } from 'react-icons/fa'
 import { Comment, Playlist, Button, Popup } from '../../components'
 
 
@@ -36,7 +36,7 @@ export default () => {
         const { lock, error } = json
 
         if (lock) {
-          setPopup('lock')
+          setPopup('password')
         } else if (!lock) {
           fetch(window.$ENDPOINT + '/rooms', {
             method: 'GET',
@@ -126,8 +126,8 @@ export default () => {
           setRoomData(room)
           fetchComments(room)
         } else {
-          alert(error)
-          setPopup('lock')
+          console.log(new Error(error))
+          setPopup({ type: 'alert', text: error })
         }
       })
   }
@@ -217,30 +217,36 @@ export default () => {
         </div>
       </div>
 
-      {
-        popup === 'lock' ?
-          <Popup
-            type="lock"
-            onChange={handlePassword}
-            onConfirm={handlePrivacy}
-            onCancel={() => history.push('/home')}
-          />
-          : popup === 'loading' ?
-            <Popup type="loading" text="Loading" />
-            : popup === 'confirm' ?
-              <Popup
-                type="confirm"
-                Icon={FaWalking}
-                title="Exiting.."
-                text="Are you sure, You want to exit"
-                confirm="Yes"
-                cancel="No"
-                onConfirm={() => history.push('/home')}
-                onCancel={() => setPopup('')}
-              />
-              : null
-      }
-
+      {popup === 'loading' && <Popup type="loading" text="Loading" />}
+      {popup === 'password' &&
+        <Popup
+          type="password"
+          title="It's Locked!"
+          text="This course require a password"
+          onChange={handlePassword}
+          onConfirm={handlePrivacy}
+          onCancel={() => history.push('/home')}
+        />}
+      {popup === 'confirm' &&
+        <Popup
+          type="confirm"
+          Icon={FaWalking}
+          title="Exiting.."
+          text="Are you sure, You want to exit"
+          confirm="Yes"
+          cancel="No"
+          onConfirm={() => history.push('/home')}
+          onCancel={() => setPopup('')}
+        />}
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={FaHeartBroken}
+          title="Oh no!"
+          text={popup.text}
+          confirm="Try again"
+          onConfirm={() => setPopup('password')}
+        />}
     </div >
   );
 }

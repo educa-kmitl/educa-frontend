@@ -16,7 +16,7 @@ export default () => {
             With our learning platform <br />
             you can learn anything in one place.
           </h6>
-          <Link to="/home" style={fixMargin}>
+          <Link to="/home" style={{ marginLeft: '-10px' }}>
             <Button primary text="Get Started" />
           </Link>
         </section>
@@ -29,5 +29,3 @@ export default () => {
     </div>
   )
 }
-
-const fixMargin = { marginLeft: '-10px' }

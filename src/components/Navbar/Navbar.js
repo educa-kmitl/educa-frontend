@@ -20,7 +20,7 @@ export const Navbar = () => {
   return (
     <nav className={showBG ? 'nav-bg' : null}>
       <div className="nav-content">
-        <NavLink to="/home" style={{ color: 'inherit' }}>
+        <NavLink to={auth.data ? '/home' : '/'}>
           <div className="logo">
             <img src={logo} alt="" />
             <p>EDUCA</p>

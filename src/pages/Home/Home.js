@@ -3,8 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import './Home.scss'
 
-import { Card } from '../../components'
-import { FaSearch, FaPlus } from 'react-icons/fa'
+import { Card, Popup } from '../../components'
+import { FaSearch, FaPlus, FaSkull } from 'react-icons/fa'
 
 
 export default () => {
@@ -12,26 +12,46 @@ export default () => {
   const [auth] = useContext(AuthContext)
   const [roomList, setRoomList] = useState([])
   const [filter, setFilter] = useState('')
+  const [popup, setPopup] = useState('')
 
   useEffect(() => {
-    fetch(window.$ENDPOINT + '/all-rooms', {
-      method: 'GET',
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { rooms, error } = json
-        if (rooms) {
-          if (auth.data.role) {
-            const teacher_room = rooms.filter(room => room.teacher_id === auth.data.user_id)
-            setRoomList(teacher_room)
-          } else {
-            setRoomList(rooms)
-          }
-        } else {
-          alert(error)
+    if (auth.data.role) {
+      fetch(window.$ENDPOINT + '/my-rooms', {
+        method: 'GET',
+        headers: {
+          user_id: auth.data.user_id
         }
       })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+        .then(res => res.json())
+        .then(json => {
+          const { rooms, error } = json
+          if (rooms) {
+            setRoomList(rooms)
+          } else {
+            console.log(new Error(error))
+            setPopup({ type: 'alert', text: error })
+          }
+        })
+    } else {
+      fetch(window.$ENDPOINT + '/all-rooms', {
+        method: 'GET',
+      })
+        .then(res => res.json())
+        .then(json => {
+          const { rooms, error } = json
+          if (rooms) {
+            if (auth.data.role) {
+              const teacher_room = rooms.filter(room => room.teacher_id === auth.data.user_id)
+              setRoomList(teacher_room)
+            } else {
+              setRoomList(rooms)
+            }
+          } else {
+            alert(error)
+          }
+        })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSearch = value => setFilter(value)
@@ -71,6 +91,16 @@ export default () => {
           </div>
         </Link>
       }
+
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={FaSkull}
+          title="Something wrong.."
+          text={popup.text}
+          confirm="Refresh"
+          onConfirm={() => window.location = 'home'}
+        />}
 
     </div>
   )
