@@ -89,7 +89,7 @@ export default () => {
         if (user) {
           setEdit({ ediable: true })
           setAuth({ ...auth, data: profile })
-          window.location = `${user_id}`
+          setPopup({ type: 'alert', title: randAlert(), text: user.name })
           setPopup('')
         } else {
           setPopup({ type: 'alert', title: randAlert(), text: error })
