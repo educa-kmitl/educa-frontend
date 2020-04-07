@@ -1,16 +1,17 @@
 import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { createRoom, randAlert } from '../../helpers'
 import './Create.scss'
 
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
-import { Input, Dropdown, ToggleButton, Button } from '../../components'
+import { Input, Dropdown, ToggleButton, Button, Popup } from '../../components'
 
 const defaultRoom = {
   name: 'Course Title',
   subject: 'Math',
   resources: [{ topic: 'Video title', video_url: '', file_url: '' }],
-  private: false,
+  privacy: false,
   password: ''
 }
 
@@ -22,7 +23,7 @@ export default () => {
 
   const handleTitle = value => setRoom({ ...room, name: value })
   const handleSubject = value => setRoom({ ...room, subject: value })
-  const handlePrivacy = value => setRoom({ ...room, private: value })
+  const handlePrivacy = value => setRoom({ ...room, privacy: value })
   const handlePassword = value => setRoom({ ...room, password: value })
   const handleVideoTitle = (value, id) => {
     const newVideos = room.resources
@@ -51,28 +52,17 @@ export default () => {
   }
   const handleSubmit = e => {
     e.preventDefault();
+    setPopup('loading')
 
-    fetch(window.$ENDPOINT + '/rooms', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ 
-        ...room,
-        teacher_id: auth.data.user_id,
-        date_created: new Date()
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { room, error } = json
+    createRoom(room, auth.data)
+      .then(res => {
+        const { room, error } = res.data
         if (room) {
           history.push(`/room/${room.room_id}`)
         } else {
-          alert(error)
+          setPopup({ type: 'alert', title: randAlert(), text: error })
         }
       })
-
   }
 
   return (
@@ -105,8 +95,8 @@ export default () => {
                 pattern="[A-Za-z0-9]*$"
                 title="Enter only english character and number"
                 onChange={handlePassword}
-                required={room.private}
-                disabled={!room.private}
+                required={room.privacy}
+                disabled={!room.privacy}
               />
             </div>
           </div>
@@ -114,10 +104,10 @@ export default () => {
           <hr />
           <div className="playlist">
 
-            {room.resources.map((video, index) => 
+            {room.resources.map((video, index) =>
               <div className="item" key={index}>
                 <span>
-                  <label onClick={()=>alert(index)}>{index + 1}. {video.topic}</label>
+                  <label onClick={() => alert(index)}>{index + 1}. {video.topic}</label>
                   {
                     room.resources.length > 1 ?
                       <div
@@ -171,7 +161,7 @@ export default () => {
             <div className="img"></div>
             <div className="detail">
               <header>
-                {room.private && <FaLock style={{ fontSize: '36px' }} />} {room.name}<br />
+                {room.privacy && <FaLock style={{ fontSize: '36px' }} />} {room.name}<br />
                 <p>{room.subject} {room.resources.length} video{room.resources.length > 1 ? 's' : null}</p>
               </header>
               <footer>by {auth.data.name}</footer>
@@ -180,6 +170,12 @@ export default () => {
         </div>
 
       </div>
+
+      {popup === 'loading' &&
+        <Popup
+          type="loading"
+          text="Creating"
+        />}
     </div>
   )
 }

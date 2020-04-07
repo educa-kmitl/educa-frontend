@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import moment from 'moment'
 import './Comment.scss'
 
 import { FaTelegramPlane } from 'react-icons/fa'
 import { profiles } from '../../img/Profile'
 import logo from '../../img/room/play.svg'
 
-const moment = require('moment')
-
-export const Comment = ({ refresh, comments }) => {
+export const Comment = ({ post, comments }) => {
   const [message, setMessage] = useState('')
 
   useEffect(() => {
@@ -16,7 +15,7 @@ export const Comment = ({ refresh, comments }) => {
   }, [comments])
 
   const writeComment = () => {
-    refresh(message)
+    post(message)
     setMessage('')
   }
 

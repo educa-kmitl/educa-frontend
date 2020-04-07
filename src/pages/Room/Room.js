@@ -8,6 +8,7 @@ import {
   getComment,
   getLike,
   postLike,
+  postComment,
   deleteLike
 } from '../../helpers'
 import './Room.scss'
@@ -30,7 +31,7 @@ export default () => {
   })
   const [playlist, setPlaylist] = useState({ show: false, playing: 0, id: 0 })
   const [comments, setComments] = useState([])
-  const [like, setLike] = useState(false)
+  const [like, setLike] = useState({ liked: false, count: 0 })
 
   useEffect(() => {
     setPopup('loading')
@@ -72,7 +73,7 @@ export default () => {
               if (error) {
                 setPopup({ type: 'alert', title: randAlert(), text: error })
               } else {
-                setLike(liked)
+                setLike({ liked, count: room.likes.length })
                 setPopup('')
               }
             })
@@ -116,15 +117,15 @@ export default () => {
         })
     }
   }
-  const exitRoom = () => setPopup('confirm')
+  const exitRoom = () => setPopup({ type: 'confirm', func: () => { window.location = '/home' } })
   const downloadFile = () => {
     const file = roomData.resources[playlist.playing].file_url
     if (file) window.open(file)
     else setPopup({ type: 'alert', title: randAlert(), text: 'This video has no file to download' })
   }
   const likeVideo = () => {
-    if (like) {
-      setLike(false)
+    if (like.liked) {
+      setLike({ liked: false, count: like.count - 1 })
 
       deleteLike(room_id, auth.data)
         .then(res => {
@@ -133,11 +134,11 @@ export default () => {
             console.log('Unliked!')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
-            setLike(true)
+            setLike({ liked: true, count: like.count + 1 })
           }
         })
     } else {
-      setLike(true)
+      setLike({ liked: true, count: like.count + 1 })
 
       postLike(room_id, auth.data)
         .then(res => {
@@ -146,56 +147,66 @@ export default () => {
             console.log('Liked!')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
-            setLike(false)
+            setLike({ liked: false, count: like.count - 1 })
           }
         })
     }
   }
+  const writeComment = text => {
+    postComment(auth.data, roomData, playlist, text)
+      .then(res => {
+        const { user, error } = res.data
+        if (user) {
+          getRemainingData(roomData)
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
+  }
 
   return (
-    <div className="room-page-bg">
-      <div className="room-page-content">
-        <div className="video-card">
-          <div className="video">
-            {
-              <iframe
-                className="embed-video"
-                src={roomData.resources[playlist.playing].video_url}
-                title={roomData.resources[playlist.playing].topic}
-                allowFullScreen
-              ></iframe>
-            }
-          </div>
-          <div className="video-menu">
-            <div className="video-title">
-              <div className="title">{roomData.resources[playlist.playing].topic}</div>
-              <div className="name">
+    <div className="full-page">
+      <div className="full-page-content room-content">
+
+        <section id="video-container">
+          {<iframe
+            id="embed-video"
+            src={roomData.resources[playlist.playing].video_url}
+            title={roomData.resources[playlist.playing].topic}
+            allowFullScreen
+          ></iframe>}
+
+          <footer id="video-footer">
+            <div id="video-title">
+              <h6 style={bold}>{roomData.resources[playlist.playing].topic}</h6>
+              <p id="video-teacher" onClick={() => history.push(`/profile/${roomData.teacher_id}`)}>
                 by {roomData.teacher_id === auth.data.user_id ? 'You' : roomData.teacher_name}
+              </p>
+            </div>
+            <div id="video-btn-group">
+              <div className={`room-btn ${like.liked && 'active'}`} onClick={likeVideo}>
+                <FaHeart className={`room-btn-icon ${like.liked && 'active'}`} />
+              </div>
+              <div className="room-btn" onClick={downloadFile}>
+                <FaFileDownload className="room-btn-icon" />
+              </div>
+              <div className="room-btn" onClick={exitRoom}>
+                <FaSignOutAlt className="room-btn-icon" />
               </div>
             </div>
-            <div className="btn-group">
-              <div className={`btn ${like && 'active'}`} onClick={likeVideo}>
-                <FaHeart className={`icon ${like && 'active'}`} />
-              </div>
-              <div className="btn" onClick={downloadFile}>
-                <FaFileDownload className="icon" />
-              </div>
-              <div className="btn" onClick={exitRoom}>
-                <FaSignOutAlt className="icon" />
-              </div>
-            </div>
-          </div>
-        </div>
+          </footer>
+        </section>
 
-        <div className="right-panel">
-
-          <div className="course-card">
-            <div className="course-detail">
-              <div className="course-title">{roomData.name}</div>
-              <p>{roomData.likes?.length} like</p>
-              <div className="course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</div>
-            </div>
-            <footer>
+        <div id="room-panel">
+          <section id="room-course-card">
+            <header>
+              <h5 style={bold}>{roomData.name}</h5>
+              <p id="room-course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</p>
+            </header>
+            <footer id="room-course-footer">
+              <div style={alignHeart}>
+                <FaHeart style={heart} /> {like.count}
+              </div>
               <Button color="" text="show all" onClick={() => setPlaylist({ ...playlist, show: !playlist.show })} />
             </footer>
             <Playlist
@@ -203,11 +214,11 @@ export default () => {
               setPlaylist={handlePlaylist}
               roomData={roomData}
             />
-          </div>
+          </section>
 
-          <div className="comment-container">
+          <div id="comment-container">
             <Comment
-              refresh={null}
+              post={writeComment}
               comments={comments}
             />
           </div>
@@ -225,7 +236,7 @@ export default () => {
           onConfirm={handlePrivacy}
           onCancel={() => history.push('/home')}
         />}
-      {popup === 'confirm' &&
+      {popup.type === 'confirm' &&
         <Popup
           type="confirm"
           Icon={FaWalking}
@@ -233,7 +244,7 @@ export default () => {
           text="Are you sure, You want to exit"
           confirm="Yes"
           cancel="No"
-          onConfirm={() => history.push('/home')}
+          onConfirm={popup.func}
           onCancel={() => setPopup('')}
         />}
       {popup.type === 'alert' &&
@@ -256,4 +267,19 @@ export default () => {
         />}
     </div >
   );
+}
+
+const bold = {
+  fontWeight: '500'
+}
+
+const heart = {
+  fontSize: '20px',
+  color: '#ff0062',
+  marginRight: '10px'
+}
+
+const alignHeart = {
+  display: 'flex',
+  alignItems: 'center'
 }

@@ -17,6 +17,7 @@
     word-wrap: break-word;
     text-align: left;
     overflow-y: scroll;
+    scroll-behavior: smooth;
 
     .box {
       @include size(95%, auto);

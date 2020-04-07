@@ -16,6 +16,8 @@ export {
   getRoomPrivacy,
   getComment,
   getLike,
+  createRoom,
   postLike,
+  postComment,
   deleteLike
 } from './roomHelper'

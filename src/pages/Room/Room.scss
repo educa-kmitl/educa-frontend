@@ -1,155 +1,127 @@
 @import '../../styles';
 
-.room-page-bg {
-  background: $gradient-white;
+.room-content {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
   padding-top: $nav-size;
-  height: 100vh;
+}
 
-  .room-page-content {
-    @include flex-center;
-    align-items: flex-start;
-    padding: 0 30px;
-    max-width: 1280px;
-    height: 100%;
-    margin: auto;
+#video-container {
+  @include flex-center(column);
+  @include fixed-size(830px, 750px);
+  @include shadow;
+  background: white;
+  border-radius: 40px;
+  float: left;
+  margin-bottom: 20px;
+}
 
-    .video-card {
-      @include flex-center(column);
-      @include fixed-size(830px, 750px);
-      @include shadow;
-      box-sizing: border-box;
-      background: white;
-      border-radius: 40px;
+#embed-video {
+  @include fixed-size(830px, 640px);
+  border-radius: inherit;
+  border: none;
+  background: $black;
+  border-radius: 40px 40px 0 0;
+}
 
-      .video {
-        @include fixed-size(830px, 640px);
-        background: $black;
-        border-radius: 40px 40px 0 0;
+#video-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
-        .embed-video {
-          @include fixed-size(830px, 640px);
-          border-radius: inherit;
-          border: none;
-        }
-      }
+#video-teacher {
+  font-size: 18px;
+  font-weight: 400;
+  color: $color;
+  cursor: pointer;
+}
 
-      .video-menu {
-        @include flex-center;
-        justify-content: space-between;
-        width: 100%;
-        height: calc(750px - 640px);
-        box-sizing: border-box;
-        padding: 50px;
+#video-footer {
+  @include flex-center;
+  justify-content: space-between;
+  width: 100%;
+  height: calc(750px - 640px);
+  box-sizing: border-box;
+  padding: 50px;
+}
 
-        .video-title {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
+#video-btn-group {
+  @include flex-center;
+  width: 200px;
+  justify-content: space-between;
+}
 
-          .title {
-            font-size: 24px;
-            font-weight: 500;
-          }
+.room-btn {
+  @include fixed-size(50px);
+  position: relative;
+  font-size: 22px;
+  background: white;
+  border-radius: 50%;
+  transition: .2s;
 
-          .name {
-            margin-top: 5px;
-            font-size: 16px;
-            font-weight: 400;
-            color: $color;
-          }
-        }
+  &:nth-child(1) {
+    border: 2px solid $color;
+    color: $color;
 
-        .btn-group {
-          @include flex-center;
-          width: 200px;
-          justify-content: space-between;
-
-          .btn {
-            @include fixed-size(50px);
-            position: relative;
-            font-size: 22px;
-            background: white;
-            border-radius: 50%;
-            transition: .2s;
-            
-
-            .icon {
-              @include abs-center;
-            }
-
-            &:nth-child(1) {
-              border: 2px solid $color;
-              color: $color;
-
-              &.active {
-                background: $color;
-                color: white;
-              }
-            }
-
-            &:nth-child(2) {
-              border: 2px solid #FBB91E;
-              color: #FBB91E;
-            }
-
-            &:nth-child(3) {
-              border: 2px solid #7921AD;
-              color: #7921AD;
-            }
-
-            &:hover {
-              cursor: pointer;
-              transform: scale(1.1);
-            }
-          }
-        }
-      }
-    }
-
-    .right-panel {
-
-      .course-card {
-        @include fixed-size(360px, 220px);
-        @include shadow;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background: white;
-        border-radius: 40px;
-        margin-left: 30px;
-        box-sizing: border-box;
-        padding: 40px;
-        position: relative;
-
-        .course-detail {
-          flex-wrap: wrap;
-
-          .course-title {
-            font-size: 28px;
-            font-weight: 500;
-          }
-
-          .course-count {
-            margin-top: 5px;
-            font-size: 20px;
-            color: lightgrey;
-          }
-        }
-
-        footer {
-          display: flex;
-          justify-content: flex-end;
-          margin-top: 20px;
-          margin-right: -7px;
-        }
-
-      }
-
-      .comment-container {
-        @include fixed-size(360px, 100%);
-        margin: 30px;
-        box-sizing: border-box;
-      }
+    &.active {
+      background: $color;
+      color: white;
     }
   }
+
+  &:nth-child(2) {
+    border: 2px solid #FBB91E;
+    color: #FBB91E;
+  }
+
+  &:nth-child(3) {
+    border: 2px solid #7921AD;
+    color: #7921AD;
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.room-btn-icon {
+  @include abs-center;
+}
+
+#room-panel {
+  @include size(360px, 750px);
+  float: left;
+}
+
+#room-course-card {
+  @include size(100%, 220px);
+  @include shadow;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  border-radius: 40px;
+  padding: 40px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+#room-course-count {
+  margin-top: 5px;
+  font-size: 20px;
+  color: lightgrey;
+}
+
+#room-course-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-right: -7px;
+}
+
+#comment-container {
+  @include size(100%);
 }

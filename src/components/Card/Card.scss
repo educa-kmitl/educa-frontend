@@ -12,7 +12,7 @@
   transition: .2s;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     cursor: pointer;
   }
 }
@@ -38,10 +38,6 @@
 .course-name {
   font-weight: 500;
   margin-bottom: -10px;
-}
-
-.course-teacher {
-  color: $grey;
 }
 
 .course-date {

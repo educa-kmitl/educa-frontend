@@ -57,16 +57,17 @@ export default () => {
     <div className="home-page-bg">
       <div className="home-content">
         <header>{auth.data.role ? 'Your active course' : `Let's find some course!`}</header>
-        <div className="search">
-          <input
-            placeholder="Type something to find..."
-            value={search.text}
-            onChange={e => handleSearch(e.target.value)}
-          />
-          <div className="icon">
-            <FaSearch />
-          </div>
-        </div>
+        {!auth.data.role &&
+          <div className="search">
+            <input
+              placeholder="Type something to find..."
+              value={search.text}
+              onChange={e => handleSearch(e.target.value)}
+            />
+            <div className="icon">
+              <FaSearch />
+            </div>
+          </div>}
 
         <div className="all-room">
           {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
