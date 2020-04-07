@@ -31,11 +31,61 @@
   @include size(250px);
   background: lightblue;
   border-radius: 50%;
+  position: relative;
+  user-select: none;
+}
+
+#user-edit-btn {
+  @include flex-center;
+  @include abs-center;
+  @include size(60px);
+  top: 90%;
+  left: 80%;
+  background: $grey;
+  border: 5px solid white;
+  border-radius: 50%;
+  transition: .2s;
+  cursor: pointer;
+
+  &:hover {
+    background: $color;
+  }
+}
+
+#user-pic-left {
+  @extend #user-edit-btn;
+  top: 50%;
+  left: -15%;
+}
+
+#user-pic-right {
+  @extend #user-edit-btn;
+  top: 50%;
+  left: 115%;
 }
 
 #user-name {
   font-size: 36px;
   font-weight: 500;
+}
+
+#user-name-edit {
+  font-family: inherit;
+  font-size: 36px;
+  font-weight: 500;
+  text-align: center;
+  width: 70%;
+  border-radius: 40px;
+  border: 1px solid $grey;
+  transition: .2s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    border: 1px solid $color;
+  }
 }
 
 #user-role {

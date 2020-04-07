@@ -10,7 +10,7 @@ export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onCo
     <>
       {type === 'password' &&
         <div id="popup-overlay">
-          <form id="popup-form" onSubmit={e => onConfirm(e)}>
+          <form name="password" id="popup-form" onSubmit={e => onConfirm(e)}>
             <h4>{title}</h4>
             <Input
               Icon={FaLock}
@@ -23,8 +23,8 @@ export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onCo
               autoFocus
             />
             <span id="popup-btn-group">
-              <Button alt text="Cancel" onClick={onCancel} />
-              <Button text="EDUCA" type="submit" />
+              <Button alt text={cancel} onClick={onCancel} />
+              <Button text={confirm} type="submit" />
             </span>
           </form>
         </div>}

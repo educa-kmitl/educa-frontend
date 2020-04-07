@@ -73,6 +73,22 @@ export default () => {
           {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
         </div>
 
+        <button onClick={() => {
+          const newSearch = { ...search, limit: search.limit + 6 }
+          setSearch(newSearch)
+          console.log(newSearch)
+          getAllRoom(newSearch)
+            .then(res => {
+              const { rooms, error } = res.data
+              if (rooms) {
+                setRoomList(rooms)
+                console.log(rooms)
+                setSearch(newSearch)
+              } else {
+                setPopup({ type: 'alert', title: randAlert(), text: error })
+              }
+            })
+        }}>see more</button>
       </div>
 
       {auth.data.role &&

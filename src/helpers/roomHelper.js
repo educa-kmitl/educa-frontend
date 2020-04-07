@@ -1,12 +1,11 @@
 const axios = require('axios')
 
 // ---- GET
-export const getAllRoom = async ({ text, sort_by, arrange_by, limit }) => (
+export const getAllRoom = async (search) => (
   await axios.get(window.$ENDPOINT + '/all-rooms', {
-    text,
-    sort_by,
-    arrange_by,
-    limit
+    headers: {
+      ...search
+    }
   })
     .then(res => res)
     .catch(err => err.response)

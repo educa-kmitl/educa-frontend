@@ -1,87 +1,113 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { getProfile, getMyRoom, editProfile, randAlert } from '../../helpers'
 import './Profile.scss'
 
-import { Card } from '../../components'
+import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave } from 'react-icons/fa'
+import { Card, Popup } from '../../components'
 import { profiles } from '../../img/Profile'
 
 export default () => {
   const { user_id } = useParams()
-  const [user, setUser] = useState({})
+  const [profile, setProfile] = useState({})
   const [roomList, setRoomList] = useState([])
-  const [auth] = useContext(AuthContext)
+  const [auth, setAuth] = useContext(AuthContext)
+  const [edit, setEdit] = useState({ ediable: false })
+  const [popup, setPopup] = useState('')
 
   useEffect(() => {
     document.querySelector('#user-expbar-progress').style.background = 'lightblue'
     document.querySelector('#user-expbar-progress').style.width = '70%'
 
     if (user_id !== auth.data.user_id) {
-      fetch(window.$ENDPOINT + '/users', {
-        method: 'GET',
-        headers: {
-          user_id
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          const { user, error } = json
-
+      getProfile(user_id)
+        .then(res => {
+          const { user, error } = res.data
           if (user) {
-            setUser(user)
-            if (user.role) {
-              fetch(window.$ENDPOINT + '/all-rooms', {
-                method: 'GET'
-              })
-                .then(res => res.json())
-                .then(json => {
-                  const { rooms, error } = json
-                  if (rooms) {
-                    const teacher_room = rooms.filter(room => room.teacher_id === auth.data.user_id)
-                    setRoomList(teacher_room)
-                  } else {
-                    alert(error)
-                  }
-                })
-            }
+            setProfile(user)
           } else {
-            alert(error)
+            setPopup({ type: 'alert', title: randAlert(), text: error })
           }
         })
     } else {
-      setUser(auth.data)
-      if (auth.data.role) {
-        fetch(window.$ENDPOINT + '/all-rooms', {
-          method: 'GET'
-        })
-          .then(res => res.json())
-          .then(json => {
-            const { rooms, error } = json
-            if (rooms) {
-              const teacher_room = rooms.filter(room => room.teacher_id === auth.data.user_id)
-              setRoomList(teacher_room)
-            } else {
-              alert(error)
-            }
-          })
-      }
+      setEdit({ ediable: true })
+      setProfile(auth.data)
     }
+    getMyRoom({ user_id })
+      .then(res => {
+        const { rooms, error } = res.data
+        if (rooms) {
+          setRoomList(rooms)
+          setPopup('')
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const changeProfile = action => {
+    if (action === 'left') {
+      let new_icon = profile.profile_icon - 1
+      if (new_icon < 0) new_icon = 9
+      setProfile({ ...profile, profile_icon: new_icon })
+    } else {
+      let new_icon = profile.profile_icon + 1
+      if (new_icon > 9) new_icon = 0
+      setProfile({ ...profile, profile_icon: new_icon })
+    }
+  }
+  const saveProfile = () => {
+    setPopup('loading')
+    editProfile(profile)
+      .then(res => {
+        const { user, error } = res.data
+        if (user) {
+          setEdit({ ediable: true })
+          setAuth({ ...auth, data: profile })
+          setPopup('')
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
+  }
+  const handlePassword = value => setProfile({ ...profile, password: value })
+  const handleName = value => setProfile({ ...profile, name: value })
 
   return (
     <div id="profile-page-bg">
       <div id="profile-page-content">
 
         <section id="user-card">
-          <img id="user-picture" src={profiles[user.profile_icon]} alt="">
-
-          </img>
-          <header id="user-name">{user.name}</header>
-          <label id="user-role">{user.role ? 'TEACHER' : 'STUDENT'}</label>
+          <div id="user-picture">
+            <img id="user-picture" src={profiles[profile.profile_icon]} alt="" />
+            {edit.ediable &&
+              <div id="user-edit-btn" onClick={() => setEdit({ editing: true })}><FaPen style={editBtn} /></div>}
+            {edit.editing &&
+              <div id="user-pic-left" onClick={() => changeProfile('left')}><FaAngleLeft style={editBtn} /></div>}
+            {edit.editing &&
+              <div id="user-pic-right" onClick={() => changeProfile('right')}><FaAngleRight style={editBtn} /></div>}
+            {edit.editing &&
+              <div id="user-edit-btn" onClick={() => {
+                if (profile.name !== '') setPopup('password')
+                else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
+              }
+              }><FaSave style={editBtn} /></div>}
+          </div>
+          {!edit.editing && <header id="user-name">{profile.name || 'Loading'}</header>}
+          {edit.editing &&
+            <input
+              id="user-name-edit"
+              value={profile.name}
+              onChange={e => handleName(e.target.value)}
+              minLength="1"
+            />}
+          <label id="user-role">{profile.role ? 'TEACHER' : 'STUDENT'}</label>
           <label id="user-level">
             LV 9
             {
-              user.role ?
+              profile.role ?
                 <span className="color blue"> Expert I</span> :
                 <span className="color green"> Learner</span>
             }
@@ -91,10 +117,10 @@ export default () => {
           </div>
           <span id="user-fam">
             {
-              user.role &&
+              profile.role &&
               <div className="user-fam-box">
-                <label className="user-fam-number">{user.likes || 0}</label>
-                <label className="user-fam-title">Likes</label>
+                <label className="user-fam-number">{profile.likes || 0}</label>
+                <label className="user-fam-title">Like{profile.likes > 1 && 's'}</label>
               </div>
             }
             <div className="user-fam-box">
@@ -109,6 +135,36 @@ export default () => {
         </section>
 
       </div>
-    </div>
+
+      {popup === 'loading' &&
+        <Popup
+          type="loading"
+          text="Loading"
+        />}
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={FaHeartBroken}
+          title={popup.title}
+          text={popup.text}
+          confirm="Okay"
+          onConfirm={() => setPopup('')}
+        />}
+      {popup === 'password' &&
+        <Popup
+          type="password"
+          title="Is that you?"
+          confirm="It's me!"
+          cancel="Not sure"
+          onChange={handlePassword}
+          onConfirm={saveProfile}
+          onCancel={() => setPopup('')}
+        />}
+    </div >
   )
+}
+
+const editBtn = {
+  fontSize: '24px',
+  color: 'white',
 }
