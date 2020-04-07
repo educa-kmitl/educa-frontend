@@ -12,7 +12,7 @@ export default () => {
 
         <section id="start-text-container">
           <h1>Hello! <b>Educa</b></h1>
-          <h6>
+          <h6 style={{ marginBottom: '20px' }}>
             With our learning platform <br />
             you can learn anything in one place.
           </h6>

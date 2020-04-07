@@ -105,26 +105,25 @@
 
     .icon-c {
       @include fixed-size(40px);
+      @include flex-center;
       position: absolute;
       top: 50%;
       right: -10px;
       transform: translate(-50%, -50%);
-      box-sizing: border-box;
+      background: $color;
       padding: 10px;
       border-radius: 50%;
 
       .icon {
-        @include abs-center;
-        position: absolute;
         user-select: none;
-        color: $color;
+        color: white;
         font-size: 22px;
+        transition: .2s;
 
       }
 
       &:hover {
         cursor: pointer;
-        background: gainsboro;
       }
     }
 

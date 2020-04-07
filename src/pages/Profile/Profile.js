@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { getProfile, getMyRoom, editProfile, randAlert } from '../../helpers'
+import {
+  randAlert,
+  getProfile,
+  editProfile,
+  getMyRoom,
+  getFollower,
+  postFollowing,
+  deleteFollowing
+} from '../../helpers'
 import './Profile.scss'
 
-import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave } from 'react-icons/fa'
+import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave, FaUserPlus, FaUserCheck } from 'react-icons/fa'
 import { Card, Popup } from '../../components'
 import { profiles } from '../../img/Profile'
 
@@ -14,6 +22,7 @@ export default () => {
   const [roomList, setRoomList] = useState([])
   const [auth, setAuth] = useContext(AuthContext)
   const [edit, setEdit] = useState({ ediable: false })
+  const [follow, setFollow] = useState(null)
   const [popup, setPopup] = useState('')
 
   useEffect(() => {
@@ -26,6 +35,19 @@ export default () => {
           const { user, error } = res.data
           if (user) {
             setProfile(user)
+            if (user.role) {
+              getFollower(user_id)
+                .then(res => {
+                  const { followers, error } = res.data
+                  if (followers) {
+                    if (followers.find(follower => follower.student_id === auth.data.user_id)) {
+                      setFollow(true)
+                    }
+                  } else {
+                    setPopup({ type: 'alert', title: randAlert(), text: error })
+                  }
+                })
+            }
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
           }
@@ -45,7 +67,7 @@ export default () => {
         }
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [user_id])
 
   const changeProfile = action => {
     if (action === 'left') {
@@ -72,6 +94,33 @@ export default () => {
         }
       })
   }
+  const handleFollow = () => {
+    if (follow) {
+      setFollow(false)
+      deleteFollowing(auth.data, user_id)
+        .then(res => {
+          const { success, error } = res.data
+          if (success) {
+            console.log('Unfollow!')
+          } else {
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+            setFollow(true)
+          }
+        })
+    } else {
+      setFollow(true)
+      postFollowing(auth.data, user_id)
+        .then(res => {
+          const { success, error } = res.data
+          if (success) {
+            console.log('Follow!')
+          } else {
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+            setFollow(false)
+          }
+        })
+    }
+  }
   const handlePassword = value => setProfile({ ...profile, password: value })
   const handleName = value => setProfile({ ...profile, name: value })
 
@@ -94,6 +143,10 @@ export default () => {
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
               }
               }><FaSave style={editBtn} /></div>}
+            {user_id !== auth.data.user_id && (
+              (follow === true && <div className='user-follow-btn active' onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
+              (follow === false && <div className='user-follow-btn' onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
+            )}
           </div>
           {!edit.editing && <header id="user-name">{profile.name || 'Loading'}</header>}
           {edit.editing &&

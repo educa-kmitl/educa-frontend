@@ -3,11 +3,12 @@ import moment from 'moment'
 import './Card.scss'
 
 import { FaLock, FaHeart } from 'react-icons/fa'
+import { subjects } from '../../img/subject'
 
 export const Card = ({ room, onClick }) => {
   return (
     <div className="course-card" onClick={onClick && (() => onClick(room))}>
-      <img className="course-cover" alt="" />
+      <img src={subjects[room?.subject]} className="course-cover" alt="" />
       <section className="course-detail">
         <div className="course-header">
           <h5 className="course-name">

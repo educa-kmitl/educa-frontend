@@ -1,7 +1,8 @@
 @import '../../styles';
 
 .ranking-bg {
-  background: $gradient-white;
+  background: url('../../img/home/home-bg.svg') center right;
+  background-size: cover;
   min-height: 100vh;
   padding-top: $nav-size;
 

@@ -21,4 +21,12 @@ export {
   postComment,
   deleteLike
 } from './roomHelper'
-export { getProfile, editProfile } from './profileHelper'
+export { 
+  getProfile, 
+  editProfile, 
+  getFollowing, 
+  getFollower,
+  postFollowing,
+  deleteFollowing 
+} from './profileHelper'
+export { getTeacher } from './rankHelper'

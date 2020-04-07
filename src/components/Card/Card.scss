@@ -21,6 +21,7 @@
   @include size(100%, 55%);
   border-radius: 40px 40px 0 0;
   background: grey;
+  object-fit: cover;
 }
 
 .course-detail {
