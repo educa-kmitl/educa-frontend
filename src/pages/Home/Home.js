@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { getAllRoom, getMyRoom } from '../../helpers'
 import './Home.scss'
 
 import { Card, Popup } from '../../components'
@@ -11,55 +12,44 @@ export default () => {
   const history = useHistory()
   const [auth] = useContext(AuthContext)
   const [roomList, setRoomList] = useState([])
-  const [filter, setFilter] = useState('')
+  const [search, setSearch] = useState({
+    text: '',
+    sort_by: 1,
+    arrange_by: 1,
+    limit: 6
+  })
   const [popup, setPopup] = useState('')
 
   useEffect(() => {
     if (auth.data.role) {
-      fetch(window.$ENDPOINT + '/my-rooms', {
-        method: 'GET',
-        headers: {
-          user_id: auth.data.user_id
-        }
-      })
-        .then(res => res.json())
-        .then(json => {
-          const { rooms, error } = json
-          if (rooms) {
-            setRoomList(rooms)
-          } else {
-            console.log(new Error(error))
-            setPopup({ type: 'alert', text: error })
-          }
+      setPopup('loading')
+      getMyRoom(auth.data)
+        .then(data => {
+          const { rooms } = data
+          setRoomList(rooms)
+          setPopup('')
+        })
+        .catch(err => {
+          console.log(err)
+          setPopup({ type: 'alert', title: 'Something wrong..', text: `We can't get data for you now` })
         })
     } else {
-      fetch(window.$ENDPOINT + '/all-rooms', {
-        method: 'GET',
-      })
-        .then(res => res.json())
-        .then(json => {
-          const { rooms, error } = json
-          if (rooms) {
-            if (auth.data.role) {
-              const teacher_room = rooms.filter(room => room.teacher_id === auth.data.user_id)
-              setRoomList(teacher_room)
-            } else {
-              setRoomList(rooms)
-            }
-          } else {
-            alert(error)
-          }
-        })
+      // setPopup('loading')
+      // getAllRoom(search)
+      //   .then(data => {
+      //     const { rooms } = data
+      //     setRoomList(rooms)
+      //     setPopup('')
+      //   })
+      // .catch(err => {
+      //   console.log(err)
+      //   setPopup({ type: 'alert', title: 'Something wrong..', text: `We can't get data for you now` })
+      // })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleSearch = value => setFilter(value)
-  const filterRoom = () => roomList.filter(room => (
-    room.name.toLowerCase().indexOf(filter.toLowerCase()) > -1 ||
-    room.subject.toLowerCase().indexOf(filter.toLowerCase()) > -1 ||
-    room.teacher_name.toLowerCase().indexOf(filter.toLowerCase()) > -1
-  ))
+  const handleSearch = value => setSearch({ ...search, text: value })
   const enterRoom = room => history.push(`/room/${room.room_id}`)
 
   return (
@@ -69,7 +59,7 @@ export default () => {
         <div className="search">
           <input
             placeholder="Type something to find..."
-            value={filter}
+            value={search.text}
             onChange={e => handleSearch(e.target.value)}
           />
           <div className="icon">
@@ -78,25 +68,22 @@ export default () => {
         </div>
 
         <div className="all-room">
-          {filterRoom().map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
+          {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
         </div>
 
       </div>
 
-      {
-        auth.data.role &&
+      {auth.data.role &&
         <Link to="/create">
           <div className="create-room-button">
             <FaPlus />
           </div>
-        </Link>
-      }
-
+        </Link>}
       {popup.type === 'alert' &&
         <Popup
           type="alert"
           Icon={FaSkull}
-          title="Something wrong.."
+          title={popup.title}
           text={popup.text}
           confirm="Refresh"
           onConfirm={() => window.location = 'home'}

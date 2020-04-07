@@ -6,3 +6,12 @@ export const leveling = likes => {
   else if (likes >= 5) return { level: 2, color: 'yellow', tile: 'Beginner Teacher' }
   else return { level: 1, color: 'green', title: 'Novince Teacher' }
 }
+
+export { login, register } from './authHelper'
+export {
+  getAllRoom,
+  getMyRoom,
+  getRoom,
+  getRoomPrivacy,
+  getComment
+} from './roomHelper'

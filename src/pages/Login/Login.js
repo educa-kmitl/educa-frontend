@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { login } from '../../helpers'
 import '../scss/noAuth.scss'
 
 import { FaEnvelope, FaLock, FaHeartBroken } from 'react-icons/fa'
@@ -17,29 +18,16 @@ export default () => {
   const handlePassword = value => setForm({ ...form, password: value })
   const handleLogin = e => {
     e.preventDefault()
-
     setPopup('loading')
-    fetch(window.$ENDPOINT + '/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: form.email,
-        password: form.password
+    login(form)
+      .then(data => {
+        const { user } = data
+        setAuth({ ...auth, data: user })
+        history.push('/home')
       })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { user, error } = json
-
-        if (user) {
-          setAuth({ ...auth, data: user })
-          history.push('/home')
-        } else {
-          console.log(new Error(error))
-          setPopup({ type: 'alert', text: error })
-        }
+      .catch(err => {
+        console.log(err)
+        setPopup({ type: 'alert', title: 'Sorry..', text: `We can't log you in` })
       })
   }
 
@@ -87,7 +75,7 @@ export default () => {
         <Popup
           type="alert"
           Icon={FaHeartBroken}
-          title="Oh no!"
+          title={popup.title}
           text={popup.text}
           confirm="Okay"
           onConfirm={() => setPopup('')}

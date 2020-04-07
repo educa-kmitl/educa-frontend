@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { register, login } from '../../helpers'
 import '../scss/noAuth.scss'
 
 import { FaEnvelope, FaUserAlt, FaLock, FaHeartBroken } from 'react-icons/fa'
@@ -26,50 +27,22 @@ export default () => {
     e.preventDefault()
 
     setPopup('loading')
-    fetch(window.$ENDPOINT + '/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        role: form.role,
-        email: form.email,
-        name: form.name,
-        password: form.password,
-        profile_icon: Math.floor(Math.random() * 10)
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { user, error } = json
-
-        if (user) {
-          fetch(window.$ENDPOINT + '/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: form.email,
-              password: form.password
-            })
+    register(form)
+      .then(data => {
+        login(form)
+          .then(data => {
+            const { user } = data
+            setAuth({ ...auth, data: user })
+            history.push('/home')
           })
-            .then(res => res.json())
-            .then(json => {
-              const { user, error } = json
-
-              if (user) {
-                setAuth({ ...auth, data: user })
-                history.push('/home')
-              } else {
-                console.log(new Error(error))
-                setPopup({ type: 'alert', text: error })
-              }
-            })
-        } else {
-          console.log(new Error(error))
-          setPopup({ type: 'alert', text: error })
-        }
+          .catch(err => {
+            console.log(err)
+            setPopup({ type: 'alert', title: 'Sorry..', text: `We can't log you in` })
+          })
+      })
+      .catch(err => {
+        console.log(err)
+        setPopup({ type: 'alert', title: 'Oh no!', text: `Can't create account with this information` })
       })
   }
 

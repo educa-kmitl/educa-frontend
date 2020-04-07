@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import {
+  getRoomPrivacy,
+  getRoom,
+  getComment,
+} from '../../helpers'
 import './Room.scss'
 
 import { FaHeart, FaFileDownload, FaSignOutAlt, FaWalking, FaHeartBroken } from 'react-icons/fa'
 import { Comment, Playlist, Button, Popup } from '../../components'
-
 
 export default () => {
   const history = useHistory()
@@ -25,110 +29,58 @@ export default () => {
   const [like, setLike] = useState(false)
 
   useEffect(() => {
-    fetch(window.$ENDPOINT + '/room-privacy', {
-      method: 'GET',
-      headers: {
-        room_id
-      }
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { lock, error } = json
-
+    setPopup('loading')
+    getRoomPrivacy(room_id)
+      .then(data => {
+        const { lock } = data
         if (lock) {
           setPopup('password')
-        } else if (!lock) {
-          fetch(window.$ENDPOINT + '/rooms', {
-            method: 'GET',
-            headers: {
-              room_id
-            }
-          })
-            .then(res => res.json())
-            .then(json => {
-              const { room, error } = json
-
-              if (room) {
-                setRoomData(room)
-                fetchComments(room)
-              }
-              else {
-                alert(error)
-              }
-            })
         } else {
-          alert(error)
+          getRoom(room_id, password)
+            .then(data => {
+              const { room } = data
+              setRoomData(room)
+              getRemainingData()
+            })
+            .catch(err => {
+              console.log(err)
+              setPopup({ type: 'alert', title: 'Oh no!', text: `We can't get data for you now` })
+            })
         }
+      })
+      .catch(err => {
+        console.log(err)
+        setPopup({ type: 'alert', title: 'Err..', text: `Please contact out staff` })
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const fetchComments = (room, index = 0) => {
-    setPopup('loading')
-    fetch(window.$ENDPOINT + '/comments', {
-      method: 'GET',
-      headers: {
-        resource_id: room.resources[index].resource_id
-      }
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { comments, error } = json
-
-        if (comments) {
-          setComments(comments)
-        }
-        else {
-          alert(error)
-        }
+  const getRemainingData = () => {
+    getComment(roomData, playlist)
+      .then(data => {
+        const { comments } = data
+        setComments(comments)
         setPopup('')
       })
-  }
-  const handleComment = (text) => {
-    fetch(window.$ENDPOINT + '/comments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        user_id: auth.data.user_id,
-        resource_id: roomData.resources[playlist.playing].resource_id,
-        text,
-        time: new Date()
+      .catch(err => {
+        console.log(err)
+        setPopup({ type: 'alert', title: 'Sorry..', text: `Comment unavailable now` })
       })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { user, error } = json
+  }
 
-        if (user) {
-          fetchComments(roomData)
-        }
-        else alert(error)
-      })
-  }
   const handlePrivacy = e => {
     e.preventDefault()
 
     setPopup('loading')
-    fetch(window.$ENDPOINT + '/rooms', {
-      method: 'GET',
-      headers: {
-        room_id,
-        password
-      }
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { room, error } = json
-
-        if (room) {
-          setRoomData(room)
-          fetchComments(room)
-        } else {
-          console.log(new Error(error))
-          setPopup({ type: 'alert', text: error })
-        }
+    getRoom(room_id, password)
+      .then(data => {
+        const { room } = data
+        setRoomData(room)
+        getRemainingData()
+      })
+      .catch(err => {
+        console.log(err)
+        setPopup({ type: 're-password', title: 'Argh!', text: `Invalid password` })
       })
   }
   const handlePassword = value => setPassword(value)
@@ -136,7 +88,17 @@ export default () => {
     const newValue = value
     setPlaylist(newValue)
     if (action) {
-      fetchComments(roomData, newValue.playing)
+      setPopup('loading')
+      getComment(roomData, playlist)
+        .then(data => {
+          const { comments } = data
+          setComments(comments)
+          setPopup('')
+        })
+        .catch(err => {
+          console.log(err)
+          setPopup({ type: 'alert', title: 'Sorry..', text: `Comment unavailable now` })
+        })
     }
   }
   const exitRoom = () => setPopup('confirm')
@@ -147,11 +109,49 @@ export default () => {
   }
   const likeVideo = () => {
     if (like) {
-      // unlike
       setLike(false)
+      fetch(window.$ENDPOINT + '/likes', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: auth.data.user_id,
+          room_id
+        })
+      })
+        .then(res => res.json())
+        .then(json => {
+          const { success, error } = json
+          if (success) {
+            console.log('Unliked!')
+          } else {
+            console.log(new Error(error))
+            setPopup({ type: 'alert', text: error })
+          }
+        })
     } else {
-      // like
       setLike(true)
+      fetch(window.$ENDPOINT + '/likes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          user_id: auth.data.user_id,
+          room_id
+        })
+      })
+        .then(res => res.json())
+        .then(json => {
+          const { success, error } = json
+          if (success) {
+            console.log('Liked!')
+          } else {
+            console.log(new Error(error))
+            setPopup({ type: 'alert', text: error })
+          }
+        })
     }
   }
 
@@ -209,7 +209,7 @@ export default () => {
 
           <div className="comment-container">
             <Comment
-              refresh={handleComment}
+              refresh={null}
               comments={comments}
             />
           </div>
@@ -238,11 +238,20 @@ export default () => {
           onConfirm={() => history.push('/home')}
           onCancel={() => setPopup('')}
         />}
-      {popup.type === 'alert' &&
+      {popup === 'alert' &&
+        <Popup
+          type="confirm"
+          Icon={FaHeartBroken}
+          title={popup.title}
+          text={popup.text}
+          confirm="Okay"
+          onConfirm={() => setPopup('')}
+        />}
+      {popup.type === 're-password' &&
         <Popup
           type="alert"
           Icon={FaHeartBroken}
-          title="Oh no!"
+          title={popup.title}
           text={popup.text}
           confirm="Try again"
           onConfirm={() => setPopup('password')}

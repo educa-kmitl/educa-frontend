@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Comment.scss'
 
 import { FaTelegramPlane } from 'react-icons/fa'
@@ -9,6 +9,11 @@ const moment = require('moment')
 
 export const Comment = ({ refresh, comments }) => {
   const [message, setMessage] = useState('')
+
+  useEffect(() => {
+    const e = document.querySelector('.room-comment')
+    e.scrollTop = e.scrollHeight
+  }, [comments])
 
   const writeComment = () => {
     refresh(message)

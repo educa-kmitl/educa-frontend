@@ -28,7 +28,7 @@ export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onCo
             </span>
           </form>
         </div>}
-        
+
       {type === 'loading' &&
         <div id="popup-overlay">
           <div id="popup-loading">
@@ -55,7 +55,7 @@ export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onCo
           <div id="popup-box">
             <Icon id="popup-icon" />
             <h4>{title}</h4>
-            <p>{text}</p>
+            <p style={{ textAlign: 'center' }}>{text}</p>
             <span id="popup-btn-single">
               <Button text={confirm} onClick={onConfirm} />
             </span>
