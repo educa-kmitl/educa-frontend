@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { createRoom, randAlert } from '../../helpers'
+import { createRoom, embedYoutube, randAlert } from '../../helpers'
 import './Create.scss'
 
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
@@ -54,7 +54,11 @@ export default () => {
     e.preventDefault();
     setPopup('loading')
 
-    createRoom(room, auth.data)
+    const embedRoom = room
+    for (let i = 0; i < room.resources.length; i++) {
+      embedRoom.resources[i].video_url = embedYoutube(embedRoom.resources[i].video_url)
+    }
+    createRoom(embedRoom, auth.data)
       .then(res => {
         const { room, error } = res.data
         if (room) {

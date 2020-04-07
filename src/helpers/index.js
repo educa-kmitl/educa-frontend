@@ -30,3 +30,4 @@ export {
   deleteFollowing 
 } from './profileHelper'
 export { getTeacher } from './rankHelper'
+export { embedYoutube } from './youtubeHelper'
