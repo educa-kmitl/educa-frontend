@@ -1,21 +1,13 @@
 @import '../../index.scss';
 
-.card {
-  $blue: #9ac9fc;
-  $yellow: #ffedb3;
-  $red: #ef92be;
-  $green: #60c6c6;
-  $purple: #dccbf7;
-
-  @include size(460px, 220px);
+.course-card {
+  @include size(370px);
   @include shadow;
-  background: #DDDDDD;
-  box-sizing: border-box;
+  @include flex-center(column);
+  justify-content: space-between;
+  background: white;
   float: left;
   border-radius: 40px;
-  display: flex;
-  align-items: center;
-  padding: 30px;
   margin-top: 40px;
   transition: .2s;
 
@@ -23,56 +15,43 @@
     transform: scale(1.1);
     cursor: pointer;
   }
+}
 
-  .imgCard {
-    @include size(150px);
-    background: transparent;
-    border-radius: 40px;
-    box-sizing: border-box;
-    border: 7px solid white;
-  }
+.course-cover {
+  @include size(100%, 55%);
+  border-radius: 40px 40px 0 0;
+  background: grey;
+}
 
-  .txt {
-    @include flex-center(column);
-    height: 90%;
-    justify-content: space-between;
-    align-items: flex-start;
-    box-sizing: border-box;
-    padding: 0 20px;
+.course-detail {
+  @include size(100%, 45%);
+  @include flex-center(column);
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 25px 35px;
+}
 
-    .title {
-      flex-wrap: wrap;
+.course-header {
+  flex-wrap: wrap;
+}
 
-      .heading {
-        font-size: 28px;
-        font-weight: 500;
-        margin-bottom: 10px;
-      }
+.course-name {
+  font-weight: 500;
+  margin-bottom: -10px;
+}
 
-      .description {
-        font-size: 20px;
-      }
-    }
+.course-teacher {
+  color: $grey;
+}
 
-    .tutor {
-      font-size: 20px;
-      text-align: left;
-    }
-  }
+.course-date {
+  color: $grey;
+  font-size: 18px;
+}
 
-  &.Math {
-    background: $blue
-  }
-
-  &.Science {
-    background: $red
-  }
-
-  &.English {
-    background: $yellow
-  }
-
-  &.Computer {
-    background: $purple
-  }
+.course-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

@@ -7,11 +7,15 @@ export const leveling = likes => {
   else return { level: 1, color: 'green', title: 'Novince Teacher' }
 }
 
+export { randAlert } from './popupHelper'
 export { login, register } from './authHelper'
 export {
   getAllRoom,
   getMyRoom,
   getRoom,
   getRoomPrivacy,
-  getComment
+  getComment,
+  getLike,
+  postLike,
+  deleteLike
 } from './roomHelper'

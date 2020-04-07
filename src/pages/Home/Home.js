@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { getAllRoom, getMyRoom } from '../../helpers'
+import { getAllRoom, getMyRoom, randAlert } from '../../helpers'
 import './Home.scss'
 
 import { Card, Popup } from '../../components'
@@ -21,30 +21,31 @@ export default () => {
   const [popup, setPopup] = useState('')
 
   useEffect(() => {
+    setPopup('loading')
     if (auth.data.role) {
-      setPopup('loading')
+
       getMyRoom(auth.data)
-        .then(data => {
-          const { rooms } = data
-          setRoomList(rooms)
-          setPopup('')
-        })
-        .catch(err => {
-          console.log(err)
-          setPopup({ type: 'alert', title: 'Something wrong..', text: `We can't get data for you now` })
+        .then(res => {
+          const { rooms, error } = res.data
+          if (rooms) {
+            setRoomList(rooms)
+            setPopup('')
+          } else {
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+          }
         })
     } else {
-      // setPopup('loading')
-      // getAllRoom(search)
-      //   .then(data => {
-      //     const { rooms } = data
-      //     setRoomList(rooms)
-      //     setPopup('')
-      //   })
-      // .catch(err => {
-      //   console.log(err)
-      //   setPopup({ type: 'alert', title: 'Something wrong..', text: `We can't get data for you now` })
-      // })
+
+      getAllRoom(search)
+        .then(res => {
+          const { rooms, error } = res.data
+          if (rooms) {
+            setRoomList(rooms)
+            setPopup('')
+          } else {
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+          }
+        })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

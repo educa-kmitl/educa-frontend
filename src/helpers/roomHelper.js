@@ -1,68 +1,88 @@
 const axios = require('axios')
 
-export const getAllRoom = async ({ text, sort_by, arrange_by, limit }) => {
-  try {
-    return await axios.get(window.$ENDPOINT + '/all-rooms', {
-      text,
-      sort_by,
-      arrange_by,
-      limit
-    }).then(res => res.data)
-  } catch (err) {
-    throw new Error(err)
-  }
-}
+export const getAllRoom = async ({ text, sort_by, arrange_by, limit }) => (
+  await axios.get(window.$ENDPOINT + '/all-rooms', {
+    text,
+    sort_by,
+    arrange_by,
+    limit
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
 
-export const getMyRoom = async ({ user_id }) => {
-  try {
-    return await axios.get(window.$ENDPOINT + '/my-rooms', {
-      headers: {
-        user_id
-      }
-    }).then(res => res.data)
-  } catch (err) {
-    throw new Error(err)
-  }
-}
+export const getMyRoom = async ({ user_id }) => (
+  await axios.get(window.$ENDPOINT + '/my-rooms', {
+    headers: {
+      user_id
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
 
 
-export const getRoomPrivacy = async (room_id) => {
-  try {
-    return await axios.get(window.$ENDPOINT + '/room-privacy', {
-      headers: {
-        room_id
-      }
-    }).then(res => res.data)
-  } catch (err) {
-    throw new Error(err)
-  }
-}
+export const getRoomPrivacy = async (room_id) => (
+  await axios.get(window.$ENDPOINT + '/room-privacy', {
+    headers: {
+      room_id
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
 
-export const getRoom = async (room_id, password) => {
-  try {
-    return await axios.get(window.$ENDPOINT + '/rooms', {
-      headers: {
-        room_id,
-        password
-      }
-    }).then(res => res.data)
-  } catch (err) {
-    throw new Error(err)
-  }
-}
+export const getRoom = async (room_id, password) => (
+  await axios.get(window.$ENDPOINT + '/rooms', {
+    headers: {
+      room_id,
+      password
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
 
-export const getComment = async (roomData, playlist) => {
-  try {
-    return await axios.get(window.$ENDPOINT + '/comments', {
-      headers: {
-        resource_id: roomData.resources[playlist.playing].resource_id
-      }
-    }).then(res => res.data)
-  } catch (err) {
-    throw new Error(err)
-  }
-}
+export const getComment = async (room, playlist) => (
+  await axios.get(window.$ENDPOINT + '/comments', {
+    headers: {
+      resource_id: room.resources[playlist.playing].resource_id
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
 
+export const getLike = async (room_id, { user_id }) => (
+  await axios.get(window.$ENDPOINT + '/likes', {
+    headers: {
+      room_id,
+      user_id
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
+
+export const postLike = async (room_id, { user_id }) => (
+  await axios.post(window.$ENDPOINT + '/likes', {
+    room_id,
+    user_id
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
+
+export const deleteLike = async (room_id, { user_id }) => (
+  await axios.delete(window.$ENDPOINT + '/likes', {
+    data: {
+      room_id,
+      user_id
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
 
 // const filterRoom = () => roomList.filter(room => (
 //   room.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||

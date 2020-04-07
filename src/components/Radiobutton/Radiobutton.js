@@ -16,7 +16,7 @@ export const Radiobutton = ({ group, text, onClick, checked }) => {
         name={group}
         defaultChecked={checked}
       />
-      <text>{text}</text>
+      <label>{text}</label>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { register, login } from '../../helpers'
+import { register, login, randAlert } from '../../helpers'
 import '../scss/noAuth.scss'
 
 import { FaEnvelope, FaUserAlt, FaLock, FaHeartBroken } from 'react-icons/fa'
@@ -25,24 +25,26 @@ export default () => {
   const handlePassword = value => setForm({ ...form, password: value })
   const handleRegister = e => {
     e.preventDefault()
-
     setPopup('loading')
+
     register(form)
-      .then(data => {
-        login(form)
-          .then(data => {
-            const { user } = data
-            setAuth({ ...auth, data: user })
-            history.push('/home')
-          })
-          .catch(err => {
-            console.log(err)
-            setPopup({ type: 'alert', title: 'Sorry..', text: `We can't log you in` })
-          })
-      })
-      .catch(err => {
-        console.log(err)
-        setPopup({ type: 'alert', title: 'Oh no!', text: `Can't create account with this information` })
+      .then(res => {
+        const { user, error } = res.data
+        if (user) {
+
+          login(form)
+            .then(res => {
+              const { user, error } = res.data
+              if (user) {
+                setAuth({ ...auth, data: user })
+                history.push('/home')
+              } else {
+                setPopup({ type: 'alert', title: randAlert(), text: error })
+              }
+            })
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
       })
   }
 
@@ -116,7 +118,7 @@ export default () => {
         <Popup
           type="alert"
           Icon={FaHeartBroken}
-          title="Oh no!"
+          title={popup.title}
           text={popup.text}
           confirm="Okay"
           onConfirm={() => setPopup('')}

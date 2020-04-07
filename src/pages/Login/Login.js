@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { login } from '../../helpers'
+import { login, randAlert } from '../../helpers'
 import '../scss/noAuth.scss'
 
 import { FaEnvelope, FaLock, FaHeartBroken } from 'react-icons/fa'
@@ -19,15 +19,16 @@ export default () => {
   const handleLogin = e => {
     e.preventDefault()
     setPopup('loading')
+    
     login(form)
-      .then(data => {
-        const { user } = data
-        setAuth({ ...auth, data: user })
-        history.push('/home')
-      })
-      .catch(err => {
-        console.log(err)
-        setPopup({ type: 'alert', title: 'Sorry..', text: `We can't log you in` })
+      .then(res => {
+        const { user, error } = res.data
+        if (user) {
+          setAuth({ ...auth, data: user })
+          history.push('/home')
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
       })
   }
 

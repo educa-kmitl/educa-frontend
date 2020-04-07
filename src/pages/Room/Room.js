@@ -2,9 +2,13 @@ import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import {
+  randAlert,
   getRoomPrivacy,
   getRoom,
   getComment,
+  getLike,
+  postLike,
+  deleteLike
 } from '../../helpers'
 import './Room.scss'
 
@@ -30,57 +34,67 @@ export default () => {
 
   useEffect(() => {
     setPopup('loading')
+
     getRoomPrivacy(room_id)
-      .then(data => {
-        const { lock } = data
+      .then(res => {
+        const { lock, error } = res.data
         if (lock) {
           setPopup('password')
+        } else if (!lock) {
+
+          getRoom(room_id)
+            .then(res => {
+              const { room, error } = res.data
+              if (room) {
+                setRoomData(room)
+                getRemainingData(room)
+              } else {
+                setPopup({ type: 'alert', title: randAlert(), text: error })
+              }
+            })
         } else {
-          getRoom(room_id, password)
-            .then(data => {
-              const { room } = data
-              setRoomData(room)
-              getRemainingData()
-            })
-            .catch(err => {
-              console.log(err)
-              setPopup({ type: 'alert', title: 'Oh no!', text: `We can't get data for you now` })
-            })
+          setPopup({ type: 'alert', title: randAlert(), text: error })
         }
-      })
-      .catch(err => {
-        console.log(err)
-        setPopup({ type: 'alert', title: 'Err..', text: `Please contact out staff` })
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const getRemainingData = () => {
-    getComment(roomData, playlist)
-      .then(data => {
-        const { comments } = data
-        setComments(comments)
-        setPopup('')
-      })
-      .catch(err => {
-        console.log(err)
-        setPopup({ type: 'alert', title: 'Sorry..', text: `Comment unavailable now` })
+  const getRemainingData = room => {
+    getComment(room, playlist)
+      .then(res => {
+        const { comments, error } = res.data
+        if (comments) {
+          setComments(comments)
+
+          getLike(room_id, auth.data)
+            .then(res => {
+              const { liked, error } = res.data
+              if (error) {
+                setPopup({ type: 'alert', title: randAlert(), text: error })
+              } else {
+                setLike(liked)
+                setPopup('')
+              }
+            })
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
       })
   }
 
   const handlePrivacy = e => {
     e.preventDefault()
-
     setPopup('loading')
+
     getRoom(room_id, password)
-      .then(data => {
-        const { room } = data
-        setRoomData(room)
-        getRemainingData()
-      })
-      .catch(err => {
-        console.log(err)
-        setPopup({ type: 're-password', title: 'Argh!', text: `Invalid password` })
+      .then(res => {
+        const { room, error } = res.data
+        if (room) {
+          setRoomData(room)
+          getRemainingData(room)
+        } else {
+          setPopup({ type: 're-password', title: randAlert(), text: error })
+        }
       })
   }
   const handlePassword = value => setPassword(value)
@@ -89,15 +103,16 @@ export default () => {
     setPlaylist(newValue)
     if (action) {
       setPopup('loading')
-      getComment(roomData, playlist)
-        .then(data => {
-          const { comments } = data
-          setComments(comments)
-          setPopup('')
-        })
-        .catch(err => {
-          console.log(err)
-          setPopup({ type: 'alert', title: 'Sorry..', text: `Comment unavailable now` })
+
+      getComment(roomData, newValue)
+        .then(res => {
+          const { comments, error } = res.data
+          if (comments) {
+            setComments(comments)
+            setPopup('')
+          } else {
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+          }
         })
     }
   }
@@ -105,51 +120,33 @@ export default () => {
   const downloadFile = () => {
     const file = roomData.resources[playlist.playing].file_url
     if (file) window.open(file)
-    else alert('This video has no file to download')
+    else setPopup({ type: 'alert', title: randAlert(), text: 'This video has no file to download' })
   }
   const likeVideo = () => {
     if (like) {
       setLike(false)
-      fetch(window.$ENDPOINT + '/likes', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user_id: auth.data.user_id,
-          room_id
-        })
-      })
-        .then(res => res.json())
-        .then(json => {
-          const { success, error } = json
+
+      deleteLike(room_id, auth.data)
+        .then(res => {
+          const { success, error } = res.data
           if (success) {
             console.log('Unliked!')
           } else {
-            console.log(new Error(error))
-            setPopup({ type: 'alert', text: error })
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+            setLike(true)
           }
         })
     } else {
       setLike(true)
-      fetch(window.$ENDPOINT + '/likes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          user_id: auth.data.user_id,
-          room_id
-        })
-      })
-        .then(res => res.json())
-        .then(json => {
-          const { success, error } = json
+
+      postLike(room_id, auth.data)
+        .then(res => {
+          const { success, error } = res.data
           if (success) {
             console.log('Liked!')
           } else {
-            console.log(new Error(error))
-            setPopup({ type: 'alert', text: error })
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+            setLike(false)
           }
         })
     }
@@ -195,6 +192,7 @@ export default () => {
           <div className="course-card">
             <div className="course-detail">
               <div className="course-title">{roomData.name}</div>
+              <p>{roomData.likes?.length} like</p>
               <div className="course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</div>
             </div>
             <footer>
@@ -238,9 +236,9 @@ export default () => {
           onConfirm={() => history.push('/home')}
           onCancel={() => setPopup('')}
         />}
-      {popup === 'alert' &&
+      {popup.type === 'alert' &&
         <Popup
-          type="confirm"
+          type="alert"
           Icon={FaHeartBroken}
           title={popup.title}
           text={popup.text}
