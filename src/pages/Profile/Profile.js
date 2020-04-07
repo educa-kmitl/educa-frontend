@@ -40,6 +40,7 @@ export default () => {
                 .then(res => {
                   const { followers, error } = res.data
                   if (followers) {
+                    console.log(followers)
                     if (followers.find(follower => follower.student_id === auth.data.user_id)) {
                       setFollow(true)
                     }
@@ -88,6 +89,7 @@ export default () => {
         if (user) {
           setEdit({ ediable: true })
           setAuth({ ...auth, data: profile })
+          window.location = `${user_id}`
           setPopup('')
         } else {
           setPopup({ type: 'alert', title: randAlert(), text: error })
@@ -143,9 +145,9 @@ export default () => {
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
               }
               }><FaSave style={editBtn} /></div>}
-            {user_id !== auth.data.user_id && (
-              (follow === true && <div className='user-follow-btn active' onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
-              (follow === false && <div className='user-follow-btn' onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
+            {(user_id !== auth.data.user_id && profile.role) && (
+              (follow && <div className='user-follow-btn active' onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
+              (!follow && <div className='user-follow-btn' onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
             )}
           </div>
           {!edit.editing && <header id="user-name">{profile.name || 'Loading'}</header>}
@@ -176,7 +178,7 @@ export default () => {
                 <label className="user-fam-title">Like{profile.likes > 1 && 's'}</label>
               </div>
             }
-            <div className="user-fam-box">
+            <div className="user-fam-box" onClick={() => { console.log(user_id !== auth.data.user_id) }}>
               <label className="user-fam-number">142</label>
               <label className="user-fam-title">Followers</label>
             </div>
