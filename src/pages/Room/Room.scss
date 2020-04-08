@@ -9,7 +9,7 @@
 
 #video-container {
   @include flex-center(column);
-  @include fixed-size(830px, 750px);
+  @include size(830px, 750px);
   @include shadow;
   background: white;
   border-radius: 40px;
@@ -18,7 +18,7 @@
 }
 
 #embed-video {
-  @include fixed-size(830px, 640px);
+  @include size(830px, 640px);
   border-radius: inherit;
   border: none;
   background: $black;
@@ -123,5 +123,5 @@
 }
 
 #comment-container {
-  @include size(100%);
+  @include size(100%, auto);
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import moment from 'moment'
 import './Comment.scss'
 
@@ -6,13 +6,8 @@ import { FaTelegramPlane } from 'react-icons/fa'
 import { profiles } from '../../img/Profile'
 import logo from '../../img/room/play.svg'
 
-export const Comment = ({ post, comments }) => {
+export const Comment = ({ post, comments, more, onMore }) => {
   const [message, setMessage] = useState('')
-
-  useEffect(() => {
-    const e = document.querySelector('.room-comment')
-    e.scrollTop = e.scrollHeight
-  }, [comments])
 
   const writeComment = () => {
     post(message)
@@ -25,6 +20,7 @@ export const Comment = ({ post, comments }) => {
       <hr />
 
       <div className="room-comment">
+        {more && <button id="show-earlier-btn" onClick={onMore}>Show earlier</button>}
         {comments.map((comment, index) => (
           <div key={index} className="box">
             <span>

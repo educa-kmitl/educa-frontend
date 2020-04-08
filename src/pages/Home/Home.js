@@ -52,6 +52,21 @@ export default () => {
 
   const handleSearch = value => setSearch({ ...search, text: value })
   const enterRoom = room => history.push(`/room/${room.room_id}`)
+  const handleMore = () => {
+    const newSearch = { ...search, limit: search.limit + 6 }
+    setPopup('loading')
+    getAllRoom(newSearch)
+      .then(res => {
+        const { rooms, error } = res.data
+        if (rooms) {
+          setRoomList(rooms)
+          setSearch(newSearch)
+          setPopup('')
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
+  }
 
   return (
     <div className="home-page-bg">
@@ -73,21 +88,7 @@ export default () => {
           {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
         </div>
 
-        <button className="see-more-btn" onClick={() => {
-          const newSearch = { ...search, limit: search.limit + 6 }
-          setPopup('loading')
-          getAllRoom(newSearch)
-            .then(res => {
-              const { rooms, error } = res.data
-              if (rooms) {
-                setRoomList(rooms)
-                setSearch(newSearch)
-                setPopup('')
-              } else {
-                setPopup({ type: 'alert', title: randAlert(), text: error })
-              }
-            })
-        }}>Show more</button>
+        <button className="see-more-btn" onClick={handleMore}>Show more</button>
       </div>
 
       {auth.data.role &&

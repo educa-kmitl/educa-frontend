@@ -32,6 +32,7 @@ export default () => {
   const [playlist, setPlaylist] = useState({ show: false, playing: 0, id: 0 })
   const [comments, setComments] = useState([])
   const [like, setLike] = useState({ liked: false, count: 0 })
+  const [more, setMore] = useState({ have: false, limit: 10 })
 
   useEffect(() => {
     setPopup('loading')
@@ -61,15 +62,16 @@ export default () => {
   }, [])
 
   const getRemainingData = room => {
-    getComment(room, playlist)
+    getComment(room, playlist, more.limit)
       .then(res => {
-        const { comments, error } = res.data
+        const { comments, have_more, error } = res.data
         if (comments) {
           setComments(comments)
 
           getLike(room_id, auth.data)
             .then(res => {
               const { liked, error } = res.data
+              scrollComment()
               if (error) {
                 setPopup({ type: 'alert', title: randAlert(), text: error })
               } else {
@@ -80,6 +82,7 @@ export default () => {
         } else {
           setPopup({ type: 'alert', title: randAlert(), text: error })
         }
+        if (have_more) setMore({ have: have_more, limit: 10 })
       })
   }
 
@@ -105,17 +108,39 @@ export default () => {
     if (action) {
       setPopup('loading')
 
-      getComment(roomData, newValue)
+      getComment(roomData, newValue, 10)
         .then(res => {
-          const { comments, error } = res.data
+          const { comments, have_more, error } = res.data
           if (comments) {
             setComments(comments)
             setPopup('')
+            scrollComment()
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
           }
+          if (have_more) setMore({ have: have_more, limit: 10 })
         })
     }
+  }
+  const handleMore = () => {
+    const newLimit = more.limit + 10
+    const old = document.querySelector('.room-comment').scrollHeight
+
+    getComment(roomData, playlist, newLimit)
+      .then(res => {
+        const { comments, have_more, error } = res.data
+        if (comments) {
+          setComments(comments)
+          setMore({ have: have_more, limit: newLimit })
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
+      .then(() => scrollComment(old))
+  }
+  const scrollComment = old => {
+    const e = document.querySelector('.room-comment')
+    e.scrollTop = e.scrollHeight - old || e.scrollHeight
   }
   const exitRoom = () => setPopup({ type: 'confirm', func: () => { window.location = '/home' } })
   const downloadFile = () => {
@@ -220,6 +245,8 @@ export default () => {
             <Comment
               post={writeComment}
               comments={comments}
+              more={more.have}
+              onMore={handleMore}
             />
           </div>
 

@@ -43,10 +43,11 @@ export const getRoom = async (room_id, password) => (
     .catch(err => err.response)
 )
 
-export const getComment = async (room, playlist) => (
+export const getComment = async (room, playlist, limit) => (
   await axios.get(window.$ENDPOINT + '/comments', {
     headers: {
-      resource_id: room.resources[playlist.playing].resource_id
+      resource_id: room.resources[playlist.playing].resource_id,
+      limit
     }
   })
     .then(res => res)

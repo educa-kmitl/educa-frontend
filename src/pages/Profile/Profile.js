@@ -8,6 +8,7 @@ import {
   editProfile,
   getMyRoom,
   getFollower,
+  getFollowing,
   postFollowing,
   deleteFollowing
 } from '../../helpers'
@@ -26,6 +27,7 @@ export default () => {
   const [rank, setRank] = useState({})
   const [follow, setFollow] = useState(null)
   const [follower, setFollower] = useState([])
+  const [followerBox, setFollowerBox] = useState(false)
   const [popup, setPopup] = useState('')
 
   useEffect(() => {
@@ -44,9 +46,19 @@ export default () => {
                 const { followers, error } = res.data
                 if (followers) {
                   setFollower(followers)
-                  if (followers.find(follower => follower.student_id === auth.data.user_id)) {
+                  if (followers.find(f => f.student_id === auth.data.user_id)) {
                     setFollow(true)
                   }
+                } else {
+                  setPopup({ type: 'alert', title: randAlert(), text: error })
+                }
+              })
+          } else {
+            getFollowing(user_id)
+              .then(res => {
+                const { followings, error } = res.data
+                if (followings) {
+                  setFollower(followings)
                 } else {
                   setPopup({ type: 'alert', title: randAlert(), text: error })
                 }
@@ -103,6 +115,8 @@ export default () => {
           const { success, error } = res.data
           if (success) {
             console.log('Unfollow!')
+            let newFollower = follower.filter(f => f.student_id !== auth.data.user_id)
+            setFollower(newFollower)
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
             setFollow(true)
@@ -115,6 +129,8 @@ export default () => {
           const { success, error } = res.data
           if (success) {
             console.log('Follow!')
+            const { user_id, profile_icon, name } = auth.data
+            setFollower([...follower, { student_id: user_id, profile_icon, name }])
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
             setFollow(false)
@@ -171,17 +187,54 @@ export default () => {
             <div id="user-expbar-progress" className={'bg ' + rank.color} style={{ width: rank.percent }}></div>
           </div>
           <span id="user-fam">
-            {
-              profile.role &&
-              <div className="user-fam-box">
-                <label className="user-fam-number">{profile.likes}</label>
-                <label className="user-fam-title">Heart{profile.likes > 1 && 's'}</label>
+            {profile.role === true &&
+              <>
+                <div className="user-fam-box">
+                  <label className="user-fam-number">{profile.likes}</label>
+                  <label className="user-fam-title">Heart{profile.likes > 1 && 's'}</label>
+                </div>
+                <div className={`user-fam-box ${followerBox && 'active'}`} onClick={(!followerBox && (() => setFollowerBox(true))) || null}>
+                  <label className="user-fam-number">{follower.length}</label>
+                  <label className="user-fam-title">Follower{follower.length > 1 && 's'}</label>
+                  {followerBox &&
+                    <div id="follower-box">
+                      <span className="follower-item" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
+                        <h6 style={{ fontWeight: '500' }}>Follower</h6>
+                        <div id="follower-box-close" onClick={() => setFollowerBox(false)}>x</div>
+                      </span>
+                      <div id="follower-content">
+                        {follower.map((f, index) =>
+                          <span key={index} className="follower-item" onClick={() => { window.location = f.student_id }}>
+                            <img className="follower-img" src={profiles[f.profile_icon]} alt="" />
+                            <p>{f.name}</p>
+                          </span>
+                        )}
+                      </div>
+                    </div>}
+                </div>
+              </>}
+            {profile.role === false &&
+              <div className={`user-fam-box ${followerBox && 'active'}`} onClick={(!followerBox && (() => setFollowerBox(true))) || null}>
+                <label className="user-fam-number">{follower.length}</label>
+                <label className="user-fam-title">Following</label>
+                {followerBox &&
+                  <div id="follower-box">
+                    <span className="follower-item" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
+                      <h6 style={{ fontWeight: '500' }}>Following</h6>
+                      <div id="follower-box-close" onClick={() => setFollowerBox(false)}>x</div>
+                    </span>
+                    <div id="follower-content">
+                      {follower.map((f, index) =>
+                        <span key={index} className="follower-item" onClick={() => { window.location = f.teacher_id }}>
+                          <img className="follower-img" src={profiles[f.profile_icon]} alt="" />
+                          <p>{f.name}</p>
+                        </span>
+                      )}
+                    </div>
+                  </div>}
               </div>
             }
-            <div className="user-fam-box">
-              <label className="user-fam-number">{follower.length}</label>
-              <label className="user-fam-title">Follower{follower.length > 1 && 's'}</label>
-            </div>
+
           </span>
         </section>
 
