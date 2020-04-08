@@ -10,7 +10,19 @@ import p7 from './p7.svg'
 import p8 from './p8.svg'
 import p9 from './p9.svg'
 
+import green from './green-gem.svg'
+import blue from './blue-gem.svg'
+import red from './red-gem.svg'
+import purple from './purple-gem.svg'
+
 export const profiles = [
   p0, p1, p2, p3, p4,
   p5, p6, p7, p8, p9
 ]
+
+export const gems = {
+  green,
+  blue,
+  red,
+  purple
+}

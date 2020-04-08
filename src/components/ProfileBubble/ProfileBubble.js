@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
+import { Link } from 'react-router-dom'
+import { AuthContext } from '../../contexts'
 import './ProfileBubble.scss'
 
-import { Link } from 'react-router-dom'
 import { FaUserAlt, FaSignOutAlt } from "react-icons/fa"
-import { AuthContext } from '../../contexts'
 
 export const ProfileBubble = ({ state, setState }) => {
   const [auth, setAuth] = useContext(AuthContext)
@@ -25,10 +25,10 @@ export const ProfileBubble = ({ state, setState }) => {
         <div className="username">{auth.data?.name}</div>
         {
           auth.data?.role ?
-            <div className="level">LEVEL {auth.data?.likes}</div> :
-            <div className="level">student</div>
+            <div className={`level color ${auth.color}`}>{auth.title}</div> :
+            <div className="level color green">student</div>
         }
-        <div className="exp"></div>
+        <div className={`exp bg ${auth.color}`}></div>
         <Link to={`/profile/${auth.data?.user_id}`} onClick={hideBubble}>
           <div className="item">
             <div className="icon"><FaUserAlt /></div>

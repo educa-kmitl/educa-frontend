@@ -197,8 +197,8 @@ export default () => {
           </footer>
         </section>
 
-        <div id="room-panel">
-          <section id="room-course-card">
+        <section id="room-panel">
+          <div id="room-course-card">
             <header>
               <h5 style={bold}>{roomData.name}</h5>
               <p id="room-course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</p>
@@ -214,7 +214,7 @@ export default () => {
               setPlaylist={handlePlaylist}
               roomData={roomData}
             />
-          </section>
+          </div>
 
           <div id="comment-container">
             <Comment
@@ -223,7 +223,7 @@ export default () => {
             />
           </div>
 
-        </div>
+        </section>
       </div>
 
       {popup === 'loading' && <Popup type="loading" text="Loading" />}

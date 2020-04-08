@@ -23,13 +23,11 @@
     }
 
     .level { 
-      color: $color;
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .exp {
       @include size(140px, 5px);
-      background: $gradient;
       margin-bottom: 10px;
     }
 

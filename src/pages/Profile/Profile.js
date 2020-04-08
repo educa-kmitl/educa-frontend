@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import {
   randAlert,
+  leveling,
   getProfile,
   editProfile,
   getMyRoom,
@@ -14,7 +15,7 @@ import './Profile.scss'
 
 import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave, FaUserPlus, FaUserCheck } from 'react-icons/fa'
 import { Card, Popup } from '../../components'
-import { profiles } from '../../img/Profile'
+import { profiles, gems } from '../../img/Profile'
 
 export default () => {
   const { user_id } = useParams()
@@ -22,41 +23,39 @@ export default () => {
   const [roomList, setRoomList] = useState([])
   const [auth, setAuth] = useContext(AuthContext)
   const [edit, setEdit] = useState({ ediable: false })
+  const [rank, setRank] = useState({})
   const [follow, setFollow] = useState(null)
+  const [follower, setFollower] = useState([])
   const [popup, setPopup] = useState('')
 
   useEffect(() => {
-    document.querySelector('#user-expbar-progress').style.background = 'lightblue'
-    document.querySelector('#user-expbar-progress').style.width = '70%'
-
-    if (user_id !== auth.data.user_id) {
-      getProfile(user_id)
-        .then(res => {
-          const { user, error } = res.data
-          if (user) {
-            setProfile(user)
-            if (user.role) {
-              getFollower(user_id)
-                .then(res => {
-                  const { followers, error } = res.data
-                  if (followers) {
-                    console.log(followers)
-                    if (followers.find(follower => follower.student_id === auth.data.user_id)) {
-                      setFollow(true)
-                    }
-                  } else {
-                    setPopup({ type: 'alert', title: randAlert(), text: error })
-                  }
-                })
-            }
-          } else {
-            setPopup({ type: 'alert', title: randAlert(), text: error })
-          }
-        })
-    } else {
+    if (user_id === auth.data.user_id) {
       setEdit({ ediable: true })
-      setProfile(auth.data)
     }
+    getProfile(user_id)
+      .then(res => {
+        const { user, error } = res.data
+        if (user) {
+          setRank(leveling(user.likes))
+          setProfile(user)
+          if (user.role) {
+            getFollower(user_id)
+              .then(res => {
+                const { followers, error } = res.data
+                if (followers) {
+                  setFollower(followers)
+                  if (followers.find(follower => follower.student_id === auth.data.user_id)) {
+                    setFollow(true)
+                  }
+                } else {
+                  setPopup({ type: 'alert', title: randAlert(), text: error })
+                }
+              })
+          }
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
     getMyRoom({ user_id })
       .then(res => {
         const { rooms, error } = res.data
@@ -131,8 +130,8 @@ export default () => {
       <div id="profile-page-content">
 
         <section id="user-card">
-          <div id="user-picture">
-            <img id="user-picture" src={profiles[profile.profile_icon]} alt="" />
+          <div style={{ position: 'relative' }}>
+            <img id="user-picture" className={rank.color} src={profiles[profile.profile_icon]} alt="" />
             {edit.ediable &&
               <div id="user-edit-btn" onClick={() => setEdit({ editing: true })}><FaPen style={editBtn} /></div>}
             {edit.editing &&
@@ -158,29 +157,30 @@ export default () => {
               onChange={e => handleName(e.target.value)}
               minLength="1"
             />}
-          <label id="user-role">{profile.role ? 'TEACHER' : 'STUDENT'}</label>
+          <label id="user-role">{profile.role === true && 'TEACHER'}</label>
+          <label id="user-role">{profile.role === false && 'STUDENT'}</label>
           <label id="user-level">
-            LV 9
-            {
-              profile.role ?
-                <span className="color blue"> Expert I</span> :
-                <span className="color green"> Learner</span>
-            }
+            LV {rank.lv}
+            {profile.role === true && <span className={`color ${rank.color}`}> {rank.title}</span>}
+            {profile.role === false && <span className="color green"> Learner</span>}
           </label>
           <div id="user-expbar">
-            <div id="user-expbar-progress"></div>
+            <div id="user-gem" className={rank.color}>
+              <img src={gems[rank.color]} alt="" />
+            </div>
+            <div id="user-expbar-progress" className={'bg ' + rank.color} style={{ width: rank.percent }}></div>
           </div>
           <span id="user-fam">
             {
               profile.role &&
               <div className="user-fam-box">
-                <label className="user-fam-number">{profile.likes || 0}</label>
-                <label className="user-fam-title">Like{profile.likes > 1 && 's'}</label>
+                <label className="user-fam-number">{profile.likes}</label>
+                <label className="user-fam-title">Heart{profile.likes > 1 && 's'}</label>
               </div>
             }
-            <div className="user-fam-box" onClick={() => { console.log(user_id !== auth.data.user_id) }}>
-              <label className="user-fam-number">142</label>
-              <label className="user-fam-title">Followers</label>
+            <div className="user-fam-box">
+              <label className="user-fam-number">{follower.length}</label>
+              <label className="user-fam-title">Follower{follower.length > 1 && 's'}</label>
             </div>
           </span>
         </section>
