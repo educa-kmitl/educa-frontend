@@ -31,6 +31,7 @@
 
 #user-picture {
   @include size(250px);
+  background: $grey;
   border-radius: 50%;
   user-select: none;
 
@@ -132,20 +133,24 @@
 #user-gem {
   @include abs-center;
   @include size(65px);
-  background: $black;
+  background: $grey;
   border-radius: 50%;
 
   &.green {
     border: 6px solid $green;
+    background: $black;
   }
   &.blue {
     border: 6px solid $blue;
+    background: $black;
   }
   &.red {
     border: 6px solid $red;
+    background: $black;
   }
   &.purple {
     border: 6px solid $purple;
+    background: $black;
   }
 }
 

@@ -25,10 +25,9 @@ export const ProfileBubble = ({ state, setState }) => {
         <div className="username">{auth.data?.name}</div>
         {
           auth.data?.role ?
-            <div className={`level color ${auth.color}`}>{auth.title}</div> :
-            <div className="level color green">student</div>
+            <div className="level">TEACHER</div> :
+            <div className="level">student</div>
         }
-        <div className={`exp bg ${auth.color}`}></div>
         <Link to={`/profile/${auth.data?.user_id}`} onClick={hideBubble}>
           <div className="item">
             <div className="icon"><FaUserAlt /></div>
