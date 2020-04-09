@@ -60,7 +60,7 @@
       }
 
       .play-icon {
-        @include fixed-size(22px);
+        @include size(22px);
         user-select: none;
       }
 

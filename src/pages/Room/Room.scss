@@ -54,7 +54,7 @@
 }
 
 .room-btn {
-  @include fixed-size(50px);
+  @include size(50px);
   position: relative;
   font-size: 22px;
   background: white;

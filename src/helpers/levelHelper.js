@@ -36,8 +36,9 @@ export const leveling = likes => {
     lv = lv + 1
     if (exp < 0) lv = lv - 1
   }
+  const percent = lv < 12 ? (100 * (exp + requiredExp(lv))) / requiredExp(lv) : 100
   return {
     ...rank[lv - 1],
-    percent: `${(100 * (exp + requiredExp(lv))) / requiredExp(lv)}%`
+    percent: `${percent}%`
   }
 }

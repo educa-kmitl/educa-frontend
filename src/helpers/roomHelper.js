@@ -11,10 +11,11 @@ export const getAllRoom = async (search) => (
     .catch(err => err.response)
 )
 
-export const getMyRoom = async ({ user_id }) => (
+export const getMyRoom = async ({ user_id }, limit) => (
   await axios.get(window.$ENDPOINT + '/my-rooms', {
     headers: {
-      user_id
+      user_id,
+      limit
     }
   })
     .then(res => res)

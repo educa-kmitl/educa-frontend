@@ -29,6 +29,8 @@ export default () => {
   const [follower, setFollower] = useState([])
   const [followerBox, setFollowerBox] = useState(false)
   const [popup, setPopup] = useState('')
+  const [more, setMore] = useState({ have: false, limit: 6 })
+  const [fakeHeart, setFakeheart] = useState(0)
 
   useEffect(() => {
     if (user_id === auth.data.user_id) {
@@ -68,11 +70,12 @@ export default () => {
           setPopup({ type: 'alert', title: randAlert(), text: error })
         }
       })
-    getMyRoom({ user_id })
+    getMyRoom({ user_id }, more.limit)
       .then(res => {
-        const { rooms, error } = res.data
+        const { rooms, have_more, error } = res.data
         if (rooms) {
           setRoomList(rooms)
+          setMore({ have: have_more, limit: 6 })
           setPopup('')
         } else {
           setPopup({ type: 'alert', title: randAlert(), text: error })
@@ -138,6 +141,20 @@ export default () => {
         })
     }
   }
+  const handleMore = () => {
+    setPopup('loading')
+    getMyRoom(auth.data, more.limit + 6)
+      .then(res => {
+        const { rooms, have_more, error } = res.data
+        if (rooms) {
+          setRoomList(rooms)
+          setMore({ have: have_more, limit: more.limit + 6 })
+          setPopup('')
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
+  }
   const handlePassword = value => setProfile({ ...profile, password: value })
   const handleName = value => setProfile({ ...profile, name: value })
 
@@ -160,7 +177,7 @@ export default () => {
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
               }
               }><FaSave style={editBtn} /></div>}
-            {(user_id !== auth.data.user_id && profile.role) && (
+            {(user_id !== auth.data.user_id && profile.role === true && auth.data.role === false) && (
               (follow && <div className='user-follow-btn active' onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
               (!follow && <div className='user-follow-btn' onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
             )}
@@ -181,7 +198,7 @@ export default () => {
             {profile.role === false && <span className="color green"> Learner</span>}
           </label>
           <div id="user-expbar">
-            <div id="user-gem" className={rank.color}>
+            <div id="user-gem" className={rank.color} onClick={() => { const newFake = fakeHeart + 2; setRank(leveling(newFake)); setFakeheart(newFake); }}>
               <img src={gems[rank.color]} alt="" />
             </div>
             <div id="user-expbar-progress" className={'bg ' + rank.color} style={{ width: rank.percent }}></div>
@@ -238,9 +255,15 @@ export default () => {
           </span>
         </section>
 
-        <section id="user-own-room">
-          {roomList.map((room, index) => <Card key={index} room={room} />)}
-        </section>
+        {profile.role &&
+          <section id="user-own-room">
+            {user_id === auth.data.user_id && <h4>Your course</h4>}
+            {user_id !== auth.data.user_id && <h4>{profile.name}'s course</h4>}
+            <div id="user-own-room-list">
+              {roomList.map((room, index) => <Card key={index} room={room} />)}
+              {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
+            </div>
+          </section>}
 
       </div>
 

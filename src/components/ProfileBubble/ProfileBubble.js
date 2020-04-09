@@ -30,7 +30,7 @@ export const ProfileBubble = ({ state, setState }) => {
         }
         <Link to={`/profile/${auth.data?.user_id}`} onClick={hideBubble}>
           <div className="item">
-            <div className="icon"><FaUserAlt /></div>
+            <div className="icon color red"><FaUserAlt /></div>
             MY PROFILE
           </div>
         </Link>
@@ -39,7 +39,7 @@ export const ProfileBubble = ({ state, setState }) => {
           handleLogout()
         }}>
           <div className="item">
-            <div className="icon xl"><FaSignOutAlt /></div>
+            <div className="icon color xl red"><FaSignOutAlt /></div>
             LOGOUT
           </div>
         </Link>

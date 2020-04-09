@@ -1,5 +1,4 @@
 $gradient: linear-gradient(60deg, #ee438a 55%, #f7c438);
-$exp-bar: linear-gradient(-90deg, #ee438a, #f7c438);
 $gradient-white: linear-gradient(white, #f3f4fa);
 
 $color: #ff0062;
@@ -25,13 +24,6 @@ $full-page: calc(100vh - #{$nav-size});
 @mixin size($width, $height: $width) {
   width: $width;
   height: $height;
-}
-
-@mixin fixed-size($width, $height: $width) {
-  min-width: $width;
-  max-width: $width;
-  min-height: $height;
-  max-height: $height;
 }
 
 @mixin abs-center {
@@ -82,6 +74,24 @@ $full-page: calc(100vh - #{$nav-size});
 
   &.purple {
     background: $purple;
+  }
+}
+
+.light-bg {
+  &.green {
+    background: $lightgreen;
+  }
+
+  &.blue {
+    background: $lightblue;
+  }
+
+  &.red {
+    background: $lightred;
+  }
+
+  &.purple {
+    background: $lightpurple;
   }
 }
 

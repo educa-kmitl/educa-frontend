@@ -15,20 +15,21 @@ export default () => {
   const [search, setSearch] = useState({
     text: '',
     sort_by: 1,
-    arrange_by: 1,
-    limit: 6
+    arrange_by: 1
   })
   const [popup, setPopup] = useState('')
+  const [more, setMore] = useState({ have: false, limit: 6 })
 
   useEffect(() => {
     setPopup('loading')
     if (auth.data.role) {
 
-      getMyRoom(auth.data)
+      getMyRoom(auth.data, more.limit)
         .then(res => {
-          const { rooms, error } = res.data
+          const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
+            setMore({ have: have_more, limit: 6 })
             setPopup('')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
@@ -36,11 +37,12 @@ export default () => {
         })
     } else {
 
-      getAllRoom(search)
+      getAllRoom({ ...search, limit: more.limit })
         .then(res => {
-          const { rooms, error } = res.data
+          const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
+            setMore({ have: have_more, limit: 6 })
             setPopup('')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
@@ -51,21 +53,52 @@ export default () => {
   }, [])
 
   const handleSearch = value => setSearch({ ...search, text: value })
-  const enterRoom = room => history.push(`/room/${room.room_id}`)
-  const handleMore = () => {
-    const newSearch = { ...search, limit: search.limit + 6 }
+  const goSearch = () => {
+    console.log(search)
     setPopup('loading')
-    getAllRoom(newSearch)
+    getAllRoom({ ...search, limit: 6 })
       .then(res => {
-        const { rooms, error } = res.data
+        const { rooms, have_more, error } = res.data
         if (rooms) {
+          console.log(rooms)
           setRoomList(rooms)
-          setSearch(newSearch)
+          setMore({ have: have_more, limit: 6 })
           setPopup('')
         } else {
           setPopup({ type: 'alert', title: randAlert(), text: error })
         }
       })
+  }
+  const enterRoom = room => history.push(`/room/${room.room_id}`)
+  const handleMore = () => {
+    setPopup('loading')
+    if (auth.data.role) {
+
+      getMyRoom(auth.data, more.limit + 6)
+        .then(res => {
+          const { rooms, have_more, error } = res.data
+          if (rooms) {
+            setRoomList(rooms)
+            setMore({ have: have_more, limit: more.limit + 6 })
+            setPopup('')
+          } else {
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+          }
+        })
+    } else {
+
+      getAllRoom({ ...search, limit: more.limit + 6 })
+        .then(res => {
+          const { rooms, have_more, error } = res.data
+          if (rooms) {
+            setRoomList(rooms)
+            setMore({ have: have_more, limit: more.limit + 6 })
+            setPopup('')
+          } else {
+            setPopup({ type: 'alert', title: randAlert(), text: error })
+          }
+        })
+    }
   }
 
   return (
@@ -78,8 +111,9 @@ export default () => {
               placeholder="Type something to find..."
               value={search.text}
               onChange={e => handleSearch(e.target.value)}
+              onKeyUp={e => e.key === 'Enter' ? goSearch() : null}
             />
-            <div className="icon">
+            <div className="icon" onClick={goSearch}>
               <FaSearch />
             </div>
           </div>}
@@ -88,7 +122,7 @@ export default () => {
           {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
         </div>
 
-        <button className="see-more-btn" onClick={handleMore}>Show more</button>
+        {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
       </div>
 
       {auth.data.role &&

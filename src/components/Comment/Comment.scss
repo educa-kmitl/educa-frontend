@@ -13,7 +13,7 @@
   }
 
   .room-comment {
-    @include fixed-size(100%, 300px);
+    @include size(100%, 300px);
     word-wrap: break-word;
     text-align: left;
     overflow-y: scroll;
@@ -103,7 +103,7 @@
     }
 
     .icon-c {
-      @include fixed-size(40px);
+      @include size(40px);
       @include flex-center;
       position: absolute;
       top: 50%;
