@@ -7,6 +7,10 @@
   user-select: none;
   transform: translateY(-100%);
   transition: .5s;
+
+  &.active {
+    transform: translateY(0);
+  }
 }
 
 #nav-box {
@@ -98,6 +102,11 @@
   background: $grey;
   z-index: 1;
   transition: .5s;
+  top: -100%;
+
+  &.active {
+    top: 50%;
+  }
 }
 
 .vertical-hr {
@@ -226,6 +235,7 @@
 
   #nav-container {
     bottom: 0;
+    transform: translateY(200%);
   }
 
   #nav-box {
@@ -234,6 +244,10 @@
 
   #account-name {
     display: none;
+  }
+
+  #nav-indicator {
+    top: 200%;
   }
 
   .account {

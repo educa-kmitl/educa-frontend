@@ -38,16 +38,11 @@ export const Navbar = () => {
       changeIndicator(404)
   }, [location.pathname])
 
-  const hideNavbar = () => {
-    const nav = document.querySelector('#nav-container')
-    nav.style.transform = 'translateY(-100%)'
-  }
-  const showNavbar = () => {
-    const nav = document.querySelector('#nav-container')
-    nav.style.transform = 'translateY(0)'
-  }
+  const hideNavbar = () => document.querySelector('#nav-container').classList.remove('active')
+  const showNavbar = () => document.querySelector('#nav-container').classList.add('active')
   const changeIndicator = index => {
     const indicator = document.querySelector('#nav-indicator')
+    indicator.classList.add('active')
     if (index === 0) {
       indicator.style.top = '50%'
       indicator.style.left = '13%'
@@ -61,7 +56,7 @@ export const Navbar = () => {
       indicator.style.left = '87%'
       indicator.style.background = '#9f4ee0'
     } else {
-      indicator.style.top = '-100%'
+      indicator.classList.remove('active')
     }
   }
   const handleLogout = () => setAuth({ ...auth, data: null })
