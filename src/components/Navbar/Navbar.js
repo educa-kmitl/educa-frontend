@@ -50,15 +50,15 @@ export const Navbar = () => {
     const indicator = document.querySelector('#nav-indicator')
     if (index === 0) {
       indicator.style.top = '50%'
-      indicator.style.left = '16%'
+      indicator.style.left = '13%'
       indicator.style.background = '#ff0062'
     } else if (index === 1) {
       indicator.style.top = '50%'
-      indicator.style.left = '51%'
+      indicator.style.left = '50%'
       indicator.style.background = '#1da4ff'
     } else if (index === 2) {
       indicator.style.top = '50%'
-      indicator.style.left = '90%'
+      indicator.style.left = '87%'
       indicator.style.background = '#9f4ee0'
     } else {
       indicator.style.top = '-100%'
@@ -79,7 +79,7 @@ export const Navbar = () => {
             </div>
           </Link>
         </div>
-        <div className="vertical-hr"></div>
+        <div className="vertical-hr" id="hr-nav"></div>
 
         <ul id="nav-list">
           <div id="nav-indicator"></div>
@@ -110,16 +110,18 @@ export const Navbar = () => {
         <div className="vertical-hr"></div>
         <div className={`account ${bubble && 'active'}`} onClick={() => setBubble(!bubble)}>
           <img id="account-pic" src={profiles[auth.data?.profile_icon]} alt="" />
-          <p id="account-name">{auth.data?.name}</p>
-          <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
+          <p id="account-name">
+            {auth.data?.name}
+            <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
+          </p>
 
           <div className={`account-bubble ${bubble && 'active'}`}>
             <span className="account-item" onClick={goToProfile}>
               <TiUser className="nav-link-icon color red" /> PROFILE
             </span>
-            <spn className="account-item" onClick={handleLogout}>
+            <span className="account-item" onClick={handleLogout}>
               <TiExport className="nav-link-icon color red" /> LOGOUT
-            </spn>
+            </span>
           </div>
 
         </div>

@@ -30,7 +30,6 @@
 
 #brand {
   @include flex-center;
-  margin-right: 20px;
 }
 
 #brand-logo {
@@ -46,13 +45,15 @@
 
 #nav-list {
   @include flex-center;
-  @include size(550px, 100%);
+  @include size(540px, 100%);
   justify-content: space-between;
   list-style: none;
   position: relative;
+  padding: 0;
 }
 
 .nav-item {
+  width: 140px;
   font-size: 20px;
   font-weight: 500;
   z-index: 2;
@@ -127,10 +128,11 @@
 }
 
 #account-name {
+  display: flex;
+  align-items: center;
   font-weight: 500;
   font-size: 20px;
   text-transform: uppercase;
-  margin-right: 5px;
 }
 
 .nav-bubble-arrow {
@@ -180,4 +182,104 @@
 .fix-find-icon {
   transform: scaleX(-1);
   font-size: 18px
+}
+
+
+// ---------------
+@media only screen and (max-width: 1080px) {
+
+  #brand-name {
+    display: none;
+  }
+
+  #nav-brand {
+    width: 100px;
+  }
+
+  #nav-list {
+    width: 520px;
+  }
+
+  .nav-link {
+    @include flex-center(column);
+    justify-content: space-between;
+    height: 55px;
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .nav-link-icon {
+    font-size: 32px;
+  }
+
+  .fix-find-icon {
+    font-size: 24px;
+    transform: scaleX(-1) translate(-10%, 20%);
+  }
+
+  #nav-indicator {
+    @include size(140px, 80px);
+  }
+}
+
+@media only screen and (max-width: 930px) {
+
+  #nav-box {
+    justify-content: space-between;
+  }
+
+  #account-name {
+    display: none;
+  }
+
+  .account {
+    width: 80px;
+  }
+
+  #account-pic {
+    margin-right: 0;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+
+  #nav-brand,
+  #hr-nav {
+    display: none;
+  }
+
+  #nav-container {
+    bottom: 0;
+  }
+
+  #nav-box {
+    margin: 10px;
+    padding: 0 15px;
+  }
+
+  .nav-item {
+    width: 68px;
+  }
+
+  #nav-indicator {
+    width: 90px;
+  }
+
+  #nav-list {
+    width: 260px;
+    margin: 0 5px;
+  }
+
+  .nav-link {
+    font-size: 14px;
+  }
+
+  .account-bubble {
+    top: -100%;
+    left: 20%;
+
+    &.active {
+      top: -180%;
+    }
+  }
 }
