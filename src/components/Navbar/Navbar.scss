@@ -224,6 +224,10 @@
 
 @media only screen and (max-width: 930px) {
 
+  #nav-container {
+    bottom: 0;
+  }
+
   #nav-box {
     justify-content: space-between;
   }
@@ -236,6 +240,15 @@
     width: 80px;
   }
 
+  .account-bubble {
+    top: -100%;
+    left: 20%;
+
+    &.active {
+      top: -180%;
+    }
+  }
+
   #account-pic {
     margin-right: 0;
   }
@@ -246,10 +259,6 @@
   #nav-brand,
   #hr-nav {
     display: none;
-  }
-
-  #nav-container {
-    bottom: 0;
   }
 
   #nav-box {
@@ -272,14 +281,5 @@
 
   .nav-link {
     font-size: 14px;
-  }
-
-  .account-bubble {
-    top: -100%;
-    left: 20%;
-
-    &.active {
-      top: -180%;
-    }
   }
 }
