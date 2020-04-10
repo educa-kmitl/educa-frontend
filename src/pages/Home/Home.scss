@@ -1,8 +1,7 @@
 @import '../../styles';
 
 .home-page-bg {
-  background: url('../../img/home/home-bg.svg') center right;
-  background-size: cover;
+  background: url('../../img/home/home-bg.svg');
   min-height: 100vh;
   padding-top: $nav-size;
 
@@ -120,5 +119,11 @@
 
   &:focus {
     outline: none;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .home-page-bg {
+    background: url('../../img/home/home-bg-mobile.svg');
   }
 }
