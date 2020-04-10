@@ -84,6 +84,7 @@
 .nav-link {
   @include flex-center;
   transition: .5s;
+  color: $black;
 
   &.active {
     color: white;
