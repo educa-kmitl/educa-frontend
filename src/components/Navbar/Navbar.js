@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { NavLink, Link, useLocation } from 'react-router-dom'
+import { NavLink, Link, useLocation, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import './Navbar.scss'
 
@@ -11,17 +11,20 @@ import {
   TiUser,
   TiExport
 } from 'react-icons/ti'
+import { FaSearch } from 'react-icons/fa'
 import { profiles } from '../../img/Profile'
 import logo from '../../img/new-educa.svg'
 
 export const Navbar = () => {
-  const [auth] = useContext(AuthContext)
+  const [auth, setAuth] = useContext(AuthContext)
   const [bubble, setBubble] = useState(false)
   const location = useLocation()
+  const history = useHistory()
 
   useEffect(() => {
+    const pathToHide = ['login', 'register', 'room', 'profile']
     const path = location.pathname
-    if (path === '/')
+    if (pathToHide.filter(p => path.includes(p)).length > 0)
       hideNavbar()
     else
       showNavbar()
@@ -61,6 +64,8 @@ export const Navbar = () => {
       indicator.style.top = '-100%'
     }
   }
+  const handleLogout = () => setAuth({ ...auth, data: null })
+  const goToProfile = () => history.push(`/profile/${auth.data.user_id}`)
 
   return (
     <nav id="nav-container">
@@ -92,7 +97,7 @@ export const Navbar = () => {
             :
             < li className="nav-item" activeclassname="nav-link active">
               <NavLink to="/find" className="nav-link">
-                FIND
+                <FaSearch className="nav-link-icon fix-find-icon" />FIND
               </NavLink>
             </li>}
           <li className="nav-item">
@@ -109,13 +114,14 @@ export const Navbar = () => {
           <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
 
           <div className={`account-bubble ${bubble && 'active'}`}>
-            <span className="account-item">
+            <span className="account-item" onClick={goToProfile}>
               <TiUser className="nav-link-icon color red" /> PROFILE
             </span>
-            <spn className="account-item">
+            <spn className="account-item" onClick={handleLogout}>
               <TiExport className="nav-link-icon color red" /> LOGOUT
             </spn>
           </div>
+
         </div>
       </div>
     </nav >

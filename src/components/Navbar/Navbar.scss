@@ -143,24 +143,25 @@
 }
 
 .account-bubble {
-  @include size(160px, 140px);
+  @include size(160px, 100px);
   @include flex-center(column);
   justify-content: space-evenly;
   transform: translateX(-50%);
   position: absolute;
   left: 50%;
   top: 80%;
+  border-radius: 30px;
   pointer-events: none;
   opacity: 0;
   transition: .2s;
 
   &.active {
     @include shadow;
+    height: 140px;
     pointer-events: painted;
     opacity: 1;
     background: white;
     top: 100%;
-    border-radius: 30px;
   }
 }
 
@@ -173,4 +174,10 @@
   &:hover {
     color: $red;
   }
+}
+
+// shame.css
+.fix-find-icon {
+  transform: scaleX(-1);
+  font-size: 18px
 }
