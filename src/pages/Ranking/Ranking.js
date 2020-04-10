@@ -14,7 +14,7 @@ export default () => {
   const [more, setMore] = useState({ have: false, limit: 20 })
 
   useEffect(() => {
-    setPopup('loading')
+    setPopup('')
     getTeacher(more.limit)
       .then(res => {
         const { teachers, have_more, error } = res.data

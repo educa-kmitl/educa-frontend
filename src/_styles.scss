@@ -14,11 +14,11 @@ $lightred: #ff7db2;
 $purple: #9f4ee0;
 $lightpurple: #b581e9;
 
-$nav-size: 120px;
+$nav-size: 100px;
 $full-page: calc(100vh - #{$nav-size});
 
-@mixin shadow($blur: 10px) {
-  box-shadow: 0 3px $blur rgba(0, 0, 0, 0.16);
+@mixin shadow($blur: 6px) {
+  box-shadow: 0 0 $blur rgba(0, 0, 0, 0.16);
 }
 
 @mixin size($width, $height: $width) {

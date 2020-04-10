@@ -13,13 +13,13 @@ export {
   postComment,
   deleteLike
 } from './roomHelper'
-export { 
-  getProfile, 
-  editProfile, 
-  getFollowing, 
+export {
+  getProfile,
+  editProfile,
+  getFollowing,
   getFollower,
   postFollowing,
-  deleteFollowing 
+  deleteFollowing
 } from './profileHelper'
 export { getTeacher } from './rankHelper'
 export { embedYoutube } from './youtubeHelper'

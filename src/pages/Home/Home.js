@@ -21,7 +21,7 @@ export default () => {
   const [more, setMore] = useState({ have: false, limit: 6 })
 
   useEffect(() => {
-    setPopup('loading')
+    setPopup('')
     if (auth.data.role) {
 
       getMyRoom(auth.data, more.limit)
@@ -104,8 +104,8 @@ export default () => {
   return (
     <div className="home-page-bg">
       <div className="home-content">
-        <header>{auth.data.role ? 'Your active course' : `Let's find some course!`}</header>
-        {!auth.data.role &&
+        <header>{auth.data?.role ? 'Your active course' : `Let's find some course!`}</header>
+        {!auth.data?.role &&
           <div className="search">
             <input
               placeholder="Type something to find..."

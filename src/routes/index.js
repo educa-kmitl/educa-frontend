@@ -1,14 +1,14 @@
-import React from 'react'
+import { lazy } from 'react'
 
-const Start = React.lazy(() => import('../pages/Start/Start'))
-const Login = React.lazy(() => import('../pages/Login/Login'))
-const Register = React.lazy(() => import('../pages/Register/Register'))
-const Home = React.lazy(() => import('../pages/Home/Home'))
-const Ranking = React.lazy(() => import('../pages/Ranking/Ranking'))
-const Create = React.lazy(() => import('../pages/Create/Create'))
-const Room = React.lazy(() => import('../pages/Room/Room'))
-const Profile = React.lazy(() => import('../pages/Profile/Profile'))
-const NotFound = React.lazy(() => import('../pages/NotFound/NotFound'))
+const Start = lazy(() => import('../pages/Start/Start'))
+const Login = lazy(() => import('../pages/Login/Login'))
+const Register = lazy(() => import('../pages/Register/Register'))
+const Home = lazy(() => import('../pages/Home/Home'))
+const Ranking = lazy(() => import('../pages/Ranking/Ranking'))
+const Create = lazy(() => import('../pages/Create/Create'))
+const Room = lazy(() => import('../pages/Room/Room'))
+const Profile = lazy(() => import('../pages/Profile/Profile'))
+const NotFound = lazy(() => import('../pages/NotFound/NotFound'))
 
 export const routes = [
   {

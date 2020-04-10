@@ -45,13 +45,15 @@
           }
         }
       }
-      
+
       label.head {
         font-size: 36px;
         font-weight: 500;
       }
 
-      hr { width: 100% }
+      hr {
+        width: 100%
+      }
 
       .playlist {
         box-sizing: border-box;
@@ -70,19 +72,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             label {
               font-size: 24px;
               font-weight: 500;
             }
-            .del { 
+
+            .del {
               @include size(40px);
               @include flex-center;
               border-radius: 50%;
               transition: .2s;
 
-              .icon { font-size: 22px }
+              .icon {
+                font-size: 22px
+              }
 
-              &:hover { 
+              &:hover {
                 background: gainsboro;
                 cursor: pointer;
               }
@@ -136,7 +142,8 @@
     .display-container {
       @include flex-center;
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(0, -50%);
       width: 600px;
       height: 600px;

@@ -1,10 +1,10 @@
 @import '../../styles';
 
 .home-page-bg {
-  background: url('../../img/home/home-bg.svg') center;
+  background: url('../../img/home/home-bg.svg') center right;
+  background-size: cover;
   min-height: 100vh;
   padding-top: $nav-size;
-
 
   .home-content {
     padding: 30px;
