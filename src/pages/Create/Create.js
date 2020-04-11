@@ -58,7 +58,7 @@ export default () => {
     for (let i = 0; i < room.resources.length; i++) {
       embedRoom.resources[i].video_url = embedYoutube(embedRoom.resources[i].video_url)
     }
-    createRoom(embedRoom, auth.data)
+    createRoom(embedRoom, auth)
       .then(res => {
         const { room, error } = res.data
         if (room) {
@@ -168,7 +168,7 @@ export default () => {
                 {room.privacy && <FaLock style={{ fontSize: '36px' }} />} {room.name}<br />
                 <p>{room.subject} {room.resources.length} video{room.resources.length > 1 ? 's' : null}</p>
               </header>
-              <footer>by {auth.data.name}</footer>
+              <footer>by {auth.name}</footer>
             </div>
           </div>
         </div>

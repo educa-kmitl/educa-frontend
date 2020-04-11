@@ -4,26 +4,15 @@ import { AuthContext } from '../contexts'
 
 export const PrivateRoute = ({ component: Component, ...rest }) => {
   const [auth] = useContext(AuthContext)
-  const { loading } = auth
-
-  if (loading) {
-    return (
-      <Route
-        {...rest}
-        render={() => {
-          return <p>Loading...</p>
-        }}
-      />
-    );
-  }
 
   return (
     <Route
       {...rest}
-      render={(routeProps) => (
-        auth.data ? <Component {...routeProps} /> : <Redirect to="/login" />
-      )}
+      render={() =>
+        auth ?
+          <Component /> :
+          <Redirect to="/login" />
+      }
     />
-
   )
 }

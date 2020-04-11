@@ -13,8 +13,9 @@ import {
 } from '../../helpers'
 import './Room.scss'
 
-import { FaHeart, FaFileDownload, FaSignOutAlt, FaWalking, FaHeartBroken } from 'react-icons/fa'
-import { Comment, Playlist, Button, Popup } from '../../components'
+import { FaFileDownload, FaWalking, FaHeartBroken } from 'react-icons/fa'
+import { TiThList, TiExport, TiHeart } from 'react-icons/ti'
+import { Comment, Playlist, Popup } from '../../components'
 
 export default () => {
   const history = useHistory()
@@ -36,6 +37,8 @@ export default () => {
 
   useEffect(() => {
     setPopup('loading')
+
+    window.confirm = exitRoom
 
     getRoomPrivacy(room_id)
       .then(res => {
@@ -68,7 +71,7 @@ export default () => {
         if (comments) {
           setComments(comments)
 
-          getLike(room_id, auth.data)
+          getLike(room_id, auth)
             .then(res => {
               const { liked, error } = res.data
               scrollComment()
@@ -122,6 +125,7 @@ export default () => {
         })
     }
   }
+  const showPlaylist = () => setPlaylist({ ...playlist, show: !playlist.show })
   const handleMore = () => {
     const newLimit = more.limit + 10
     const old = document.querySelector('.room-comment').scrollHeight
@@ -146,39 +150,40 @@ export default () => {
   const downloadFile = () => {
     const file = roomData.resources[playlist.playing].file_url
     if (file) window.open(file)
-    else setPopup({ type: 'alert', title: randAlert(), text: 'This video has no file to download' })
+    else setPopup({ type: 'alert', title: randAlert(), text: 'This video has no attatchment' })
   }
   const likeVideo = () => {
+    const old_like = like.count
     if (like.liked) {
       setLike({ liked: false, count: like.count - 1 })
 
-      deleteLike(room_id, auth.data)
+      deleteLike(room_id, auth)
         .then(res => {
           const { success, error } = res.data
           if (success) {
             console.log('Unliked!')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
-            setLike({ liked: true, count: like.count + 1 })
+            setLike({ liked: true, count: old_like })
           }
         })
     } else {
       setLike({ liked: true, count: like.count + 1 })
 
-      postLike(room_id, auth.data)
+      postLike(room_id, auth)
         .then(res => {
           const { success, error } = res.data
           if (success) {
             console.log('Liked!')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
-            setLike({ liked: false, count: like.count - 1 })
+            setLike({ liked: false, count: old_like })
           }
         })
     }
   }
   const writeComment = text => {
-    postComment(auth.data, roomData, playlist, text)
+    postComment(auth, roomData, playlist, text)
       .then(res => {
         const { user, error } = res.data
         if (user) {
@@ -200,23 +205,27 @@ export default () => {
             title={roomData.resources[playlist.playing].topic}
             allowFullScreen
           ></iframe>}
-
+          <Playlist
+            playlist={playlist}
+            setPlaylist={handlePlaylist}
+            roomData={roomData}
+          />
           <footer id="video-footer">
             <div id="video-title">
               <h6 style={bold}>{roomData.resources[playlist.playing].topic}</h6>
               <p id="video-teacher" onClick={() => history.push(`/profile/${roomData.teacher_id}`)}>
-                by {roomData.teacher_id === auth.data.user_id ? 'You' : roomData.teacher_name}
+                by {roomData.teacher_id === auth.user_id ? 'You' : roomData.teacher_name}
               </p>
             </div>
             <div id="video-btn-group">
-              <div className={`room-btn ${like.liked && 'active'}`} onClick={likeVideo}>
-                <FaHeart className={`room-btn-icon ${like.liked && 'active'}`} />
+              <div className="room-btn" onClick={showPlaylist}>
+                <TiThList className="room-btn-icon sm" />
               </div>
               <div className="room-btn" onClick={downloadFile}>
-                <FaFileDownload className="room-btn-icon" />
+                <FaFileDownload className="room-btn-icon sm" />
               </div>
               <div className="room-btn" onClick={exitRoom}>
-                <FaSignOutAlt className="room-btn-icon" />
+                <TiExport className="room-btn-icon" />
               </div>
             </div>
           </footer>
@@ -229,16 +238,10 @@ export default () => {
               <p id="room-course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</p>
             </header>
             <footer id="room-course-footer">
-              <div style={alignHeart}>
-                <FaHeart style={heart} /> {like.count}
+              <div className={`room-like-btn ${like.liked && 'active'}`} onClick={likeVideo}>
+                <TiHeart className={`room-like-btn-icon ${like.liked && 'active'}`} /> {like.count}
               </div>
-              <Button color="" text="show all" onClick={() => setPlaylist({ ...playlist, show: !playlist.show })} />
             </footer>
-            <Playlist
-              playlist={playlist}
-              setPlaylist={handlePlaylist}
-              roomData={roomData}
-            />
           </div>
 
           <div id="comment-container">
@@ -299,15 +302,4 @@ export default () => {
 
 const bold = {
   fontWeight: '500'
-}
-
-const heart = {
-  fontSize: '20px',
-  color: '#ff0062',
-  marginRight: '10px'
-}
-
-const alignHeart = {
-  display: 'flex',
-  alignItems: 'center'
 }

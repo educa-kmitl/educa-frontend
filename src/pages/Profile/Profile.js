@@ -33,7 +33,7 @@ export default () => {
   const [fakeHeart, setFakeheart] = useState(0)
 
   useEffect(() => {
-    if (user_id === auth.data.user_id) {
+    if (user_id === auth.user_id) {
       setEdit({ ediable: true })
     }
     getProfile(user_id)
@@ -48,7 +48,7 @@ export default () => {
                 const { followers, error } = res.data
                 if (followers) {
                   setFollower(followers)
-                  if (followers.find(f => f.student_id === auth.data.user_id)) {
+                  if (followers.find(f => f.student_id === auth.user_id)) {
                     setFollow(true)
                   }
                 } else {
@@ -113,12 +113,12 @@ export default () => {
   const handleFollow = () => {
     if (follow) {
       setFollow(false)
-      deleteFollowing(auth.data, user_id)
+      deleteFollowing(auth, user_id)
         .then(res => {
           const { success, error } = res.data
           if (success) {
             console.log('Unfollow!')
-            let newFollower = follower.filter(f => f.student_id !== auth.data.user_id)
+            let newFollower = follower.filter(f => f.student_id !== auth.user_id)
             setFollower(newFollower)
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
@@ -127,12 +127,12 @@ export default () => {
         })
     } else {
       setFollow(true)
-      postFollowing(auth.data, user_id)
+      postFollowing(auth, user_id)
         .then(res => {
           const { success, error } = res.data
           if (success) {
             console.log('Follow!')
-            const { user_id, profile_icon, name } = auth.data
+            const { user_id, profile_icon, name } = auth
             setFollower([...follower, { student_id: user_id, profile_icon, name }])
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
@@ -143,7 +143,7 @@ export default () => {
   }
   const handleMore = () => {
     setPopup('loading')
-    getMyRoom(auth.data, more.limit + 6)
+    getMyRoom(auth, more.limit + 6)
       .then(res => {
         const { rooms, have_more, error } = res.data
         if (rooms) {
@@ -177,7 +177,7 @@ export default () => {
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
               }
               }><FaSave style={editBtn} /></div>}
-            {(user_id !== auth.data.user_id && profile.role === true && auth.data.role === false) && (
+            {(user_id !== auth.user_id && profile.role === true && auth.role === false) && (
               (follow && <div className='user-follow-btn active' onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
               (!follow && <div className='user-follow-btn' onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
             )}
@@ -257,8 +257,8 @@ export default () => {
 
         {profile.role &&
           <section id="user-own-room">
-            {user_id === auth.data.user_id && <h4>Your course</h4>}
-            {user_id !== auth.data.user_id && <h4>{profile.name}'s course</h4>}
+            {user_id === auth.user_id && <h4>Your course</h4>}
+            {user_id !== auth.user_id && <h4>{profile.name}'s course</h4>}
             <div id="user-own-room-list">
               {roomList.map((room, index) => <Card key={index} room={room} />)}
               {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}

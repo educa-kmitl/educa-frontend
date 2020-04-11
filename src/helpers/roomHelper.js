@@ -22,6 +22,16 @@ export const getMyRoom = async ({ user_id }, limit) => (
     .catch(err => err.response)
 )
 
+export const getFollowRoom = async ({ user_id }, limit) => (
+  await axios.get(window.$ENDPOINT + '/following-rooms', {
+    headers: {
+      user_id,
+      limit
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
 
 export const getRoomPrivacy = async (room_id) => (
   await axios.get(window.$ENDPOINT + '/room-privacy', {

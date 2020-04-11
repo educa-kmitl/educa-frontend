@@ -57,3 +57,14 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@media only screen and (max-width: 750px) {
+  .course-card {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .course-cover {
+    border-radius: 0;
+  }
+}

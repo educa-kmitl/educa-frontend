@@ -17,8 +17,8 @@ $lightpurple: #b581e9;
 $nav-size: 100px;
 $full-page: calc(100vh - #{$nav-size});
 
-@mixin shadow($blur: 6px) {
-  box-shadow: 0 2px $blur rgba(0, 0, 0, 0.16);
+@mixin shadow($blur: 6px, $spread: 0) {
+  box-shadow: 0 2px $blur $spread rgba(0, 0, 0, 0.16);
 }
 
 @mixin size($width, $height: $width) {

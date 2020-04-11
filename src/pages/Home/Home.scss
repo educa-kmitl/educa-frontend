@@ -1,7 +1,8 @@
 @import '../../styles';
 
 .home-page-bg {
-  background: url('../../img/home/home-bg.svg');
+  background: url('../../img/bg/bg-repeatable.jpg');
+  background-size: contain;
   padding: $nav-size 0;
 
   .search {
@@ -62,25 +63,6 @@
     justify-content: space-evenly;
   }
 
-  .create-room-button {
-    @include size(80px);
-    @include flex-center;
-    @include shadow;
-    z-index: 1000;
-    position: fixed;
-    bottom: 100px;
-    right: 100px;
-    background: $color;
-    color: white;
-    font-size: 28px;
-    border-radius: 50%;
-    transition: .2s;
-
-    &:hover {
-      cursor: pointer;
-      transform: scale(1.1);
-    }
-  }
 }
 
 .home-content {
@@ -90,6 +72,7 @@
   margin: $nav-size auto;
   background: white;
   border-radius: 40px;
+  min-height: auto;
 }
 
 #home-header {
@@ -101,8 +84,7 @@
 
 .see-more-btn {
   display: flex;
-  margin: auto;
-  margin-top: 50px;
+  margin: 40px auto;
   font-family: inherit;
   font-size: 20px;
   font-weight: 500;
@@ -125,6 +107,45 @@
 
 @media only screen and (max-width: 930px) {
   .home-page-bg {
-    background: url('../../img/home/home-bg-mobile.svg');
+    background: url('../../img/bg/bg-repeatable-mobile.jpg') center right;
+    padding-top: $nav-size 0;
+  }
+
+  #home-header {
+    font-size: 36px;
+    padding: 40px 20px;
+    padding-bottom: 20px;
+    margin-bottom: 0px;
+  }
+
+  .home-content {
+    background: rgb(255, 255, 255);
+    margin: 0 30px;
+    padding: 20px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .home-page-bg {
+    padding-top: 0;
+  }
+
+  #home-header {
+    @include shadow(6px, 3px);
+    background: $red;
+    color: white;
+    position: sticky;
+    top: 0;
+    font-size: 26px;
+    padding: 24px;
+    justify-content: flex-start;
+    z-index: 20;
+  }
+
+  .home-content {
+    box-shadow: none;
+    background: none;
+    padding: 0;
+    margin: 0;
   }
 }

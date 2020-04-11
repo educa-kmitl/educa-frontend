@@ -1,80 +1,88 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { getAllRoom, getMyRoom, randAlert } from '../../helpers'
+import { getMyRoom, getFollowRoom, randAlert } from '../../helpers'
 import './Home.scss'
 
 import { Card, Popup } from '../../components'
-import { FaSearch, FaPlus, FaSkull } from 'react-icons/fa'
+import { FaHeartBroken } from 'react-icons/fa'
 
 
 export default () => {
   const history = useHistory()
   const [auth] = useContext(AuthContext)
   const [roomList, setRoomList] = useState([])
-  const [search, setSearch] = useState({
-    text: '',
-    sort_by: 1,
-    arrange_by: 1
-  })
+  // const [search, setSearch] = useState({
+  //   text: '',
+  //   sort_by: 1,
+  //   arrange_by: 1
+  // })
   const [popup, setPopup] = useState('')
   const [more, setMore] = useState({ have: false, limit: 6 })
 
   useEffect(() => {
-    setPopup('')
-    if (auth.data.role) {
+    if (auth.role) {
 
-      getMyRoom(auth.data, more.limit)
+      getMyRoom(auth, more.limit)
         .then(res => {
           const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
             setMore({ have: have_more, limit: 6 })
-            setPopup('')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
           }
         })
     } else {
 
-      getAllRoom({ ...search, limit: more.limit })
+      getFollowRoom(auth, more.limit)
         .then(res => {
           const { rooms, have_more, error } = res.data
           if (rooms) {
-            setRoomList(rooms)
+            const rl = rooms.map(r => r[0]) // ! BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+            setRoomList(rl)
             setMore({ have: have_more, limit: 6 })
-            setPopup('')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
           }
         })
+      // getAllRoom({ ...search, limit: more.limit })
+      //   .then(res => {
+      //     const { rooms, have_more, error } = res.data
+      //     if (rooms) {
+      //       setRoomList(rooms)
+      //       setMore({ have: have_more, limit: 6 })
+      //       setPopup('')
+      //     } else {
+      //       setPopup({ type: 'alert', title: randAlert(), text: error })
+      //     }
+      //   })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleSearch = value => setSearch({ ...search, text: value })
-  const goSearch = () => {
-    console.log(search)
-    setPopup('loading')
-    getAllRoom({ ...search, limit: 6 })
-      .then(res => {
-        const { rooms, have_more, error } = res.data
-        if (rooms) {
-          console.log(rooms)
-          setRoomList(rooms)
-          setMore({ have: have_more, limit: 6 })
-          setPopup('')
-        } else {
-          setPopup({ type: 'alert', title: randAlert(), text: error })
-        }
-      })
-  }
+  // const handleSearch = value => setSearch({ ...search, text: value })
+  // const goSearch = () => {
+  //   console.log(search)
+  //   setPopup('loading')
+  //   getAllRoom({ ...search, limit: 6 })
+  //     .then(res => {
+  //       const { rooms, have_more, error } = res.data
+  //       if (rooms) {
+  //         console.log(rooms)
+  //         setRoomList(rooms)
+  //         setMore({ have: have_more, limit: 6 })
+  //         setPopup('')
+  //       } else {
+  //         setPopup({ type: 'alert', title: randAlert(), text: error })
+  //       }
+  //     })
+  // }
   const enterRoom = room => history.push(`/room/${room.room_id}`)
   const handleMore = () => {
-    setPopup('loading')
-    if (auth.data.role) {
+    if (auth.role) {
 
-      getMyRoom(auth.data, more.limit + 6)
+      getMyRoom(auth, more.limit + 6)
         .then(res => {
           const { rooms, have_more, error } = res.data
           if (rooms) {
@@ -87,13 +95,13 @@ export default () => {
         })
     } else {
 
-      getAllRoom({ ...search, limit: more.limit + 6 })
+      getFollowRoom(auth, more.limit + 6)
         .then(res => {
           const { rooms, have_more, error } = res.data
           if (rooms) {
-            setRoomList(rooms)
+            const rl = rooms.map(r => r[0]) // ! BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
+            setRoomList(rl)
             setMore({ have: have_more, limit: more.limit + 6 })
-            setPopup('')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
           }
@@ -104,8 +112,8 @@ export default () => {
   return (
     <div className="full-page home-page-bg">
       <div className="full-page-content home-content">
-        <header id="home-header">{auth.data?.role ? 'Your course' : 'Course for you'}</header>
-        {/* {!auth.data?.role &&
+        <header id="home-header">{auth?.role ? 'Your course' : 'Course for you'}</header>
+        {/* {!auth?.role &&
           <div className="search">
             <input
               placeholder="Type something to find..."
@@ -125,13 +133,6 @@ export default () => {
         {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
       </div>
 
-      {auth.data.role &&
-        <Link to="/create">
-          <div className="create-room-button">
-            <FaPlus />
-          </div>
-        </Link>}
-
       {popup === 'loading' &&
         <Popup
           type="loading"
@@ -140,7 +141,7 @@ export default () => {
       {popup.type === 'alert' &&
         <Popup
           type="alert"
-          Icon={FaSkull}
+          Icon={FaHeartBroken}
           title={popup.title}
           text={popup.text}
           confirm="Refresh"

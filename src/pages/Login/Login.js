@@ -11,7 +11,7 @@ import startpic from '../../img/start/start.svg'
 export default () => {
   const history = useHistory()
   const [form, setForm] = useState({ email: '', password: '' })
-  const [auth, setAuth] = useContext(AuthContext)
+  const [_, setAuth] = useContext(AuthContext)
   const [popup, setPopup] = useState({})
 
   const handleEmail = value => setForm({ ...form, email: value })
@@ -19,12 +19,12 @@ export default () => {
   const handleLogin = e => {
     e.preventDefault()
     setPopup('loading')
-    
+
     login(form)
       .then(res => {
         const { user, error } = res.data
         if (user) {
-          setAuth({ ...auth, data: user })
+          setAuth(user)
           history.push('/home')
         } else {
           setPopup({ type: 'alert', title: randAlert(), text: error })

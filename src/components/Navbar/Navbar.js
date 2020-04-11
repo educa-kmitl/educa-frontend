@@ -22,7 +22,7 @@ export const Navbar = () => {
   const history = useHistory()
 
   useEffect(() => {
-    const pathToHide = ['login', 'register', 'room', 'profile']
+    const pathToHide = ['login', 'register', 'room']
     const path = location.pathname
     if (pathToHide.filter(p => path.includes(p)).length > 0 || path === '/')
       hideNavbar()
@@ -70,15 +70,15 @@ export const Navbar = () => {
       indicator.classList.remove('active')
     }
   }
-  const handleLogout = () => { setAuth({ ...auth, data: null }); window.location = '/' }
-  const goToProfile = () => history.push(`/profile/${auth.data.user_id}`)
+  const handleLogout = () => { setAuth(null); window.location = '/' }
+  const goToProfile = () => history.push(`/profile/${auth.user_id}`)
 
   return (
     <nav id="nav-container">
       <div id="nav-box">
 
         <div id="nav-brand">
-          <Link to={auth.data ? '/home' : '/'}>
+          <Link to={auth ? '/home' : '/'}>
             <div id="brand">
               <img id="brand-logo" src={logo} alt="" />
               <label id="brand-name">EDUCA</label>
@@ -94,7 +94,7 @@ export const Navbar = () => {
               <TiHome className="nav-link-icon" />HOME
             </NavLink>
           </li>
-          {auth.data?.role === true ?
+          {auth?.role === true ?
             < li className="nav-item" activeclassname="nav-link active">
               <NavLink to="/create" className="nav-link">
                 <TiPlus className="nav-link-icon" />CREATE
@@ -115,9 +115,9 @@ export const Navbar = () => {
 
         <div className="vertical-hr"></div>
         <div className={`account ${bubble && 'active'}`} onClick={() => setBubble(!bubble)}>
-          <img id="account-pic" src={profiles[auth.data?.profile_icon]} alt="" />
+          <img id="account-pic" src={profiles[auth?.profile_icon]} alt="" />
           <p id="account-name">
-            {auth.data?.name}
+            {auth?.name}
             <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
           </p>
 

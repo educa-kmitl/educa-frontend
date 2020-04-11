@@ -2,7 +2,8 @@ import React from 'react'
 import moment from 'moment'
 import './Card.scss'
 
-import { FaLock, FaHeart } from 'react-icons/fa'
+import { FaLock } from 'react-icons/fa'
+import { TiHeart } from 'react-icons/ti'
 import { subjects } from '../../img/subject'
 
 export const Card = ({ room, onClick }) => {
@@ -22,7 +23,7 @@ export const Card = ({ room, onClick }) => {
             {moment(new Date(room?.date_created)).format("LL")}
           </p>
           <div style={like}>
-            <FaHeart style={heart} />
+            <TiHeart style={heart} />
             {room?.likes}
           </div>
         </footer>
@@ -37,13 +38,13 @@ const like = {
 }
 
 const heart = {
-  fontSize: '20px',
+  fontSize: '22px',
   color: '#ff0062',
-  marginRight: '10px'
+  marginRight: '5px'
 }
 
 const lock = {
-  fontSize: '20px',
+  fontSize: '16px',
   marginRight: '5px',
   color: 'grey'
 }

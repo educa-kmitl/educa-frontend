@@ -4,6 +4,7 @@ export { login, register } from './authHelper'
 export {
   getAllRoom,
   getMyRoom,
+  getFollowRoom,
   getRoom,
   getRoomPrivacy,
   getComment,

@@ -9,7 +9,7 @@ import startpic from '../../img/start/start.svg'
 export default () => {
   const [auth] = useContext(AuthContext)
 
-  if (auth.data) {
+  if (auth) {
     return <Redirect to="/home" />
 
   } else {
