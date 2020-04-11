@@ -15,7 +15,7 @@ export const Card = ({ room, onClick }) => {
             {room?.private && <FaLock style={lock} />}
             {room?.name}
           </h5>
-          <p>by {room?.teacher_name}</p>
+          <p className="course-teacher">by {room?.teacher_name}</p>
         </div>
         <footer className="course-footer">
           <p className="course-date">

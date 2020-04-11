@@ -1,13 +1,13 @@
 @import '../../index.scss';
 
 .course-card {
-  @include size(370px);
+  @include size(320px);
   @include shadow;
   @include flex-center(column);
   justify-content: space-between;
   background: white;
   float: left;
-  border-radius: 40px;
+  border-radius: 30px;
   margin-top: 40px;
   transition: .2s;
 
@@ -19,7 +19,7 @@
 
 .course-cover {
   @include size(100%, 55%);
-  border-radius: 40px 40px 0 0;
+  border-radius: 30px 30px 0 0;
   background: grey;
   object-fit: cover;
 }
@@ -38,7 +38,12 @@
 
 .course-name {
   font-weight: 500;
-  margin-bottom: -10px;
+  margin-bottom: -5px;
+  font-size: 24px;
+}
+
+.course-teacher {
+  font-size: 18px;
 }
 
 .course-date {

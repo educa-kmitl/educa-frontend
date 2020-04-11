@@ -2,22 +2,7 @@
 
 .home-page-bg {
   background: url('../../img/home/home-bg.svg');
-  min-height: 100vh;
-  padding-top: $nav-size;
-
-  .home-content {
-    padding: 30px;
-    max-width: 1280px;
-    height: 100%;
-    margin: auto;
-    padding-bottom: 200px;
-  }
-
-  header {
-    font-weight: 500;
-    font-size: 36px;
-    margin: 40px 0;
-  }
+  padding: $nav-size 0;
 
   .search {
     position: relative;
@@ -96,6 +81,22 @@
       transform: scale(1.1);
     }
   }
+}
+
+.home-content {
+  @include shadow;
+  padding: 80px;
+  padding-bottom: 110px;
+  margin: $nav-size auto;
+  background: white;
+  border-radius: 40px;
+}
+
+#home-header {
+  @include flex-center;
+  font-weight: 500;
+  font-size: 44px;
+  margin-bottom: 20px;
 }
 
 .see-more-btn {

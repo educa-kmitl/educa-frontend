@@ -102,10 +102,10 @@ export default () => {
   }
 
   return (
-    <div className="home-page-bg">
-      <div className="home-content">
-        <header>{auth.data?.role ? 'Your active course' : `Let's find some course!`}</header>
-        {!auth.data?.role &&
+    <div className="full-page home-page-bg">
+      <div className="full-page-content home-content">
+        <header id="home-header">{auth.data?.role ? 'Your course' : 'Course for you'}</header>
+        {/* {!auth.data?.role &&
           <div className="search">
             <input
               placeholder="Type something to find..."
@@ -116,7 +116,7 @@ export default () => {
             <div className="icon" onClick={goSearch}>
               <FaSearch />
             </div>
-          </div>}
+          </div>} */}
 
         <div className="all-room">
           {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}

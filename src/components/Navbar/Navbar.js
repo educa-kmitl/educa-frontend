@@ -36,6 +36,17 @@ export const Navbar = () => {
       changeIndicator(2)
     else
       changeIndicator(404)
+
+    let prev = window.pageYOffset
+    window.onscroll = () => {
+      const cur = window.pageYOffset
+      if (prev > cur) {
+        showNavbar()
+      } else if (window.screen.width > 930) {
+        hideNavbar()
+      }
+      prev = cur
+    }
   }, [location.pathname])
 
   const hideNavbar = () => document.querySelector('#nav-container').classList.remove('active')
@@ -59,7 +70,7 @@ export const Navbar = () => {
       indicator.classList.remove('active')
     }
   }
-  const handleLogout = () => setAuth({ ...auth, data: null })
+  const handleLogout = () => { setAuth({ ...auth, data: null }); window.location = '/' }
   const goToProfile = () => history.push(`/profile/${auth.data.user_id}`)
 
   return (
