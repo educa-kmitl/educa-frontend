@@ -39,8 +39,7 @@ export default () => {
         .then(res => {
           const { rooms, have_more, error } = res.data
           if (rooms) {
-            const rl = rooms.map(r => r[0]) // ! BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-            setRoomList(rl)
+            setRoomList(rooms)
             setMore({ have: have_more, limit: 6 })
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
@@ -99,8 +98,7 @@ export default () => {
         .then(res => {
           const { rooms, have_more, error } = res.data
           if (rooms) {
-            const rl = rooms.map(r => r[0]) // ! BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG
-            setRoomList(rl)
+            setRoomList(rooms)
             setMore({ have: have_more, limit: more.limit + 6 })
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
