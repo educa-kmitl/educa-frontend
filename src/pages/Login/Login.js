@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import { login, randAlert } from '../../helpers'
-import '../scss/noAuth.scss'
+import './Login.scss'
 
 import { FaEnvelope, FaLock, FaHeartBroken } from 'react-icons/fa'
 import { Input, Button, Popup } from '../../components'

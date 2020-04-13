@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import '../scss/noAuth.scss'
+import './Start.scss'
 
 import { Button } from '../../components'
 import startpic from '../../img/start/start.svg'
