@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import { createRoom, embedYoutube, randAlert } from '../../helpers'
@@ -20,6 +20,11 @@ export default () => {
   const [auth] = useContext(AuthContext)
   const [room, setRoom] = useState(defaultRoom)
   const [popup, setPopup] = useState('')
+
+  useEffect(() => {
+    if (auth.role === false) history.push('/notfound')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleTitle = value => setRoom({ ...room, name: value })
   const handleSubject = value => setRoom({ ...room, subject: value })

@@ -5,58 +5,6 @@
   background-size: contain;
   padding: $nav-size 0;
 
-  .search {
-    position: relative;
-
-    input {
-      width: 100%;
-      height: 55px;
-      box-sizing: border-box;
-      padding: 0 80px 0 50px;
-      border: 1px solid lightgrey;
-      border-radius: 30px;
-      text-align: center;
-      font-size: 22px;
-      transition: .2s;
-
-      &::placeholder {
-        color: lightgrey
-      }
-
-      &:hover {
-        border: 1px solid $black
-      }
-
-      &:focus {
-        outline: none;
-        border: 1px solid $color;
-
-        &::placeholder {
-          color: transparent
-        }
-      }
-    }
-
-    .icon {
-      @include size(40px);
-      @include flex-center;
-      position: absolute;
-      top: 50%;
-      right: 0px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      color: lightgrey;
-      font-size: 20px;
-      transition: .2s;
-
-      &:hover {
-        color: $color;
-        transform: translate(-50%, -50%) scale(1.5) rotate(10deg);
-        cursor: pointer;
-      }
-    }
-  }
-
   .all-room {
     flex-wrap: wrap;
     display: flex;

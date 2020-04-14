@@ -5,6 +5,7 @@ const Login = lazy(() => import('../pages/Login/Login'))
 const Register = lazy(() => import('../pages/Register/Register'))
 const Home = lazy(() => import('../pages/Home/Home'))
 const Ranking = lazy(() => import('../pages/Ranking/Ranking'))
+const Find = lazy(() => import('../pages/Find/Find'))
 const Create = lazy(() => import('../pages/Create/Create'))
 const Room = lazy(() => import('../pages/Room/Room'))
 const Profile = lazy(() => import('../pages/Profile/Profile'))
@@ -39,6 +40,12 @@ export const routes = [
     path: '/ranking',
     exact: false,
     component: Ranking,
+    requireAuth: true
+  },
+  {
+    path: '/find',
+    exact: false,
+    component: Find,
     requireAuth: true
   },
   {
