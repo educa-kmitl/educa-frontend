@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
-import { AuthContext } from '../../contexts'
-import { getMyRoom, getFollowRoom, randAlert } from '../../helpers'
+import { AuthContext, RoomContext } from '../../contexts'
+import { getMyRoom, getFollowRoom, deleteRoom, randAlert } from '../../helpers'
 import './Home.scss'
 
 import { Card, Popup } from '../../components'
@@ -11,7 +11,10 @@ import { FaHeartBroken } from 'react-icons/fa'
 export default () => {
   const history = useHistory()
   const [auth] = useContext(AuthContext)
+  const [room, setRoom] = useContext(RoomContext)
   const [roomList, setRoomList] = useState([])
+  const [password, setPassword] = useState('')
+  const [roomId, setRoomId] = useState(null)
   const [popup, setPopup] = useState('')
   const [more, setMore] = useState({ have: false, limit: 6 })
 
@@ -45,6 +48,20 @@ export default () => {
   }, [])
 
   const enterRoom = room => history.push(`/room/${room.room_id}`)
+  const handlePassword = value => setPassword(value)
+  const handlePrivacy = () => {
+    deleteRoom(roomId, auth, password)
+      .then(res => {
+        const { success, error } = res.data
+        if (success) {
+          const newRoomList = roomList.filter(room => room.room_id !== roomId)
+          setRoomList(newRoomList)
+          setPopup('')
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error })
+        }
+      })
+  }
   const handleMore = () => {
     if (auth.role) {
 
@@ -75,21 +92,35 @@ export default () => {
   }
 
   return (
-    <div className="full-page home-page-bg">
-      <div className="full-page-content home-content">
+    <div className="home-page-bg">
+      <div className="home-content">
         <header id="home-header">{auth?.role ? 'Your course' : 'Course for you'}</header>
 
         <div className="all-room">
-          {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
+          {roomList.map((room, index) =>
+            <Card
+              key={index}
+              room={room}
+              onClick={enterRoom}
+              editable={auth.role}
+              onEdit={(room) => { setRoom(room); history.push(`/edit/${room.room_id}`) }}
+              onDelete={room => { setPopup('password'); setRoomId(room.room_id) }}
+            />)}
         </div>
 
         {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
       </div>
 
-      {popup === 'loading' &&
+      {popup === 'password' &&
         <Popup
-          type="loading"
-          text="Loading"
+          type="password"
+          title="Are you sure ?"
+          text="Course will lost forever"
+          confirm="Delete"
+          cancel="Cancel"
+          onChange={handlePassword}
+          onConfirm={handlePrivacy}
+          onCancel={() => setPopup('')}
         />}
       {popup.type === 'alert' &&
         <Popup
@@ -97,10 +128,9 @@ export default () => {
           Icon={FaHeartBroken}
           title={popup.title}
           text={popup.text}
-          confirm="Refresh"
-          onConfirm={() => window.location = 'home'}
+          confirm="Okay"
+          onConfirm={() => setPopup('')}
         />}
-
     </div>
   )
 }

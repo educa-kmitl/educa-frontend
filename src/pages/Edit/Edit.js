@@ -1,79 +1,73 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { AuthContext } from '../../contexts'
-import { createRoom, embedYoutube, randAlert } from '../../helpers'
-import './Create.scss'
+import { AuthContext, RoomContext } from '../../contexts'
+import { get, embedYoutube, randAlert } from '../../helpers'
+import './Edit.scss'
 
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
 import { Input, Dropdown, ToggleButton, Button, Popup, Card } from '../../components'
 
-const defaultRoom = {
-  name: 'Course Title',
-  subject: 'Math',
-  resources: [{ topic: 'Video title', video_url: '', file_url: '' }],
-  private: false,
-  password: '',
-  date_created: new Date(),
-  teacher_name: 'You'
-}
-
 export default () => {
   const history = useHistory()
   const [auth] = useContext(AuthContext)
-  const [room, setRoom] = useState(defaultRoom)
+  const [room] = useContext(RoomContext)
+  const [newRoom, setRoom] = useState()
   const [popup, setPopup] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
     if (auth.role === false) history.push('/notfound')
+    setRoom(room)
+    console.log(room)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleTitle = value => setRoom({ ...room, name: value })
-  const handleSubject = value => setRoom({ ...room, subject: value })
-  const handlePrivacy = value => setRoom({ ...room, private: value })
-  const handlePassword = value => setRoom({ ...room, password: value })
+  const handleTitle = value => setRoom({ ...newRoom, name: value })
+  const handleSubject = value => setRoom({ ...newRoom, subject: value })
+  const handlePrivacy = value => setRoom({ ...newRoom, private: value })
+  const handlePassword = value => setRoom({ ...newRoom, password: value })
   const handleVideoTitle = (value, id) => {
-    const newVideos = room.resources
+    const newVideos = newRoom.resources
     newVideos[id].topic = value
-    setRoom({ ...room, resources: newVideos })
+    setRoom({ ...newRoom, resources: newVideos })
   }
   const handleVideoLink = (value, id) => {
-    const newVideos = room.resources
+    const newVideos = newRoom.resources
     newVideos[id].video_url = value
-    setRoom({ ...room, resources: newVideos })
+    setRoom({ ...newRoom, resources: newVideos })
   }
   const handleFileLink = (value, id) => {
-    const newVideos = room.resources
+    const newVideos = newRoom.resources
     newVideos[id].file_url = value
-    setRoom({ ...room, resources: newVideos })
+    setRoom({ ...newRoom, resources: newVideos })
   }
   const addPlaylist = () => {
-    const newVideos = room.resources
+    const newVideos = newRoom.resources
     newVideos.push({ topic: 'Video title', video_url: '', file_url: '' })
-    setRoom({ ...room, resources: newVideos })
+    setRoom({ ...newRoom, resources: newVideos })
   }
   const delPlaylist = i => {
-    const newVideos = room.resources
+    const newVideos = newRoom.resources
     newVideos.splice(i, 1)
-    setRoom({ ...room, resources: newVideos })
+    setRoom({ ...newRoom, resources: newVideos })
   }
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleTeacherPassword = value => setPassword(value)
+  const handleSubmit = () => {
     setPopup('loading')
 
-    const embedRoom = room
-    for (let i = 0; i < room.resources.length; i++) {
+    const embedRoom = newRoom
+    for (let i = 0; i < newRoom.resources.length; i++) {
       embedRoom.resources[i].video_url = embedYoutube(embedRoom.resources[i].video_url)
     }
-    createRoom(embedRoom, auth)
-      .then(res => {
-        const { room, error } = res.data
-        if (room) {
-          history.push(`/room/${room.room_id}`)
-        } else {
-          setPopup({ type: 'alert', title: randAlert(), text: error })
-        }
-      })
+    // createRoom(embedRoom, auth)
+    //   .then(res => {
+    //     const { newRoom, error } = res.data
+    //     if (newRoom) {
+    //       history.push(`/newRoom/${newRoom.room_id}`)
+    //     } else {
+    //       setPopup({ type: 'alert', title: randAlert(), text: error })
+    //     }
+    //   })
   }
 
   return (
@@ -81,10 +75,11 @@ export default () => {
       <div className="create-content">
 
         <form onSubmit={handleSubmit} autoComplete="off">
-          <header>Create Course</header>
+          <header>Edit Course</header>
           <Input
             Icon={FaBook}
             type="text"
+            value={newRoom?.name}
             text="Course title *"
             onChange={handleTitle}
             required
@@ -92,12 +87,12 @@ export default () => {
           <div className="row">
             <div className="column">
               <label className="head">Subject</label>
-              <Dropdown onSelect={handleSubject} items={['Math', 'Science', 'English', 'Computer']} />
+              <Dropdown onSelect={handleSubject} items={['Math', 'Science', 'English', 'Computer']} init={room.subject} />
             </div>
             <div className="column">
               <span style={{ display: 'flex', alignItems: 'flex-start' }}>
                 <label className="head">Privacy</label>
-                <ToggleButton onToggle={handlePrivacy} />
+                <ToggleButton onToggle={handlePrivacy} init={room.private} />
               </span>
               <Input
                 Icon={FaLock}
@@ -106,21 +101,21 @@ export default () => {
                 pattern="[A-Za-z0-9]*$"
                 title="Enter only english character and number"
                 onChange={handlePassword}
-                required={room.privacy}
-                disabled={!room.privacy}
+                required={newRoom?.private}
+                disabled={!newRoom?.private}
               />
             </div>
           </div>
-          <label className="head" onClick={() => console.log(room)}>Playlist</label>
+          <label className="head">Playlist</label>
           <hr />
           <div className="playlist">
 
-            {room.resources.map((video, index) =>
+            {newRoom?.resources.map((video, index) =>
               <div className="item" key={index}>
                 <span>
                   <label onClick={() => alert(index)}>{index + 1}. {video.topic}</label>
                   {
-                    room.resources.length > 1 ?
+                    newRoom.resources.length > 1 ?
                       <div
                         id={index}
                         className="del"
@@ -135,6 +130,7 @@ export default () => {
                   Icon={FaBookmark}
                   id={index}
                   type="text"
+                  value={newRoom.resources[index].topic}
                   text="Video title *"
                   onChange={handleVideoTitle}
                   required
@@ -143,6 +139,7 @@ export default () => {
                   Icon={FaLink}
                   id={index}
                   type="url"
+                  value={newRoom.resources[index].video_url}
                   text="Video link *"
                   onChange={handleVideoLink}
                   required
@@ -151,6 +148,7 @@ export default () => {
                   Icon={FaFileAlt}
                   id={index}
                   type="url"
+                  value={newRoom.resources[index].file_url}
                   text="Attachment"
                   onChange={handleFileLink}
                 />
@@ -162,13 +160,12 @@ export default () => {
           <hr />
 
           <span>
-            <Button text="EDUCA" type="submit" />
+            <Button text="EDUCA" onClick={() => setPopup('password')} />
             <Link to="/home"><div className="cancel">Cancel</div></Link>
           </span>
         </form>
-
         <div className="display-container">
-          <Card room={room} />
+          <Card room={newRoom} />
         </div>
 
       </div>
@@ -177,6 +174,17 @@ export default () => {
         <Popup
           type="loading"
           text="Creating"
+        />}
+      {popup === 'password' &&
+        <Popup
+          type="password"
+          title="Confirm Changes"
+          text="Enter your password"
+          confirm="Confirm"
+          cancel="Cancel"
+          onChange={handleTeacherPassword}
+          onConfirm={handleSubmit}
+          onCancel={() => setPopup('')}
         />}
     </div>
   )

@@ -89,8 +89,7 @@ export default () => {
       })
   }
 
-  const handlePrivacy = e => {
-    e.preventDefault()
+  const handlePrivacy = () => {
     setPopup('loading')
 
     getRoom(room_id, password)

@@ -69,9 +69,9 @@ export default () => {
   }
 
   return (
-    <div className="full-page home-page-bg">
-      <div className="full-page-content home-content">
-        <header id="home-header">Let's find some Course</header>
+    <div className="find-page-bg">
+      <div className="find-content">
+        <header id="find-header">Let's find some Course</header>
 
         <div className="search">
           <input
@@ -82,6 +82,9 @@ export default () => {
           />
           <div className="icon" onClick={goSearch}>
             <FaSearch />
+            <div id="search-option">
+              Option
+            </div>
           </div>
         </div>
 

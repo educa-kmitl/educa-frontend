@@ -24,7 +24,7 @@ export const Navbar = () => {
   useEffect(() => {
     const pathToHide = ['login', 'register', 'room']
     const path = location.pathname
-    if (pathToHide.filter(p => path.includes(p)).length > 0 || path === '/')
+    if (pathToHide.filter(p => path.includes(p)) || path === '/')
       hideNavbar()
     else
       showNavbar()

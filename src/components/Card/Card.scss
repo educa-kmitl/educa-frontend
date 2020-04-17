@@ -9,11 +9,50 @@
   float: left;
   border-radius: 30px;
   margin-top: 40px;
+  position: relative;
   transition: .2s;
+  pointer-events: painted;
 
   &:hover {
     transform: scale(1.05);
     cursor: pointer;
+  }
+}
+
+.card-btn {
+  @include flex-center;
+  @include size(30px);
+  position: absolute;
+  padding: 10px;
+  top: 15px;
+  right: 15px;
+  background: $black;
+  border-radius: 50%;
+  transition: .2s;
+
+  &:hover {
+    border-radius: 40px;
+    width: 70px;
+  }
+
+  &:hover>.card-btn-icon-cog {
+    opacity: 0;
+  }
+}
+
+.card-btn-icon-cog {
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  transition: .5s;
+}
+
+.card-btn-icon {
+  margin: 0 5px;
+  color: white;
+
+  &:hover {
+    color: $red;
   }
 }
 

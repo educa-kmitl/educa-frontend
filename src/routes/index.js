@@ -7,6 +7,7 @@ const Home = lazy(() => import('../pages/Home/Home'))
 const Ranking = lazy(() => import('../pages/Ranking/Ranking'))
 const Find = lazy(() => import('../pages/Find/Find'))
 const Create = lazy(() => import('../pages/Create/Create'))
+const Edit = lazy(() => import('../pages/Edit/Edit'))
 const Room = lazy(() => import('../pages/Room/Room'))
 const Profile = lazy(() => import('../pages/Profile/Profile'))
 const NotFound = lazy(() => import('../pages/NotFound/NotFound'))
@@ -52,6 +53,12 @@ export const routes = [
     path: '/create',
     exact: false,
     component: Create,
+    requireAuth: true
+  },
+  {
+    path: '/edit',
+    exact: false,
+    component: Edit,
     requireAuth: true
   },
   {

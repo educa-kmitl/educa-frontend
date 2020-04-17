@@ -4,16 +4,11 @@
   background: url('../../img/bg/bg-repeatable.jpg');
   background-size: contain;
   padding: $nav-size 0;
-
-  .all-room {
-    flex-wrap: wrap;
-    display: flex;
-    justify-content: space-evenly;
-  }
-
+  min-height: 100vh;
 }
 
 .home-content {
+  @extend .full-page-content;
   @include shadow;
   padding: 80px;
   padding-bottom: 110px;
@@ -51,6 +46,12 @@
   &:focus {
     outline: none;
   }
+}
+
+.all-room {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 @media only screen and (max-width: 930px) {

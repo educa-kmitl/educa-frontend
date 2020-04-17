@@ -116,6 +116,18 @@ export const createRoom = async ({ name, subject, resources, privacy, password }
 
 // ---- DELETE
 
+export const deleteRoom = async (room_id, { user_id }, password) => (
+  await axios.delete(window.$ENDPOINT + '/rooms', {
+    data: {
+      room_id,
+      teacher_id: user_id,
+      password
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
+
 export const deleteLike = async (room_id, { user_id }) => (
   await axios.delete(window.$ENDPOINT + '/likes', {
     data: {
@@ -127,17 +139,15 @@ export const deleteLike = async (room_id, { user_id }) => (
     .catch(err => err.response)
 )
 
-// export const editRoom = async ({}) => (
-//   await axios.patch(window.$ENDPOINT + '/likes', {
-//     room_id,
-//     user_id
-//   })
-//     .then(res => res)
-//     .catch(err => err.response)
-// )
 
-// const filterRoom = () => roomList.filter(room => (
-//   room.name.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
-//   room.subject.toLowerCase().indexOf(search.toLowerCase()) > -1 ||
-//   room.teacher_name.toLowerCase().indexOf(search.toLowerCase()) > -1
-// ))
+
+// ---- PATCH
+
+export const editRoom = async (room, password) => (
+  await axios.patch(window.$ENDPOINT + '/rooms', {
+    ...room,
+    teacher_password: password
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)

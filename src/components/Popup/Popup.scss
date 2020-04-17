@@ -10,13 +10,14 @@
 }
 
 #popup-box {
-  @include size(400px, 350px);
+  @include size(400px, auto);
   @include abs-center;
   @include flex-center(column);
   justify-content: space-evenly;
   background: white;
   border-radius: 40px;
   padding: 40px;
+  min-height: 350px;
 }
 
 #popup-form {
@@ -27,6 +28,7 @@
 #popup-loading {
   @extend #popup-box;
   @include size(260px);
+  min-height: auto;
 }
 
 #popup-loading-img {

@@ -12,6 +12,7 @@ export {
   createRoom,
   postLike,
   postComment,
+  deleteRoom,
   deleteLike
 } from './roomHelper'
 export {

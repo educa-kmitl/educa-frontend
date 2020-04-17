@@ -10,8 +10,9 @@ export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onCo
     <>
       {type === 'password' &&
         <div id="popup-overlay">
-          <form name="password" id="popup-form" onSubmit={e => { e.preventDefault(); onConfirm(e) }}>
+          <form name="password" id="popup-form" onSubmit={e => { e.preventDefault(); onConfirm() }}>
             <h4>{title}</h4>
+            <h6>{text}</h6>
             <Input
               Icon={FaLock}
               type="password"
