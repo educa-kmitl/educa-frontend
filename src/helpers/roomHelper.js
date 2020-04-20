@@ -113,6 +113,15 @@ export const createRoom = async ({ name, subject, resources, privacy, password }
     .catch(err => err.response)
 )
 
+export const postResource = async (room_id, resources) => (
+  await axios.post(window.$ENDPOINT + '/resources', {
+    room_id,
+    resources
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
+
 
 // ---- DELETE
 
@@ -139,14 +148,32 @@ export const deleteLike = async (room_id, { user_id }) => (
     .catch(err => err.response)
 )
 
+export const deleteResource = async (resources) => (
+  await axios.delete(window.$ENDPOINT + '/resources', {
+    data: {
+      resources
+    }
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
+
 
 
 // ---- PATCH
 
-export const editRoom = async (room, password) => (
+export const editRoom = async (room, teacher_password) => (
   await axios.patch(window.$ENDPOINT + '/rooms', {
     ...room,
-    teacher_password: password
+    teacher_password
+  })
+    .then(res => res)
+    .catch(err => err.response)
+)
+
+export const editResource = async (resources) => (
+  await axios.patch(window.$ENDPOINT + '/resources', {
+    resources
   })
     .then(res => res)
     .catch(err => err.response)

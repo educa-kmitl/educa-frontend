@@ -1,8 +1,8 @@
 @import '../../styles';
 
 .ranking-bg {
-  background: url('../../img/home/home-bg.svg') center right;
-  background-size: cover;
+  background: url('../../img/bg/bg-repeatable.jpg');
+  background-size: contain;
   min-height: 100vh;
   padding-top: $nav-size;
 

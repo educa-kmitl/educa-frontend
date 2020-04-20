@@ -1,8 +1,9 @@
 @import '../../styles';
 
 #profile-page-bg {
-  background: $gradient-white;
-  padding-top: $nav-size;
+  background: url('../../img/bg/bg-repeatable.jpg') center center;
+  background-size: cover;
+  padding: $nav-size 0;
   min-height: 100vh;
 }
 
@@ -10,7 +11,7 @@
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  padding: 0 30px;
+  padding: 30px;
   max-width: 1280px;
   height: 100%;
   margin: auto;
@@ -192,7 +193,11 @@
 }
 
 #user-own-room {
+  @include shadow;
+  background: white;
+  border-radius: 40px;
   float: left;
+  padding: 40px 20px;
   margin-bottom: 40px;
   display: flex;
   flex-direction: column;
@@ -200,7 +205,7 @@
 }
 
 #user-own-room-list {
-  @include size(560px, 600px);
+  @include size(480px);
   display: flex;
   flex-direction: column;
   align-items: center;

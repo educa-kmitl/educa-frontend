@@ -12,8 +12,12 @@ export {
   createRoom,
   postLike,
   postComment,
+  postResource,
+  editRoom,
+  editResource,
   deleteRoom,
-  deleteLike
+  deleteLike,
+  deleteResource
 } from './roomHelper'
 export {
   getProfile,

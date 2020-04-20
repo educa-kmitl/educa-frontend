@@ -1,29 +1,31 @@
 @import '../../styles';
 
 .create-bg {
-  background: $gradient-white;
-  padding-top: $nav-size;
+  background: url('../../img/bg/bg-repeatable.jpg') center center;
+  background-size: cover;
+  padding: $nav-size 0;
   height: 100vh;
 
   .create-content {
-    box-sizing: border-box;
-    padding: 30px;
+    padding: 40px 0;
     max-width: 1280px;
     height: $full-page;
     margin: auto;
     position: relative;
 
     form {
-      box-sizing: border-box;
+      @include shadow;
+      background: white;
+      border-radius: 40px;
+      padding: 60px;
       display: flex;
       flex-direction: column;
-      width: 500px;
+      width: 600px;
 
       header {
-        font-size: 52px;
+        font-size: 48px;
         font-weight: 500;
-        margin-top: 5%;
-        margin-bottom: 20px;
+        margin: 0 0 5% 0;
       }
 
       .row {

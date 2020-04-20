@@ -1,80 +1,112 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext, RoomContext } from '../../contexts'
-import { get, embedYoutube, randAlert } from '../../helpers'
+import { editRoom, embedYoutube, randAlert, editResource, deleteResource, postResource } from '../../helpers'
 import './Edit.scss'
 
-import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
+import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt, FaHeartBroken, FaCheck } from 'react-icons/fa'
 import { Input, Dropdown, ToggleButton, Button, Popup, Card } from '../../components'
 
 export default () => {
   const history = useHistory()
   const [auth] = useContext(AuthContext)
   const [room] = useContext(RoomContext)
-  const [newRoom, setRoom] = useState()
+  const [newRoom, setNewRoom] = useState()
   const [popup, setPopup] = useState('')
   const [password, setPassword] = useState('')
+  const [willDelete, setWillDelete] = useState([])
 
   useEffect(() => {
     if (auth.role === false) history.push('/notfound')
-    setRoom(room)
-    console.log(room)
+    setNewRoom(room)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleTitle = value => setRoom({ ...newRoom, name: value })
-  const handleSubject = value => setRoom({ ...newRoom, subject: value })
-  const handlePrivacy = value => setRoom({ ...newRoom, private: value })
-  const handlePassword = value => setRoom({ ...newRoom, password: value })
+  const handleTitle = value => setNewRoom({ ...newRoom, name: value })
+  const handleSubject = value => setNewRoom({ ...newRoom, subject: value })
+  const handlePrivacy = value => setNewRoom({ ...newRoom, private: value })
+  const handlePassword = value => setNewRoom({ ...newRoom, password: value })
   const handleVideoTitle = (value, id) => {
     const newVideos = newRoom.resources
     newVideos[id].topic = value
-    setRoom({ ...newRoom, resources: newVideos })
+    setNewRoom({ ...newRoom, resources: newVideos })
   }
   const handleVideoLink = (value, id) => {
     const newVideos = newRoom.resources
     newVideos[id].video_url = value
-    setRoom({ ...newRoom, resources: newVideos })
+    setNewRoom({ ...newRoom, resources: newVideos })
   }
   const handleFileLink = (value, id) => {
     const newVideos = newRoom.resources
     newVideos[id].file_url = value
-    setRoom({ ...newRoom, resources: newVideos })
+    setNewRoom({ ...newRoom, resources: newVideos })
   }
   const addPlaylist = () => {
     const newVideos = newRoom.resources
-    newVideos.push({ topic: 'Video title', video_url: '', file_url: '' })
-    setRoom({ ...newRoom, resources: newVideos })
+    newVideos.push({ topic: 'Untitled', video_url: '', file_url: '' })
+    setNewRoom({ ...newRoom, resources: newVideos })
   }
-  const delPlaylist = i => {
+  const delPlaylist = (i, id) => {
+    if (id) setWillDelete([...willDelete, { resource_id: id }])
     const newVideos = newRoom.resources
     newVideos.splice(i, 1)
-    setRoom({ ...newRoom, resources: newVideos })
+    setNewRoom({ ...newRoom, resources: newVideos })
+    setPopup('')
   }
   const handleTeacherPassword = value => setPassword(value)
   const handleSubmit = () => {
     setPopup('loading')
 
-    const embedRoom = newRoom
-    for (let i = 0; i < newRoom.resources.length; i++) {
-      embedRoom.resources[i].video_url = embedYoutube(embedRoom.resources[i].video_url)
-    }
-    // createRoom(embedRoom, auth)
-    //   .then(res => {
-    //     const { newRoom, error } = res.data
-    //     if (newRoom) {
-    //       history.push(`/newRoom/${newRoom.room_id}`)
-    //     } else {
-    //       setPopup({ type: 'alert', title: randAlert(), text: error })
-    //     }
-    //   })
+    editRoom(newRoom, password)
+      .then(res => {
+        const { room, error } = res.data
+        if (room) {
+          const willPatch = newRoom.resources.filter(nr => nr.resource_id !== undefined)
+          for (let i = 0; i < willPatch.length; i++) {
+            willPatch[i].video_url = embedYoutube(willPatch[i].video_url)
+          }
+          editResource(willPatch)
+            .then(res => {
+              const { success, error } = res.data
+              if (success) {
+                deleteResource(willDelete)
+                  .then(res => {
+                    const { success, error } = res.data
+                    if (success) {
+                      const willPost = newRoom.resources.filter(nr => nr.resource_id === undefined)
+                      for (let i = 0; i < willPost.length; i++) {
+                        willPost[i].video_url = embedYoutube(willPost[i].video_url)
+                      }
+                      postResource(newRoom.room_id, willPost)
+                        .then(res => {
+                          const { success, error } = res.data
+                          if (success) {
+                            setPopup({ type: 'alert', title: 'Yeah!', text: 'Your course has been edited', func: () => history.push(`/room/${newRoom.room_id}`) })
+                          } else {
+                            setPopup({ type: 'alert', title: randAlert(), text: error, bad: true })
+                          }
+                        })
+                    } else {
+                      setPopup({ type: 'alert', title: randAlert(), text: error, bad: true })
+                    }
+                  })
+              } else {
+                setPopup({ type: 'alert', title: randAlert(), text: error, bad: true })
+              }
+            })
+        } else {
+          setPopup({ type: 'alert', title: randAlert(), text: error, bad: true })
+        }
+      })
+
+
   }
 
   return (
     <div className="create-bg">
       <div className="create-content">
 
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <form onSubmit={e => { e.preventDefault(); setPopup('password') }} autoComplete="off">
           <header>Edit Course</header>
           <Input
             Icon={FaBook}
@@ -113,13 +145,19 @@ export default () => {
             {newRoom?.resources.map((video, index) =>
               <div className="item" key={index}>
                 <span>
-                  <label onClick={() => alert(index)}>{index + 1}. {video.topic}</label>
+                  <label onClick={() => console.log(video.resource_id)}>{index + 1}. {video.topic}</label>
                   {
                     newRoom.resources.length > 1 ?
                       <div
-                        id={index}
+                        id={video.resource_id}
                         className="del"
-                        onClick={e => delPlaylist(e.target.id)}
+                        onClick={e => {
+                          if (room.resources.find(r => r.resource_id == e.target.id)) {
+                            const id = e.target.id
+                            return setPopup({ type: 'confirm', func: () => delPlaylist(index, id) })
+                          }
+                          else return delPlaylist(index)
+                        }}
                       >
                         <FaTrashAlt className="icon" />
                       </div>
@@ -160,7 +198,7 @@ export default () => {
           <hr />
 
           <span>
-            <Button text="EDUCA" onClick={() => setPopup('password')} />
+            <Button text="Save" type="submit" />
             <Link to="/home"><div className="cancel">Cancel</div></Link>
           </span>
         </form>
@@ -173,7 +211,7 @@ export default () => {
       {popup === 'loading' &&
         <Popup
           type="loading"
-          text="Creating"
+          text="Saving"
         />}
       {popup === 'password' &&
         <Popup
@@ -184,6 +222,26 @@ export default () => {
           cancel="Cancel"
           onChange={handleTeacherPassword}
           onConfirm={handleSubmit}
+          onCancel={() => setPopup('')}
+        />}
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={popup.bad ? FaHeartBroken : FaCheck}
+          title={popup.title}
+          text={popup.text}
+          confirm="Okay"
+          onConfirm={popup.bad ? () => setPopup('') : popup.func}
+        />}
+      {popup.type === 'confirm' &&
+        <Popup
+          type="confirm"
+          Icon={FaTrashAlt}
+          title="Are you sure ?"
+          text="Comment on this video will be lost too"
+          confirm="Delete"
+          cancel="Cancel"
+          onConfirm={popup.func}
           onCancel={() => setPopup('')}
         />}
     </div>
