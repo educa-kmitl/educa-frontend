@@ -1,6 +1,6 @@
 import { lazy } from 'react'
 
-const Start = lazy(() => import('../pages/Start/Start'))
+const Landing = lazy(() => import('../pages/Landing/Landing'))
 const Login = lazy(() => import('../pages/Login/Login'))
 const Register = lazy(() => import('../pages/Register/Register'))
 const Home = lazy(() => import('../pages/Home/Home'))
@@ -16,7 +16,7 @@ export const routes = [
   {
     path: '/',
     exact: true,
-    component: Start,
+    component: Landing,
     requireAuth: false
   },
   {

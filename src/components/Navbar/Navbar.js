@@ -24,10 +24,10 @@ export const Navbar = () => {
   useEffect(() => {
     const pathToHide = ['login', 'register', 'room']
     const path = location.pathname
-    if (pathToHide.filter(p => path.includes(p)) || path === '/')
+    showNavbar()
+    if (pathToHide.filter(p => path.includes(p)).length > 0 || path === '/')
       hideNavbar()
-    else
-      showNavbar()
+
     if (path === '/home')
       changeIndicator(0)
     else if (path === '/create' || path === '/find')
@@ -37,16 +37,16 @@ export const Navbar = () => {
     else
       changeIndicator(404)
 
-    let prev = window.pageYOffset
-    window.onscroll = () => {
-      const cur = window.pageYOffset
-      if (prev > cur) {
-        showNavbar()
-      } else if (window.screen.width > 930) {
-        hideNavbar()
-      }
-      prev = cur
-    }
+    // let prev = window.pageYOffset
+    // window.onscroll = () => {
+    //   const cur = window.pageYOffset
+    //   if (prev > cur) {
+    //     showNavbar()
+    //   } else if (window.screen.width > 930) {
+    //     hideNavbar()
+    //   }
+    //   prev = cur
+    // }
   }, [location.pathname])
 
   const hideNavbar = () => document.querySelector('#nav-container').classList.remove('active')
