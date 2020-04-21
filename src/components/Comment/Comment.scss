@@ -1,7 +1,7 @@
 @import '../../index.scss';
 
 .comment-box {
-  @include size(100%, 500px);
+  @include size(100%, 550px);
   @include shadow;
   padding: 40px;
   background: white;
@@ -13,7 +13,7 @@
   }
 
   .room-comment {
-    @include size(100%, 300px);
+    @include size(100%, 350px);
     word-wrap: break-word;
     text-align: left;
     overflow-y: scroll;

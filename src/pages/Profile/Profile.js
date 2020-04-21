@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { leveling, randAlert } from '../../helpers'
 import {
-  randAlert,
-  leveling,
   getProfile,
   editProfile,
   getMyRoom,
@@ -11,7 +10,7 @@ import {
   getFollowing,
   postFollowing,
   deleteFollowing
-} from '../../helpers'
+} from '../../apis'
 import './Profile.scss'
 
 import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave, FaUserPlus, FaUserCheck } from 'react-icons/fa'
@@ -20,9 +19,9 @@ import { profiles, gems } from '../../img/Profile'
 
 export default () => {
   const { user_id } = useParams()
+  const { auth, setAuth } = useContext(AuthContext)
   const [profile, setProfile] = useState({})
   const [roomList, setRoomList] = useState([])
-  const [auth, setAuth] = useContext(AuthContext)
   const [edit, setEdit] = useState({ ediable: false })
   const [rank, setRank] = useState({})
   const [follow, setFollow] = useState(null)
@@ -30,7 +29,6 @@ export default () => {
   const [followerBox, setFollowerBox] = useState(false)
   const [popup, setPopup] = useState('')
   const [more, setMore] = useState({ have: false, limit: 6 })
-  const [fakeHeart, setFakeheart] = useState(0)
 
   useEffect(() => {
     if (user_id === auth.user_id) {
@@ -117,7 +115,6 @@ export default () => {
         .then(res => {
           const { success, error } = res.data
           if (success) {
-            console.log('Unfollow!')
             let newFollower = follower.filter(f => f.student_id !== auth.user_id)
             setFollower(newFollower)
           } else {
@@ -131,7 +128,6 @@ export default () => {
         .then(res => {
           const { success, error } = res.data
           if (success) {
-            console.log('Follow!')
             const { user_id, profile_icon, name } = auth
             setFollower([...follower, { student_id: user_id, profile_icon, name }])
           } else {
@@ -198,7 +194,7 @@ export default () => {
             {profile.role === false && <span className="color green"> Learner</span>}
           </label>
           <div id="user-expbar">
-            <div id="user-gem" className={rank.color} onClick={() => { const newFake = fakeHeart + 2; setRank(leveling(newFake)); setFakeheart(newFake); }}>
+            <div id="user-gem" className={rank.color}>
               <img src={gems[rank.color]} alt="" />
             </div>
             <div id="user-expbar-progress" className={'bg ' + rank.color} style={{ width: rank.percent }}></div>

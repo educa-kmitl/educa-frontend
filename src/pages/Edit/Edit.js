@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext, RoomContext } from '../../contexts'
-import { editRoom, embedYoutube, randAlert, editResource, deleteResource, postResource } from '../../helpers'
+import { embedYoutube, randAlert } from '../../helpers'
+import { editRoom, editResource, deleteResource, postResource } from '../../apis'
 import './Edit.scss'
 
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt, FaHeartBroken, FaCheck } from 'react-icons/fa'
@@ -9,8 +10,8 @@ import { Input, Dropdown, ToggleButton, Button, Popup, Card } from '../../compon
 
 export default () => {
   const history = useHistory()
-  const [auth] = useContext(AuthContext)
-  const [room] = useContext(RoomContext)
+  const { auth } = useContext(AuthContext)
+  const { room } = useContext(RoomContext)
   const [newRoom, setNewRoom] = useState()
   const [popup, setPopup] = useState('')
   const [password, setPassword] = useState('')
@@ -145,7 +146,7 @@ export default () => {
             {newRoom?.resources.map((video, index) =>
               <div className="item" key={index}>
                 <span>
-                  <label onClick={() => console.log(video.resource_id)}>{index + 1}. {video.topic}</label>
+                  <label>{index + 1}. {video.topic}</label>
                   {
                     newRoom.resources.length > 1 ?
                       <div

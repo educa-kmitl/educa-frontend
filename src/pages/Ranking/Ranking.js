@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { leveling, getTeacher, randAlert } from '../../helpers'
+import { leveling, randAlert } from '../../helpers'
+import { getTeacher } from '../../apis'
 import './Ranking.scss'
 
 import { FaHeartBroken } from 'react-icons/fa'

@@ -15,7 +15,5 @@ export const RoomProvider = ({ children }) => {
     window.localStorage.setItem("roomData", JSON.stringify(room))
   }, [room])
 
-  // a function that will help us to add the user data in the auth;
-
-  return <RoomContext.Provider value={[room, setRoom]}>{children}</RoomContext.Provider>
+  return <RoomContext.Provider value={{ room, setRoom }}>{children}</RoomContext.Provider>
 }

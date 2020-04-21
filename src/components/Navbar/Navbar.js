@@ -16,7 +16,7 @@ import { profiles } from '../../img/Profile'
 import logo from '../../img/new-educa.svg'
 
 export const Navbar = () => {
-  const [auth, setAuth] = useContext(AuthContext)
+  const { auth, setAuth } = useContext(AuthContext)
   const [bubble, setBubble] = useState(false)
   const location = useLocation()
   const history = useHistory()

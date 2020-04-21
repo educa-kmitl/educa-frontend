@@ -1,6 +1,15 @@
 @import '../../styles';
 
+.room-page {
+  background: url('../../img/bg/room-bg.jpg') center center;
+  background-size: cover;
+  padding: $nav-size 0;
+}
+
 .room-content {
+  max-width: 1280px;
+  padding: 0 30px;
+  margin: auto;
   flex-wrap: wrap;
   display: flex;
   justify-content: space-evenly;
@@ -111,7 +120,7 @@
 }
 
 #room-course-card {
-  @include size(100%, 220px);
+  @include size(100%, 180px);
   @include shadow;
   display: flex;
   flex-direction: column;
@@ -130,7 +139,7 @@
 
 #room-course-footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-top: 20px;
   margin-right: -7px;
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext, RoomContext } from '../../contexts'
-import { getMyRoom, getFollowRoom, deleteRoom, randAlert } from '../../helpers'
+import { randAlert } from '../../helpers'
+import { getMyRoom, getFollowRoom, deleteRoom } from '../../apis'
 import './Home.scss'
 
 import { Card, Popup } from '../../components'
@@ -10,8 +11,8 @@ import { FaHeartBroken } from 'react-icons/fa'
 
 export default () => {
   const history = useHistory()
-  const [auth] = useContext(AuthContext)
-  const [room, setRoom] = useContext(RoomContext)
+  const { auth } = useContext(AuthContext)
+  const { setRoom } = useContext(RoomContext)
   const [roomList, setRoomList] = useState([])
   const [password, setPassword] = useState('')
   const [roomId, setRoomId] = useState(null)

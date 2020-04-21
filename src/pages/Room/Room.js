@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { randAlert } from '../../helpers'
 import {
-  randAlert,
   getRoomPrivacy,
   getRoom,
   getComment,
@@ -10,7 +10,7 @@ import {
   postLike,
   postComment,
   deleteLike
-} from '../../helpers'
+} from '../../apis'
 import './Room.scss'
 
 import { FaFileDownload, FaWalking, FaHeartBroken } from 'react-icons/fa'
@@ -160,7 +160,6 @@ export default () => {
         .then(res => {
           const { success, error } = res.data
           if (success) {
-            console.log('Unliked!')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
             setLike({ liked: true, count: old_like })
@@ -173,7 +172,6 @@ export default () => {
         .then(res => {
           const { success, error } = res.data
           if (success) {
-            console.log('Liked!')
           } else {
             setPopup({ type: 'alert', title: randAlert(), text: error })
             setLike({ liked: false, count: old_like })
@@ -194,8 +192,8 @@ export default () => {
   }
 
   return (
-    <div className="full-page">
-      <div className="full-page-content room-content">
+    <div className="room-page">
+      <div className="room-content">
 
         <section id="video-container">
           {<iframe
@@ -234,9 +232,9 @@ export default () => {
           <div id="room-course-card">
             <header>
               <h5 style={bold}>{roomData.name}</h5>
-              <p id="room-course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</p>
             </header>
             <footer id="room-course-footer">
+              <p id="room-course-count">{roomData.resources.length} video{roomData.resources.length > 1 ? 's' : null}</p>
               <div className={`room-like-btn ${like.liked && 'active'}`} onClick={likeVideo}>
                 <TiHeart className={`room-like-btn-icon ${like.liked && 'active'}`} /> {like.count}
               </div>

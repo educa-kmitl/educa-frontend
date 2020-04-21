@@ -1,7 +1,8 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { createRoom, embedYoutube, randAlert } from '../../helpers'
+import { embedYoutube, randAlert } from '../../helpers'
+import { createRoom } from '../../apis'
 import './Create.scss'
 
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
@@ -19,7 +20,7 @@ const defaultRoom = {
 
 export default () => {
   const history = useHistory()
-  const [auth] = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
   const [room, setRoom] = useState(defaultRoom)
   const [popup, setPopup] = useState('')
 
@@ -111,14 +112,14 @@ export default () => {
               />
             </div>
           </div>
-          <label className="head" onClick={() => console.log(room)}>Playlist</label>
+          <label className="head">Playlist</label>
           <hr />
           <div className="playlist">
 
             {room.resources.map((video, index) =>
               <div className="item" key={index}>
                 <span>
-                  <label onClick={() => alert(index)}>{index + 1}. {video.topic}</label>
+                  <label>{index + 1}. {video.topic}</label>
                   {
                     room.resources.length > 1 ?
                       <div

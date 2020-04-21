@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { getAllRoom, randAlert } from '../../helpers'
+import { randAlert } from '../../helpers'
+import { getAllRoom } from '../../apis'
 import './Find.scss'
 
 import { FaSearch, FaHeartBroken } from 'react-icons/fa'
@@ -9,7 +10,7 @@ import { Card, Popup } from '../../components'
 
 export default () => {
   const history = useHistory()
-  const [auth] = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
   const [roomList, setRoomList] = useState([])
   const [popup, setPopup] = useState('')
   const [search, setSearch] = useState({
@@ -39,13 +40,11 @@ export default () => {
 
   const handleSearch = value => setSearch({ ...search, text: value })
   const goSearch = () => {
-    console.log(search)
     setPopup('loading')
     getAllRoom({ ...search, limit: 6 })
       .then(res => {
         const { rooms, have_more, error } = res.data
         if (rooms) {
-          console.log(rooms)
           setRoomList(rooms)
           setMore({ have: have_more, limit: 6 })
           setPopup('')

@@ -1,12 +1,13 @@
 import React, { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { register, login, randAlert } from '../../helpers'
+import { randAlert } from '../../helpers'
+import { register, login } from '../../apis'
 import './Register.scss'
 
 import { FaEnvelope, FaUserAlt, FaLock, FaHeartBroken } from 'react-icons/fa'
 import { Input, Button, Radiobutton, Popup } from '../../components'
-import startpic from '../../img/start/start.svg'
+import startpic from '../../img/login/login.svg'
 
 export default () => {
   const history = useHistory()

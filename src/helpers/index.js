@@ -1,32 +1,4 @@
 
-export { randAlert } from './popupHelper'
-export { login, register } from './authHelper'
-export {
-  getAllRoom,
-  getMyRoom,
-  getFollowRoom,
-  getRoom,
-  getRoomPrivacy,
-  getComment,
-  getLike,
-  createRoom,
-  postLike,
-  postComment,
-  postResource,
-  editRoom,
-  editResource,
-  deleteRoom,
-  deleteLike,
-  deleteResource
-} from './roomHelper'
-export {
-  getProfile,
-  editProfile,
-  getFollowing,
-  getFollower,
-  postFollowing,
-  deleteFollowing
-} from './profileHelper'
-export { getTeacher } from './rankHelper'
-export { embedYoutube } from './youtubeHelper'
 export { leveling } from './levelHelper'
+export { randAlert } from './popupHelper'
+export { embedYoutube } from './youtubeHelper'

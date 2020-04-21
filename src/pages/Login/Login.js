@@ -1,18 +1,24 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { login, randAlert } from '../../helpers'
+import { randAlert } from '../../helpers'
+import { login } from '../../apis'
 import './Login.scss'
 
 import { FaEnvelope, FaLock, FaHeartBroken } from 'react-icons/fa'
 import { Input, Button, Popup } from '../../components'
-import startpic from '../../img/start/start.svg'
+import startpic from '../../img/login/login.svg'
 
 export default () => {
   const history = useHistory()
+  const { auth, setAuth } = useContext(AuthContext)
   const [form, setForm] = useState({ email: '', password: '' })
-  const [_, setAuth] = useContext(AuthContext)
   const [popup, setPopup] = useState({})
+
+  useEffect(() => {
+    if (auth) history.push('/home')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleEmail = value => setForm({ ...form, email: value })
   const handlePassword = value => setForm({ ...form, password: value })
