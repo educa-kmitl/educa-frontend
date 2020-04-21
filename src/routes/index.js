@@ -1,20 +1,22 @@
-import React from 'react'
+import { lazy } from 'react'
 
-const Start = React.lazy(() => import('../pages/Start/Start'))
-const Login = React.lazy(() => import('../pages/Login/Login'))
-const Register = React.lazy(() => import('../pages/Register/Register'))
-const Home = React.lazy(() => import('../pages/Home/Home'))
-const Ranking = React.lazy(() => import('../pages/Ranking/Ranking'))
-const Create = React.lazy(() => import('../pages/Create/Create'))
-const Room = React.lazy(() => import('../pages/Room/Room'))
-const Profile = React.lazy(() => import('../pages/Profile/Profile'))
-const NotFound = React.lazy(() => import('../pages/NotFound/NotFound'))
+const Landing = lazy(() => import('../pages/Landing/Landing'))
+const Login = lazy(() => import('../pages/Login/Login'))
+const Register = lazy(() => import('../pages/Register/Register'))
+const Home = lazy(() => import('../pages/Home/Home'))
+const Ranking = lazy(() => import('../pages/Ranking/Ranking'))
+const Find = lazy(() => import('../pages/Find/Find'))
+const Create = lazy(() => import('../pages/Create/Create'))
+const Edit = lazy(() => import('../pages/Edit/Edit'))
+const Room = lazy(() => import('../pages/Room/Room'))
+const Profile = lazy(() => import('../pages/Profile/Profile'))
+const NotFound = lazy(() => import('../pages/NotFound/NotFound'))
 
 export const routes = [
   {
     path: '/',
     exact: true,
-    component: Start,
+    component: Landing,
     requireAuth: false
   },
   {
@@ -42,9 +44,21 @@ export const routes = [
     requireAuth: true
   },
   {
+    path: '/find',
+    exact: false,
+    component: Find,
+    requireAuth: true
+  },
+  {
     path: '/create',
     exact: false,
     component: Create,
+    requireAuth: true
+  },
+  {
+    path: '/edit',
+    exact: false,
+    component: Edit,
     requireAuth: true
   },
   {

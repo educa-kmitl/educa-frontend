@@ -1,29 +1,31 @@
 @import '../../styles';
 
 .create-bg {
-  background: $gradient-white;
-  padding-top: $nav-size;
+  background: url('../../img/bg/bg-repeatable.jpg') center center;
+  background-size: cover;
+  padding: $nav-size 0;
   height: 100vh;
 
   .create-content {
-    box-sizing: border-box;
-    padding: 30px;
+    padding: 40px 0;
     max-width: 1280px;
     height: $full-page;
     margin: auto;
     position: relative;
 
     form {
-      box-sizing: border-box;
+      @include shadow;
+      background: white;
+      border-radius: 40px;
+      padding: 60px;
       display: flex;
       flex-direction: column;
-      width: 500px;
+      width: 600px;
 
       header {
-        font-size: 52px;
+        font-size: 48px;
         font-weight: 500;
-        margin-top: 5%;
-        margin-bottom: 20px;
+        margin: 0 0 5% 0;
       }
 
       .row {
@@ -45,13 +47,15 @@
           }
         }
       }
-      
+
       label.head {
         font-size: 36px;
         font-weight: 500;
       }
 
-      hr { width: 100% }
+      hr {
+        width: 100%
+      }
 
       .playlist {
         box-sizing: border-box;
@@ -70,19 +74,23 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             label {
               font-size: 24px;
               font-weight: 500;
             }
-            .del { 
+
+            .del {
               @include size(40px);
               @include flex-center;
               border-radius: 50%;
               transition: .2s;
 
-              .icon { font-size: 22px }
+              .icon {
+                font-size: 22px
+              }
 
-              &:hover { 
+              &:hover {
                 background: gainsboro;
                 cursor: pointer;
               }
@@ -136,56 +144,11 @@
     .display-container {
       @include flex-center;
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(0, -50%);
-      width: 600px;
-      height: 600px;
-
-      .display-card {
-        @include size(650px, 350px);
-        @include shadow;
-        @include flex-center;
-        justify-content: flex-start;
-        box-sizing: border-box;
-        margin-top: -10%;
-        background: lightcoral;
-        border-radius: 40px;
-        padding: 50px;
-
-        .img {
-          @include size(200px);
-          background: $color;
-          border: 10px solid white;
-          border-radius: 40px;
-        }
-
-        .detail {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          box-sizing: border-box;
-          padding-left: 30px;
-          width: calc(100% - 200px);
-          height: 100%;
-
-          header {
-            flex-wrap: wrap;
-            font-size: 48px;
-            font-weight: 500;
-
-            p {
-              margin-top: 10px;
-              font-size: 28px;
-              font-weight: 400;
-            }
-          }
-
-          footer {
-            font-size: 28px;
-            font-weight: 400;
-          }
-        }
-      }
+      top: 20%;
+      left: 55%;
+      width: 400px;
+      height: 400px;
+      transform: scale(1.5);
     }
   }
 }

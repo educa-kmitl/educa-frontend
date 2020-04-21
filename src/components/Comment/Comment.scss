@@ -1,7 +1,7 @@
 @import '../../index.scss';
 
 .comment-box {
-  @include size(100%, 500px);
+  @include size(100%, 550px);
   @include shadow;
   padding: 40px;
   background: white;
@@ -13,7 +13,7 @@
   }
 
   .room-comment {
-    @include fixed-size(100%, 300px);
+    @include size(100%, 350px);
     word-wrap: break-word;
     text-align: left;
     overflow-y: scroll;
@@ -103,30 +103,49 @@
     }
 
     .icon-c {
-      @include fixed-size(40px);
+      @include size(40px);
+      @include flex-center;
       position: absolute;
       top: 50%;
       right: -10px;
       transform: translate(-50%, -50%);
-      box-sizing: border-box;
+      background: $color;
       padding: 10px;
       border-radius: 50%;
 
       .icon {
-        @include abs-center;
-        position: absolute;
         user-select: none;
-        color: $color;
+        color: white;
         font-size: 22px;
+        transition: .2s;
 
       }
 
       &:hover {
         cursor: pointer;
-        background: gainsboro;
       }
     }
 
   }
 
+}
+
+#show-earlier-btn {
+  display: flex;
+  font-family: inherit;
+  padding: 10px;
+  border: none;
+  margin: auto;
+  border-radius: 40px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    background: $grey;
+  }
+
+  &:focus {
+    outline: none;
+  }
 }

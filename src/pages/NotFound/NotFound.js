@@ -11,7 +11,7 @@ export default () => {
       <header>Hmm..</header>
       <p>we can't find the page you're looking for</p>
       <Link to="/home">
-        <Button alt text="Go back"></Button>
+        <Button primary text="Go back"></Button>
       </Link>
     </div>
   );

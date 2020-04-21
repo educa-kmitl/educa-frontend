@@ -1,23 +1,33 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { embedYoutube, randAlert } from '../../helpers'
+import { createRoom } from '../../apis'
 import './Create.scss'
 
 import { FaBook, FaBookmark, FaLink, FaTrashAlt, FaLock, FaFileAlt } from 'react-icons/fa'
-import { Input, Dropdown, ToggleButton, Button } from '../../components'
+import { Input, Dropdown, ToggleButton, Button, Popup, Card } from '../../components'
 
 const defaultRoom = {
   name: 'Course Title',
   subject: 'Math',
   resources: [{ topic: 'Video title', video_url: '', file_url: '' }],
   private: false,
-  password: ''
+  password: '',
+  date_created: new Date(),
+  teacher_name: 'You'
 }
 
 export default () => {
-  const [auth] = useContext(AuthContext)
-  const [room, setRoom] = useState(defaultRoom)
   const history = useHistory()
+  const { auth } = useContext(AuthContext)
+  const [room, setRoom] = useState(defaultRoom)
+  const [popup, setPopup] = useState('')
+
+  useEffect(() => {
+    if (auth.role === false) history.push('/notfound')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleTitle = value => setRoom({ ...room, name: value })
   const handleSubject = value => setRoom({ ...room, subject: value })
@@ -50,28 +60,21 @@ export default () => {
   }
   const handleSubmit = e => {
     e.preventDefault();
+    setPopup('loading')
 
-    fetch(window.$ENDPOINT + '/rooms', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ 
-        ...room,
-        teacher_id: auth.data.user_id,
-        date_created: new Date()
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { room, error } = json
+    const embedRoom = room
+    for (let i = 0; i < room.resources.length; i++) {
+      embedRoom.resources[i].video_url = embedYoutube(embedRoom.resources[i].video_url)
+    }
+    createRoom(embedRoom, auth)
+      .then(res => {
+        const { room, error } = res.data
         if (room) {
           history.push(`/room/${room.room_id}`)
         } else {
-          alert(error)
+          setPopup({ type: 'alert', title: randAlert(), text: error })
         }
       })
-
   }
 
   return (
@@ -99,24 +102,24 @@ export default () => {
               </span>
               <Input
                 Icon={FaLock}
-                type="text"
+                type="password"
                 text="Password"
                 pattern="[A-Za-z0-9]*$"
                 title="Enter only english character and number"
                 onChange={handlePassword}
-                required={room.private}
-                disabled={!room.private}
+                required={room.privacy}
+                disabled={!room.privacy}
               />
             </div>
           </div>
-          <label className="head" onClick={() => console.log(room)}>Playlist</label>
+          <label className="head">Playlist</label>
           <hr />
           <div className="playlist">
 
-            {room.resources.map((video, index) => 
+            {room.resources.map((video, index) =>
               <div className="item" key={index}>
                 <span>
-                  <label onClick={()=>alert(index)}>{index + 1}. {video.topic}</label>
+                  <label>{index + 1}. {video.topic}</label>
                   {
                     room.resources.length > 1 ?
                       <div
@@ -166,19 +169,16 @@ export default () => {
         </form>
 
         <div className="display-container">
-          <div className="display-card">
-            <div className="img"></div>
-            <div className="detail">
-              <header>
-                {room.private && <FaLock style={{ fontSize: '36px' }} />} {room.name}<br />
-                <p>{room.subject} {room.resources.length} video{room.resources.length > 1 ? 's' : null}</p>
-              </header>
-              <footer>by {auth.data.name}</footer>
-            </div>
-          </div>
+          <Card room={room} />
         </div>
 
       </div>
+
+      {popup === 'loading' &&
+        <Popup
+          type="loading"
+          text="Creating"
+        />}
     </div>
   )
 }

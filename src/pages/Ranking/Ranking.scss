@@ -1,7 +1,8 @@
 @import '../../styles';
 
 .ranking-bg {
-  background: $gradient-white;
+  background: url('../../img/bg/bg-repeatable.jpg');
+  background-size: contain;
   min-height: 100vh;
   padding-top: $nav-size;
 
@@ -32,6 +33,8 @@
         flex-direction: column;
         justify-content: space-evenly;
         align-items: center;
+        transition: .2s;
+        cursor: pointer;
 
         header {
           margin: 0;
@@ -54,11 +57,15 @@
           font-weight: 500;
           margin: 0;
         }
+
+        &:hover {
+          transform: scale(1.1);
+        }
       }
 
       .not-top {
         @extend .top;
-        transform: scale(.9);
+        @include size(280px, 320px);
       }
     }
 
@@ -74,6 +81,10 @@
         display: flex;
         align-items: center;
         font-size: 22px;
+        transition: .2s;
+        border-radius: 10px;
+        padding: 0 15px;
+        cursor: pointer;
 
         .profile {
           @include size(50px);
@@ -87,67 +98,35 @@
           font-weight: 500;
           margin-left: 20px;
         }
+
+        &:hover {
+          background: $lightgrey;
+        }
       }
     }
   }
+}
 
-  $purple: #9f00c7;
-  $purple-alt: #532751;
-  $red: #b92c2c;
-  $red-alt: #532c2c;
-  $blue: #52c6d1;
-  $blue-alt: #3a67b1;
-  $yellow: #ffe600;
-  $yellow-alt: #ffbb00;
-  $green: #3fbd65;
-  $green-alt: #e6e6e6;
+.see-more-btn {
+  display: flex;
+  margin: auto;
+  margin-top: 50px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 40px;
+  border: none;
+  padding: 15px 20px;
+  background: $color;
+  color: white;
+  cursor: pointer;
+  transition: .2s;
 
-  p {
-    &.purple {
-      color: $purple;
-    }
-
-    &.red {
-      color: $red;
-    }
-
-    &.blue {
-      color: $blue;
-    }
-
-    &.yellow {
-      color: $yellow;
-    }
-
-    &.green {
-      color: $green;
-    }
+  &:hover {
+    transform: scale(1.1);
   }
 
-  .profile {
-    &.purple {
-      border: 5px solid $purple;
-      background: $purple-alt;
-    }
-
-    &.red {
-      border: 5px solid $red;
-      background: $red-alt;
-    }
-
-    &.blue {
-      border: 5px solid $blue;
-      background: $blue-alt;
-    }
-
-    &.yellow {
-      border: 5px solid $yellow;
-      background: $yellow-alt;;
-    }
-
-    &.green {
-      border: 5px solid $green;
-      background: $green-alt
-    }
+  &:focus {
+    outline: none;
   }
 }

@@ -3,8 +3,8 @@ import './Dropdown.scss'
 
 import { FaAngleDown, FaListUl } from 'react-icons/fa'
 
-export const Dropdown = ({ onSelect, items }) => {
-  const [value, setValue] = useState(items[0])
+export const Dropdown = ({ onSelect, items, init }) => {
+  const [value, setValue] = useState(init || items[0])
 
   const handleToggle = () => {
     document.querySelector('.dd-box').classList.toggle('active')

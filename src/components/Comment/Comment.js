@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
+import moment from 'moment'
 import './Comment.scss'
 
 import { FaTelegramPlane } from 'react-icons/fa'
 import { profiles } from '../../img/Profile'
 import logo from '../../img/room/play.svg'
 
-const moment = require('moment')
-
-export const Comment = ({ refresh, comments }) => {
+export const Comment = ({ post, comments, more, onMore }) => {
   const [message, setMessage] = useState('')
 
   const writeComment = () => {
-    refresh(message)
+    post(message)
     setMessage('')
   }
 
@@ -21,6 +20,7 @@ export const Comment = ({ refresh, comments }) => {
       <hr />
 
       <div className="room-comment">
+        {more && <button id="show-earlier-btn" onClick={onMore}>Show earlier</button>}
         {comments.map((comment, index) => (
           <div key={index} className="box">
             <span>

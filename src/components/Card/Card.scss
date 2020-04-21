@@ -1,78 +1,109 @@
 @import '../../index.scss';
 
-.card {
-  $blue: #9ac9fc;
-  $yellow: #ffedb3;
-  $red: #ef92be;
-  $green: #60c6c6;
-  $purple: #dccbf7;
-
-  @include size(460px, 220px);
+.course-card {
+  @include size(320px);
   @include shadow;
-  background: #DDDDDD;
-  box-sizing: border-box;
+  @include flex-center(column);
+  justify-content: space-between;
+  background: white;
   float: left;
-  border-radius: 40px;
-  display: flex;
-  align-items: center;
-  padding: 30px;
+  border-radius: 30px;
   margin-top: 40px;
+  position: relative;
+  transition: .2s;
+  pointer-events: painted;
+
+  &:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+}
+
+.card-btn {
+  @include flex-center;
+  @include size(30px);
+  position: absolute;
+  padding: 10px;
+  top: 15px;
+  right: 15px;
+  background: $black;
+  border-radius: 50%;
   transition: .2s;
 
   &:hover {
-    transform: scale(1.1);
-    cursor: pointer;
-  }
-
-  .imgCard {
-    @include size(150px);
-    background: transparent;
     border-radius: 40px;
-    box-sizing: border-box;
-    border: 7px solid white;
+    width: 70px;
   }
 
-  .txt {
-    @include flex-center(column);
-    height: 90%;
-    justify-content: space-between;
-    align-items: flex-start;
-    box-sizing: border-box;
-    padding: 0 20px;
+  &:hover>.card-btn-icon-cog {
+    opacity: 0;
+  }
+}
 
-    .title {
-      flex-wrap: wrap;
+.card-btn-icon-cog {
+  position: absolute;
+  color: white;
+  font-size: 16px;
+  transition: .5s;
+}
 
-      .heading {
-        font-size: 28px;
-        font-weight: 500;
-        margin-bottom: 10px;
-      }
+.card-btn-icon {
+  margin: 0 5px;
+  color: white;
 
-      .description {
-        font-size: 20px;
-      }
-    }
+  &:hover {
+    color: $red;
+  }
+}
 
-    .tutor {
-      font-size: 20px;
-      text-align: left;
-    }
+.course-cover {
+  @include size(100%, 55%);
+  border-radius: 30px 30px 0 0;
+  background: grey;
+  object-fit: cover;
+}
+
+.course-detail {
+  @include size(100%, 45%);
+  @include flex-center(column);
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 25px 35px;
+}
+
+.course-header {
+  flex-wrap: wrap;
+}
+
+.course-name {
+  font-weight: 500;
+  margin-bottom: -5px;
+  font-size: 24px;
+}
+
+.course-teacher {
+  font-size: 18px;
+}
+
+.course-date {
+  color: $grey;
+  font-size: 18px;
+}
+
+.course-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media only screen and (max-width: 750px) {
+  .course-card {
+    width: 100%;
+    border-radius: 0;
   }
 
-  &.Math {
-    background: $blue
-  }
-
-  &.Science {
-    background: $red
-  }
-
-  &.English {
-    background: $yellow
-  }
-
-  &.Computer {
-    background: $purple
+  .course-cover {
+    border-radius: 0;
   }
 }

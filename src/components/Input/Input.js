@@ -1,10 +1,11 @@
 import React from 'react'
 import './Input.scss'
 
-export const Input = ({ Icon, id, type, text, pattern, title, onChange, required, disabled, autoFocus }) => {
+export const Input = ({ Icon, id, type, text, pattern, title, onChange, required, disabled, autoFocus, ...rest }) => {
   return (
-    <div className="my-input">
+    <div style={{ position: 'relative' }}>
       <input
+        className="my-input"
         id={id && id.toString()}
         type={type || 'text'}
         placeholder={text}
@@ -14,8 +15,9 @@ export const Input = ({ Icon, id, type, text, pattern, title, onChange, required
         required={required}
         disabled={disabled}
         autoFocus={autoFocus}
+        {...rest}
       />
-      {Icon && <Icon className={disabled ? 'icon disabled' : 'icon'} />}
+      {Icon && <Icon className={disabled ? 'my-input-icon disabled' : 'my-input-icon'} />}
     </div>
   )
 }

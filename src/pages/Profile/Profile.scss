@@ -1,41 +1,114 @@
 @import '../../styles';
 
 #profile-page-bg {
-  background: $gradient-white;
-  padding-top: $nav-size;
+  background: url('../../img/bg/bg-repeatable.jpg') center center;
+  background-size: cover;
+  padding: $nav-size 0;
   min-height: 100vh;
 }
 
 #profile-page-content {
   display: flex;
   justify-content: space-evenly;
-  padding: 0 30px;
+  flex-wrap: wrap;
+  padding: 30px;
   max-width: 1280px;
   height: 100%;
   margin: auto;
 }
 
 #user-card {
-  @include size(440px, 600px);
+  @include size(440px, 620px);
   @include shadow;
   @include flex-center(column);
   justify-content: space-between;
   background: white;
   position: relative;
   border-radius: 40px;
-  padding: 60px;
-  padding-bottom: 40px;
+  padding: 50px 60px 40px 60px;
+  margin-bottom: 40px;
+  float: left;
 }
 
 #user-picture {
   @include size(250px);
-  background: lightblue;
+  background: $grey;
   border-radius: 50%;
+  user-select: none;
+
+  &.green {
+    border: 10px solid $green;
+    background: $lightgreen;
+  }
+
+  &.blue {
+    border: 10px solid $blue;
+    background: $lightblue;
+  }
+
+  &.red {
+    border: 10px solid $red;
+    background: $lightred;
+  }
+
+  &.purple {
+    border: 10px solid $purple;
+    background: $lightpurple;
+  }
+}
+
+#user-edit-btn {
+  @include flex-center;
+  @include abs-center;
+  @include size(60px);
+  top: 90%;
+  left: 80%;
+  background: $grey;
+  border: 5px solid white;
+  border-radius: 50%;
+  transition: .2s;
+  animation: scale-up 2s 1;
+  cursor: pointer;
+
+  &:hover {
+    background: $black;
+  }
+}
+
+#user-pic-left {
+  @extend #user-edit-btn;
+  top: 50%;
+  left: -15%;
+}
+
+#user-pic-right {
+  @extend #user-edit-btn;
+  top: 50%;
+  left: 115%;
 }
 
 #user-name {
   font-size: 36px;
   font-weight: 500;
+}
+
+#user-name-edit {
+  font-family: inherit;
+  font-size: 36px;
+  font-weight: 500;
+  text-align: center;
+  width: 70%;
+  border-radius: 40px;
+  border: 1px solid $grey;
+  transition: .2s;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    border: 1px solid $color;
+  }
 }
 
 #user-role {
@@ -52,11 +125,41 @@
   @include size(100%, 10px);
   background-color: lightgray;
   border-radius: 40px;
+  margin: 20px 0;
+  position: relative;
 }
 
 #user-expbar-progress {
-  @include size(50%, 100%);
+  @include size(0%, 100%);
   border-radius: inherit;
+  transition: .5s;
+}
+
+#user-gem {
+  @include abs-center;
+  @include size(65px);
+  background: $grey;
+  border-radius: 50%;
+
+  &.green {
+    border: 6px solid $green;
+    background: $black;
+  }
+
+  &.blue {
+    border: 6px solid $blue;
+    background: $black;
+  }
+
+  &.red {
+    border: 6px solid $red;
+    background: $black;
+  }
+
+  &.purple {
+    border: 6px solid $purple;
+    background: $black;
+  }
 }
 
 #user-fam {
@@ -69,23 +172,146 @@
   @include flex-center(column);
   flex: .5;
   height: 70px;
+  border-radius: 10px;
+  transition: .2s;
+
+  &:hover {
+    background: $lightgrey;
+    cursor: pointer;
+  }
 }
 
 .user-fam-number {
   font-size: 22px;
   font-weight: 500;
+  pointer-events: none;
 }
 
 .user-fam-title {
   font-size: 18px;
+  pointer-events: none;
 }
 
 #user-own-room {
-  @include size(560px, 600px);
-  overflow-y: scroll;
-  overflow-x: hidden;
+  @include shadow;
+  background: white;
+  border-radius: 40px;
+  float: left;
+  padding: 40px 20px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#user-own-room-list {
+  @include size(480px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
   padding-bottom: 20px;
+}
+
+.user-follow-btn {
+  @extend #user-edit-btn;
+  animation: scale-up 2s 1;
+
+  &.active {
+    background: $color;
+    color: white
+  }
+}
+
+#follower-box {
+  @include size(280px, auto);
+  @include shadow;
+  max-height: 400px;
+  position: absolute;
+  background: white;
+  border-radius: 40px;
+  padding: 30px;
+  cursor: initial;
+}
+
+#follower-content {
+  @include size(220px, auto);
+  overflow-y: scroll;
+  margin-top: 5px;
+}
+
+.follower-img {
+  @include size(40px);
+  border-radius: 50%;
+  border: 2px solid $black;
+  margin-right: 10px;
+}
+
+.follower-item {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+#follower-box-close {
+  @include size(25px);
+  @include flex-center;
+  background: $color;
+  border-radius: 50%;
+  color: white;
+  font-weight: 500;
+  margin-right: -5px;
+  user-select: none;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.see-more-btn {
+  display: flex;
+  margin: auto;
+  margin-top: 50px;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 40px;
+  border: none;
+  padding: 15px 20px;
+  background: $color;
+  color: white;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+@keyframes scale-up {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  10% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  20% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  30% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  40% {
+    transform: translate(-50%, -50%) scale(1);
+  }
 }

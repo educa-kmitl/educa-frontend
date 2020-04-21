@@ -1,95 +1,81 @@
 @import '../../styles';
 
-.room-password {
-  @include fixed-size(100vw, 100vh);
+#popup-overlay {
+  @include size(100vw, 100vh);
   z-index: 50;
   position: fixed;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.5);
-
-  form.dialog-box {
-    @include size(400px, 270px);
-    @include abs-center;
-    @include shadow;
-    transform: translate(-50%, -50%) scale(1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background: white;
-    box-sizing: border-box;
-    border-radius: 40px;
-    padding: 40px;
-    transition: .2s;
-
-    header {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    span {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      .cancel {
-        @include flex-center;
-        width: 145px;
-        font-size: 20px;
-        user-select: none;
-        transition: .2s;
-
-        &:hover {
-          color: $color;
-          cursor: pointer;
-          transform: scale(1.1);
-        }
-      }
-    }
-  }
-
-  &.hide {
-    transform: scale(0);
-    pointer-events: none;
-
-    form.dialog-box {
-      transform: translate(-50%, -50%) scale(.0);
-    }
-  }
 }
 
-.popup-content {
-  @include fixed-size(100vw, 100vh);
-  z-index: 50;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.5);
+#popup-box {
+  @include size(400px, auto);
+  @include abs-center;
+  @include flex-center(column);
+  justify-content: space-evenly;
+  background: white;
+  border-radius: 40px;
+  padding: 40px;
+  min-height: 350px;
+}
 
-  .popup-box {
-    @include size(260px);
-    @include flex-center(column);
-    @include abs-center;
-    @include shadow;
-    background: white;
-    border-radius: 40px;
+#popup-form {
+  @extend #popup-box;
+  @include size(400px, 280px);
+}
 
-    img {
-      @include size(100px);
-      animation: load 1.2s linear infinite;
-      user-select: none;
-      pointer-events: none;
-    }
+#popup-loading {
+  @extend #popup-box;
+  @include size(260px);
+  min-height: auto;
+}
 
-    span {
-      margin-top: 20px;
-      font-size: 22px;
-    }
+#popup-loading-img {
+  @include size(100px);
+  animation: load 1.2s linear infinite;
+  user-select: none;
+  pointer-events: none;
+}
+
+#popup-icon {
+  font-size: 72px;
+  color: $color;
+  animation: wiggle 2s infinite;
+}
+
+#popup-btn-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#popup-btn-single {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
   }
 
-  &.hide {
-    display: none;
+  10% {
+    transform: rotate(10deg);
+  }
+
+  20% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(-10deg);
+  }
+
+  40% {
+    transform: rotate(0deg);
   }
 }

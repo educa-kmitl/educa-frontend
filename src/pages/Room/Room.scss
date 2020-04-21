@@ -1,144 +1,207 @@
 @import '../../styles';
 
-.room-page-bg {
-  background: $gradient-white;
-  padding-top: $nav-size;
-  height: 100vh;
+.room-page {
+  background: url('../../img/bg/room-bg.jpg') center center;
+  background-size: cover;
+  padding: $nav-size 0;
+}
 
-  .room-page-content {
-    @include flex-center;
-    align-items: flex-start;
-    padding: 0 30px;
-    max-width: 1280px;
-    height: 100%;
-    margin: auto;
-  
-    .video-card {
-      @include flex-center(column);
-      @include fixed-size(830px, 750px);
-      @include shadow;
-      box-sizing: border-box;
-      background: white;
-      border-radius: 40px;
-  
-      .video {
-        @include fixed-size(830px, 640px);
-        background: $black;
-        border-radius: 40px 40px 0 0;
-  
-        .embed-video {
-          @include fixed-size(830px, 640px);
-          border-radius: inherit;
-          border: none;
-        }
-      }
-  
-      .video-menu {
-        @include flex-center;
-        justify-content: space-between;
-        width: 100%;
-        height: calc(750px - 640px);
-        box-sizing: border-box;
-        padding: 50px;
-  
-        .video-title {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-  
-          .title {
-            font-size: 24px;
-            font-weight: 500;
-          }
-          .name {
-            margin-top: 5px;
-            font-size: 16px;
-            font-weight: 400;
-            color: $color;
-          }
-        }
-  
-        .btn-group {
-          @include flex-center;
-          width: 200px;
-          justify-content: space-between;
-  
-          .btn {
-            @include fixed-size(50px);
-            position: relative;
-            font-size: 22px;
-            background: white;
-            border-radius: 50%;
-            transition: .2s;
-  
-            .icon { @include abs-center; }
-  
-            &:nth-child(1) { 
-              border: 2px solid $color;
-              color:  $color;
-            }
-            &:nth-child(2) { 
-              border: 2px solid #FBB91E;
-              color: #FBB91E;
-            }
-            &:nth-child(3) { 
-              border: 2px solid #7921AD;
-              color: #7921AD;
-            }
-  
-            &:hover {
-              cursor: pointer;
-              transform: scale(1.1);
-            }
-          }
-        }
-      }
+.room-content {
+  max-width: 1280px;
+  padding: 0 30px;
+  margin: auto;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
+  padding-top: $nav-size;
+}
+
+#video-container {
+  @include flex-center(column);
+  @include size(830px, 750px);
+  @include shadow;
+  background: white;
+  border-radius: 40px;
+  float: left;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+#embed-video {
+  @include size(830px, 640px);
+  border-radius: inherit;
+  border: none;
+  background: $black;
+  border-radius: 40px 40px 0 0;
+}
+
+#video-title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#video-teacher {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  color: $color;
+  cursor: pointer;
+}
+
+#video-footer {
+  @include flex-center;
+  justify-content: space-between;
+  width: 100%;
+  height: calc(750px - 640px);
+  box-sizing: border-box;
+  padding: 50px;
+}
+
+#video-btn-group {
+  @include flex-center;
+  width: 200px;
+  justify-content: space-between;
+}
+
+.room-btn {
+  @include size(50px);
+  position: relative;
+  background: white;
+  border-radius: 50%;
+  transition: .2s;
+  cursor: pointer;
+
+  &:nth-child(1) {
+    border: 2px solid $color;
+    color: $color;
+
+    &:hover {
+      background: $red;
+      color: white;
     }
-  
-    .right-panel {
-  
-      .course-card {
-        @include fixed-size(360px, 220px);
-        @include shadow;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background: white;
-        border-radius: 40px;
-        margin-left: 30px;
-        box-sizing: border-box;
-        padding: 40px;
-        position: relative;
-    
-        .course-detail {
-          flex-wrap: wrap;
-    
-          .course-title {
-            font-size: 28px;
-            font-weight: 500;
-          }
-      
-          .course-count {
-            margin-top: 5px;
-            font-size: 20px;
-            color: lightgrey;
-          }
-        }
-  
-        footer {
-          display: flex;
-          justify-content: flex-end;
-          margin-top: 20px;
-          margin-right: -7px;
-        }
-    
-      }
-    
-      .comment-container {
-        @include fixed-size(360px, 100%);
-        margin: 30px;
-        box-sizing: border-box;
-      }
+  }
+
+  &:nth-child(2) {
+    border: 2px solid $blue;
+    color: $blue;
+
+    &:hover {
+      background: $blue;
+      color: white;
     }
+  }
+
+  &:nth-child(3) {
+    border: 2px solid $purple;
+    color: $purple;
+
+    &:hover {
+      background: $purple;
+      color: white;
+    }
+  }
+
+}
+
+.room-btn-icon {
+  @include abs-center;
+  font-size: 26px;
+  user-select: none;
+
+  &.sm {
+    font-size: 20px;
+  }
+}
+
+#room-panel {
+  @include size(360px, 750px);
+  float: left;
+}
+
+#room-course-card {
+  @include size(100%, 180px);
+  @include shadow;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: white;
+  border-radius: 40px;
+  padding: 40px;
+  margin-bottom: 20px;
+}
+
+#room-course-count {
+  margin-top: 5px;
+  font-size: 20px;
+  color: lightgrey;
+}
+
+#room-course-footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-right: -7px;
+}
+
+.room-like-btn {
+  @include flex-center;
+  @include size(80px, auto);
+  justify-content: space-evenly;
+  padding: 10px;
+  border: 1px solid $grey;
+  border-radius: 40px;
+  font-size: 18px;
+  transition: .2s;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $red;
+  }
+
+  &.active {
+    border: 1px solid $red;
+    background: $red;
+    color: white;
+
+    &:hover {
+      border: 1px solid $red;
+    }
+  }
+}
+
+.room-like-btn-icon {
+  color: $red;
+  font-size: 22px;
+
+  &.active {
+    color: white;
+    animation: heartbeat 1s;
+  }
+}
+
+#comment-container {
+  @include size(100%, auto);
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1.5);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.5);
+  }
+
+  40% {
+    transform: scale(1);
   }
 }
