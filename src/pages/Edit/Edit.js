@@ -99,8 +99,6 @@ export default () => {
           setPopup({ type: 'alert', title: randAlert(), text: error, bad: true })
         }
       })
-
-
   }
 
   return (
@@ -153,6 +151,7 @@ export default () => {
                         id={video.resource_id}
                         className="del"
                         onClick={e => {
+                          // eslint-disable-next-line eqeqeq
                           if (room.resources.find(r => r.resource_id == e.target.id)) {
                             const id = e.target.id
                             return setPopup({ type: 'confirm', func: () => delPlaylist(index, id) })

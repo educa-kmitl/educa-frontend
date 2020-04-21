@@ -30,8 +30,8 @@ import e3_bubble from '../../img/landing/e3-bubble.png'
 import e3_love from '../../img/landing/e3-love.png'
 
 export default () => {
-  const [auth] = useContext(AuthContext)
   const history = useHistory()
+  const { auth } = useContext(AuthContext)
 
   useEffect(() => {
     if (auth) history.replace('/home')
