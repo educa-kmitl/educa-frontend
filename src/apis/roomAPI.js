@@ -99,13 +99,9 @@ export const postComment = async ({ user_id }, room, playlist, text) => (
     .catch(err => err.response)
 )
 
-export const createRoom = async ({ name, subject, resources, privacy, password }, { user_id }) => (
+export const createRoom = async (room, { user_id }) => (
   await axios.post(window.$ENDPOINT + '/rooms', {
-    name,
-    subject,
-    resources,
-    private: privacy,
-    password,
+    ...room,
     teacher_id: user_id,
     date_created: new Date()
   })
