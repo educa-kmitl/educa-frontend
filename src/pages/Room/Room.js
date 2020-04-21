@@ -20,7 +20,7 @@ import { Comment, Playlist, Popup } from '../../components'
 export default () => {
   const history = useHistory()
   const { room_id } = useParams()
-  const [auth] = useContext(AuthContext)
+  const { auth } = useContext(AuthContext)
   const [popup, setPopup] = useState('')
   const [password, setPassword] = useState('')
   const [roomData, setRoomData] = useState({
