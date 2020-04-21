@@ -107,8 +107,8 @@ export default () => {
                 pattern="[A-Za-z0-9]*$"
                 title="Enter only english character and number"
                 onChange={handlePassword}
-                required={room.privacy}
-                disabled={!room.privacy}
+                required={room.private}
+                disabled={!room.private}
               />
             </div>
           </div>
