@@ -173,7 +173,7 @@
 
     max-width: 370px;
   }
-  @media only screen and (max-height:700px){
+  @media only screen and (max-height:600px){
     #start-img {
       @include size(0);
     }
