@@ -89,63 +89,13 @@
       margin: 10px;
       padding: 5px;
     }
-  }
-}
-@media only screen and (max-width: 930px) { //ipad vertical
-  #start-img {
-    @include size(500px);
-    margin: 0 auto;
-    position: absolute;
-    top: 75%;
-    left: 50%;
-    transform: translate(-50%, -50%);  
-  }
-  #auth-form {
-    @include size(600px,500px);
-    margin: 0 auto;
-    position: absolute;
-    top: 30%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  @media only screen and (max-height: 450px) { //iphonex horizontal
-    #start-img {
-      @include size(0);
-    }
-    #auth-form {
-      @include size(90vw,600px);
-      margin-top: 200px;
-      margin-bottom: 100px;
-      position: absolute;
-    }
-  }
-}
-@media only screen and (max-width: 750px){//phone horizontal
-  #start-img {
-    @include size(0);
-  }
-  #auth-form {
-    @include size(90vw,600px);
-    top:40%;
-    margin-bottom: 100px;
-    position: absolute;
-  }
-
-  h3{
-    font-size: 30px;
-  }
-  Input{
-    margin: 5px;
-    font-size: 15px;
-  }
-  p{
-    font-size: 15px;
+   
   }
 }
 
-@media only screen and (max-width: 500px){ //phone vertical
+@media only screen and (max-width: 930px){ //phone vertical
   #start-img {
-    @include size(60vw);
+    @include size(35vh);
     margin: 0 auto;
     position: absolute;
     top: 80%;
@@ -174,13 +124,11 @@
   p{
     font-size: 20px;
   }
-  @media only screen and (max-height:700px){
-    #start-img {
-      @include size(30vh);
-      margin-top: 20px;
-    }
+  #auth-form-radio-group {
+
+    max-width: 370px;
   }
-  @media only screen and (max-height:600px){
+  @media only screen and (max-height:770px){
     #start-img {
       @include size(0);
     }
@@ -188,4 +136,76 @@
       margin-top: 100px;
     }
   }
+  @media only screen and (max-height:450px){
+    #start-img {
+      @include size(0);
+    }
+    #auth-form {
+      @include size(90vw,500px);
+      margin: 0px 0px 20px 0px ;
+      position: absolute;
+      padding-left: 5vh;
+      padding-right: 5vh;
+      padding-bottom: 30vw;
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    h3{
+      padding-top: 100px;
+    }
+    
+  }
 }
+
+// @media only screen and (max-width: 930px) { //ipad vertical
+//   #start-img {
+//     @include size(500px);
+//     margin: 0 auto;
+//     position: absolute;
+//     top: 75%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);  
+//   }
+//   #auth-form {
+//     @include size(600px,500px);
+//     margin: 0 auto;
+//     position: absolute;
+//     top: 30%;
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//   }
+//   @media only screen and (max-height: 450px) { //iphonex horizontal
+//     #start-img {
+//       @include size(0);
+//     }
+//     #auth-form {
+//       @include size(90vw,600px);
+//       margin-top: 200px;
+//       margin-bottom: 100px;
+//       position: absolute;
+//     }
+//   }
+// }
+// @media only screen and (max-width: 750px){//phone horizontal
+//   #start-img {
+//     @include size(0);
+//   }
+//   #auth-form {
+//     @include size(90vw,600px);
+//     top:40%;
+//     margin-bottom: 100px;
+//     position: absolute;
+//   }
+
+//   h3{
+//     font-size: 30px;
+//   }
+//   Input{
+//     margin: 5px;
+//     font-size: 15px;
+//   }
+//   p{
+//     font-size: 15px;
+//   }
+// }
