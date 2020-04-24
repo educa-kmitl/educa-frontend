@@ -6,7 +6,7 @@ import { getAllRoom } from '../../apis'
 import './Find.scss'
 
 import { FaSearch, FaHeartBroken, FaArrowDown, FaArrowUp, FaAngleDown } from 'react-icons/fa'
-import { Card, Popup } from '../../components'
+import { Card, Popup, Button } from '../../components'
 
 export default () => {
   const history = useHistory()
@@ -130,6 +130,11 @@ export default () => {
 
         {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
 
+        {roomList.length === 0 && (
+          <div className="no-room-content">
+            <h6>Can't find any course. Try something else!</h6>
+          </div>
+        )}
       </div>
 
       {popup === 'loading' &&
