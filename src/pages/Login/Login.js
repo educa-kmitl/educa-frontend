@@ -39,8 +39,8 @@ export default () => {
   }
 
   return (
-    <div className="full-page">
-      <div className="full-page-content">
+    <div id="login-page">
+      <div id="login-page-content">
 
         <form id="auth-form" onSubmit={handleLogin}>
           <h3>Welcome</h3>

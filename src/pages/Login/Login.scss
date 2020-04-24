@@ -1,5 +1,17 @@
 @import '../../styles';
 
+#login-page {
+  background: url('../../img/landing/e-bg.png') center center;
+  background-size: cover;
+}
+
+#login-page-content {
+  max-width: 1280px;
+  padding: 0 30px;
+  min-height: 100vh;
+  margin: auto;
+}
+
 #start-text-container {
   margin-top: 200px;
   position: absolute;
@@ -49,20 +61,26 @@
   }
 }
 
-@media only screen and (max-width: 1080px) { //ipad horizontal
+@media only screen and (max-width: 1080px) {
+
+  //ipad horizontal
   #start-img {
     @include size(500px);
     margin-right: 0;
     margin-top: 150px;
-    
+
   }
+
   #auth-form {
     @include size(400px, 500px);
     margin-top: 120px;
     position: absolute;
     margin-left: 20px;
   }
-  @media only screen and (min-height: 1320px) { //ipad pro vertical
+
+  @media only screen and (min-height: 1320px) {
+
+    //ipad pro vertical
     #start-img {
       @include size(700px);
       margin: 0 auto;
@@ -70,10 +88,11 @@
       top: 75%;
       left: 50%;
       transform: translate(-50%, -50%);
-      
+
     }
+
     #auth-form {
-      @include size(70vw,40vh);
+      @include size(70vw, 40vh);
       margin: 0 auto;
       position: absolute;
       top: 30%;
@@ -82,63 +101,79 @@
     }
   }
 }
-@media only screen and (max-width: 930px) { //ipad vertical
+
+@media only screen and (max-width: 930px) {
+
+  //ipad vertical
   #start-img {
     @include size(500px);
     margin: 0 auto;
     position: absolute;
-    top:30%;
+    top: 30%;
     left: 80%;
-    transform: translate(-50%, -50%);  
+    transform: translate(-50%, -50%);
   }
+
   #auth-form {
-    @include size(600px,500px);
+    @include size(600px, 500px);
     margin: 0 auto;
     position: absolute;
     top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  @media only screen and (max-height: 500px) { //iphonex horizontal
+
+  @media only screen and (max-height: 500px) {
+
+    //iphonex horizontal
     #start-img {
       @include size(300px);
       top: 50%;
       left: 80%;
-      
+
     }
+
     #auth-form {
-      @include size(400px,300px);
+      @include size(400px, 300px);
       position: absolute;
       top: 10%;
       left: 10%;
-      transform: translate(0%,0%);
+      transform: translate(0%, 0%);
     }
-    
+
   }
-  @media only screen and (max-height: 450px) { //iphonex horizontal
+
+  @media only screen and (max-height: 450px) {
+
+    //iphonex horizontal
     #start-img {
       @include size(300px);
       top: 50%;
       left: 80%;
-      
+
     }
+
     #auth-form {
-      @include size(400px,300px);
+      @include size(400px, 300px);
       position: absolute;
       top: 10%;
       left: 10%;
-      transform: translate(0%,0%);
+      transform: translate(0%, 0%);
     }
-    h3{
+
+    h3 {
       font-size: 30px;
     }
-    Input{
+
+    Input {
       margin: 5px;
     }
   }
 }
 
-@media only screen and (max-width: 930px){ //phone vertical
+@media only screen and (max-width: 930px) {
+
+  //phone vertical
   #start-img {
     @include size(35vh);
     margin: 0 auto;
@@ -148,8 +183,9 @@
     transform: translate(-50%, -50%);
 
   }
+
   #auth-form {
-    @include size(90vw,90vh);
+    @include size(90vw, 90vh);
     margin: 0 auto;
     position: absolute;
     padding-left: 5vh;
@@ -159,35 +195,42 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  
-  h3{
+
+  h3 {
     font-size: 30px;
   }
-  Input{
+
+  Input {
     margin: 5px;
   }
-  p{
+
+  p {
     font-size: 20px;
   }
+
   #auth-form-radio-group {
 
     max-width: 370px;
   }
-  @media only screen and (max-height:600px){
+
+  @media only screen and (max-height:600px) {
     #start-img {
       @include size(0);
     }
-    h3{
+
+    h3 {
       margin-top: 100px;
     }
   }
-  @media only screen and (max-height:400px){
+
+  @media only screen and (max-height:400px) {
     #start-img {
       @include size(0);
     }
+
     #auth-form {
-      @include size(90vw,500px);
-      margin: 0px 0px 20px 0px ;
+      @include size(90vw, 500px);
+      margin: 0px 0px 20px 0px;
       position: absolute;
       padding-left: 5vh;
       padding-right: 5vh;
@@ -196,12 +239,14 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-    h3{
+
+    h3 {
       padding-top: 100px;
     }
-    
+
   }
 }
+
 // @media only screen and (max-width: 750px){//phone horizontal
 //   #start-img {
 //     @include size(300px);

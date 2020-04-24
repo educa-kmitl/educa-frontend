@@ -50,12 +50,12 @@ export default () => {
   }
 
   return (
-    <div className="full-page">
-      <div className="full-page-content">
+    <div id="register-page">
+      <div id="register-page-content">
 
         <form id="auth-form" onSubmit={handleRegister}>
-          <h3>Create Account</h3> 
-          <span id="auth-form-radio-group"> 
+          <h3>Create Account</h3>
+          <span id="auth-form-radio-group">
             <div style={{ width: '48%' }}>
               <Radiobutton
                 group="role"
@@ -103,7 +103,7 @@ export default () => {
             >I have an account</p>
           </footer>
         </form>
-        
+
         <section id="start-img-container">
           <img id="start-img" src={startpic} alt="" />
         </section>

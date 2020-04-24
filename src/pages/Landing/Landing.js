@@ -39,7 +39,7 @@ export default () => {
   }, [])
 
   return (
-    <div id="landing-page">
+    <>
       <section id="landing0">
         <div id="e-text">
           <img src={logo} style={{ width: '100px' }} alt="" />
@@ -116,6 +116,6 @@ export default () => {
           <Button text="Get Started" />
         </Link>
       </section>
-    </div>
+    </>
   )
 }
