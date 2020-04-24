@@ -12,6 +12,7 @@
   position: relative;
   transition: .2s;
   pointer-events: painted;
+  z-index: 20;
 
   &:hover {
     transform: scale(1.05);

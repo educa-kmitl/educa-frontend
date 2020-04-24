@@ -5,7 +5,7 @@ import { randAlert } from '../../helpers'
 import { getAllRoom } from '../../apis'
 import './Find.scss'
 
-import { FaSearch, FaHeartBroken } from 'react-icons/fa'
+import { FaSearch, FaHeartBroken, FaArrowDown, FaArrowUp } from 'react-icons/fa'
 import { Card, Popup } from '../../components'
 
 export default () => {
@@ -66,6 +66,15 @@ export default () => {
         }
       })
   }
+  const handleSort = sort => {
+    const radio = sort === 1 ? document.querySelector(`#radio-search-heart`) : document.querySelector(`#radio-search-date`)
+    if ((radio.value === 'Heart' && search.sort_by === 1) || (radio.value === 'Date' && search.sort_by === 2)) {
+      setSearch({ ...search, arrange_by: search.arrange_by === 1 ? 2 : 1 })
+    } else {
+      radio.checked = true
+      setSearch({ ...search, sort_by: radio.value === 'Heart' ? 1 : 2 })
+    }
+  }
 
   return (
     <div className="find-page-bg">
@@ -82,7 +91,31 @@ export default () => {
           <div className="icon" onClick={goSearch}>
             <FaSearch />
             <div id="search-option">
-              Option
+              Sort by
+              <div className='my-radio-sm' onClick={e => { e.stopPropagation(); handleSort(1) }}>
+                <input
+                  id='radio-search-heart'
+                  type='radio'
+                  value="Heart"
+                  name="sortby"
+                  defaultChecked={search.sort_by === 1}
+                />
+                <label>Heart
+                  {search.sort_by === 1 && (search.arrange_by === 1 ? <FaArrowDown style={sortArrow} /> : <FaArrowUp style={sortArrow} />)}
+                </label>
+              </div>
+              <div className='my-radio-sm' onClick={e => { e.stopPropagation(); handleSort(2) }}>
+                <input
+                  id='radio-search-date'
+                  type='radio'
+                  value="Date"
+                  name="sortby"
+                  defaultChecked={search.sort_by === 2}
+                />
+                <label>Date
+                  {search.sort_by === 2 && (search.arrange_by === 1 ? <FaArrowDown style={sortArrow} /> : <FaArrowUp style={sortArrow} />)}
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -112,4 +145,9 @@ export default () => {
 
     </div>
   )
-} 
+}
+
+const sortArrow = {
+  fontSize: '12px',
+  marginLeft: '5px'
+}

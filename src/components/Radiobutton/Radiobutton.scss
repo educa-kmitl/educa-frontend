@@ -2,7 +2,6 @@
 
 .my-radio {
   @include size(100%, 55px);
-  background: white;
   position: relative;
 
   input[type=radio] {
@@ -20,6 +19,7 @@
     @include flex-center;
     @include abs-center;
     @include size(100%);
+    background: white;
     font-size: 22px;
     user-select: none;
     border: 1px solid lightgrey;

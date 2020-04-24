@@ -55,10 +55,11 @@
 }
 
 .search {
+  @include flex-center;
   position: relative;
 
   input {
-    width: 100%;
+    width: 650px;
     height: 55px;
     box-sizing: border-box;
     padding: 0 80px 0 50px;
@@ -90,50 +91,99 @@
     @include size(40px);
     @include flex-center;
     position: absolute;
+    z-index: 60;
     top: 50%;
-    right: 0px;
+    right: 230px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    color: lightgrey;
     font-size: 20px;
-    transition: .2s;
+    transition: .3s;
+    cursor: pointer;
 
     &:hover {
-      color: $color;
-      cursor: pointer;
+      background: $lightgrey;
     }
   }
 }
 
+.search-icon-wrapper {
+  @include size(60px, 40px);
+  position: relative;
+
+  &:hover {
+    background: $lightgrey;
+  }
+}
+
 #search-option {
+  @include shadow;
+  @include size(160px, auto);
   opacity: 0;
+  background: white;
   position: absolute;
-  background: $black;
-  color: white;
-  padding: 15px;
+  padding: 20px;
   border-radius: 20px;
-  transition: .3s;
+  transform: translate(-100%, 0%);
+  pointer-events: none;
+  top: 80%;
+  left: 100%;
+  transition: .2s;
 }
 
 .icon:hover>#search-option {
+  pointer-events: all;
   opacity: 1;
-  display: block;
+  top: 90%;
+}
+
+.my-radio-sm {
+  @include size(100%, 30px);
+  margin: 5px 0;
+  position: relative;
+
+  input[type=radio] {
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked+label {
+      color: $color;
+      border: 1px solid $color;
+      border-radius: 40px;
+    }
+  }
+
+  label {
+    @include flex-center;
+    @include abs-center;
+    @include size(100%);
+    background: white;
+    font-size: 18px;
+    user-select: none;
+    border: 1px solid lightgrey;
+    border-radius: 40px;
+    transition: .2s;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid $black;
+    }
+  }
 }
 
 @media only screen and (max-width: 930px) {
-  .find-page-bg{
+  .find-page-bg {
     background: url('../../img/bg/bg-repeatable.jpg');
     padding-top: $nav-size 0;
   }
 
-  #find-header{
+  #find-header {
     font-size: 36px;
     padding: 40px 20px;
     padding-bottom: 20px;
     margin-bottom: 0px;
   }
 
-  .find-content{
+  .find-content {
     background: rgb(255, 255, 255);
     margin: 0 30px;
     padding: 20px;
@@ -143,12 +193,12 @@
 }
 
 @media only screen and (max-width: 750px) {
-  .find-page-bg{
+  .find-page-bg {
     padding-top: 0;
   }
 
-  #find-header{
-    @include shadow(6px,3px);
+  #find-header {
+    @include shadow(6px, 3px);
     background: $red;
     color: white;
     position: sticky;
@@ -159,17 +209,18 @@
     z-index: 20;
   }
 
-  .find-content{
+  .find-content {
     box-shadow: none;
     background: none;
     padding: 0;
     margin: 0;
   }
 
-  .search{
+  .search {
     padding-top: 20px;
   }
-  .icon{
+
+  .icon {
     padding-top: 20px;
   }
 
