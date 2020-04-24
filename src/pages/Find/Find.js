@@ -5,7 +5,7 @@ import { randAlert } from '../../helpers'
 import { getAllRoom } from '../../apis'
 import './Find.scss'
 
-import { FaSearch, FaHeartBroken, FaArrowDown, FaArrowUp } from 'react-icons/fa'
+import { FaSearch, FaHeartBroken, FaArrowDown, FaArrowUp, FaAngleDown } from 'react-icons/fa'
 import { Card, Popup } from '../../components'
 
 export default () => {
@@ -88,8 +88,12 @@ export default () => {
             onChange={e => handleSearch(e.target.value)}
             onKeyUp={e => e.key === 'Enter' ? goSearch() : null}
           />
-          <div className="icon" onClick={goSearch}>
+
+          <div className="icon-search-only" onClick={goSearch}>
             <FaSearch />
+          </div>
+          <div className="icon">
+            <FaAngleDown />
             <div id="search-option">
               Sort by
               <div className='my-radio-sm' onClick={e => { e.stopPropagation(); handleSort(1) }}>
