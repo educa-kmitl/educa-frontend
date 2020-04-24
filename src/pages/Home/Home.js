@@ -5,7 +5,7 @@ import { randAlert } from '../../helpers'
 import { getMyRoom, getFollowRoom, deleteRoom } from '../../apis'
 import './Home.scss'
 
-import { Card, Popup } from '../../components'
+import { Card, Popup, Button } from '../../components'
 import { FaHeartBroken } from 'react-icons/fa'
 
 
@@ -96,7 +96,18 @@ export default () => {
     <div className="home-page-bg">
       <div className="home-content">
         <header id="home-header">{auth?.role ? 'Your course' : 'Course for you'}</header>
-
+        {roomList.length === 0 && (
+          auth.role ?
+            <div className="no-room-content">
+              <h6>You have no course. Start creating one for your student!</h6>
+              <Button text="Let's Create" onClick={() => history.push('/create')} />
+            </div>
+            :
+            <div className="no-room-content">
+              <h6>Nothing special for you now. Start follow the Teacher to see some!</h6>
+              <Button text="Let's Find" onClick={() => history.push('/find')} />
+            </div>
+        )}
         <div className="all-room">
           {roomList.map((room, index) =>
             <Card

@@ -1,8 +1,8 @@
 @import '../../styles';
 
 .find-page-bg {
-  background: url('../../img/bg/bg-repeatable.jpg');
-  background-size: contain;
+  background: url('../../img/bg/bg-repeatable.jpg') center top;
+  background-repeat: repeat-y;
   padding: $nav-size 0;
   min-height: 100vh;
 }

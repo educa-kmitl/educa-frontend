@@ -1,8 +1,8 @@
 @import '../../styles';
 
 .home-page-bg {
-  background: url('../../img/bg/bg-repeatable.jpg');
-  background-size: contain;
+  background: url('../../img/bg/bg-repeatable.jpg') center top;
+  background-repeat: repeat-y;
   padding: $nav-size 0;
   min-height: 100vh;
 }
@@ -54,6 +54,14 @@
   justify-content: space-evenly;
 }
 
+.no-room-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 200px;
+}
+
 @media only screen and (max-width: 930px) {
   .home-page-bg {
     background: url('../../img/bg/bg-repeatable-mobile.jpg') center right;
@@ -96,5 +104,14 @@
     background: none;
     padding: 0;
     margin: 0;
+  }
+
+  .no-room-content {
+    @include shadow;
+    text-align: center;
+    padding: 10px 30px;
+    height: 50vh;
+    background: white;
+    margin-top: 40px;
   }
 }
