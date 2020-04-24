@@ -226,7 +226,7 @@
   }
 
   #video-container {
-    @include size(100%, 500px);
+    @include size(100%, 540px);
     justify-content: flex-start;
     border-radius: 0;
   }
@@ -245,7 +245,7 @@
   }
 
   #video-title {
-    padding: 10px 30px;
+    padding: 20px 30px;
 
     h6 {
       font-size: 22px;
