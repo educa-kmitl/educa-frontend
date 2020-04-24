@@ -119,3 +119,58 @@
   opacity: 1;
   display: block;
 }
+
+@media only screen and (max-width: 930px) {
+  .find-page-bg{
+    background: url('../../img/bg/bg-repeatable.jpg');
+    padding-top: $nav-size 0;
+  }
+
+  #find-header{
+    font-size: 36px;
+    padding: 40px 20px;
+    padding-bottom: 20px;
+    margin-bottom: 0px;
+  }
+
+  .find-content{
+    background: rgb(255, 255, 255);
+    margin: 0 30px;
+    padding: 20px;
+  }
+
+
+}
+
+@media only screen and (max-width: 750px) {
+  .find-page-bg{
+    padding-top: 0;
+  }
+
+  #find-header{
+    @include shadow(6px,3px);
+    background: $red;
+    color: white;
+    position: sticky;
+    top: 0;
+    font-size: 26px;
+    padding: 24px;
+    justify-content: flex-start;
+    z-index: 20;
+  }
+
+  .find-content{
+    box-shadow: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .search{
+    padding-top: 20px;
+  }
+  .icon{
+    padding-top: 20px;
+  }
+
+}
