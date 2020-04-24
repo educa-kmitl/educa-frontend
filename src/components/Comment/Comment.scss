@@ -1,8 +1,9 @@
 @import '../../index.scss';
 
 .comment-box {
-  @include size(100%, 550px);
+  @include size(100%, auto);
   @include shadow;
+  max-height: 550px;
   padding: 40px;
   background: white;
   border-radius: 40px;
@@ -13,7 +14,8 @@
   }
 
   .room-comment {
-    @include size(100%, 350px);
+    @include size(100%, auto);
+    max-height: 350px;
     word-wrap: break-word;
     text-align: left;
     overflow-y: scroll;
@@ -29,11 +31,6 @@
       span {
         display: flex;
         align-items: center;
-
-        img {
-          @include size(30px);
-          border-radius: 50%;
-        }
 
         header {
           display: flex;
@@ -51,6 +48,7 @@
 
       p {
         font-size: 16px;
+        margin: 10px 0;
       }
 
       label {
@@ -130,6 +128,11 @@
 
 }
 
+.profile {
+  @include size(30px);
+  border-radius: 50%;
+}
+
 #show-earlier-btn {
   display: flex;
   font-family: inherit;
@@ -147,5 +150,11 @@
 
   &:focus {
     outline: none;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .comment-box {
+    border-radius: 0;
   }
 }

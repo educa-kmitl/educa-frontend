@@ -10,8 +10,10 @@ export const Comment = ({ post, comments, more, onMore }) => {
   const [message, setMessage] = useState('')
 
   const writeComment = () => {
-    post(message)
-    setMessage('')
+    if (message.length !== 0) {
+      post(message)
+      setMessage('')
+    }
   }
 
   return (

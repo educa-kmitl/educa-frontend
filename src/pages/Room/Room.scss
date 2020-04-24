@@ -3,7 +3,7 @@
 .room-page {
   background: url('../../img/bg/room-bg.jpg') center center;
   background-size: cover;
-  padding: $nav-size 0;
+  padding: 40px 0;
 }
 
 .room-content {
@@ -13,7 +13,6 @@
   flex-wrap: wrap;
   display: flex;
   justify-content: space-evenly;
-  padding-top: $nav-size;
 }
 
 #video-container {
@@ -28,7 +27,7 @@
 }
 
 #embed-video {
-  @include size(830px, 640px);
+  @include size(100%, 640px);
   border-radius: inherit;
   border: none;
   background: $black;
@@ -146,7 +145,7 @@
 
 .room-like-btn {
   @include flex-center;
-  @include size(80px, auto);
+  @include size(80px, 50px);
   justify-content: space-evenly;
   padding: 10px;
   border: 1px solid $grey;
@@ -203,5 +202,77 @@
 
   40% {
     transform: scale(1);
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  #video-container {
+    @include size(100%, 650px);
+  }
+
+  .room-content {
+    padding-bottom: 100px;
+  }
+
+  #room-panel {
+    @include size(100%, auto);
+    max-height: 650px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .room-content {
+    padding: 0;
+  }
+
+  #video-container {
+    @include size(100%, 500px);
+    justify-content: flex-start;
+    border-radius: 0;
+  }
+
+  #embed-video {
+    border-radius: 0;
+    height: 360px;
+  }
+
+  #video-footer {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0;
+    height: 140px;
+  }
+
+  #video-title {
+    padding: 10px 30px;
+
+    h6 {
+      font-size: 22px;
+      margin: 0;
+    }
+  }
+
+  #video-btn-group {
+    width: 100%;
+    height: 60px;
+    justify-content: space-evenly;
+  }
+
+  .room-btn {
+    @include size(80px, 40px);
+    border-radius: 40px;
+  }
+
+  .room-btn-icon {
+    font-size: 22px;
+
+    &.sm {
+      font-size: 18px;
+    }
+  }
+
+  #room-course-card {
+    border-radius: 0;
   }
 }
