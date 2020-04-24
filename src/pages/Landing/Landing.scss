@@ -101,6 +101,7 @@
   position: relative;
   user-select: none;
   pointer-events: none;
+  overflow-x: hidden;
 }
 
 #platform-block {
@@ -523,10 +524,6 @@
 }
 
 @media only screen and (max-width: 600px) {
-
-  #landing0 {
-    overflow: hidden;
-  }
 
   #e-container {
     transform: scale(.7);
