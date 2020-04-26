@@ -1,14 +1,9 @@
 @import '../../index.scss';
 
 .comment-box {
-<<<<<<< HEAD
-  @include size(100%, 500px);
-  @include shadow;
-=======
   @include size(100%, auto);
   @include shadow;
   max-height: 550px;
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
   padding: 40px;
   background: white;
   border-radius: 40px;
@@ -19,12 +14,8 @@
   }
 
   .room-comment {
-<<<<<<< HEAD
-    @include fixed-size(100%, 300px);
-=======
     @include size(100%, auto);
     max-height: 350px;
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
     word-wrap: break-word;
     text-align: left;
     overflow-y: scroll;
@@ -41,14 +32,6 @@
         display: flex;
         align-items: center;
 
-<<<<<<< HEAD
-        img {
-          @include size(30px);
-          border-radius: 50%;
-        }
-
-=======
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
         header {
           display: flex;
           align-items: center;
@@ -65,10 +48,7 @@
 
       p {
         font-size: 16px;
-<<<<<<< HEAD
-=======
         margin: 10px 0;
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
       }
 
       label {
@@ -121,53 +101,31 @@
     }
 
     .icon-c {
-<<<<<<< HEAD
-      @include fixed-size(40px);
-=======
       @include size(40px);
       @include flex-center;
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
       position: absolute;
       top: 50%;
       right: -10px;
       transform: translate(-50%, -50%);
-<<<<<<< HEAD
-      box-sizing: border-box;
-=======
       background: $color;
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
       padding: 10px;
       border-radius: 50%;
 
       .icon {
-<<<<<<< HEAD
-        @include abs-center;
-        position: absolute;
-        user-select: none;
-        color: $color;
-        font-size: 22px;
-=======
         user-select: none;
         color: white;
         font-size: 22px;
         transition: .2s;
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 
       }
 
       &:hover {
         cursor: pointer;
-<<<<<<< HEAD
-        background: gainsboro;
-=======
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
       }
     }
 
   }
 
-<<<<<<< HEAD
-=======
 }
 
 .profile {
@@ -199,5 +157,4 @@
   .comment-box {
     border-radius: 0;
   }
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 }

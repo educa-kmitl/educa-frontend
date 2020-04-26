@@ -1,17 +1,4 @@
 $gradient: linear-gradient(60deg, #ee438a 55%, #f7c438);
-<<<<<<< HEAD
-$exp-bar: linear-gradient(-90deg, #ee438a, #f7c438);
-$gradient-white: linear-gradient(white, #f3f4fa);
-
-$color: #ff0062;
-$black: #252e38;
-
-$nav-size: 120px;
-$full-page: calc(100vh - #{$nav-size});
-
-@mixin shadow($blur: 10px) {
-  box-shadow: 0 3px $blur rgba(0, 0, 0, 0.16);
-=======
 $gradient-white: linear-gradient(white, #f3f4fa);
 
 $color: #ff0062;
@@ -33,7 +20,6 @@ $full-page: calc(100vh - #{$nav-size});
 
 @mixin shadow($blur: 6px, $spread: 0) {
   box-shadow: 0 2px $blur $spread rgba(0, 0, 0, 0.16);
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 }
 
 @mixin size($width, $height: $width) {
@@ -41,16 +27,6 @@ $full-page: calc(100vh - #{$nav-size});
   height: $height;
 }
 
-<<<<<<< HEAD
-@mixin fixed-size($width, $height: $width) {
-  min-width: $width;
-  max-width: $width;
-  min-height: $height;
-  max-height: $height;
-}
-
-=======
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 @mixin abs-center {
   // parent must use 'position: relatives'
   position: absolute;
@@ -67,11 +43,6 @@ $full-page: calc(100vh - #{$nav-size});
 }
 
 .color {
-<<<<<<< HEAD
-  &.blue {
-    color: #0099FF
-  }
-=======
   &.green {
     color: $green;
   }
@@ -182,5 +153,4 @@ p {
   font-size: 22px;
   line-height: 150%;
   margin: 5% 0;
->>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 }
