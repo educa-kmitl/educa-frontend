@@ -138,10 +138,12 @@
 }
 
 #account-name {
-  display: flex;
-  align-items: center;
   font-weight: 500;
   font-size: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90px;
 }
 
 .nav-bubble-arrow {
@@ -208,6 +210,12 @@
   #nav-list {
     width: 520px;
   }
+
+  .nav-bubble-arrow {
+    display: none;
+  }
+
+  #account-name {}
 
   .nav-link {
     @include flex-center(column);

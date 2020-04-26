@@ -95,6 +95,10 @@
 #user-name {
   font-size: 36px;
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 
 #user-name-edit {
@@ -256,6 +260,13 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+
+  p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+  }
 }
 
 #follower-box-close {

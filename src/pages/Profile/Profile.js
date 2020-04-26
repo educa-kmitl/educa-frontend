@@ -102,7 +102,7 @@ export default () => {
         const { user, error } = res.data
         if (user) {
           setEdit({ ediable: true })
-          setAuth({ ...auth, data: profile })
+          setAuth(profile)
           setPopup({ type: 'alert', title: randAlert(), text: user.name })
           setPopup('')
         } else {

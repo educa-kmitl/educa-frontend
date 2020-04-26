@@ -30,11 +30,12 @@
     flex-wrap: wrap;
 
     .float-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       font-size: 28px;
       font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 250px;
     }
 
     .float-count {

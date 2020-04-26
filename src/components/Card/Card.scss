@@ -4,7 +4,6 @@
   @include size(320px);
   @include shadow;
   @include flex-center(column);
-  justify-content: space-between;
   background: white;
   float: left;
   border-radius: 30px;
@@ -58,32 +57,36 @@
 }
 
 .course-cover {
-  @include size(100%, 55%);
+  @include size(100%, 175px);
   border-radius: 30px 30px 0 0;
   background: grey;
   object-fit: cover;
 }
 
 .course-detail {
-  @include size(100%, 45%);
+  @include size(100%, 145px);
   @include flex-center(column);
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
   padding: 25px 35px;
-}
-
-.course-header {
-  flex-wrap: wrap;
 }
 
 .course-name {
   font-weight: 500;
   margin-bottom: -5px;
   font-size: 24px;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .course-teacher {
   font-size: 18px;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .course-date {

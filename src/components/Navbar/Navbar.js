@@ -116,10 +116,10 @@ export const Navbar = () => {
         <div className="vertical-hr"></div>
         <div className={`account ${bubble && 'active'}`} onClick={() => setBubble(!bubble)}>
           <img id="account-pic" src={profiles[auth?.profile_icon]} alt="" />
-          <p id="account-name">
+          <div id="account-name">
             {auth?.name}
-            <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
-          </p>
+          </div>
+          <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
 
           <div className={`account-bubble ${bubble && 'active'}`}>
             <span className="account-item" onClick={goToProfile}>
