@@ -48,9 +48,9 @@ export default () => {
   return (
     <div className='ranking-bg'>
       <div className='ranking-content'>
-        <header>Teacher Ranking</header>
+          <header className='head'>Teacher Ranking</header>
         <div className='top-rank'>
-
+          <div className='order'>
           <div className='not-top' onClick={() => gotoProfile(teacher[1])}>
             <header>SECOND</header>
             <img
@@ -61,7 +61,7 @@ export default () => {
             <label>{teacher[1]?.name}</label>
             <p className={`color ${leveling(teacher[1]?.likes).color}`}>{leveling(teacher[1]?.likes).title}</p>
           </div>
-
+          
           <div className='top' onClick={() => gotoProfile(teacher[0])}>
             <header>FIRST</header>
             <img
@@ -72,7 +72,7 @@ export default () => {
             <label>{teacher[0]?.name}</label>
             <p className={`color ${leveling(teacher[0]?.likes).color}`}>{leveling(teacher[0]?.likes).title}</p>
           </div>
-
+          </div>
           <div className='not-top' onClick={() => gotoProfile(teacher[2])}>
             <header>THIRD</header>
             <img
