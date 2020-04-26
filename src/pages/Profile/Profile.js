@@ -265,7 +265,8 @@ export default () => {
         {profile.role &&
           <section id="user-own-room">
             {user_id === auth.user_id && <h4>Your course</h4>}
-            {user_id !== auth.user_id && <h4>{profile.name}'s course</h4>}
+            {user_id !== auth.user_id && <h4>{profile.name.substr(0, 10) + '...'} 's course</h4>}
+            {roomList.length === 0 && <p>Not own any course</p>}
             <div id="user-own-room-list">
               {roomList.map((room, index) => <Card key={index} room={room} />)}
               {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
