@@ -90,11 +90,11 @@ export default () => {
             Icon={FaLock}
             type="password"
             text="Password"
-            pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
-            title="Password must contain lowercase, uppercase, number and at least 8 characters"
+            minLength={6}
             onChange={handlePassword}
             required
           />
+          <p id="password-hint">* Password must be at least 6 characters</p>
           <footer id="auth-form-footer">
             <Button primary text="Create" type="submit" />
             <p
