@@ -4,12 +4,11 @@
   background: url('../../img/bg/bg-repeatable.jpg') center center;
   background-size: cover;
   padding: $nav-size 0;
-  height: 100vh;
+  min-height: 100vh;
 
   .create-content {
     padding: 40px 0;
     max-width: 1280px;
-    height: $full-page;
     margin: auto;
     position: relative;
 
@@ -87,8 +86,7 @@
               transition: .2s;
 
               .icon {
-                font-size: 22px;
-                pointer-events: none;
+                font-size: 22px
               }
 
               &:hover {
@@ -150,6 +148,102 @@
       width: 400px;
       height: 400px;
       transform: scale(1.5);
+    }
+  }
+}
+
+
+@media only screen and (max-width: 1250px) {
+  .create-bg {
+
+    .create-content {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+
+      form {
+        width: 90%;
+      }
+
+      .display-container {
+        position: static;
+        transform: scale(1.2) translateY(-5%);
+        height: auto;
+        margin-bottom: 60px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  .create-bg {
+    padding: 0;
+
+    .create-content {
+      display: flex;
+      flex-direction: column-reverse;
+      justify-content: center;
+      align-items: center;
+
+      form {
+        width: 100%;
+        border-radius: 0;
+        margin-bottom: 80px;
+
+        header {
+          font-size: 32px;
+        }
+
+        .row {
+          flex-direction: column;
+          height: 300px;
+
+          .column {
+            width: 100%;
+
+            label {
+              font-size: 28px;
+            }
+
+            span {
+              justify-content: space-between;
+            }
+          }
+        }
+
+        label.head {
+          font-size: 28px;
+        }
+
+        .playlist {
+          width: 110%;
+          padding-right: 20px;
+
+          .item {
+
+            span {
+
+              label {
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+
+      .display-container {
+        position: static;
+        transform: scale(1);
+        height: auto;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }
