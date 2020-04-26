@@ -1,0 +1,256 @@
+@import '../../styles';
+
+.find-page-bg {
+  background: url('../../img/bg/bg-repeatable.jpg') center top;
+  background-repeat: repeat-y;
+  padding: $nav-size 0;
+  min-height: 100vh;
+}
+
+.find-content {
+  @extend .full-page-content;
+  @include shadow;
+  padding: 80px;
+  padding-bottom: 110px;
+  margin: $nav-size auto;
+  background: white;
+  border-radius: 40px;
+  min-height: auto;
+}
+
+#find-header {
+  @include flex-center;
+  font-weight: 500;
+  font-size: 44px;
+  margin-bottom: 20px;
+}
+
+.all-room {
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.no-room-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 200px;
+}
+
+.see-more-btn {
+  display: flex;
+  margin: 40px auto;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 40px;
+  border: none;
+  padding: 15px 20px;
+  background: $color;
+  color: white;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.search {
+  width: 600px;
+  margin: 0 auto;
+  position: relative;
+
+  input {
+    width: 100%;
+    height: 55px;
+    box-sizing: border-box;
+    padding: 0 100px 0 50px;
+    border: 1px solid lightgrey;
+    border-radius: 30px;
+    text-align: center;
+    font-size: 22px;
+    transition: .2s;
+
+    &::placeholder {
+      color: lightgrey
+    }
+
+    &:hover {
+      border: 1px solid $black
+    }
+
+    &:focus {
+      outline: none;
+      border: 1px solid $color;
+
+      &::placeholder {
+        color: transparent
+      }
+    }
+  }
+
+  .icon {
+    @include size(40px);
+    @include flex-center;
+    position: absolute;
+    z-index: 40;
+    top: 50%;
+    right: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    font-size: 20px;
+    transition: .3s;
+    cursor: pointer;
+
+    &:hover {
+      background: $lightgrey;
+    }
+  }
+
+  .icon-search-only {
+    @extend .icon;
+    right: 5%;
+  }
+}
+
+
+#search-option {
+  @include shadow;
+  @include size(160px, auto);
+  opacity: 0;
+  background: white;
+  position: absolute;
+  padding: 20px;
+  border-radius: 20px;
+  transform: translate(-100%, 0%);
+  pointer-events: none;
+  top: 80%;
+  left: 100%;
+  transition: .2s;
+}
+
+.icon:hover>#search-option {
+  pointer-events: all;
+  opacity: 1;
+  top: 90%;
+}
+
+.my-radio-sm {
+  @include size(100%, 30px);
+  margin: 5px 0;
+  position: relative;
+
+  input[type=radio] {
+    opacity: 0;
+    cursor: pointer;
+
+    &:checked+label {
+      color: $color;
+      border: 1px solid $color;
+      border-radius: 40px;
+    }
+  }
+
+  label {
+    @include flex-center;
+    @include abs-center;
+    @include size(100%);
+    background: white;
+    font-size: 18px;
+    user-select: none;
+    border: 1px solid lightgrey;
+    border-radius: 40px;
+    transition: .2s;
+
+    &:hover {
+      cursor: pointer;
+      border: 1px solid $black;
+    }
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .find-page-bg {
+    background: url('../../img/bg/bg-repeatable.jpg');
+    padding-top: $nav-size 0;
+  }
+
+  #find-header {
+    font-size: 36px;
+    padding: 40px 20px;
+    padding-bottom: 20px;
+    margin-bottom: 0px;
+  }
+
+  .find-content {
+    background: rgb(255, 255, 255);
+    margin: 0 30px;
+    padding: 20px;
+  }
+
+
+}
+
+@media only screen and (max-width: 750px) {
+  .find-page-bg {
+    padding-top: 0;
+  }
+
+  #find-header {
+    @include shadow(6px, 3px);
+    background: $blue;
+    color: white;
+    position: sticky;
+    top: 0;
+    font-size: 26px;
+    padding: 24px;
+    justify-content: flex-start;
+    z-index: 20;
+  }
+
+  .find-content {
+    box-shadow: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .search {
+    padding-top: 20px;
+    width: 90%;
+
+    .icon {
+      font-size: 18px;
+      right: -3%;
+
+      &:hover {
+        background: none;
+      }
+    }
+
+    .icon-search-only {
+      right: 7%;
+    }
+  }
+
+  .icon {
+    padding-top: 20px;
+  }
+
+  .no-room-content {
+    @include shadow;
+    text-align: center;
+    padding: 10px 30px;
+    height: 40vh;
+    background: white;
+    margin-top: 40px;
+  }
+
+}

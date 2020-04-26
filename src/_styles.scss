@@ -1,4 +1,5 @@
 $gradient: linear-gradient(60deg, #ee438a 55%, #f7c438);
+<<<<<<< HEAD
 $exp-bar: linear-gradient(-90deg, #ee438a, #f7c438);
 $gradient-white: linear-gradient(white, #f3f4fa);
 
@@ -10,6 +11,29 @@ $full-page: calc(100vh - #{$nav-size});
 
 @mixin shadow($blur: 10px) {
   box-shadow: 0 3px $blur rgba(0, 0, 0, 0.16);
+=======
+$gradient-white: linear-gradient(white, #f3f4fa);
+
+$color: #ff0062;
+$brown: #563c3d;
+$black: #252e38;
+$grey: #bbbbbb;
+$lightgrey: #eeeeee;
+$green : #2bc18f;
+$lightgreen : #5fdfc4;
+$blue: #1da4ff;
+$lightblue: #6ad4f7;
+$red: $color;
+$lightred: #ff7db2;
+$purple: #9f4ee0;
+$lightpurple: #b581e9;
+
+$nav-size: 100px;
+$full-page: calc(100vh - #{$nav-size});
+
+@mixin shadow($blur: 6px, $spread: 0) {
+  box-shadow: 0 2px $blur $spread rgba(0, 0, 0, 0.16);
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 }
 
 @mixin size($width, $height: $width) {
@@ -17,6 +41,7 @@ $full-page: calc(100vh - #{$nav-size});
   height: $height;
 }
 
+<<<<<<< HEAD
 @mixin fixed-size($width, $height: $width) {
   min-width: $width;
   max-width: $width;
@@ -24,6 +49,8 @@ $full-page: calc(100vh - #{$nav-size});
   max-height: $height;
 }
 
+=======
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 @mixin abs-center {
   // parent must use 'position: relatives'
   position: absolute;
@@ -40,7 +67,120 @@ $full-page: calc(100vh - #{$nav-size});
 }
 
 .color {
+<<<<<<< HEAD
   &.blue {
     color: #0099FF
   }
+=======
+  &.green {
+    color: $green;
+  }
+
+  &.blue {
+    color: $blue;
+  }
+
+  &.red {
+    color: $red;
+  }
+
+  &.purple {
+    color: $purple;
+  }
+}
+
+.bg {
+  &.green {
+    background: $green;
+  }
+
+  &.blue {
+    background: $blue;
+  }
+
+  &.red {
+    background: $red;
+  }
+
+  &.purple {
+    background: $purple;
+  }
+}
+
+.light-bg {
+  &.green {
+    background: $lightgreen;
+  }
+
+  &.blue {
+    background: $lightblue;
+  }
+
+  &.red {
+    background: $lightred;
+  }
+
+  &.purple {
+    background: $lightpurple;
+  }
+}
+
+.full-page {
+  background: $gradient-white;
+}
+
+.full-page-content {
+  max-width: 1280px;
+  padding: 0 30px;
+  min-height: 100vh;
+  margin: auto;
+}
+
+h1 {
+  font-size: 70px;
+  font-weight: 500;
+  margin: 5% 0;
+}
+
+h2 {
+  font-size: 56px;
+  font-weight: 500;
+  margin: 5% 0;
+}
+
+h3 {
+  font-size: 44px;
+  font-weight: 500;
+  margin: 5% 0;
+}
+
+h4 {
+  font-size: 32px;
+  font-weight: 500;
+  margin: 2% 0;
+}
+
+h5 {
+  font-size: 28px;
+  font-weight: 400;
+  margin: 0;
+}
+
+h6 {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 150%;
+  margin: 0;
+}
+
+b {
+  font-weight: inherit;
+  color: $color;
+}
+
+p {
+  font-size: 22px;
+  line-height: 150%;
+  margin: 5% 0;
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 }

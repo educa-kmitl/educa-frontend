@@ -1,134 +1,129 @@
 import React, { useState, useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { randAlert } from '../../helpers'
+import { register, login } from '../../apis'
 import './Register.scss'
 
-import { FaEnvelope, FaUserAlt, FaLock } from 'react-icons/fa'
+import { FaEnvelope, FaUserAlt, FaLock, FaHeartBroken } from 'react-icons/fa'
 import { Input, Button, Radiobutton, Popup } from '../../components'
-import startpic from '../../img/start/start.svg'
+import startpic from '../../img/login/login.svg'
 
 export default () => {
   const history = useHistory()
-  const [auth, setAuth] = useContext(AuthContext)
+  const { setAuth } = useContext(AuthContext)
   const [form, setForm] = useState({
     role: false,
     email: '',
     name: '',
     password: ''
   })
+  const [popup, setPopup] = useState('')
 
-  let waitText = 'Creating Account'
   const handleRole = value => setForm({ ...form, role: value === 'Teacher' })
   const handleEmail = value => setForm({ ...form, email: value })
   const handleName = value => setForm({ ...form, name: value })
   const handlePassword = value => setForm({ ...form, password: value })
   const handleRegister = e => {
     e.preventDefault()
+    setPopup('loading')
 
-    handlePopup()
-    fetch(window.$ENDPOINT + '/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        role: form.role,
-        email: form.email,
-        name: form.name,
-        password: form.password,
-        profile_icon: Math.floor(Math.random() * 10)
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { user, error } = json
-
+    register(form)
+      .then(res => {
+        const { user, error } = res.data
         if (user) {
-          waitText = 'Loging in'
-          fetch(window.$ENDPOINT + '/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              email: form.email,
-              password: form.password
-            })
-          })
-            .then(res => res.json())
-            .then(json => {
-              const { user, error } = json
 
+          login(form)
+            .then(res => {
+              const { user, error } = res.data
               if (user) {
-                setAuth({ ...auth, data: user })
+                setAuth(user)
                 history.push('/home')
               } else {
-                alert(error)
-                handlePopup()
+                setPopup({ type: 'alert', title: randAlert(), text: error })
               }
             })
         } else {
-          alert(error)
-          handlePopup()
+          setPopup({ type: 'alert', title: randAlert(), text: error })
         }
       })
   }
-  const handlePopup = () => document.querySelector('.popup-content').classList.toggle('hide')
 
   return (
-    <div className="signup-bg">
-      <div className="signup-content">
+    <div id="register-page">
+      <div id="register-page-content">
 
-        <div className="txt-container">
-          <form onSubmit={handleRegister}>
-            <header>Create Account</header>
-            <div className="radio-group">
-              <div className="rb">
-                <Radiobutton text="Student" group="role" onClick={handleRole} form={form} checked />
-              </div>
-              <div className="rb">
-                <Radiobutton text="Teacher" group="role" onClick={handleRole} form={form} />
-              </div>
+        <form id="auth-form" onSubmit={handleRegister}>
+          <h3>Create Account</h3>
+          <span id="auth-form-radio-group">
+            <div style={{ width: '48%' }}>
+              <Radiobutton
+                group="role"
+                text="Student"
+                onClick={handleRole}
+                checked
+              />
             </div>
-            <Input
-              Icon={FaEnvelope}
-              text="Email"
-              type="email"
-              onChange={handleEmail}
-              required
-            />
-            <Input
-              Icon={FaUserAlt}
-              text="Your name"
-              type="text"
-              pattern="^[A-Za-z][A-Za-z0-9]*$"
-              title="Yourname must be english character"
-              onChange={handleName}
-              required
-            />
-            <Input
-              Icon={FaLock}
-              text="Password"
-              type="password"
-              pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
-              title="Password must contain lowercase, uppercase, number and at least 8 characters "
-              onChange={handlePassword}
-              required
-            />
-            <footer>
-              <Button text="Create" type="submit" />
-              <Link to="/login"><p>I have an account</p></Link>
-            </footer>
-          </form>
-        </div>
+            <div style={{ width: '48%' }}>
+              <Radiobutton
+                group="role"
+                text="Teacher"
+                onClick={handleRole}
+              />
+            </div>
+          </span>
+          <Input
+            Icon={FaEnvelope}
+            type="email"
+            text="Email"
+            onChange={handleEmail}
+            required
+          />
+          <Input
+            Icon={FaUserAlt}
+            type="text"
+            text="Your name"
+            onChange={handleName}
+            required
+          />
+          <Input
+            Icon={FaLock}
+            type="password"
+            text="Password"
+            minLength={6}
+            onChange={handlePassword}
+            required
+          />
+          <p id="password-hint">* Password must be at least 6 characters</p>
+          <footer id="auth-form-footer">
+            <Button primary text="Create" type="submit" />
+            <p
+              id="auth-switch-form"
+              onClick={() => history.push('/login')}
+            >I have an account</p>
+          </footer>
+        </form>
 
-        <div className="img-container">
-          <img src={startpic} alt="" />
-        </div>
+        <section id="start-img-container">
+          <img id="start-img" src={startpic} alt="" />
+        </section>
 
       </div>
 
-      <Popup type="loading" text={waitText} />
+      {popup === 'loading' &&
+        <Popup
+          type="loading"
+          text="Creating account"
+        />}
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={FaHeartBroken}
+          title={popup.title}
+          text={popup.text}
+          confirm="Okay"
+          onConfirm={() => setPopup('')}
+        />}
     </div>
   )
 }

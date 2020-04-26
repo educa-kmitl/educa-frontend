@@ -3,8 +3,8 @@ import './Dropdown.scss'
 
 import { FaAngleDown, FaListUl } from 'react-icons/fa'
 
-export const Dropdown = ({ onSelect, items }) => {
-  const [value, setValue] = useState(items[0])
+export const Dropdown = ({ onSelect, items, init }) => {
+  const [value, setValue] = useState(init || items[0])
 
   const handleToggle = () => {
     document.querySelector('.dd-box').classList.toggle('active')
@@ -13,7 +13,7 @@ export const Dropdown = ({ onSelect, items }) => {
   }
 
   const handleSelect = e => {
-    const newValue = e.target.value
+    const newValue = e.target.dataset.value
     setValue(newValue)
     onSelect(newValue)
   }
@@ -26,22 +26,23 @@ export const Dropdown = ({ onSelect, items }) => {
 
       <div className='dd-box'>
         {items.map((item, index) =>
-          <option
+          <div
             key={index}
-            value={item}
+            data-value={item}
             className='item'
             onClick={e => handleSelect(e)}
           >
             {item}
-          </option>
+          </div>
         )}
       </div>
 
-      <option
-        value={value}
+      <div
+        data-value={value}
         className='dd-overlay'
         onClick={e => handleSelect(e)}
-      ></option>
+      ></div>
+
     </div>
   )
 }

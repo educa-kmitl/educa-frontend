@@ -1,10 +1,15 @@
 import React, { useState } from 'react'
+<<<<<<< HEAD
+=======
+import moment from 'moment'
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 import './Comment.scss'
 
 import { FaTelegramPlane } from 'react-icons/fa'
 import { profiles } from '../../img/Profile'
 import logo from '../../img/room/play.svg'
 
+<<<<<<< HEAD
 const moment = require('moment')
 
 export const Comment = ({ refresh, comments }) => {
@@ -13,6 +18,16 @@ export const Comment = ({ refresh, comments }) => {
   const writeComment = () => {
     refresh(message)
     setMessage('')
+=======
+export const Comment = ({ post, comments, more, onMore }) => {
+  const [message, setMessage] = useState('')
+
+  const writeComment = () => {
+    if (message.length !== 0) {
+      post(message)
+      setMessage('')
+    }
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
   }
 
   return (
@@ -21,6 +36,10 @@ export const Comment = ({ refresh, comments }) => {
       <hr />
 
       <div className="room-comment">
+<<<<<<< HEAD
+=======
+        {more && <button id="show-earlier-btn" onClick={onMore}>Show earlier</button>}
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
         {comments.map((comment, index) => (
           <div key={index} className="box">
             <span>

@@ -2,7 +2,7 @@
 import React from 'react'
 import './Playlist.scss'
 
-import { Button } from '../'
+import { TiTimes } from 'react-icons/ti'
 import play from '../../img/room/play.svg'
 
 export const Playlist = ({ playlist, setPlaylist, roomData }) => {
@@ -17,7 +17,10 @@ export const Playlist = ({ playlist, setPlaylist, roomData }) => {
     <>
       <div className={playlist.show ? 'float-playlist active' : 'float-playlist'}>
         <div className="float-detail">
-          <div className="float-title">{roomData.name}</div>
+          <div className="float-title">
+            {roomData.name}
+            <TiTimes id="playlist-close-btn" onClick={togglePlaylist} />
+          </div>
           <div className="float-count">{videos.length} video{videos.length > 1 ? 's' : null}</div>
           <hr />
 
@@ -31,9 +34,6 @@ export const Playlist = ({ playlist, setPlaylist, roomData }) => {
           </div>
 
           <hr />
-          <footer>
-            <Button text="show less" onClick={togglePlaylist} />
-          </footer>
         </div>
       </div>
       {playlist.show && <div className="playlist-overlay" onClick={togglePlaylist}></div>}

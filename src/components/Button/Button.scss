@@ -2,7 +2,10 @@
 
 .my-btn {
   @include size(145px, 50px);
+<<<<<<< HEAD
   @include shadow;
+=======
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
   background: $gradient;
   color: white;
   border: none;
@@ -11,10 +14,12 @@
   font-size: 20px;
   transition: .2s;
   cursor: pointer;
+  -webkit-appearance: none;
 
   &:focus {
     outline: none;
   }
+<<<<<<< HEAD
 
   &:hover {
     transform: scale(1.1);
@@ -24,4 +29,20 @@
     pointer-events: none;
     user-select: none;
   }
+=======
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &.alt {
+    box-shadow: none;
+    background: $grey;
+  }
+}
+
+.my-btn-text {
+  pointer-events: none;
+  user-select: none;
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 }

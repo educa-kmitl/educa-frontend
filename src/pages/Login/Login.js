@@ -1,86 +1,92 @@
-import React, { useState, useContext } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useState, useContext, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
+import { randAlert } from '../../helpers'
+import { login } from '../../apis'
 import './Login.scss'
 
-import { FaEnvelope, FaLock } from 'react-icons/fa'
+import { FaEnvelope, FaLock, FaHeartBroken } from 'react-icons/fa'
 import { Input, Button, Popup } from '../../components'
-import startpic from '../../img/start/start.svg'
+import startpic from '../../img/login/login.svg'
 
 export default () => {
   const history = useHistory()
+  const { auth, setAuth } = useContext(AuthContext)
+  const [form, setForm] = useState({ email: '', password: '' })
+  const [popup, setPopup] = useState({})
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [auth, setAuth] = useContext(AuthContext)
-  const [popup, setPopup] = useState('')
+  useEffect(() => {
+    if (auth) history.push('/home')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-  const handleEmail = value => setEmail(value)
-  const handlePassword = value => setPassword(value)
+  const handleEmail = value => setForm({ ...form, email: value })
+  const handlePassword = value => setForm({ ...form, password: value })
   const handleLogin = e => {
     e.preventDefault()
-
     setPopup('loading')
-    fetch(window.$ENDPOINT + '/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email,
-        password
-      })
-    })
-      .then(res => res.json())
-      .then(json => {
-        const { user, error } = json
 
+    login(form)
+      .then(res => {
+        const { user, error } = res.data
         if (user) {
-          setAuth({ ...auth, data: user })
+          setAuth(user)
           history.push('/home')
         } else {
-          alert(error)
-          setPopup('')
+          setPopup({ type: 'alert', title: randAlert(), text: error })
         }
       })
   }
 
   return (
-    <div className="login-bg">
-      <div className="login-content">
+    <div id="login-page">
+      <div id="login-page-content">
 
-        <div className="txt-container">
-          <form onSubmit={handleLogin}>
-            <header>Welcome</header>
-            <Input
-              Icon={FaEnvelope}
-              type="email"
-              text="Email"
-              onChange={handleEmail}
-              required
-            />
-            <Input
-              Icon={FaLock}
-              type="password"
-              text="Password"
-              onChange={handlePassword}
-              required
-            />
-            <footer>
-              <Button text="Login" type="submit" />
-              <Link to="/register">
-                <p>Create your account</p>
-              </Link>
-            </footer>
-          </form>
-        </div>
+        <form id="auth-form" onSubmit={handleLogin}>
+          <h3>Welcome</h3>
+          <Input
+            Icon={FaEnvelope}
+            type="email"
+            text="Email"
+            onChange={handleEmail}
+            required
+          />
+          <Input
+            Icon={FaLock}
+            type="password"
+            text="Password"
+            onChange={handlePassword}
+            required
+          />
+          <footer id="auth-form-footer">
+            <Button primary text="Login" type="submit" />
+            <p
+              id="auth-switch-form"
+              onClick={() => history.push('/register')}
+            >Create your account</p>
+          </footer>
+        </form>
 
-        <div className="img-container">
-          <img src={startpic} alt="" />
-        </div>
+        <section id="start-img-container">
+          <img id="start-img" src={startpic} alt="" />
+        </section>
+
       </div>
 
-      {popup && <Popup type="loading" text="Loging in" />}
+      {popup === 'loading' &&
+        <Popup
+          type="loading"
+          text="Loging in"
+        />}
+      {popup.type === 'alert' &&
+        <Popup
+          type="alert"
+          Icon={FaHeartBroken}
+          title={popup.title}
+          text={popup.text}
+          confirm="Okay"
+          onConfirm={() => setPopup('')}
+        />}
     </div>
   )
 }

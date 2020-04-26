@@ -7,9 +7,15 @@ export const App = () => {
 
   return (
     <div className="App">
+<<<<<<< HEAD
       <Suspense fallback={<Loading />}>
         <BrowserRouter>
           <Navbar />
+=======
+      <BrowserRouter>
+        <Navbar />
+        <Suspense fallback={<Loading />}>
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
           <Switch>
             {routes.map((route, index) =>
               route.requireAuth ?
@@ -17,8 +23,13 @@ export const App = () => {
                 <Route {...route} key={index} />
             )}
           </Switch>
+<<<<<<< HEAD
         </BrowserRouter>
       </Suspense>
+=======
+        </Suspense>
+      </BrowserRouter>
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
     </div>
   );
 }

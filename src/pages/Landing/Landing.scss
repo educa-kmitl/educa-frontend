@@ -1,0 +1,596 @@
+@import '../../styles';
+
+#landing0 {
+  width: 100vw;
+  height: 90vh;
+  background: url('../../img/landing/e-bg.png') center center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: landing0 1s;
+  overflow: hidden;
+}
+
+#landing1 {
+  width: 100vw;
+  height: 700px;
+  background: url('../../img/landing/e1-bg.png') center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#landing2 {
+  width: 100vw;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../../img/landing/e2-bg.png') bottom center;
+  background-size: cover;
+}
+
+#landing3 {
+  width: 100vw;
+  height: 600px;
+  background: url('../../img/landing/e3-bg.png') top center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#landing4 {
+  width: 100vw;
+  height: 300px;
+  background: url('../../img/landing/e1-bg.png') center center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#landing2-text {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+}
+
+#landing3-text {
+  display: flex;
+  flex-direction: column;
+  padding: 80px;
+}
+
+#landing4-title {
+  color: white;
+  margin: 20px;
+}
+
+#landing1-scroll {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 30px;
+  left: 50%;
+  color: white;
+  font-size: 32px;
+  animation: landing1-scroll 1s infinite;
+}
+
+#landing1-title {
+  color: white;
+  margin: 10px;
+  margin-top: -20px;
+}
+
+#landing2-title {
+  color: $red;
+}
+
+#e-text {
+  padding: 40px;
+  margin-top: -50px;
+}
+
+#e-container {
+  position: relative;
+  user-select: none;
+  pointer-events: none;
+  overflow-x: hidden;
+}
+
+#platform-block {
+  display: flex;
+}
+
+.platform-support {
+  @include size(300px);
+  margin: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transition: .5s;
+  user-select: none;
+  text-align: center;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+}
+
+.platform-support-img {
+  border-radius: 50%;
+  width: 100%;
+}
+
+.platform-support-text {
+  color: white;
+  margin: 20px;
+}
+
+#landing2-img {
+  position: relative;
+  user-select: none;
+  pointer-events: none;
+}
+
+#landing3-img {
+  position: relative;
+  user-select: none;
+  pointer-events: none;
+}
+
+#e3-bubble {
+  position: absolute;
+  top: 70px;
+  left: 70px;
+  transform-origin: 100% 100%;
+  animation: e3-bubble 4.2s infinite;
+}
+
+#e3-love1 {
+  position: absolute;
+  top: 180px;
+  left: 30px;
+  transform-origin: 50% 100%;
+  animation: e-love 3s infinite;
+}
+
+#e3-love2 {
+  position: absolute;
+  top: 200px;
+  left: 110px;
+  transform-origin: 50% 100%;
+  animation: e-love 4.2s infinite;
+}
+
+#e3-love3 {
+  position: absolute;
+  top: 210px;
+  left: 270px;
+  transform-origin: 50% 100%;
+  animation: e-love 5.4s infinite;
+}
+
+
+#e2-coffee {
+  position: absolute;
+  top: 240px;
+  left: 330px;
+  animation: e-coffee 1.5s infinite;
+}
+
+#e2-logo {
+  position: absolute;
+  top: 158px;
+  left: 296px;
+  animation: e2-logo 6s infinite;
+}
+
+#e2-play {
+  position: absolute;
+  top: 160px;
+  left: 297px;
+  animation: e2-play 6s infinite;
+}
+
+#e1-monitor {
+  position: absolute;
+  top: 200px;
+  left: 250px;
+  animation: e-monitor 2s infinite;
+}
+
+#e1-monitor-shadow {
+  position: absolute;
+  top: 310px;
+  left: 270px;
+  animation: e-monitor-shadow 2s infinite;
+}
+
+#e1-monitor2 {
+  position: absolute;
+  top: 70px;
+  left: 310px;
+  animation: e-monitor2 2.2s infinite;
+}
+
+#e1-monitor2-shadow {
+  position: absolute;
+  top: 240px;
+  left: 320px;
+  animation: e-monitor-shadow 2.2s infinite;
+}
+
+#e1-world {
+  position: absolute;
+  top: 280px;
+  left: 450px;
+}
+
+#e1-world-hand {
+  position: absolute;
+  top: 255px;
+  left: 460px;
+  transform-origin: 0 50%;
+  animation: e-world-hand 4.5s infinite;
+}
+
+#e1-book {
+  position: absolute;
+  top: 570px;
+  left: 175px
+}
+
+#e1-book-page {
+  position: absolute;
+  top: 570px;
+  left: 200px;
+  transform-origin: 0 100%;
+  transform: scaleX(-1.8) scaleY(.8);
+  animation: e-book 2.5s infinite;
+}
+
+#e1-coding {
+  position: absolute;
+  top: 380px;
+  left: 250px;
+}
+
+#e1-coding-com {
+  position: absolute;
+  top: 442px;
+  left: 269px;
+}
+
+#e1-coding-hand {
+  position: absolute;
+  top: 420px;
+  left: 302px;
+  transform-origin: 90% 10%;
+  animation: e-coding 3s infinite;
+}
+
+@keyframes landing0 {
+  0% {
+    height: 95vh;
+  }
+
+  100% {
+    height: 90vh;
+  }
+}
+
+@keyframes landing1-scroll {
+
+  0%,
+  100% {
+    top: 30px;
+  }
+
+  50% {
+    top: 40px;
+  }
+}
+
+@keyframes e3-bubble {
+
+  0%,
+  56%,
+  100% {
+    transform: scale(0);
+  }
+
+  10%,
+  46% {
+    transform: scale(1.2);
+  }
+
+  13%,
+  43% {
+    transform: scale(1);
+  }
+}
+
+@keyframes e-love {
+
+  0% {
+    opacity: 1;
+    transform: scaleY(0);
+  }
+
+  5% {
+    transform: scaleY(1.2);
+  }
+
+  7%,
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  70%,
+  100% {
+    opacity: 0;
+  }
+
+}
+
+@keyframes e2-logo {
+
+  0%,
+  10%,
+  70% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  20% {
+    transform: scale(1) rotate(10deg);
+  }
+
+  30%,
+  60% {
+    transform: scale(0) rotate(-360deg);
+  }
+}
+
+@keyframes e2-play {
+
+  0%,
+  20%,
+  70%,
+  100% {
+    transform: scale(0) rotate(360deg);
+  }
+
+  30%,
+  50% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  60% {
+    transform: scale(1) rotate(-10deg);
+  }
+}
+
+@keyframes e-coffee {
+
+  0%,
+  100% {
+    top: 240px;
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+
+  90% {
+    top: 220px;
+    opacity: 0;
+  }
+}
+
+@keyframes e-monitor {
+
+  0%,
+  100% {
+    top: 200px;
+  }
+
+  50% {
+    top: 190px;
+  }
+}
+
+@keyframes e-monitor2 {
+
+  0%,
+  100% {
+    top: 70px;
+  }
+
+  50% {
+    top: 60px;
+  }
+}
+
+@keyframes e-monitor-shadow {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(.95);
+  }
+}
+
+@keyframes e-world-hand {
+
+  0%,
+  75% {
+    transform: rotate(0deg);
+  }
+
+  25%,
+  50% {
+    transform: rotate(-10deg);
+  }
+}
+
+@keyframes e-book {
+  0% {
+    transform: scaleX(-1.8) scaleY(.8);
+  }
+
+  30%,
+  100% {
+    transform: scaleX(.8) scaleY(1.5);
+  }
+}
+
+@keyframes e-coding {
+
+  0%,
+  6%,
+  12% {
+    transform: rotate(0deg);
+  }
+
+  3%,
+  9% {
+    transform: rotate(10deg);
+  }
+}
+
+
+@media only screen and (max-width: 1200px) {
+  #e-container {
+    position: absolute;
+    z-index: -1;
+    opacity: .1;
+  }
+
+  #e-text {
+    text-align: center;
+  }
+
+  .platform-support {
+    transform: scale(.8);
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+
+  #landing2 {
+    flex-direction: column;
+    height: 800px;
+  }
+
+  #landing2-text,
+  #landing3-text {
+    text-align: center;
+  }
+
+  #landing3 {
+    flex-direction: column-reverse;
+    height: 800px;
+  }
+
+  #landing3-img {
+    transform: translateX(5%);
+  }
+}
+
+@media only screen and (max-width: 860px) {
+
+  #landing1 {
+    height: 1250px;
+  }
+
+  #platform-block {
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 1000px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+
+  #e-container {
+    transform: scale(.7);
+  }
+
+  #e-text {
+    h1 {
+      font-size: 52px;
+    }
+
+    h6 {
+      font-size: 20px;
+    }
+  }
+
+  #landing1 {
+    h3 {
+      font-size: 32px;
+    }
+  }
+
+  #landing2 {
+    height: 500px;
+
+    h3 {
+      margin-top: -100px;
+      font-size: 30px;
+    }
+
+    h6 {
+      font-size: 20px;
+    }
+  }
+
+  #landing3 {
+    margin-top: -60px;
+    justify-content: flex-end;
+    height: 550px;
+
+    h3 {
+      margin-top: -160px;
+      font-size: 32px;
+      width: 300px;
+    }
+
+    h6 {
+      font-size: 20px;
+    }
+  }
+
+  #landing2-img {
+    transform: scale(.6);
+  }
+
+  #landing3-img {
+    transform: translateX(5%) scale(.6);
+  }
+
+  #landing1 {
+    height: 1200px;
+  }
+
+  .platform-support {
+    transform: scale(.7);
+  }
+
+  #landing4-title {
+    font-size: 32px;
+  }
+}

@@ -11,6 +11,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   color: $black;
+<<<<<<< HEAD
 }
 
 a {
@@ -19,6 +20,29 @@ a {
   &:visited {
     color: inherit;
   }
+=======
+}
+
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  &:any-link {
+    color: inherit;
+  }
+}
+
+input[type="submit"] {
+  -webkit-appearance: none;
+>>>>>>> 4102e9f91049040aa483958e2e8a65ec117b8329
 }
 
 *,

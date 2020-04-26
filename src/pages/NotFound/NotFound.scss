@@ -3,9 +3,9 @@
 .nf-page-bg {
   @include flex-center(column);
   box-sizing: border-box;
-  padding: 0 30px;
+  padding-top: 100px;
   height: $full-page;
-  
+
   .nf-svg {
     @include size(800px, 500px);
     background: url('../../img/notfound/notfound.svg') center center no-repeat;
@@ -21,4 +21,25 @@
     font-size: 24px;
     margin: .5em 0;
   }
+}
+
+@media only screen and (max-width: 930px) {}
+
+@media only screen and (max-width: 750px) {
+  .nf-page-bg {
+    padding: 70px 70px;
+
+    header {
+      padding-top: 20px;
+      font-size: 40px;
+      font-weight: 500;
+    }
+
+    p {
+      text-align: center;
+      font-size: 18px;
+      margin: .5em 0;
+    }
+  }
+
 }

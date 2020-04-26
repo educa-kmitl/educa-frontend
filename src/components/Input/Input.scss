@@ -1,57 +1,54 @@
 @import '../../styles';
 
 .my-input {
-  position: relative;
+  @include size(100%, 55px);
+  -webkit-appearance: none;
+  border: 1px solid $grey;
+  border-radius: 40px;
+  padding: 0 40px 0 70px;
+  font-family: inherit;
+  font-size: 22px;
+  transition: .2s;
 
-  input {
-    @include size(100%, 55px);
-    border: 1px solid lightgrey;
-    border-radius: 40px;
-    padding: 0 40px 0 70px;
-    font-family: inherit;
-    font-size: 22px;
-    transition: .2s;
+  &::placeholder {
+    color: $grey;
+    user-select: none;
+  }
 
-    &::placeholder {
-      color: lightgrey;
-      user-select: none;
-    }
-
-    &:focus {
-      outline: none;
-      border: 1px solid $color;
-
-      &:hover {
-        border: 1px solid $color;
-      }
-
-      &::placeholder {
-        color: transparent;
-      }
-    }
+  &:focus {
+    outline: none;
+    border: 1px solid $color;
 
     &:hover {
-      border: 1px solid $black;
+      border: 1px solid $color;
     }
 
-    &:disabled {
-      background: lightgrey;
-      border: 1px solid grey;
-
-      &::placeholder {
-        color: grey;
-        user-select: none;
-      }
+    &::placeholder {
+      color: transparent;
     }
   }
 
-  .icon {
-    @include abs-center;
-    left: 40px;
-    font-size: 22px;
+  &:hover {
+    border: 1px solid $black;
+  }
 
-    &.disabled {
+  &:disabled {
+    background: lightgrey;
+    border: 1px solid grey;
+
+    &::placeholder {
       color: grey;
+      user-select: none;
     }
+  }
+}
+
+.my-input-icon {
+  @include abs-center;
+  left: 40px;
+  font-size: 22px;
+
+  &.disabled {
+    color: grey;
   }
 }

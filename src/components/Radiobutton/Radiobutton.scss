@@ -2,24 +2,25 @@
 
 .my-radio {
   @include size(100%, 55px);
-  background: white;
   position: relative;
 
   input[type=radio] {
     opacity: 0;
     cursor: pointer;
+    -webkit-appearance: none;
 
-    &:checked+text {
+    &:checked+label {
       color: $color;
       border: 1px solid $color;
       border-radius: 40px;
     }
   }
 
-  text {
+  label {
     @include flex-center;
     @include abs-center;
     @include size(100%);
+    background: white;
     font-size: 22px;
     user-select: none;
     border: 1px solid lightgrey;
