@@ -13,7 +13,7 @@ export const Dropdown = ({ onSelect, items, init }) => {
   }
 
   const handleSelect = e => {
-    const newValue = e.target.value
+    const newValue = e.target.dataset.value
     setValue(newValue)
     onSelect(newValue)
   }
@@ -24,24 +24,25 @@ export const Dropdown = ({ onSelect, items, init }) => {
       <div className="text">{value}</div>
       <FaAngleDown className='dd-arrow' />
 
-      <div className='dd-box'>
+      <div className='dd-box active'>
         {items.map((item, index) =>
-          <option
+          <div
             key={index}
-            value={item}
+            data-value={item}
             className='item'
             onClick={e => handleSelect(e)}
           >
             {item}
-          </option>
+          </div>
         )}
       </div>
 
-      <option
-        value={value}
+      <div
+        data-value={value}
         className='dd-overlay'
         onClick={e => handleSelect(e)}
-      ></option>
+      ></div>
+
     </div>
   )
 }
