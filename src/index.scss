@@ -30,6 +30,10 @@ a {
   }
 }
 
+input[type="submit"] {
+  -webkit-appearance: none;
+}
+
 *,
 *:before,
 *:after {
