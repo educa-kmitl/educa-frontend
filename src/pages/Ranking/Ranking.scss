@@ -1,8 +1,8 @@
 @import '../../styles';
 
 .ranking-bg {
-  background: url('../../img/bg/bg-repeatable.jpg');
-  background-size: contain;
+  background: url('../../img/bg/bg-repeatable.jpg') center top;
+  background-repeat: repeat-y;
   min-height: 100vh;
   padding-top: $nav-size;
 
@@ -22,12 +22,14 @@
       display: flex;
       justify-content: space-evenly;
       width: 100%;
-      .order{
+
+      .order {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         width: 600px;
       }
+
       .top {
         @include size(300px, 350px);
         @include shadow;
@@ -135,12 +137,18 @@
     outline: none;
   }
 }
-@media only screen and (max-width: 930px){
+
+@media only screen and (max-width: 930px) {
   .ranking-bg {
     .ranking-content {
-      .head{
+
+      header {
+        font-size: 26px;
+      }
+
+      .head {
         @include shadow(6px, 3px);
-        background: $red;
+        background: $purple;
         color: white;
         position: sticky;
         top: 0;
@@ -151,6 +159,7 @@
         margin-left: -30px;
         margin-right: -30px;
       }
+
       .top-rank {
         display: flex;
         flex-direction: column;
@@ -160,8 +169,8 @@
         height: 1050px;
         transform: scale(1.2);
         margin-top: 200px;
-        
-        .order{
+
+        .order {
           display: flex;
           flex-direction: column-reverse;
           align-items: center;
@@ -170,18 +179,24 @@
           width: auto;
         }
       }
+
       .rank-list {
         margin-top: 150px;
       }
+
       .see-more-btn {
-        margin-bottom: 100px;;
+        margin-bottom: 100px;
+        ;
       }
     }
   }
-  
+
 }
-@media only screen and (max-width: 600px){
+
+@media only screen and (max-width: 600px) {
   .ranking-bg {
+    background: url('../../img/bg/bg-repeatable-mobile.jpg') center top;
+
     .ranking-content {
       .rank-list {
         @include size(500px, auto);
@@ -194,6 +209,5 @@
       }
     }
   }
-  
-}
 
+}

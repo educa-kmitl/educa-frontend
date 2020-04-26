@@ -75,6 +75,11 @@
   }
 }
 
+#user-cancel-btn {
+  @extend #user-edit-btn;
+  left: 20%;
+}
+
 #user-pic-left {
   @extend #user-edit-btn;
   top: 50%;
@@ -313,5 +318,38 @@
 
   40% {
     transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media only screen and (max-width: 750px) {
+
+  #profile-page-content {
+    padding: 0;
+  }
+
+  #user-own-room {
+    box-shadow: none;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+
+    h4 {
+      @include flex-center;
+      @include shadow;
+      background: $black;
+      color: white;
+      font-size: 26px;
+      width: 100%;
+      height: 88px;
+      margin: 0;
+    }
+  }
+
+  #user-own-room-list {
+    width: 100%;
+    height: 100%;
+    overflow-y: visible;
   }
 }

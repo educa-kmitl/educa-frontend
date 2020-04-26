@@ -195,7 +195,16 @@
         margin-bottom: 80px;
 
         header {
-          font-size: 32px;
+          @include shadow(6px, 3px);
+          font-size: 26px;
+          position: absolute;
+          background: $blue;
+          color: white;
+          width: 100%;
+          top: 0;
+          left: 0;
+          padding: 24px 20px;
+          z-index: 20;
         }
 
         .row {
@@ -236,13 +245,7 @@
       }
 
       .display-container {
-        position: static;
-        transform: scale(1);
-        height: auto;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        display: none;
       }
     }
   }

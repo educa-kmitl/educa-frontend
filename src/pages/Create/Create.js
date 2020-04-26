@@ -82,7 +82,7 @@ export default () => {
       <div className="create-content">
 
         <form onSubmit={handleSubmit} autoComplete="off">
-          <header>Create Course</header>
+          <header>Create course</header>
           <Input
             Icon={FaBook}
             type="text"

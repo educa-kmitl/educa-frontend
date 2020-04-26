@@ -84,6 +84,7 @@
 
 @media only screen and (max-width: 750px) {
   .home-page-bg {
+    background: url('../../img/bg/bg-repeatable-mobile.jpg') center top;
     padding-top: 0;
   }
 
@@ -91,8 +92,6 @@
     @include shadow(6px, 3px);
     background: $red;
     color: white;
-    position: sticky;
-    top: 0;
     font-size: 26px;
     padding: 24px;
     justify-content: flex-start;

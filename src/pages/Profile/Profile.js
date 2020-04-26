@@ -13,7 +13,7 @@ import {
 } from '../../apis'
 import './Profile.scss'
 
-import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave, FaUserPlus, FaUserCheck } from 'react-icons/fa'
+import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave, FaUserPlus, FaUserCheck, FaTimes } from 'react-icons/fa'
 import { Card, Popup } from '../../components'
 import { profiles, gems } from '../../img/Profile'
 
@@ -29,6 +29,7 @@ export default () => {
   const [followerBox, setFollowerBox] = useState(false)
   const [popup, setPopup] = useState('')
   const [more, setMore] = useState({ have: false, limit: 6 })
+  const [oldProfile, setOldProfile] = useState({})
 
   useEffect(() => {
     if (user_id === auth.user_id) {
@@ -40,6 +41,7 @@ export default () => {
         if (user) {
           setRank(leveling(user.likes))
           setProfile(user)
+          setOldProfile(user)
           if (user.role) {
             getFollower(user_id)
               .then(res => {
@@ -162,7 +164,10 @@ export default () => {
           <div style={{ position: 'relative' }}>
             <img id="user-picture" className={rank.color} src={profiles[profile.profile_icon]} alt="" />
             {edit.ediable &&
-              <div id="user-edit-btn" onClick={() => setEdit({ editing: true })}><FaPen style={editBtn} /></div>}
+              <div id="user-edit-btn" onClick={() => {
+                setEdit({ ediable: false, editing: true })
+                setOldProfile(profile)
+              }}><FaPen style={editBtn} /></div>}
             {edit.editing &&
               <div id="user-pic-left" onClick={() => changeProfile('left')}><FaAngleLeft style={editBtn} /></div>}
             {edit.editing &&
@@ -173,6 +178,12 @@ export default () => {
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
               }
               }><FaSave style={editBtn} /></div>}
+            {edit.editing &&
+              <div id="user-cancel-btn" onClick={() => {
+                setEdit({ ediable: true, editing: false })
+                setProfile(oldProfile)
+              }
+              }><FaTimes style={editBtn} /></div>}
             {(user_id !== auth.user_id && profile.role === true && auth.role === false) && (
               (follow && <div className='user-follow-btn active' onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
               (!follow && <div className='user-follow-btn' onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
