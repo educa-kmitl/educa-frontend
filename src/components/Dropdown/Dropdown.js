@@ -24,7 +24,7 @@ export const Dropdown = ({ onSelect, items, init }) => {
       <div className="text">{value}</div>
       <FaAngleDown className='dd-arrow' />
 
-      <div className='dd-box active'>
+      <div className='dd-box'>
         {items.map((item, index) =>
           <div
             key={index}
