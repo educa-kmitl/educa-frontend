@@ -7,7 +7,6 @@ export const RoomProvider = ({ children }) => {
 
   useEffect(() => {
     const data = window.localStorage.getItem("roomData")
-    console.log(data)
     setRoom(data ? JSON.parse(data) : null)
   }, [])
 

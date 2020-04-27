@@ -1,7 +1,7 @@
 @import '../../index.scss';
 
 .comment-box {
-  @include size(100%, auto);
+  @include size(100%, 550px);
   @include shadow;
   max-height: 550px;
   padding: 40px;
@@ -10,11 +10,12 @@
 
   header {
     font-size: 28px;
+    font-weight: 600;
     font-weight: 500;
   }
 
   .room-comment {
-    @include size(100%, auto);
+    @include size(100%, 350px);
     max-height: 350px;
     word-wrap: break-word;
     text-align: left;
@@ -128,9 +129,12 @@
 
 }
 
+
 .profile {
   @include size(30px);
   border-radius: 50%;
+  background: $lightgrey;
+  cursor: pointer;
 }
 
 #show-earlier-btn {
@@ -150,6 +154,16 @@
 
   &:focus {
     outline: none;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
+  .comment-box {
+    height: auto;
+
+    .room-comment {
+      height: auto;
+    }
   }
 }
 

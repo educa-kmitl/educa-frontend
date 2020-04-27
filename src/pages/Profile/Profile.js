@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
 import { leveling, randAlert } from '../../helpers'
 import {
@@ -30,6 +30,7 @@ export default () => {
   const [popup, setPopup] = useState('')
   const [more, setMore] = useState({ have: false, limit: 6 })
   const [oldProfile, setOldProfile] = useState({})
+  const history = useHistory()
 
   useEffect(() => {
     if (user_id === auth.user_id) {
@@ -105,6 +106,7 @@ export default () => {
           setAuth(profile)
           setPopup({ type: 'alert', title: randAlert(), text: user.name })
           setPopup('')
+          window.location = `${auth.user_id}`
         } else {
           setPopup({ type: 'alert', title: randAlert(), text: error })
         }
@@ -228,7 +230,7 @@ export default () => {
                       </span>
                       <div id="follower-content">
                         {follower.map((f, index) =>
-                          <span key={index} className="follower-item" onClick={() => { window.location = f.student_id }}>
+                          <span key={index} className="follower-item" onClick={() => { history.push(`/profile/${f.student_id}`); setFollowerBox(false) }}>
                             <img className="follower-img" src={profiles[f.profile_icon]} alt="" />
                             <p>{f.name}</p>
                           </span>
@@ -249,7 +251,7 @@ export default () => {
                     </span>
                     <div id="follower-content">
                       {follower.map((f, index) =>
-                        <span key={index} className="follower-item" onClick={() => { window.location = f.teacher_id }}>
+                        <span key={index} className="follower-item" onClick={() => { history.push(`/profile/${f.teacher_id}`); setFollowerBox(false) }}>
                           <img className="follower-img" src={profiles[f.profile_icon]} alt="" />
                           <p>{f.name}</p>
                         </span>
@@ -265,10 +267,10 @@ export default () => {
         {profile.role &&
           <section id="user-own-room">
             {user_id === auth.user_id && <h4>Your course</h4>}
-            {user_id !== auth.user_id && <h4>{profile.name.substr(0, 10) + '...'} 's course</h4>}
+            {user_id !== auth.user_id && <h4>{(profile.name.length > 10 && profile.name.substr(0, 10) + '...') || profile.name} 's course</h4>}
             {roomList.length === 0 && <p>Not own any course</p>}
             <div id="user-own-room-list">
-              {roomList.map((room, index) => <Card key={index} room={room} />)}
+              {roomList.map((room, index) => <Card key={index} room={room} onClick={() => history.push(`/room/${room.room_id}`)} />)}
               {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
             </div>
           </section>}

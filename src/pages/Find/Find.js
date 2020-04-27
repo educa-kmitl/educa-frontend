@@ -6,7 +6,7 @@ import { getAllRoom } from '../../apis'
 import './Find.scss'
 
 import { FaSearch, FaHeartBroken, FaArrowDown, FaArrowUp, FaAngleDown } from 'react-icons/fa'
-import { Card, Popup, Button } from '../../components'
+import { Card, Popup } from '../../components'
 
 export default () => {
   const history = useHistory()
