@@ -143,7 +143,9 @@ export default () => {
   }
   const scrollComment = old => {
     const e = document.querySelector('.room-comment')
-    e.scrollTop = e.scrollHeight - old || e.scrollHeight
+    if (e) {
+      e.scrollTop = e.scrollHeight - old || e.scrollHeight
+    }
   }
   const exitRoom = () => setPopup({ type: 'confirm', func: () => { window.location = '/home' } })
   const downloadFile = () => {

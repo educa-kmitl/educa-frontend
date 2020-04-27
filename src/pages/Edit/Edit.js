@@ -150,11 +150,9 @@ export default () => {
                       <div
                         id={video.resource_id}
                         className="del"
-                        onClick={e => {
-                          // eslint-disable-next-line eqeqeq
-                          if (room.resources.find(r => r.resource_id == e.target.id)) {
-                            const id = e.target.id
-                            return setPopup({ type: 'confirm', func: () => delPlaylist(index, id) })
+                        onClick={() => {
+                          if (video.resource_id !== undefined) {
+                            return setPopup({ type: 'confirm', func: () => delPlaylist(index, video.resource_id) })
                           }
                           else return delPlaylist(index)
                         }}

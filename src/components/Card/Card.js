@@ -10,7 +10,7 @@ export const Card = ({ room, onClick, editable, onEdit, onDelete }) => {
   return (
     <div className="course-card" onClick={onClick && (() => onClick(room))}>
       {editable &&
-        <span className="card-btn">
+        <span className="card-btn" onClick={e => e.stopPropagation()}>
           <FaCog className="card-btn-icon-cog" onClick={e => e.stopPropagation()} />
           <FaPen className="card-btn-icon" onClick={e => { e.stopPropagation(); onEdit(room) }} />
           <FaTrashAlt className="card-btn-icon" onClick={e => { e.stopPropagation(); onDelete(room) }} />
