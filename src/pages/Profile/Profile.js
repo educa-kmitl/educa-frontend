@@ -187,8 +187,8 @@ export default () => {
               }
               }><FaTimes style={editBtn} /></div>}
             {(user_id !== auth.user_id && profile.role === true && auth.role === false) && (
-              (follow && <div className='user-follow-btn active' onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
-              (!follow && <div className='user-follow-btn' onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
+              (follow && <div className='user-follow-btn active' data-value="Following" onClick={handleFollow}><FaUserCheck style={editBtn} /></div>) ||
+              (!follow && <div className='user-follow-btn' data-value="Follow" onClick={handleFollow}><FaUserPlus style={editBtn} /></div>)
             )}
           </div>
           {!edit.editing && <header id="user-name">{profile.name || 'Loading'}</header>}
