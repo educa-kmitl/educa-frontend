@@ -106,6 +106,9 @@
     }
   }
 
+  &:hover>.tooltip {
+    opacity: 1;
+  }
 }
 
 .room-btn-icon {
@@ -116,6 +119,19 @@
   &.sm {
     font-size: 20px;
   }
+}
+
+.tooltip {
+  @include abs-center;
+  @include shadow;
+  opacity: 0;
+  top: 150%;
+  background: $black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  transition: .3s;
+  pointer-events: none;
 }
 
 #room-panel {

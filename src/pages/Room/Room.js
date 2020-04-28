@@ -13,8 +13,8 @@ import {
 } from '../../apis'
 import './Room.scss'
 
-import { FaFileDownload, FaWalking, FaHeartBroken } from 'react-icons/fa'
-import { TiThList, TiExport, TiHeart } from 'react-icons/ti'
+import { FaFileDownload, FaSignOutAlt, FaWalking, FaHeartBroken } from 'react-icons/fa'
+import { TiThList, TiHeart } from 'react-icons/ti'
 import { Comment, Playlist, Popup } from '../../components'
 
 export default () => {
@@ -219,12 +219,15 @@ export default () => {
             <div id="video-btn-group">
               <div className="room-btn" onClick={showPlaylist}>
                 <TiThList className="room-btn-icon sm" />
+                <div className="tooltip">Playlist</div>
               </div>
               <div className="room-btn" onClick={downloadFile}>
                 <FaFileDownload className="room-btn-icon sm" />
+                <div className="tooltip">Attatchment</div>
               </div>
               <div className="room-btn" onClick={exitRoom}>
-                <TiExport className="room-btn-icon" />
+                <FaSignOutAlt className="room-btn-icon sm" />
+                <div className="tooltip">Exit</div>
               </div>
             </div>
           </footer>
