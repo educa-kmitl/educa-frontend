@@ -166,22 +166,22 @@ export default () => {
           <div style={{ position: 'relative' }}>
             <img id="user-picture" className={rank.color} src={profiles[profile.profile_icon]} alt="" />
             {edit.ediable &&
-              <div id="user-edit-btn" onClick={() => {
+              <div id="user-edit-btn" data-value="Edit" onClick={() => {
                 setEdit({ ediable: false, editing: true })
                 setOldProfile(profile)
               }}><FaPen style={editBtn} /></div>}
             {edit.editing &&
-              <div id="user-pic-left" onClick={() => changeProfile('left')}><FaAngleLeft style={editBtn} /></div>}
+              <div id="user-pic-left" data-value="Prev" onClick={() => changeProfile('left')}><FaAngleLeft style={editBtn} /></div>}
             {edit.editing &&
-              <div id="user-pic-right" onClick={() => changeProfile('right')}><FaAngleRight style={editBtn} /></div>}
+              <div id="user-pic-right" data-value="Next" onClick={() => changeProfile('right')}><FaAngleRight style={editBtn} /></div>}
             {edit.editing &&
-              <div id="user-edit-btn" onClick={() => {
+              <div id="user-edit-btn" data-value="Save" onClick={() => {
                 if (profile.name !== '') setPopup('password')
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
               }
               }><FaSave style={editBtn} /></div>}
             {edit.editing &&
-              <div id="user-cancel-btn" onClick={() => {
+              <div id="user-cancel-btn" data-value="Cancel" onClick={() => {
                 setEdit({ ediable: true, editing: false })
                 setProfile(oldProfile)
               }
@@ -308,4 +308,5 @@ export default () => {
 const editBtn = {
   fontSize: '24px',
   color: 'white',
+  pointerEvents: 'none'
 }
