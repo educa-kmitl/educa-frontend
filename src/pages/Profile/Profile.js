@@ -198,7 +198,7 @@ export default () => {
               value={profile.name}
               onChange={e => handleName(e.target.value)}
               minLength="1"
-              autoComplete={false}
+              autoComplete="off"
             />}
           <label id="user-role">{profile.role === true && 'TEACHER'}</label>
           <label id="user-role">{profile.role === false && 'STUDENT'}</label>
