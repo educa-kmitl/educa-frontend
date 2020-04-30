@@ -18,7 +18,7 @@ export const Playlist = ({ playlist, setPlaylist, roomData }) => {
       <div className={playlist.show ? 'float-playlist active' : 'float-playlist'}>
         <div className="float-detail">
           <div className="float-title">
-            {roomData.name}
+            {roomData.name.length > 14 ? roomData.name.substr(0, 14) + '...' : roomData.name}
             <TiTimes id="playlist-close-btn" onClick={togglePlaylist} />
           </div>
           <div className="float-count">{videos.length} video{videos.length > 1 ? 's' : null}</div>
