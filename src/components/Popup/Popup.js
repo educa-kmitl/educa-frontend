@@ -5,7 +5,7 @@ import { Input, Button } from '../'
 import { FaLock } from 'react-icons/fa'
 import logo from '../../img/room/play.svg'
 
-export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onConfirm, onCancel }) => {
+export const Popup = ({ type, Icon, title, text, placeholder, confirm, cancel, onChange, onConfirm, onCancel }) => {
   return (
     <>
       {type === 'password' &&
@@ -16,7 +16,7 @@ export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onCo
             <Input
               Icon={FaLock}
               type="password"
-              text="Enter your password"
+              text={placeholder || "Enter your password"}
               pattern="[A-Za-z0-9]*$"
               title="Enter only english character and number"
               onChange={onChange}

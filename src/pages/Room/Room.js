@@ -263,11 +263,12 @@ export default () => {
         <Popup
           type="password"
           title="It's Locked!"
+          placeholder="Enter room password"
           confirm="EDUCA"
           cancel="Cancel"
           onChange={handlePassword}
           onConfirm={handlePrivacy}
-          onCancel={() => history.push('/home')}
+          onCancel={() => history.goBack()}
         />}
       {popup.type === 'confirm' &&
         <Popup
