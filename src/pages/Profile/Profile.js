@@ -312,9 +312,9 @@ export default () => {
       {popup === 'password' &&
         <Popup
           type="password"
-          title="Is that you?"
-          confirm="It's me!"
-          cancel="Not sure"
+          title="Confirm changes"
+          confirm="Confirm"
+          cancel="Cancel"
           onChange={handlePassword}
           onConfirm={saveProfile}
           onCancel={() => setPopup('')}
