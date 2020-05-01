@@ -26,3 +26,11 @@ export const emailValidator = value => {
   if (value.length === 0) err = 'Email required'
   return err
 }
+
+export const courseTitleValidator = value => {
+  let err = null
+  const newValue = value.trim()
+  if (newValue.length < 3) err = 'Title is too short'
+  if (newValue.length > 30) err = 'Title is too long'
+  return err
+}

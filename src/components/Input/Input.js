@@ -1,8 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Input.scss'
 
 export const Input = ({ Icon, id, type, text, onChange, validator, ...rest }) => {
   const [err, setErr] = useState('')
+  const [err2, setErr2] = useState('')
+
+  useEffect(() => {
+    if (rest.disabled === true) {
+      setErr2(err)
+      const newErr = null
+      setErr(newErr)
+    } else {
+      setErr(err2)
+    }
+  }, [rest.disabled])
 
   const handleChange = target => {
     const { value, id } = target

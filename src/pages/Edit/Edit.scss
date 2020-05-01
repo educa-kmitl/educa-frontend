@@ -23,7 +23,8 @@
 
       header {
         font-size: 48px;
-        font-weight: 600; font-weight: 500;
+        font-weight: 600;
+        font-weight: 500;
         margin: 0 0 5% 0;
       }
 
@@ -41,7 +42,8 @@
             margin-top: -5px;
             margin-bottom: 10px;
             font-size: 36px;
-            font-weight: 600; font-weight: 500;
+            font-weight: 600;
+            font-weight: 500;
             margin-right: 20px;
           }
         }
@@ -49,7 +51,8 @@
 
       label.head {
         font-size: 36px;
-        font-weight: 600; font-weight: 500;
+        font-weight: 600;
+        font-weight: 500;
       }
 
       hr {
@@ -76,7 +79,8 @@
 
             label {
               font-size: 24px;
-              font-weight: 600; font-weight: 500;
+              font-weight: 600;
+              font-weight: 500;
             }
 
             .del {
@@ -86,7 +90,7 @@
               transition: .2s;
 
               .icon {
-                font-size: 22px
+                font-size: 22px;
               }
 
               &:hover {
@@ -107,7 +111,7 @@
             @include flex-center;
             @include shadow;
             border-radius: 50%;
-            background: $color;
+            background: $black;
             color: white;
             margin: 0;
             font-size: 36px;

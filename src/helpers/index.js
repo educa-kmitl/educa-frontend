@@ -5,5 +5,6 @@ export { embedYoutube } from './youtubeHelper'
 export {
   passwordValidator,
   nameValidator,
-  emailValidator
+  emailValidator,
+  courseTitleValidator
 } from './validatorHelper'

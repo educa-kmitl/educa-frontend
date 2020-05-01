@@ -71,8 +71,15 @@
   padding: 25px 35px;
 }
 
+.card-course-header {
+  @include size(auto, 60px);
+  max-height: 60px;
+  min-height: 60px;
+}
+
 .course-name {
-  font-weight: 600; font-weight: 500;
+  font-weight: 600;
+  font-weight: 500;
   margin-bottom: -5px;
   font-size: 24px;
   max-width: 200px;
@@ -87,6 +94,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin: 10px 0;
 }
 
 .course-date {

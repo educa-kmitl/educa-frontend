@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { embedYoutube, randAlert } from '../../helpers'
+import { embedYoutube, randAlert, passwordValidator } from '../../helpers'
 import { createRoom } from '../../apis'
 import './Create.scss'
 
@@ -29,23 +29,23 @@ export default () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleTitle = value => setRoom({ ...room, name: value })
+  const handleTitle = value => setRoom({ ...room, name: value.trim() })
   const handleSubject = value => setRoom({ ...room, subject: value })
   const handlePrivacy = value => setRoom({ ...room, private: value })
   const handlePassword = value => setRoom({ ...room, password: value })
   const handleVideoTitle = (value, id) => {
     const newVideos = room.resources
-    newVideos[id].topic = value
+    newVideos[id].topic = value.trim()
     setRoom({ ...room, resources: newVideos })
   }
   const handleVideoLink = (value, id) => {
     const newVideos = room.resources
-    newVideos[id].video_url = value
+    newVideos[id].video_url = value.trim()
     setRoom({ ...room, resources: newVideos })
   }
   const handleFileLink = (value, id) => {
     const newVideos = room.resources
-    newVideos[id].file_url = value
+    newVideos[id].file_url = value.trim()
     setRoom({ ...room, resources: newVideos })
   }
   const addPlaylist = () => {
@@ -88,6 +88,8 @@ export default () => {
             type="text"
             text="Course title *"
             onChange={handleTitle}
+            minLength={3}
+            maxLength={30}
             required
           />
           <div className="row">
@@ -104,9 +106,11 @@ export default () => {
                 Icon={FaLock}
                 type="password"
                 text="Password"
-                pattern="[A-Za-z0-9]*$"
-                title="Enter only english character and number"
                 onChange={handlePassword}
+                validator={passwordValidator}
+                pattern="^[A-Za-z0-9][A-Za-z0-9]*$"
+                minLength={6}
+                maxLength={32}
                 required={room.private}
                 disabled={!room.private}
               />
@@ -138,6 +142,8 @@ export default () => {
                   type="text"
                   text="Video title *"
                   onChange={handleVideoTitle}
+                  minLength={3}
+                  maxLength={30}
                   required
                 />
                 <Input
@@ -163,7 +169,7 @@ export default () => {
           <hr />
 
           <span>
-            <Button text="EDUCA" type="submit" />
+            <Button text="Create" type="submit" />
             <Link to="/home"><div className="cancel">Cancel</div></Link>
           </span>
         </form>

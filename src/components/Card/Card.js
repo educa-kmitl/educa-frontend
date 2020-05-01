@@ -17,7 +17,7 @@ export const Card = ({ room, onClick, editable, onEdit, onDelete }) => {
         </span>}
       <img src={subjects[room?.subject]} className="course-cover" alt="" />
       <section className="course-detail">
-        <div className="course-header">
+        <div className="card-course-header">
           <h5 className="course-name">
             {room?.private && <FaLock style={lock} />}
             {room?.name}

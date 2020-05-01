@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { AuthContext, RoomContext } from '../../contexts'
-import { embedYoutube, randAlert } from '../../helpers'
+import { embedYoutube, randAlert, passwordValidator } from '../../helpers'
 import { editRoom, editResource, deleteResource, postResource } from '../../apis'
 import './Edit.scss'
 
@@ -113,6 +113,8 @@ export default () => {
             value={newRoom?.name}
             text="Course title *"
             onChange={handleTitle}
+            minLength={3}
+            maxLength={30}
             required
           />
           <div className="row">
@@ -129,9 +131,11 @@ export default () => {
                 Icon={FaLock}
                 type="password"
                 text="Password"
-                pattern="[A-Za-z0-9]*$"
-                title="Enter only english character and number"
                 onChange={handlePassword}
+                validator={passwordValidator}
+                pattern="^[A-Za-z0-9][A-Za-z0-9]*$"
+                minLength={6}
+                maxLength={32}
                 required={newRoom?.private}
                 disabled={!newRoom?.private}
               />
@@ -169,6 +173,8 @@ export default () => {
                   value={newRoom.resources[index].topic}
                   text="Video title *"
                   onChange={handleVideoTitle}
+                  minLength={3}
+                  maxLength={30}
                   required
                 />
                 <Input
