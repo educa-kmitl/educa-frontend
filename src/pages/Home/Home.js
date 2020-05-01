@@ -51,6 +51,7 @@ export default () => {
   const enterRoom = room => history.push(`/room/${room.room_id}`)
   const handlePassword = value => setPassword(value)
   const handlePrivacy = () => {
+    setPopup('loading')
     deleteRoom(roomId, auth, password)
       .then(res => {
         const { success, error } = res.data
@@ -123,6 +124,7 @@ export default () => {
         {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
       </div>
 
+      {popup === 'loading' && <Popup type="loading" text="Loading" />}
       {popup === 'password' &&
         <Popup
           type="password"

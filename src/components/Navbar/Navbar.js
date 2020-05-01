@@ -22,10 +22,10 @@ export const Navbar = () => {
   const history = useHistory()
 
   useEffect(() => {
-    const pathToHide = ['login', 'register', 'room']
+    const pathToShow = ['home', 'find', 'create', 'edit', 'ranking', 'profile']
     const path = location.pathname
     showNavbar()
-    if (pathToHide.filter(p => path.includes(p)).length > 0 || path === '/')
+    if (pathToShow.filter(pts => path.includes(pts)).length === 0)
       hideNavbar()
 
     if (path === '/home')

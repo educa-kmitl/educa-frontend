@@ -221,7 +221,6 @@ export default () => {
         <Popup
           type="password"
           title="Confirm Changes"
-          text="Enter your password"
           confirm="Confirm"
           cancel="Cancel"
           onChange={handleTeacherPassword}
@@ -242,7 +241,7 @@ export default () => {
           type="confirm"
           Icon={FaTrashAlt}
           title="Are you sure ?"
-          text="Comment on this video will be lost too"
+          text="Comment and Heart on this video will be lost"
           confirm="Delete"
           cancel="Cancel"
           onConfirm={popup.func}

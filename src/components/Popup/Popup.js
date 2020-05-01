@@ -16,7 +16,7 @@ export const Popup = ({ type, Icon, title, text, confirm, cancel, onChange, onCo
             <Input
               Icon={FaLock}
               type="password"
-              text="Enter password"
+              text="Enter your password"
               pattern="[A-Za-z0-9]*$"
               title="Enter only english character and number"
               onChange={onChange}
