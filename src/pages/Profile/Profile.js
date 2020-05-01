@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { leveling, randAlert } from '../../helpers'
+import { leveling, randAlert, nameValidator } from '../../helpers'
 import {
   getProfile,
   editProfile,
@@ -14,13 +14,13 @@ import {
 import './Profile.scss'
 
 import { FaHeartBroken, FaPen, FaAngleLeft, FaAngleRight, FaSave, FaUserPlus, FaUserCheck, FaTimes } from 'react-icons/fa'
-import { Card, Popup } from '../../components'
+import { Card, Popup, Input } from '../../components'
 import { profiles, gems } from '../../img/Profile'
 
 export default () => {
   const { user_id } = useParams()
   const { auth, setAuth } = useContext(AuthContext)
-  const [profile, setProfile] = useState({})
+  const [profile, setProfile] = useState({ name: '' })
   const [roomList, setRoomList] = useState([])
   const [edit, setEdit] = useState({ ediable: false })
   const [rank, setRank] = useState({})
@@ -84,6 +84,17 @@ export default () => {
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user_id])
+
+  useEffect(() => {
+    const name = document.querySelector('#user-name-edit')
+    const save = document.querySelector('#user-save-btn')
+    if (save === null) return
+    if (name.classList.contains('success')) {
+      save.classList.remove('disabled')
+    } else {
+      save.classList.add('disabled')
+    }
+  }, [profile.name])
 
   const changeProfile = action => {
     if (action === 'left') {
@@ -175,7 +186,8 @@ export default () => {
             {edit.editing &&
               <div id="user-pic-right" data-value="Next" onClick={() => changeProfile('right')}><FaAngleRight style={editBtn} /></div>}
             {edit.editing &&
-              <div id="user-edit-btn" data-value="Save" onClick={() => {
+              <div id="user-save-btn" className="disabled" data-value="Save" onClick={e => {
+                if (e.target.classList.contains('disabled')) return
                 if (profile.name !== '') setPopup('password')
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
               }
@@ -193,13 +205,14 @@ export default () => {
           </div>
           {!edit.editing && <header id="user-name">{profile.name || 'Loading'}</header>}
           {edit.editing &&
-            <input
+            <Input
               id="user-name-edit"
-              value={profile.name}
-              onChange={e => handleName(e.target.value)}
-              minLength="1"
+              text={oldProfile.name}
+              onChange={handleName}
+              validator={nameValidator}
               autoComplete="off"
-            />}
+            />
+          }
           <label id="user-role">{profile.role === true && 'TEACHER'}</label>
           <label id="user-role">{profile.role === false && 'STUDENT'}</label>
           <label id="user-level">
