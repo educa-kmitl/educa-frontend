@@ -38,6 +38,10 @@ export default () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  useEffect(() => {
+    goSearch()
+  }, [search.sort_by, search.arrange_by])
+
   const handleSearch = value => setSearch({ ...search, text: value })
   const goSearch = () => {
     setPopup('loading')

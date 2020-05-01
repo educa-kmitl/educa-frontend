@@ -74,11 +74,13 @@
   background: white;
   border-radius: 50%;
   transition: .2s;
+  animation: zoom 2s;
   cursor: pointer;
 
   &:nth-child(1) {
     border: 2px solid $color;
     color: $color;
+    animation-delay: 2s;
 
     &:hover {
       background: $red;
@@ -89,6 +91,7 @@
   &:nth-child(2) {
     border: 2px solid $blue;
     color: $blue;
+    animation-delay: 3s;
 
     &:hover {
       background: $blue;
@@ -99,6 +102,7 @@
   &:nth-child(3) {
     border: 2px solid $purple;
     color: $purple;
+    animation-delay: 4s;
 
     &:hover {
       background: $purple;
@@ -302,5 +306,27 @@
 
   #room-course-card {
     border-radius: 0;
+  }
+}
+
+@keyframes zoom {
+  0% {
+    transform: scale(1);
+  }
+
+  10% {
+    transform: scale(1.2);
+  }
+
+  20% {
+    transform: scale(1);
+  }
+
+  30% {
+    transform: scale(1.2);
+  }
+
+  40% {
+    transform: scale(1);
   }
 }
