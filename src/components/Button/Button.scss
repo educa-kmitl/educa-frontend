@@ -24,6 +24,15 @@
     box-shadow: none;
     background: $grey;
   }
+
+  &:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
 }
 
 .my-btn-text {

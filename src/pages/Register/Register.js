@@ -1,7 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../contexts'
-import { randAlert } from '../../helpers'
+import { randAlert, passwordValidator, nameValidator, emailValidator } from '../../helpers'
 import { register, login } from '../../apis'
 import './Register.scss'
 
@@ -19,6 +19,18 @@ export default () => {
     password: ''
   })
   const [popup, setPopup] = useState('')
+
+  useEffect(() => {
+    const email = document.querySelector('#register-email')
+    const name = document.querySelector('#register-name')
+    const password = document.querySelector('#register-password')
+    const btn = document.querySelector('#register-create-btn')
+    if (email.classList.contains('success')
+      && name.classList.contains('success')
+      && password.classList.contains('success'))
+      btn.disabled = false
+    else btn.disabled = true
+  }, [form])
 
   const handleRole = value => setForm({ ...form, role: value === 'Teacher' })
   const handleEmail = value => setForm({ ...form, email: value })
@@ -53,9 +65,9 @@ export default () => {
     <div id="register-page">
       <div id="register-page-content">
 
-        <form id="auth-form" onSubmit={handleRegister}>
+        <form id="register-form" onSubmit={handleRegister}>
           <h3>Create Account</h3>
-          <span id="auth-form-radio-group">
+          <span id="register-form-radio-group">
             <div style={{ width: '48%' }}>
               <Radiobutton
                 group="role"
@@ -73,32 +85,38 @@ export default () => {
             </div>
           </span>
           <Input
+            id="register-email"
             Icon={FaEnvelope}
             type="email"
             text="Email"
             onChange={handleEmail}
+            validator={emailValidator}
             required
+            autoComplete="off"
           />
           <Input
+            id="register-name"
             Icon={FaUserAlt}
             type="text"
             text="Your name"
             onChange={handleName}
+            validator={nameValidator}
             required
+            autoComplete="off"
           />
           <Input
+            id="register-password"
             Icon={FaLock}
             type="password"
             text="Password"
-            minLength={6}
             onChange={handlePassword}
+            validator={passwordValidator}
             required
           />
-          <p id="password-hint">* Password must be at least 6 characters</p>
-          <footer id="auth-form-footer">
-            <Button primary text="Create" type="submit" />
+          <footer id="register-form-footer">
+            <Button primary text="Create" type="submit" id="register-create-btn" />
             <p
-              id="auth-switch-form"
+              id="register-switch-form"
               onClick={() => history.push('/login')}
             >I have an account</p>
           </footer>

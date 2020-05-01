@@ -1,15 +1,13 @@
 import React from 'react'
 import './Button.scss'
 
-export const Button = ({ text, type, onClick, alt }) => {
+export const Button = ({ text, type, alt, ...rest }) => {
 
   return (
     <button
-      className={
-        `my-btn ${alt && ' alt'}`
-      }
+      className={`my-btn ${alt && ' alt'}`}
       type={type || 'button'}
-      onClick={onClick || null}
+      {...rest}
     >
       <label className="my-btn-text">
         {text}

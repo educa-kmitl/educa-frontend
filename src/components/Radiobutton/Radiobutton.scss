@@ -10,8 +10,8 @@
     -webkit-appearance: none;
 
     &:checked+label {
-      color: $color;
-      border: 1px solid $color;
+      color: $blue;
+      border: 1px solid $blue;
       border-radius: 40px;
     }
   }

@@ -28,8 +28,8 @@
   user-select: none;
 }
 
-#auth-form {
-  @include size(480px, 600px);
+#register-form {
+  @include size(480px, 650px);
   @include shadow;
   @include flex-center(column);
   justify-content: space-evenly;
@@ -40,17 +40,17 @@
   padding: 50px 70px;
 }
 
-#auth-form-radio-group {
+#register-form-radio-group {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-#auth-form-footer {
+#register-form-footer {
   @include flex-center(column);
 }
 
-#auth-switch-form {
+#register-switch-form {
   color: $color;
   margin-top: 20px;
   cursor: pointer;
@@ -77,8 +77,8 @@
 
   }
 
-  #auth-form {
-    @include size(400px, 500px);
+  #register-form {
+    @include size(450px, 650px);
     margin-top: 120px;
     position: absolute;
     margin-left: 20px;
@@ -105,7 +105,7 @@
 
     }
 
-    #auth-form {
+    #register-form {
       @include size(70vw, 40vh);
       margin: 0 auto;
       position: absolute;
@@ -135,7 +135,7 @@
 
   }
 
-  #auth-form {
+  #register-form {
     @include size(90vw, 90vh);
     margin: 0 auto;
     position: absolute;
@@ -159,7 +159,7 @@
     font-size: 20px;
   }
 
-  #auth-form-radio-group {
+  #register-form-radio-group {
 
     max-width: 370px;
   }
@@ -179,7 +179,7 @@
       @include size(0);
     }
 
-    #auth-form {
+    #register-form {
       @include size(90vw, 500px);
       margin: 0px 0px 20px 0px;
       position: absolute;
