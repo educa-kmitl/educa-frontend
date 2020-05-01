@@ -232,6 +232,7 @@
   display: flex;
   justify-content: center;
   width: 100%;
+  position: relative;
 }
 
 .user-fam-box {
@@ -294,7 +295,7 @@
   @include size(280px, auto);
   @include shadow;
   max-height: 400px;
-  position: absolute;
+  @include abs-center;
   background: white;
   border-radius: 40px;
   padding: 30px;

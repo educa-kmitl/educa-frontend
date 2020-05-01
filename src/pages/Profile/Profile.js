@@ -236,27 +236,30 @@ export default () => {
                 <div className={`user-fam-box ${followerBox && 'active'}`} onClick={(!followerBox && (() => setFollowerBox(true))) || null}>
                   <label className="user-fam-number">{follower.length}</label>
                   <label className="user-fam-title">Follower{follower.length > 1 && 's'}</label>
-                  {followerBox &&
-                    <div id="follower-box">
-                      <span className="follower-item" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
-                        <h6 style={{ fontWeight: '500' }}>Follower</h6>
-                        <div id="follower-box-close" onClick={() => setFollowerBox(false)}>x</div>
-                      </span>
-                      <div id="follower-content">
-                        {follower.map((f, index) =>
-                          <span key={index} className="follower-item" onClick={() => { history.push(`/profile/${f.student_id}`); setFollowerBox(false) }}>
-                            <img className="follower-img" src={profiles[f.profile_icon]} alt="" />
-                            <p>{f.name}</p>
-                          </span>
-                        )}
-                      </div>
-                    </div>}
                 </div>
+                {followerBox &&
+                  <div id="follower-box">
+                    <span className="follower-item" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
+                      <h6 style={{ fontWeight: '500' }}>Follower</h6>
+                      <div id="follower-box-close" onClick={() => setFollowerBox(false)}>x</div>
+                    </span>
+                    <div id="follower-content">
+                      {follower.map((f, index) =>
+                        <span key={index} className="follower-item" onClick={() => { history.push(`/profile/${f.student_id}`); setFollowerBox(false) }}>
+                          <img className="follower-img" src={profiles[f.profile_icon]} alt="" />
+                          <p>{f.name}</p>
+                        </span>
+                      )}
+                      {follower.length === 0 && <p>No follower</p>}
+                    </div>
+                  </div>}
               </>}
             {profile.role === false &&
-              <div className={`user-fam-box ${followerBox && 'active'}`} onClick={(!followerBox && (() => setFollowerBox(true))) || null}>
-                <label className="user-fam-number">{follower.length}</label>
-                <label className="user-fam-title">Following</label>
+              <>
+                <div className={`user-fam-box ${followerBox && 'active'}`} onClick={(!followerBox && (() => setFollowerBox(true))) || null}>
+                  <label className="user-fam-number">{follower.length}</label>
+                  <label className="user-fam-title">Following</label>
+                </div>
                 {followerBox &&
                   <div id="follower-box">
                     <span className="follower-item" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
@@ -270,9 +273,10 @@ export default () => {
                           <p>{f.name}</p>
                         </span>
                       )}
+                      {follower.length === 0 && <p>No following</p>}
                     </div>
                   </div>}
-              </div>
+              </>
             }
 
           </span>
