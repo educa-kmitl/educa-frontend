@@ -46,7 +46,7 @@ export const Popup = ({ type, Icon, title, text, placeholder, confirm, cancel, o
             <p style={{ textAlign: 'center' }}>{text}</p>
             <span id="popup-btn-group">
               <Button alt text={cancel} onClick={onCancel} />
-              <Button text={confirm} onClick={onConfirm} />
+              <Button text={confirm} onClick={onConfirm} autofocus />
             </span>
           </div>
         </div>}
@@ -58,7 +58,7 @@ export const Popup = ({ type, Icon, title, text, placeholder, confirm, cancel, o
             <h4>{title}</h4>
             <p style={{ textAlign: 'center' }}>{text}</p>
             <span id="popup-btn-single">
-              <Button text={confirm} onClick={onConfirm} />
+              <Button text={confirm} onClick={onConfirm} autofocus />
             </span>
           </div>
         </div>}
