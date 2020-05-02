@@ -188,14 +188,14 @@
   position: absolute;
   top: 158px;
   left: 296px;
-  animation: e2-logo 6s infinite;
+  animation: e2-logo-ani 6s infinite;
 }
 
 #e2-play {
   position: absolute;
   top: 160px;
   left: 297px;
-  animation: e2-play 6s infinite;
+  animation: e2-play-ani 6s infinite;
 }
 
 #e1-monitor {
@@ -340,7 +340,7 @@
 
 }
 
-@keyframes e2-logo {
+@keyframes e2-logo-ani {
 
   0%,
   10%,
@@ -358,7 +358,7 @@
   }
 }
 
-@keyframes e2-play {
+@keyframes e2-play-ani {
 
   0%,
   20%,
