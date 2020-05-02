@@ -121,7 +121,7 @@ export const Navbar = () => {
           </div>
           <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
 
-          <div className={`account-bubble ${bubble && 'active'}`}>
+          <div className={`account-bubble ${bubble && 'active'}`} onClick={e => e.stopPropagation()}>
             <span className="account-item" onClick={goToProfile}>
               <TiUser className="nav-link-icon color red" /> PROFILE
             </span>
