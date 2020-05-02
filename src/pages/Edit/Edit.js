@@ -111,9 +111,9 @@ export default () => {
             Icon={FaBook}
             type="text"
             value={newRoom?.name}
-            text="Course title *"
+            text="Course title"
             onChange={handleTitle}
-            minLength={3}
+            minLength={2}
             maxLength={30}
             required
           />
@@ -171,9 +171,9 @@ export default () => {
                   id={index}
                   type="text"
                   value={newRoom.resources[index].topic}
-                  text="Video title *"
+                  text="Video title"
                   onChange={handleVideoTitle}
-                  minLength={3}
+                  minLength={2}
                   maxLength={30}
                   required
                 />
@@ -182,8 +182,10 @@ export default () => {
                   id={index}
                   type="url"
                   value={newRoom.resources[index].video_url}
-                  text="Video link *"
+                  text="Video link"
                   onChange={handleVideoLink}
+                  minLength={4}
+                  maxLength={200}
                   required
                 />
                 <Input
@@ -191,8 +193,10 @@ export default () => {
                   id={index}
                   type="url"
                   value={newRoom.resources[index].file_url}
-                  text="Attachment"
+                  text="Attachment (optional)"
                   onChange={handleFileLink}
+                  minLength={4}
+                  maxLength={200}
                 />
               </div>
             )}

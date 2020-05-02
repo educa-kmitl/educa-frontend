@@ -49,6 +49,8 @@ export default () => {
             type="email"
             text="Email"
             onChange={handleEmail}
+            minLength={5}
+            maxLength={50}
             required
           />
           <Input
@@ -56,6 +58,7 @@ export default () => {
             type="password"
             text="Password"
             onChange={handlePassword}
+            maxLength={50}
             required
           />
           <footer id="auth-form-footer">

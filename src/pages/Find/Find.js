@@ -91,6 +91,7 @@ export default () => {
             value={search.text}
             onChange={e => handleSearch(e.target.value)}
             onKeyUp={e => e.key === 'Enter' ? goSearch() : null}
+            maxLength={30}
           />
 
           <div className="icon-search-only" onClick={goSearch}>

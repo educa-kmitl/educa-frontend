@@ -86,9 +86,9 @@ export default () => {
           <Input
             Icon={FaBook}
             type="text"
-            text="Course title *"
+            text="Course title"
             onChange={handleTitle}
-            minLength={3}
+            minLength={2}
             maxLength={30}
             required
           />
@@ -140,9 +140,9 @@ export default () => {
                   Icon={FaBookmark}
                   id={index}
                   type="text"
-                  text="Video title *"
+                  text="Video title"
                   onChange={handleVideoTitle}
-                  minLength={3}
+                  minLength={2}
                   maxLength={30}
                   required
                 />
@@ -150,16 +150,20 @@ export default () => {
                   Icon={FaLink}
                   id={index}
                   type="url"
-                  text="Video link *"
+                  text="Video link"
                   onChange={handleVideoLink}
+                  minLength={4}
+                  maxLength={200}
                   required
                 />
                 <Input
                   Icon={FaFileAlt}
                   id={index}
                   type="url"
-                  text="Attachment"
+                  text="Attachment (optional)"
                   onChange={handleFileLink}
+                  minLength={4}
+                  maxLength={200}
                 />
               </div>
             )}
