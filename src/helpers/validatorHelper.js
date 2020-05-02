@@ -13,7 +13,7 @@ export const passwordValidator = value => {
 
 export const nameValidator = value => {
   let err = null
-  if (value.length < 3) err = 'Name is too short'
+  if (value.length < 2) err = 'Name is too short'
   if (value.length > 20) err = 'Name is too long'
   if (!ONLY_ENG_NUM.test(value)) err = 'Name cannot contain special charactor'
   if (value.length === 0) err = 'Name required'
@@ -24,13 +24,5 @@ export const emailValidator = value => {
   let err = null
   if (!EMAIL.test(value)) err = 'Wrong format email'
   if (value.length === 0) err = 'Email required'
-  return err
-}
-
-export const courseTitleValidator = value => {
-  let err = null
-  const newValue = value.trim()
-  if (newValue.length < 3) err = 'Title is too short'
-  if (newValue.length > 30) err = 'Title is too long'
   return err
 }
