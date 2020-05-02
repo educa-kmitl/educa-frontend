@@ -106,7 +106,7 @@ export default () => {
       <div className="create-content">
 
         <form onSubmit={e => { e.preventDefault(); setPopup('password') }} autoComplete="off">
-          <header>Edit Course</header>
+          <header>Edit course</header>
           <Input
             Icon={FaBook}
             type="text"
@@ -184,7 +184,6 @@ export default () => {
                   value={newRoom.resources[index].video_url}
                   text="Video link"
                   onChange={handleVideoLink}
-                  minLength={4}
                   maxLength={200}
                   required
                 />
@@ -195,7 +194,6 @@ export default () => {
                   value={newRoom.resources[index].file_url}
                   text="Attachment (optional)"
                   onChange={handleFileLink}
-                  minLength={4}
                   maxLength={200}
                 />
               </div>

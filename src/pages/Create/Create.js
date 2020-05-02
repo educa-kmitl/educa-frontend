@@ -152,7 +152,6 @@ export default () => {
                   type="url"
                   text="Video link"
                   onChange={handleVideoLink}
-                  minLength={4}
                   maxLength={200}
                   required
                 />
@@ -162,7 +161,6 @@ export default () => {
                   type="url"
                   text="Attachment (optional)"
                   onChange={handleFileLink}
-                  minLength={4}
                   maxLength={200}
                 />
               </div>
