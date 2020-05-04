@@ -159,7 +159,7 @@ export default () => {
                   Icon={FaFileAlt}
                   id={index}
                   type="url"
-                  text="Attachment (optional)"
+                  text="File link (optional)"
                   onChange={handleFileLink}
                   maxLength={200}
                 />

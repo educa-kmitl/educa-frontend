@@ -223,7 +223,7 @@ export default () => {
               </div>
               <div className="room-btn" onClick={downloadFile}>
                 <FaFileDownload className="room-btn-icon sm" />
-                <div className="tooltip">Attatchment</div>
+                <div className="tooltip">File</div>
               </div>
               <div className="room-btn" onClick={exitRoom}>
                 <FaSignOutAlt className="room-btn-icon sm" />

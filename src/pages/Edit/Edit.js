@@ -192,7 +192,7 @@ export default () => {
                   id={index}
                   type="url"
                   value={newRoom.resources[index].file_url}
-                  text="Attachment (optional)"
+                  text="File link (optional)"
                   onChange={handleFileLink}
                   maxLength={200}
                 />
