@@ -74,64 +74,65 @@ export const Navbar = () => {
   const goToProfile = () => history.push(`/profile/${auth.user_id}`)
 
   return (
-    <nav id="nav-container">
-      <div id="nav-box">
+    <>
+      <nav id="nav-container">
+        <div id="nav-box">
 
-        <div id="nav-brand">
-          <Link to={auth ? '/home' : '/'}>
-            <div id="brand">
-              <img id="brand-logo" src={logo} alt="" />
-              <label id="brand-name">EDUCA</label>
-            </div>
-          </Link>
-        </div>
-        <div className="vertical-hr" id="hr-nav"></div>
+          <div id="nav-brand">
+            <Link to={auth ? '/home' : '/'}>
+              <div id="brand">
+                <img id="brand-logo" src={logo} alt="" />
+                <label id="brand-name">EDUCA</label>
+              </div>
+            </Link>
+          </div>
+          <div className="vertical-hr" id="hr-nav"></div>
 
-        <ul id="nav-list">
-          <div id="nav-indicator"></div>
-          <li className="nav-item">
-            <NavLink to="/home" className="nav-link" activeclassname="nav-link active">
-              <TiHome className="nav-link-icon" />HOME
+          <ul id="nav-list">
+            <div id="nav-indicator"></div>
+            <li className="nav-item">
+              <NavLink to="/home" className="nav-link" activeclassname="nav-link active">
+                <TiHome className="nav-link-icon" />HOME
             </NavLink>
-          </li>
-          {auth?.role === true ?
-            < li className="nav-item" activeclassname="nav-link active">
-              <NavLink to="/create" className="nav-link">
-                <TiPlus className="nav-link-icon" />CREATE
-              </NavLink>
             </li>
-            :
-            < li className="nav-item" activeclassname="nav-link active">
-              <NavLink to="/find" className="nav-link">
-                <FaSearch className="nav-link-icon fix-find-icon" />FIND
+            {auth?.role === true ?
+              < li className="nav-item" activeclassname="nav-link active">
+                <NavLink to="/create" className="nav-link">
+                  <TiPlus className="nav-link-icon" />CREATE
               </NavLink>
-            </li>}
-          <li className="nav-item">
-            <NavLink to="/ranking" className="nav-link" activeclassname="nav-link active">
-              <TiChartBar className="nav-link-icon" />RANKING
+              </li>
+              :
+              < li className="nav-item" activeclassname="nav-link active">
+                <NavLink to="/find" className="nav-link">
+                  <FaSearch className="nav-link-icon fix-find-icon" />FIND
+              </NavLink>
+              </li>}
+            <li className="nav-item">
+              <NavLink to="/ranking" className="nav-link" activeclassname="nav-link active">
+                <TiChartBar className="nav-link-icon" />RANKING
             </NavLink>
-          </li>
-        </ul>
+            </li>
+          </ul>
 
-        <div className="vertical-hr"></div>
-        <div className={`account ${bubble && 'active'}`} onClick={() => setBubble(!bubble)}>
-          <img id="account-pic" src={profiles[auth?.profile_icon]} alt="" />
-          <div id="account-name">
-            {auth?.name}
-          </div>
-          <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
+          <div className="vertical-hr"></div>
+          <div className={`account ${bubble && 'active'}`} onMouseEnter={() => setBubble(true)} onMouseLeave={() => setBubble(false)}>
+            <img id="account-pic" src={profiles[auth?.profile_icon]} alt="" />
+            <div id="account-name">
+              {auth?.name}
+            </div>
+            <TiArrowSortedDown className={`nav-bubble-arrow ${bubble && 'active'}`} />
 
-          <div className={`account-bubble ${bubble && 'active'}`} onClick={e => e.stopPropagation()}>
-            <span className="account-item" onClick={goToProfile}>
-              <TiUser className="nav-link-icon color red" /> PROFILE
+            <div className={`account-bubble ${bubble && 'active'}`} onClick={e => e.stopPropagation()}>
+              <span className="account-item" onClick={goToProfile}>
+                <TiUser className="nav-link-icon color red" /> PROFILE
             </span>
-            <span className="account-item" onClick={handleLogout}>
-              <TiExport className="nav-link-icon color red" /> LOGOUT
+              <span className="account-item" onClick={handleLogout}>
+                <TiExport className="nav-link-icon color red" /> LOGOUT
             </span>
+            </div>
           </div>
-
         </div>
-      </div>
-    </nav >
+      </nav >
+    </>
   )
 }
