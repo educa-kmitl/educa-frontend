@@ -186,7 +186,7 @@ export default () => {
             {edit.editing &&
               <div id="user-pic-right" data-value="Next" onClick={() => changeProfile('right')}><FaAngleRight style={editBtn} /></div>}
             {edit.editing &&
-              <div id="user-save-btn" className="disabled" data-value="Save" onClick={e => {
+              <div id="user-save-btn" data-value="Save" onClick={e => {
                 if (e.target.classList.contains('disabled')) return
                 if (profile.name !== '') setPopup('password')
                 else setPopup({ type: 'alert', title: randAlert(), text: 'You must enter your name' })
@@ -208,6 +208,7 @@ export default () => {
             <Input
               id="user-name-edit"
               text={oldProfile.name}
+              defaultValue={oldProfile.name}
               onChange={handleName}
               validator={nameValidator}
               autoComplete="off"
