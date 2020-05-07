@@ -21,6 +21,10 @@ export default () => {
   const [popup, setPopup] = useState('')
 
   useEffect(() => {
+    if (auth) history.push('/home')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(() => {
     const email = document.querySelector('#register-email')
     const name = document.querySelector('#register-name')
     const password = document.querySelector('#register-password')
