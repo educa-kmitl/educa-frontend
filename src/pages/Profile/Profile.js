@@ -231,7 +231,7 @@ export default () => {
           <label id="user-role">{profile.role === true && 'TEACHER'}</label>
           <label id="user-role">{profile.role === false && 'STUDENT'}</label>
           <label id="user-level">
-            LV {rank.lv}
+            {profile.role && `LV ${rank.lv}`}
             {profile.role === true && <span className={`color ${rank.color}`}> {rank.title}</span>}
             {profile.role === false && <span className="color green"> Learner</span>}
           </label>
