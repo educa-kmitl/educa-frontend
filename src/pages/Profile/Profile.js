@@ -33,6 +33,13 @@ export default () => {
   const history = useHistory()
 
   useEffect(() => {
+    return () => {
+      window.localStorage.setItem('hackRank', null)
+      console.log('reset hack')
+    }
+  }, [])
+
+  useEffect(() => {
     if (user_id === auth.user_id) {
       setEdit({ ediable: true })
     }
@@ -154,7 +161,7 @@ export default () => {
   }
   const handleMore = () => {
     setPopup('loading')
-    getMyRoom(auth, more.limit + 6)
+    getMyRoom(profile, more.limit + 6)
       .then(res => {
         const { rooms, have_more, error } = res.data
         if (rooms) {
@@ -168,6 +175,13 @@ export default () => {
   }
   const handlePassword = value => setProfile({ ...profile, password: value })
   const handleName = value => setProfile({ ...profile, name: value })
+  const hack = () => {
+    const hackRank = JSON.parse(window.localStorage.getItem("hackRank"))
+    if (hackRank) {
+      setRank(leveling(hackRank.likes))
+      setProfile({ ...profile, likes: hackRank.likes })
+    }
+  }
 
   return (
     <div id="profile-page-bg">
@@ -222,7 +236,7 @@ export default () => {
             {profile.role === false && <span className="color green"> Learner</span>}
           </label>
           <div id="user-expbar">
-            <div id="user-gem" className={rank.color}>
+            <div id="user-gem" className={rank.color} onClick={hack}>
               <img src={gems[rank.color]} alt="" />
             </div>
             <div id="user-expbar-progress" className={'bg ' + rank.color} style={{ width: rank.percent }}></div>
