@@ -11,7 +11,7 @@ import startpic from '../../img/login/login.svg'
 
 export default () => {
   const history = useHistory()
-  const { setAuth } = useContext(AuthContext)
+  const { auth, setAuth } = useContext(AuthContext)
   const [form, setForm] = useState({
     role: false,
     email: '',

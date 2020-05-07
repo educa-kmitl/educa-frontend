@@ -20,7 +20,8 @@
 
 #home-header {
   @include flex-center;
-  font-weight: 600; font-weight: 500;
+  font-weight: 600;
+  font-weight: 500;
   font-size: 44px;
   margin-bottom: 20px;
 }
@@ -30,7 +31,8 @@
   margin: 40px auto;
   font-family: inherit;
   font-size: 20px;
-  font-weight: 600; font-weight: 500;
+  font-weight: 600;
+  font-weight: 500;
   border-radius: 40px;
   border: none;
   padding: 15px 20px;
@@ -60,6 +62,14 @@
   justify-content: space-evenly;
   align-items: center;
   height: 200px;
+}
+
+#popup-loading-img-2 {
+  @include size(100px);
+  animation: load 1.2s linear infinite;
+  user-select: none;
+  pointer-events: none;
+  margin-top: 40px;
 }
 
 @media only screen and (max-width: 930px) {

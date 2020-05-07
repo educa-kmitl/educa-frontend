@@ -7,6 +7,7 @@ import './Find.scss'
 
 import { FaSearch, FaHeartBroken, FaArrowDown, FaArrowUp, FaAngleDown } from 'react-icons/fa'
 import { Card, Popup } from '../../components'
+import logo from '../../img/room/play.svg'
 
 export default () => {
   const history = useHistory()
@@ -19,12 +20,14 @@ export default () => {
     arrange_by: 1
   })
   const [more, setMore] = useState({ have: false, limit: 6 })
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (auth.role === true) history.push('/notfound')
     else {
       getAllRoom({ ...search, limit: more.limit })
         .then(res => {
+          setIsLoading(false)
           const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
@@ -44,9 +47,10 @@ export default () => {
 
   const handleSearch = value => setSearch({ ...search, text: value })
   const goSearch = () => {
-    setPopup('loading')
+    setIsLoading(true)
     getAllRoom({ ...search, limit: 6 })
       .then(res => {
+        setIsLoading(false)
         const { rooms, have_more, error } = res.data
         if (rooms) {
           setRoomList(rooms)
@@ -59,8 +63,10 @@ export default () => {
   }
   const enterRoom = room => history.push(`/room/${room.room_id}`)
   const handleMore = () => {
+    setIsLoading(true)
     getAllRoom({ ...search, limit: more.limit + 6 })
       .then(res => {
+        setIsLoading(false)
         const { rooms, have_more, error } = res.data
         if (rooms) {
           setRoomList(rooms)
@@ -133,13 +139,14 @@ export default () => {
           {roomList.map((room, index) => <Card key={index} room={room} onClick={enterRoom} />)}
         </div>
 
-        {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
+        {isLoading && <div style={{ textAlign: 'center' }}><img id="popup-loading-img-2" src={logo} alt="" /></div>}
+        {!isLoading && (more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>)}
 
-        {roomList.length === 0 && (
+        {!isLoading && (roomList.length === 0 && (
           <div className="no-room-content">
             <h6>Can't find any course. Try something else!</h6>
           </div>
-        )}
+        ))}
       </div>
 
       {popup === 'loading' &&

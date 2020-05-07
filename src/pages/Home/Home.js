@@ -7,6 +7,7 @@ import './Home.scss'
 
 import { Card, Popup, Button } from '../../components'
 import { FaHeartBroken } from 'react-icons/fa'
+import logo from '../../img/room/play.svg'
 
 
 export default () => {
@@ -17,13 +18,15 @@ export default () => {
   const [password, setPassword] = useState('')
   const [roomId, setRoomId] = useState(null)
   const [popup, setPopup] = useState('')
-  const [more, setMore] = useState({ have: false, limit: 6 })
+  const [more, setMore] = useState({ have: true, limit: 6 })
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     if (auth.role) {
 
       getMyRoom(auth, more.limit)
         .then(res => {
+          setIsLoading(false)
           const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
@@ -36,6 +39,7 @@ export default () => {
 
       getFollowRoom(auth, more.limit)
         .then(res => {
+          setIsLoading(false)
           const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
@@ -65,10 +69,12 @@ export default () => {
       })
   }
   const handleMore = () => {
+    setIsLoading(true)
     if (auth.role) {
 
       getMyRoom(auth, more.limit + 6)
         .then(res => {
+          setIsLoading(false)
           const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
@@ -82,6 +88,7 @@ export default () => {
 
       getFollowRoom(auth, more.limit + 6)
         .then(res => {
+          setIsLoading(false)
           const { rooms, have_more, error } = res.data
           if (rooms) {
             setRoomList(rooms)
@@ -97,7 +104,7 @@ export default () => {
     <div className="home-page-bg">
       <div className="home-content">
         <header id="home-header">{auth?.role ? 'Your course' : 'Course for you'}</header>
-        {roomList.length === 0 && (
+        {!isLoading && (roomList.length === 0 && (
           auth.role ?
             <div className="no-room-content">
               <h6>You have no course. Start creating one for your student!</h6>
@@ -108,7 +115,7 @@ export default () => {
               <h6>Nothing special for you now. Start follow the Teacher to see some!</h6>
               <Button text="Let's Find" onClick={() => history.push('/find')} />
             </div>
-        )}
+        ))}
         <div className="all-room">
           {roomList.map((room, index) =>
             <Card
@@ -120,8 +127,8 @@ export default () => {
               onDelete={room => { setPopup('password'); setRoomId(room.room_id) }}
             />)}
         </div>
-
-        {more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
+        {isLoading && <div style={{ textAlign: 'center' }}><img id="popup-loading-img-2" src={logo} alt="" /></div>}
+        {!isLoading && more.have && <button className="see-more-btn" onClick={handleMore}>Show more</button>}
       </div>
 
       {popup === 'loading' && <Popup type="loading" text="Loading" />}

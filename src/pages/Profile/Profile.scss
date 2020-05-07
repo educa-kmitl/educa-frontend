@@ -70,6 +70,7 @@
   animation: scale-up 2s 1;
   z-index: 5;
   cursor: pointer;
+  user-select: none;
 
   &:hover {
     background: $black;
@@ -321,11 +322,22 @@
   align-items: center;
   cursor: pointer;
 
+  &:hover {
+    background: $lightgrey;
+    border-radius: 10px;
+  }
+
   p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 140px;
+  }
+}
+
+.nohover {
+  &:hover {
+    background: none;
   }
 }
 

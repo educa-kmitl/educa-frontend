@@ -240,7 +240,7 @@ export default () => {
                 </div>
                 {followerBox &&
                   <div id="follower-box">
-                    <span className="follower-item" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
+                    <span className="follower-item nohover" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
                       <h6 style={{ fontWeight: '500' }}>Follower</h6>
                       <div id="follower-box-close" onClick={() => setFollowerBox(false)}>x</div>
                     </span>
@@ -263,7 +263,7 @@ export default () => {
                 </div>
                 {followerBox &&
                   <div id="follower-box">
-                    <span className="follower-item" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
+                    <span className="follower-item nohover" style={{ justifyContent: 'space-between', cursor: 'initial' }}>
                       <h6 style={{ fontWeight: '500' }}>Following</h6>
                       <div id="follower-box-close" onClick={() => setFollowerBox(false)}>x</div>
                     </span>

@@ -90,7 +90,7 @@
 
     &:focus {
       outline: none;
-      border: 1px solid $color;
+      border: 1px solid $blue;
 
       &::placeholder {
         color: transparent
@@ -154,8 +154,8 @@
     cursor: pointer;
 
     &:checked+label {
-      color: $color;
-      border: 1px solid $color;
+      color: $blue;
+      border: 1px solid $blue;
       border-radius: 40px;
     }
   }
@@ -176,6 +176,14 @@
       border: 1px solid $black;
     }
   }
+}
+
+#popup-loading-img-2 {
+  @include size(100px);
+  animation: load 1.2s linear infinite;
+  user-select: none;
+  pointer-events: none;
+  margin-top: 40px;
 }
 
 @media only screen and (max-width: 930px) {
